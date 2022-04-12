@@ -1,0 +1,46 @@
+ImageDisk
+
+Diskette Imaging program for Soft-Sector formats
+Dave Dunfield
+
+https://oldcomputers-ddns.org/public/pub/manuals/imd.pdf
+
+Header
+
+  "IMD v.vv: dd/mm/yyyy hh:mm:ss"
+  Comment
+1 ASCII EOF (0x1a)
+  For each track
+1   Mode value (0-5)
+1   Cylinder (0-n)
+1   Head (0-1)
+      0: head
+      7: cylinder map present
+      6: head map present
+1   Number of sectors in track (1-n)
+1   Sector size (0-6)
+    sector numbering map		[* sectors]
+    sector cylinder map (optional)	[* sectors]
+    sector head map (optional)		[* sectors]
+    sector data records			[* sectors]
+
+sector numbering map
+  one byte for physical ID of each sector
+
+sector cylinder map
+  one byte for logical cylinder ID
+
+sector head map
+  one byte for logical head ID
+
+sector data
+  00     unavailable
+  01     normal data (uncompressed)
+  02 xx  compressed, all bytes same value xx
+  03     normal data, "deleted-data address mark"
+  04 xx  compressed, "deleted-data address mark"
+  05     normal data, read error
+  06 xx  compressed, read error
+  07     normal data, deleted, read error
+  08 xx  comrpessed, deleted, read error
+  

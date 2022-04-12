@@ -1,0 +1,162 @@
+ACT	active module
+CALEXS	external system module
+CALEXT	call external
+RETEXT	return from external module
+RLSEM	release module
+
+SVC (1)	supervisor call (here: terminate program)
+
+CSECT	control section start
+DSECT	dummy (data?) section start
+DC	define constant
+DS	declare (reserve) storage
+EJECT
+END
+EQU
+ORG
+PRINT   ON/OFFx
+SPACE
+START
+TITLE
+
+PROC
+PRRET
+
+DROP
+USING  <dummy section>,<Rn> = use as base register?
+
+
+C.C. = condition code, 2 bit, used with 4 bit mask in branch?
+
+Format RR (2 byte)
+8  4 4    Opcode R1 R2
+8  4 4    Opcode M1 R2
+8  4 4    Opcode -  R1
+8  8      Opcode I
+8  4 4    Opcode I2 R1
+
+Format RX (4 byte) (B2=0 -> S2 ??)
+8  4 4  4 12   Opcode R1 X2 B2 D2
+8  4 4  4 12   Opcode M1 X2 B2 D2
+8  4 4  4 12   Opcode -  X1 B1 D1
+
+Format RS (4 byte)
+8  4 4  4 12   Opcode R1 R2 B3 D3
+
+Format SI (4 byte)
+8  8  4 12     Opcode I2 B1 D1
+
+Format SS (6 byte)
+8  4 4  4 12  4 12   Opcode L1 L2 B1 D1 B2 D2
+8  8    4 12  4 12   Opcode L B1 D1 B2 D2
+8  8    4 12  4 12   Opcode - B1 D1 B2 D2
+8  4 4  4 12  4 12   Opcode - L2 B1 D1 - D2
+8  3 5  4 12  ...    Opcode - N B1 D1 ... Bn Dn
+
+M = mask ("maschera")
+R = register
+B = base reg
+X = index reg
+S = implicit indirect
+I = immediate
+D = displacement
+L = lengths
+N = number of arguments
+
+
+By opcode. + = IBM
+
+  01  RR  ALRI    add logical register immedia
+  02  RR  SLA     shift left algebraic
+  03  RR  SRA     shift right algebraic
+  04  RR  SLL     shift left logical
++ 05  RR  BALR    branch and link register
++ 06  RR  BCTR    branch on count register
++ 07  RR  BCR     branch on condition register
+  08  RR  SRL     shift right logical
+  0C  RR  SLRI    subtract logical register immediate
++ 10  RR  LPR     load positive register (absolute value)
++ 11  RR  LNR     load negative register
++ 12  RR  LTR     load and test register (CC: =, <, >)
++ 13  RR  LCR     load complement register
++ 14  RR  NR      and register
++ 15  RR  CLR     compare logical register
++ 16  RR  OR      or register
++ 17  RR  XR      exclusive or register
++ 18  RR  LR      load register
++ 19  RR  CR      compare register
++ 1A  RR  AR      add register
++ 1B  RR  SR      subtract register
++ 1E  RR  ALR     add logical register
++ 1F  RR  SLR     subtract logical register
+  20  RR  RETS    subroutine return
+  22  RR  FSA     free stack area
+  23  RR  ASA     allocate stack area (R2=length, R1=?)
+  26  RR  MLR     multiply logical register
++ 40  RX  STH     store halfword
++ 41  RX  LA      load address (24 bit?)
++ 42  RX  STC     store charcter
++ 43  RX  IC      insert character
++ 44  RX  EX      execute
++ 45  RX  BAL     branch and link
++ 46  RX  BCT     branch on count (decrement and branch)
++ 47  RX  BC      branch on condition (M1=C.C., 0 = NOP)
++ 48  RX  LH      load halfword
++ 49  RX  CH      compare halfword
++ 4A  RX  AH      add halfword
++ 4B  RX  SH      subtract halfword
++ 50  RX  ST      store
+  51  RX  LN      load negative
+  52  RX  LT      load and test (CC: =, <, >)
+  53  RX  LC      load complement
++ 54  RX  N       and
++ 55  RX  CL      compare logical
++ 56  RX  O       or
++ 57  RX  X       exclusive or
++ 58  RX  L       load
++ 59  RX  C       compare
++ 5A  RX  A       add
++ 5B  RX  S       substract
++ 5E  RX  AL      add logical
++ 5F  RX  SL      subtract logical
+  82  RX  ISO     iso test (set CC: alpha=0, digit=1, operator=2, other=3)
+  83  RX  MLH     multiply logical halfword
+  85  RS  DM      divide memory
++ 86  RS  BXH     branch on index high (range check?)
++ 87  RS  BXLE    branch on index low or equal 
++ 90  RS  STM     store multiple
++ 91  SI  TM      test under mask (CC:)
++ 92  SI  MVI     move immediate
++ 94  SI  NI      and immediat
++ 95  SI  CLI     compare logical immediate
++ 96  SI  OI      or immediate
++ 97  SI  XI      exclusive or immediate
++ 98  RS  LM      load multiple (regs R1-R2)
+  99  SI  LIE     look for immediate equal
+  9A  SI  CALL    subroutine call
+  9B  SI  LINE    look for immediate not equal
+  9D  SI  IM      immediate in memory
+  D0  SS  TRT     translate and test
++ D1  SS  MVN     move numerics (semibytes???)
++ D2  SS  MVC     move character(s) (one length)
++ D3  SS  MVZ     move zones
++ D4  SS  NC      and character
++ D5  SS  CLC     compare logical character
++ D6  SS  OC      or character
++ D7  SS  XC      exclusive or character
+  DB  SS  CBS     binary to iso (ascii) conversion
++ DC  SS  TR      translate
+  F0  SS  SESM    sequential search with mask
++ F1  SS  MVO     move with offset (two lengths, truncate/zero)
+  F2  SS  MVCR    move character(s) on register (R0 = length)
+  F3  SS  SM      subtract memory
+  F4  SS  SLM     subtract logical memory
+  F5  SS  CLM     compare logical memory
+  F6  SS  CSBH    iso (ascii) to binary conversion
+  F7  SS  SES     sequential search
+  F8  SS  DIS     dicotomic search
+  F9  SS  CM      compare memory
+  FA  SS  AM      add memory
+  FB  SS  ALM     add logical memory
+
+

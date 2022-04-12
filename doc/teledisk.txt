@@ -1,0 +1,58 @@
+Teledisk image format
+
+TD0
+
+  converts teledisk to raw images
+
+http://www.bitsavers.org/pdf/sydex/Teledisk_1.05_Sep88.pdf
+
+File Header
+
++00  2  File Identification "TD"
++02  1  Volume Sequence
++03  1  Check Signature
++04  1  Version Number
++05  1  Source Density
+          0 = 250 Kbps
+          1 = 300 Kbps
+          2 = 500 Kbps
+          (biased by 128 for SD FM)
++06  1  Drive Type
+          1 = 360K
+          2 = 1.2M
+          3 = 720K
+          4 = 1.44M
++07  1  Track Density
+          0 = source density matches media density
+          1 = double density media in quad density drive
+          2 = quad density media in double density drive
++08  1  DOS mode
++09  1  Media surfaces
+          1 = single-sided
+          2 = double-sided
++0a  2  File Header CRC
+=0c 
+
+Track Header
+
+1  Sector Count
+1  Physical cylinder
+1  Physical Side
+1  Track Header CRC
+
+Sector Header
+
+1  Cylinder (as in address field)
+1  Side (as in address field)
+1  Sector number (as in address field)
+1  Sector length code (as in address field)
+1  Syndrome flags
+     0: 1 = this sector number occured more than once on this track
+     1: 1 = CRC data error occured
+     2: 1 = deleted data control mark
+     4: 1 = DOS sector copy requested; this sector not allocated
+     5: 1 = data field is missing
+     6: 1 = No ID address field present, but data present
+2  Sector Header + Data CRC
+
+Sector Data
