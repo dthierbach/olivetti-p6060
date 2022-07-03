@@ -1,4 +1,4 @@
-NAME=p6060
+NAME=p6060_dis
 R2_PLUGIN_PATH=$(shell r2 -hh|grep R2_LIBR_PLUGINS|awk '{print $$2}')
 CFLAGS=-g -fPIC $(shell pkg-config --cflags r_asm)
 LDFLAGS=-shared $(shell pkg-config --libs r_asm)
