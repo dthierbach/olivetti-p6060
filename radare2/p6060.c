@@ -199,6 +199,8 @@ struct p6060_opcode opcode_list[] = {
   // ??            RLSEM     release module
   { "svc"   , 0x0a, MASK       , INSTR_RR_U0     , "supervisor call"                      },
   { "??0b"  , 0x0b, MASK       , INSTR_RR_RR     , "unknown"                              },
+  { "??93"  , 0x93, MASK       , INSTR_RS_RRRD   , "unknown"                              }, // RS is guess
+  // 0x93  4 bytes
   { NULL    , 0   , 0          , 0              ,  ""}
 };
 
