@@ -7,7 +7,9 @@
 
 static int p6060_disassemble (RAsm *a, RAsmOp *op, const ut8 *b, int l)
 {
-  op->size = p6060_mnemonic (&op->buf_asm, b);
+  if (!p6060_mnemonic (&op->buf_asm, &op->size, b)) {
+    return -1;
+  }
   return op->size;
 }
 

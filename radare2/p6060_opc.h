@@ -270,14 +270,14 @@ static void disp_rd(RStrBuf *sb, const ut8 *b, int n)
   }
 };
 
-static int p6060_mnemonic(RStrBuf *op_buf, const ut8 *b)
+static struct p6060_opcode* p6060_mnemonic(RStrBuf *op_buf, int* op_size, const ut8 *b)
 {
   int n;
   struct p6060_opcode* opc = opcode[b[0]];
-  int op_size = 1;
+  *op_size = 1;
   if (!opc) {
     r_strbuf_set (op_buf, "invalid");
-    return -1;
+    return NULL;
   }
   if (opc->mask == MASK_BC) {
     n = MSN(b,1);
@@ -296,75 +296,75 @@ static int p6060_mnemonic(RStrBuf *op_buf, const ut8 *b)
   switch(opc->format) {
     case INSTR_RR_RR:
       r_strbuf_appendf (op_buf, "r%d, r%d", MSN(b,1), LSN(b,1));
-      op_size = 2;
+      *op_size = 2;
       break;
     case INSTR_RR_0R:
       r_strbuf_appendf (op_buf, "r%d", LSN(b,1));
-      op_size = 2;
+      *op_size = 2;
       break;
     case INSTR_RR_U0:
       r_strbuf_appendf (op_buf, "%d", b[1]);
-      op_size = 2;
+      *op_size = 2;
       break;
     case INSTR_RR_UR:
       r_strbuf_appendf (op_buf, "r%d, %d", LSN(b,1), MSN(b,1));
-      op_size = 2;
+      *op_size = 2;
       break;
     case INSTR_RR_MR:
       r_strbuf_appendf (op_buf, "%d, r%d", MSN(b,1), LSN(b,1));
-      op_size = 2;
+      *op_size = 2;
       break;
     case INSTR_RX_RRRD:
       r_strbuf_appendf (op_buf, "r%d, ", MSN(b,1));
       disp_rrd(op_buf, LSN(b,1), b, 2);
-      op_size = 4;
+      *op_size = 4;
       break;
     case INSTR_RX_0RRD:
       disp_rrd(op_buf, LSN(b,1), b, 2);
-      op_size = 4;
+      *op_size = 4;
       break;
     case INSTR_RX_MRRD:
       r_strbuf_appendf (op_buf, "%d, ", MSN(b,1));
       disp_rrd(op_buf, LSN(b,1), b, 2);
-      op_size = 4;
+      *op_size = 4;
       break;
     case INSTR_RS_RRRD:
       r_strbuf_appendf (op_buf, "r%d, r%d, ", MSN(b,1), LSN(b,1));
       disp_rd(op_buf, b, 2);
-      op_size = 4;
+      *op_size = 4;
       break;
     case INSTR_SI_URD:
       disp_rd(op_buf, b, 2);
       r_strbuf_appendf (op_buf, ", %d", b[1]);
-      op_size = 4;
+      *op_size = 4;
       break;
     case INSTR_SS_LLRDRD:
       disp_lrd(op_buf, MSN(b,1), b, 2);
       r_strbuf_append (op_buf, ", ");
       disp_lrd(op_buf, LSN(b,1), b, 4);
-      op_size = 6;
+      *op_size = 6;
       break;
     case INSTR_SS_L0RDRD:
       disp_lrd(op_buf, b[1], b, 2);
       r_strbuf_append (op_buf, ", ");
       disp_rd(op_buf, b, 4);
-      op_size = 6;
+      *op_size = 6;
       break;
     case INSTR_SS_0RDRD:
       disp_rd(op_buf, b, 2);
       r_strbuf_append (op_buf, ", ");
       disp_rd(op_buf, b, 4);
-      op_size = 6;
+      *op_size = 6;
       break;
     case INSTR_SS_0LRDRD:
       disp_rd(op_buf, b, 2);
       r_strbuf_append (op_buf, ", ");
       disp_lrd(op_buf, LSN(b,1), b, 4);
-      op_size = 6;
+      *op_size = 6;
       break;
     case INSTR_SS_NBD:
       n = b[1] & 0x1f;
-      op_size = 4 + 2*n;
+      *op_size = 4 + 2*n;
       disp_rd(op_buf, b, 2);
       for (int i = 1; i <= n; i++) {
 	r_strbuf_append (op_buf, ", ");
@@ -374,5 +374,5 @@ static int p6060_mnemonic(RStrBuf *op_buf, const ut8 *b)
     case INVALID:
       break;
   }
-  return op_size;
+  return opc;
 }
