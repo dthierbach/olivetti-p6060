@@ -195,12 +195,13 @@ struct p6060_opcode opcode_list[] = {
   // ??            ACT       active module
   { "calexs", 0x9c, MASK       , INSTR_SS_NBD    , "call external system module"          },
   // ??            CALEXT    call external
-  // ??            RETEXT    return from external module
+  { "retext", 0x28, MASK       , INSTR_RR_U0     , "return from external module"          }, // RR_U0 is guess
   // ??            RLSEM     release module
   { "svc"   , 0x0a, MASK       , INSTR_RR_U0     , "supervisor call"                      },
   { "??0b"  , 0x0b, MASK       , INSTR_RR_RR     , "unknown"                              },
   { "??93"  , 0x93, MASK       , INSTR_RS_RRRD   , "unknown"                              }, // RS is guess
-  // 0x93  4 bytes
+  { "??4e"  , 0x4e, MASK       , INSTR_RS_RRRD   , "unknown"                              }, // RS is guess
+  { "??4f"  , 0x4f, MASK       , INSTR_RS_RRRD   , "unknown"                              }, // RS is guess
   { NULL    , 0   , 0          , 0              ,  ""}
 };
 
@@ -382,14 +383,14 @@ static int p6060_disassemble (RAsm *a, RAsmOp *op, const ut8 *b, int l)
 }
 
 RAsmPlugin r_asm_plugin_p6060 = {
-        .name = "p6060",
-        .arch = "p6060",
-        .license = "LGPL3",
-        .bits = 32,
+	.name = "p6060",
+	.desc = "Olivetti P6060 disassembler",
+	.arch = "p6060",
+	.license = "LGPL3",
+	.bits = 32,
 	.endian = R_SYS_ENDIAN_BIG,
-        .desc = "Olivetti P6060 disassembler",
 	.init = &p6060_init,
-        .disassemble = &p6060_disassemble,
+	.disassemble = &p6060_disassemble,
 	.modify = NULL,
 	.assemble = NULL,
 };
@@ -397,6 +398,7 @@ RAsmPlugin r_asm_plugin_p6060 = {
 #ifndef CORELIB
 RLibStruct radare_plugin = {
         .type = R_LIB_TYPE_ASM,
-        .data = &r_asm_plugin_p6060
+        .data = &r_asm_plugin_p6060,
+	.version = R2_VERSION
 };
 #endif
