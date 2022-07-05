@@ -13,10 +13,10 @@ all: p6060_dis.$(SO_EXT) p6060_ana.$(SO_EXT)
 clean:
 	rm -f *.$(SO_EXT) *.o
 
-p6060_dis.$(SO_EXT): p6060_dis.c
+p6060_dis.$(SO_EXT): p6060_dis.c p6060_opc.h
 	$(CC) $(CFLAGS_ASM) $(LDFLAGS_ASM) p6060_dis.c -o p6060_dis.$(SO_EXT)
 
-p6060_ana.$(SO_EXT): p6060_ana.c
+p6060_ana.$(SO_EXT): p6060_ana.c p6060_opc.h
 	$(CC) $(CFLAGS_ANAL) $(LDFLAGS_ANAL) p6060_ana.c -o p6060_ana.$(SO_EXT)
 
 # install:

@@ -2,6 +2,7 @@
 
 #include <r_asm.h>
 #include <r_lib.h>
+#include <r_anal.h>
 
 #include "p6060_opc.h"
 
