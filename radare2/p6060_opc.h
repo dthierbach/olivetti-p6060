@@ -144,7 +144,7 @@ struct p6060_opcode opcode_list[] = {
   { "mvc"   , 0xD2, MASK       , INSTR_SS_L0RDRD , R_ANAL_OP_TYPE_NULL  , 0, "move character(s)"                    },
   { "mvcr"  , 0xF2, MASK       , INSTR_SS_0RDRD  , R_ANAL_OP_TYPE_NULL  , 0, "move character(s) register"           },
   { "mvi"   , 0x92, MASK       , INSTR_SI_URD    , R_ANAL_OP_TYPE_NULL  , 0, "move immediate"                       },
-  { "mvn"   , 0xD1, MASK       , INSTR_SS_L0RDRD , R_ANAL_OP_TYPE_NULL  , 0, "move nibbles"                         },
+  { "mvn"   , 0xD1, MASK       , INSTR_SS_L0RDRD , R_ANAL_OP_TYPE_NULL  , 0, "move nibbles/numerics"                },
   { "mvo"   , 0xF1, MASK       , INSTR_SS_LLRDRD , R_ANAL_OP_TYPE_NULL  , 0, "move with offset"                     },
   { "mvz"   , 0xD3, MASK       , INSTR_SS_L0RDRD , R_ANAL_OP_TYPE_NULL  , 0, "move zones"                           },
   { "n"     , 0x54, MASK       , INSTR_RX_RRRD   , R_ANAL_OP_TYPE_AND   , 0, "and"                                  },
@@ -195,13 +195,22 @@ struct p6060_opcode opcode_list[] = {
   { "retext", 0x28, MASK       , INSTR_RR_U0     , R_ANAL_OP_TYPE_RET   , 0, "return from external module"          }, // RR_U0 is guess
   // ??            RLSEM     release module	 
   { "svc"   , 0x0a, MASK       , INSTR_RR_U0     , R_ANAL_OP_TYPE_SWI   , 0, "supervisor call"                      },
-  { "??21"  , 0x21, MASK       , INSTR_RR_U0     , R_ANAL_OP_TYPE_UNK   , 0, "test io?"                             },
+  { "??21"  , 0x21, MASK       , INSTR_RR_U0     , R_ANAL_OP_TYPE_UNK   , 0, "INIOT ?"                              },
+  { "??27"  , 0x27, MASK       , INSTR_RR_U0     , R_ANAL_OP_TYPE_UNK   , 0, "INIOT ?"                              },
   { "??0b"  , 0x0b, MASK       , INSTR_RR_RR     , R_ANAL_OP_TYPE_UNK   , 0, "unknown"                              },
-  { "??93"  , 0x93, MASK       , INSTR_SI_URD    , R_ANAL_OP_TYPE_UNK   , 0, "start io?"                            },
+  { "??93"  , 0x93, MASK       , INSTR_SI_URD    , R_ANAL_OP_TYPE_UNK   , 0, "INIO ?"                               },
   { "??4e"  , 0x4e, MASK       , INSTR_RS_RRRD   , R_ANAL_OP_TYPE_UNK   , 0, "unknown"                              }, // RS is guess
   { "??4f"  , 0x4f, MASK       , INSTR_RS_RRRD   , R_ANAL_OP_TYPE_UNK   , 0, "unknown"                              }, // RS is guess
   { NULL    , 0   , 0          , 0               , 0                    , 0,  ""}
 };
+// P6066
+// 0x24 = GSA
+// 0xd8 = CUMS
+// 0xda = CDS
+// 0xdb = CSD ?? also CBS
+// 0xdd = CDM
+// 0xde = CMST
+// 0xdf = CMSS
 
 static struct p6060_opcode* opcode[256];
 static struct p6060_opcode* opcode_bc[16];
