@@ -1,0 +1,451 @@
+prolog ("PROC")
+
+18 0d 41 d0 00 <num> 23 dd 50 00 d0 00
+
+lr r0,13
+la r13,num
+asa r13,r13
+st r0,0(r,13)
+;
+dann stm
+dann balr
+
+epilog ("...")
+58 d0 d0 00 41 00 00 <num> 22 00 28 00
+
+l r13,0(,r13)
+la r0,num
+fsa r0,r0
+retext 0
+
+# doesn't work
+rafind2 -x 20002800 P6SW 
+# only hexpair = 2 hex?
+
+/x 180d41d000..23dd5000d000
+/x 58d0d000410000..22002800
+
+----
+
+CALEXS PRINT,(addr,len,flag)
+CALEXS WRITE(buffer,offset,len,flag)	# 6-3
+CALEXS READ
+CALEXS RKB
+CALEXS DISP
+
+----------------------------------------
+
+----
+
+000000: 0000 5ffb 0000 0000 0000 0000 00d0 00d0    00
+000010: 5a7f 0350 0000 0000 0000 0000 0000 0000  
+000020: 0167 01a7 01b0 01b2.01b2.01b2.01b2.01b2.   10
+000030: 01b2.01b2 01b4 01b8.01b8.01b8.01b8 01c5  
+000040: 01c8.01c8.01c8 01d4 01df 01e6 01f0 01f4    20
+000050: 01f4 01f8 01fe 0207 0207 0207 0207 0207  
+000060: 0207 0207 0207 0207 0207 0207 0207 0207    30
+000070: 0210 021d 0237 0241 0245 0252 0254 025e  
+000080: 0268 0275 0275 027a 027f 0282 0286 028a    40
+000090: 028f 0297 029c 029f 02a4 02a9 02b1 02b3  
+0000a0: 02b5 02be 02d0 02d5 02de 02f1 0300 0322    50
+0000b0: 032f 0334 0334 033d 0346 034b 034f 0352  
+0000c0: 0356 0365 0377 0384 0388 0393 0397 039e    60
+0000d0: 039e 03a2 03a2 03a4 03a8 03a8 03a8 03a8  
+0000e0: 03b3 03b5 03b8 03bd 03c0 03d0 03d1 03d1    70
+0000f0: 03ee 03fe 040c 040c 040c 040c 0413 041d    
+000100: 042a 042c 042f 0432 0435 0439 043d 0441    80
+000110: 0442 0444 0448 044e 0452 0455 0458 045b    
+000120: 045f 0461 0465 046c 0470 0472 0474 0477    90
+000130: 047a 0483 0484 0492 049c 049d 049f 04a1  
+000140: 04a4 04a5 04a6 04a7 04a8 04a9 04ac 04ae    a0
+000150: 04b2 04b9 04c6 04c7 04ca 04cf 04cf 04cf  
+000160: 04cf 04cf 04cf 04d6 04d6 04d6 04d6 04d6    b0
+000170: 04d6 04f5 04f5 04f5 04f5 04f5 04f5 0507  
+000180: 0507 0507 0507 0507 0507 0507 0507 0507    c0
+000190: 0507 0507 0507 0507 0507 0507 0507 0507  
+0001a0: 0507 0507 0507 0507 0507 0507 0507 0507    d0
+0001b0: 0507 0507 0507 0507 0507 0507 0507 0507  
+0001c0: 0507 0507 0507 0507 0507 0507 0507 0507    e0
+0001d0: 0507 0507 0507 0507 0507 0507 0507 0507  
+0001e0: 0507 0507 0507 0507 0507 0515 051f 0528    f0
+0001f0: 0535 0544 054b 0001 0090 0000 0000 0000  
+
+0200-0300 = FUN? (function keys)? but only has 11/FF?
+
+dc -e '16 o 16 i 1A7 80 * p'
+
+# offset -0161 ?
+
+10 00300   0167 ?
+11 02300   01a7   -> d380  b080
+19 02880   01b2   -> d900
+1a 02980   01b4   -> da00
+1e 02b80   01b8
+1f 03200   01c5 
+20 03380   01c8
+23 03980   01d4
+24 03f00   01df
+25         01e6
+26 01f0
+27 01f4
+28 -
+29 01f8
+2a 01fe
+2b 05300   0207
+.. -
+38 0210
+
+
+
+Segments:
+  +00 module number
+  +02-03 module length (from +04 ??)
+
+SEGTAB at 00000 ?
+  2 bytes per segment = disk address in 128-byte sectors?
+
+
+Segments at
+
+00300
+  # segofs 0167?
+  10 00 1f ac -> 022ac: 64 70 00 00
+> 01f88 = 10 1c 88 ; print
+    r10 = 01f9a
+	02052  "*PRT"
+    192 0205a  10 1d 64
+    195        10 1e 58
+> 02064 = 10 1d 64
+    r8 = 02076
+    # r1 has arguments?
+> 02158 = 10 1e 58
+    r10 = 0216a
+    # r11 = global pointer?
+        0228b  "PRT  "
+    298 02294  00 1c 22 00 28 00 ... ; 4e (written)
+    306 0229c  95 40 70 00 47 80 ... ; 4e
+    320 022aa  10 1d 64
+
+02300
+  # segofs 01a7?
+  11 00 04 72
+02880
+  # segofs 01b0?
+  19 00 00 e4
+02980
+  # segofs 01b2?
+  1a 00 01 e0
+02b80
+  1e 00 06 30
+03200
+  1f 00 01 7c
+  ERROR - FILE PURGED
+03380
+  20 00 05 dc
+03980 catalog?
+  23 00 05 6a -> 03eea: 47 f0 72 fa
+  r7 = 0x3996
+  03b2e calexs 1348(r7),1155(r7)
+    ; print? (addr,len,flag)?
+  1062  03dbc  00 2b ef ef 01
+  1155  03e19 "  FILE TYPE CREAT
+  external:
+  1336  03ece  74 00 04
+  1339  03ed1  55 06 40
+  1342  03ed4  55 03 dc 
+  1345  03ed7  10 19 60
+  1348  03eda  10 1c 88 --> 01f88
+  1351  03edd  4a 00 04
+  1354	03ee0  4a 00 b0
+  1357  03ee3  40 d2 03
+    d0 6d 75
+    30 47 f0
+    72 fa
+03f00
+  24 00 03 24 -> 04224: 60 08 00 00 
+  SPACE=
+  NOT INITZLD
+04280
+  GDI?
+04980
+  ?? 03 CON OPT XNT
+04b80
+  ?? 04 REP
+04e80
+  ?? 05 LIST FET DEC
+  FILE
+  END OF LISTING
+  04e84 lr r0,r13 ; la r13,44
+  04e8a asa r13,r13 ; st r0,0(,13) ; balr r3,r0
+05300
+05780
+05e00
+  SYSTEM AND BOOTSTRAP INCOMPATIBLE
+06b00
+07000
+  plot?
+07980
+07e80
+08380
+08a00
+08c80
+08f00
+09080
+09280
+09480
+09700
+09b00
+09d80
+09f00
+0a180
+0a400
+...
+0e980
+  #### Segment 5a
+  # command processor?
+  0ec86 CAT SPA PUR CRE MOD TRU DEL LIS FET VAL RES
+        NEW OLD SAV REP OPT DAT STK LDK SHI CON SEC
+  ...
+  STA STO DRA ERA REV STI LDI
+0edf0
+  #### Segment 5b
+  # renumber?
+  REPLACED LINES
+  PREVIOUS LINES
+  PRESENT LINE
+0f280
+0f700
+  #### Segment 5e
+  NAME
+  PERIPHAL
+0f800
+  NO LIBRARY
+  ON UNIT
+0f880
+  5f 00 01 90 -> 0f990
+0fa80
+  #### Segment 60
+  # vtoc
+  60 00 07 58 -> 101d8
+ 0ffb0 VOLLABEL TRACK FORMAT
+       LIBRARY CREAT
+10200 
+  #### Segment 61
+  # command ENV
+  61 00 08 f0
+  r8 = 0x10216
+  10720 SYSTEM ENVIRONMENT
+  External
+  2241 10ad4
+       10ad7  74 00 04
+       10ada  10 19 60
+       10add  10 1c 18
+10b00
+...
+11180
+  #### Segment 55
+  # damaged? (BASIC source code)
+12900
+  #### Segment 70
+  # short, with 3 prologs ???
+12b80
+  #### Segment 72
+  KBE DCO LIB FLC FLP LBC LBP DIN LBS RES LBR TRF TRS
+  FDS FSE DKS HDI VOL GNS HRE HDR
+12f80
+  ### Segment 74
+  74 00 07 cc
+  NP IN OUT MSG SIZE COM WF LIST XREF ALN IDT OBD WSP W DIR SW FW CTL REL ALG
+
+0000ec80  09 00 09 00 09 00 43 41  54 53 50 41 50 55 52 43  |......CATSPAPURC|
+0000ec90  52 45 4d 4f 44 54 52 55  44 45 4c 4c 49 53 46 45  |REMODTRUDELLISFE|
+0000eca0  54 56 41 4c 52 45 53 4e  45 57 4f 4c 44 53 41 56  |TVALRESNEWOLDSAV|
+0000ecb0  52 45 50 4f 50 54 44 41  54 53 54 4b 4c 44 4b 53  |REPOPTDATSTKLDKS|
+0000ecc0  48 49 43 4f 4e 53 45 43  50 52 4f 50 52 45 52 55  |HICONSECPROPRERU|
+0000ecd0  4e 45 58 45 41 55 54 53  54 41 53 54 4f 4c 49 4e  |NEXEAUTSTASTOLIN|
+0000ece0  4d 45 52 43 4f 4d 54 45  58 44 45 43 54 52 41 44  |MERCOMTEXDECTRAD|
+0000ecf0  43 48 4c 42 4f 4c 42 43  4c 42 53 4c 42 52 4c 56  |CHLBOLBCLBSLBRLV|
+0000ed00  54 45 4e 56 44 52 41 45  52 41 52 45 56 53 54 49  |TENVDRAERAREVSTI|
+0000ed10  4c 44 49 54 45 53 20 20  20 00 00 0a 45 52 52 4f  |LDITES   ...ERRO|
+0000ed20  52 20 20 20 20 20 40 21  ff ff ff ff 8b f0 53 54  |R     @!......ST|
+0000ed30  41 53 54 4f 44 52 41 45  52 41 52 45 56 53 54 49  |ASTODRAERAREVSTI|
+0000ed40  4c 44 49 23 00 04 24 00  c8 26 00 04 77 05 58 48  |LDI#..$..&..w.XH|
+
+00012d20  41 00 01 08 22 00 28 00  00 01 20 20 20 4c 42 45  |A...".(...   LBE|
+00012d30  44 43 4f 4c 49 42 46 4c  43 46 4c 50 4c 42 43 4c  |DCOLIBFLCFLPLBCL|
+00012d40  42 50 44 49 4e 4c 42 53  52 45 53 4c 42 52 54 52  |BPDINLBSRESLBRTR|
+00012d50  46 54 52 53 46 44 53 46  53 45 44 4b 53 48 44 49  |FTRSFDSFSEDKSHDI|
+00012d60  56 4f 4c 47 4e 53 48 52  45 48 44 52 15 19 00 00  |VOLGNSHREHDR....|
+00012d70  00 80 00 00 00 04 10 19  60 12 00 04 60 05 00 00  |........`...`...|
+
+00003e00  c1 00 00 01 00 4a 00 1b  00 00 00 00 00 80 00 00  |.....J..........|
+00003e10  01 00 40 40 40 40 40 40  40 20 20 20 20 20 46 49  |..@@@@@@@     FI|
+00003e20  4c 45 20 20 20 54 59 50  45 20 20 43 52 45 41 54  |LE   TYPE  CREAT|
+00003e30  20 20 20 20 4c 41 53 54  20 4d 4f 44 20 20 4d 41  |    LAST MOD  MA|
+00003e40  58 20 53 49 5a 45 20 20  55 53 45 44 20 53 49 5a  |X SIZE  USED SIZ|
+00003e50  45 20 20 20 43 4f 44 45  20 20 20 20 20 20 45 58  |E   CODE      EX|
+00003e60  54 20 20 20 20 20 20 20  4b 30 45 53 45 30 2d 52  |T       K0ESE0-R|
+
+15e00
+  #### Segment 7f
+  # runtime? debugger?
+  ERROR IN LINE
+  STEP
+  STOP
+  PROGRAM
+  RUNNING
+17380
+  #### Segment 8a
+  INCORRECT FORMAT-RETYPE LINE
+  TOO MUCH INPUT-EXCESS IGNORED
+1b480
+  #### Segment ac
+  # plot?
+  POINTER OUT OF FRAME
+1ba80
+  #### Segment b8
+  # basic?
+  COM CON SCR INT SCA INP REC REM RET RES REA REV STO STI DIM DIS DEF DEL DEP BUF BUI SEN SET INT
+1e380
+  ### Segment f7
+  NOT COPIED
+  ERROR 183 ON SUBLIB
+1f500
+  #### Segment fa
+  # make system disk?
+  # repeat artifact?
+
+========================================
+
+r2 -a p6060 P6SW
+v
+TAB X TAB X
+g 0x1f88
+
+---
+
+cd ~/repos/git2/olivetti/p6060/radare2/
+./r2_p6sw.py > /tmp/xxx
+
+. /tmp/xxx
+fs balr
+f balr.r10_1f9a 184 @ 0x1f9a
+f balr.r7_3996 (0x3dbc-0x3996)@ 0x3996
+Cd 1 (0x3f00-0x3dbc) @ 0x3dbc
+
+f balr.r8_12916 (0x12946-0x12916) @ 0x12916
+Cd 1 (0x12954-0x12946) @ 0x12946
+Cf 3 bw seg offset @ 0x1294e
+f balr.r8_12966 (0x1297a-0x12966) @ 0x12966
+Cd 1 (0x12980-0x1297a) @ 0x1297a
+f balr.r8_12992 (0x129aa-0x12992) @ 0x12992
+# Cd 1 (0x12a00-0x129aa) @ 0x129aa
+
+# function names
+
+af+ 0x3984 s23_catalog
+af+ 0x3db2 s23_loc_3db2
+# fs balr
+# f balr.r9_3db2 (0x3dbc-0x39b6) @ 0x39b6
+
+# mappings
+om 3 0x230000 (0x3f00-0x3980) 0x3980 rx s23_catalog
+om 3 0x00000000 0x0001fc80 0x00000000 r-x
+
+s 0x1f88
+pd
+s 0x2050
+px
+
+; global r11 = ZRM
+; global r12 = COMAREA
+; global r13 = AREA LOCALE  (or stack?)
+
+CCW
++0
++1
++2-6 = addr
++7-8 = length
+
+
+
+            0x00001f88      180d           lr r0, r13
+            0x00001f8a      41d00024       la r13, 36
+            0x00001f8e      23dd           asa r13, r13
+	    ; 36 bytes stack -> r13
+            0x00001f90      5000d000       st r0, 0(,r13)
+	    ; sp+0  := r0 (save)
+            0x00001f94      906ad004       stm r6, r10, 4(r13)
+	    ; sp+4  := r6
+	    ; sp+8  := r7
+	    ; sp+12 := r8
+	    ; sp+16 := r9
+	    ; sp+20 := r10
+            0x00001f98      05a0           balr r10, r0
+	    ; r10 := here = 0x1f9a
++0          0x00001f9a      932ad021       ??93 33(r13), 42 ; ??
+	    ; sp+33 := sp+27+7 = ccw.len
++4          0x00001f9e      58901008       l r9, 8(,r1)
+	    ; r9 := param1
++8          0x00001fa2      5860100c       l r6, 12(,r1)
+	    ; r6:= param2
++12         0x00001fa6      d200d01b6001   mvc 27(,r13), 1(r6) ; r6 = param2
+	    ; sp+27 := copy param2 record = CCW (channel control word, 8 bytes?)
++18         0x00001fac      9101d022       tm 34(r13), 1
+	    ; sp+27+7
++22         0x00001fb0      4710a0a0       bo 160(,r10) ; end
++26         0x00001fb4      4180c190       la r8, 400(,r12)
+	    ; r8 := r12+400 -- r12 = global?
++30         0x00001fb8      5080d01c       st r8, 28(,r13)
++34         0x00001fbc      9102b09d       tm 157(r11), 2
++38         0x00001fc0      4710a04e       bo 78(,r10)
++42         0x00001fc4      9101b09a       tm 154(r11), 1
++46         0x00001fc8      4710a056       bo 86(,r10)
++50         0x00001fcc      91c0b09f       tm 159(r11), 192
++54         0x00001fd0      4770a0a0       bc 7, 160(,r10)
++58         0x00001fd4      d24fc1909000   mvc 400(79,r12), 0(r9) ; r9 = param1
++64         0x00001fda      5870d018       l r7, 24(,r13)
++70         0x00001fde      9c01a0c0a0b8   calexs 192(r10), 184(r10) ; 192(r10) = 0x0205a
++74         0x00001fe4      47f0a0a0       b 160(,r10) ; end
++78         0x00001fe8      9c00a0c3       calexs 195(r10) ; proc
++82         0x00001fec      47f0a0a0       b 160(,r10) ; end
+wait:
++86         0x00001ff0      2100           ??21 0
++88         0x00001ff2      4710a056       bo 86(,r10)
+	    ; wait for ready?
++92         0x00001ff6      4780a06a       be 106(,r10)
++96         0x00001ffa      9c01a0c0a0b9   calexs 192(r10), 185(r10)
++102        0x00002000      47f0a056       b 86(,r10)
++106        0x00002004      d24fc1909000   mvc 400(79,r12), 0(r9) ; r9 = param1
++112        0x0000200a      95006001       cli 1(r6), 0 ; r6 = param2
++116        0x0000200e      4780a08e       be 142(,r10)
++120        0x00002012      920ad020       mvi 32(r13), 10
++124        0x00002016      9301d01b       ??93 27(r13), 1 ; display
++128        0x0000201a      4780a0a0       be 160(,r10) ; end
++132        0x0000201e      9c01a0c0a0b9   calexs 192(r10), 185(r10)
++138        0x00002024      47f0a07c       b 124(,r10)
++142        0x00002028      93040000       ??93 0, 4 ; beep
++146        0x0000202c      4780a0a0       be 160(,r10) ; end
++150        0x00002030      9c01a0c0a0b9   calexs 192(r10), 185(r10)
++156        0x00002036      47f0a08e       b 142(,r10)
++160        0x0000203a      5090d01c       st r9, 28(,r13) ; r9 = param1
+            0x0000203e      9312d01b       ??93 27(r13), 18 ; 16+2 tastiera
+            0x00002042      986ad004       lm r6, r10, 4(r13)
+	    ; restore r6-r10
+            0x00002046      58d0d000       l r13, 0(,r13)
+	    ; restore r13
+            0x0000204a      41000024       la r0, 36
+            0x0000204e      2200           fsa r0, r0
+            0x00002050      2800           retext 0
+
+- offset -   0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00002050  .... 2a50 5254 2020 2000 101d 6410 1e58  (.*PRT   ...d..X
+0x00002060  0000 0000 
+
+
+184(r10)
+185(r10)
+   (r10)  0x02052  2a
+          0x02053  50 52 54 20 20 20 00 "PRT    "
+192(r10)  0x0205a  10 1d 64  -> proc 0x02064
+195(r10)  0x0205d  10 1e 58  -> proc 0x02158

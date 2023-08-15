@@ -1,0 +1,25 @@
+firmware opcodes
+
+jump, branch, load register immediate:
+
+
+
+0x xx     no reloc, reloc 1f00 (and 0001 at overlay start??)
+1x xx     no reloc, reloc 1f00
+2x xx     no reloc, reloc ff00
+3x xx     never reloc
+4x xx     never reloc
+5x xx     never reloc
+6x xx     never reloc
+7x xx	  never reloc = load imm
+
+7e
+88 AMIP
+8c
+9c
+a5
+d1
+e2
+e5
+ed 
+f6 xy  store x to y ??

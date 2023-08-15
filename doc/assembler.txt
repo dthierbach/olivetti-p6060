@@ -90,6 +90,7 @@ By opcode. + = IBM
 + 1E  RR  ALR     add logical register
 + 1F  RR  SLR     subtract logical register
   20  RR  RETS    subroutine return
+? 21 
   22  RR  FSA     free stack area
   23  RR  ASA     allocate stack area (R2=length, R1=?)
   26  RR  MLR     multiply logical register
@@ -127,6 +128,7 @@ By opcode. + = IBM
 + 90  RS  STM     store multiple
 + 91  SI  TM      test under mask (CC:)
 + 92  SI  MVI     move immediate
+? 93
 + 94  SI  NI      and immediat
 + 95  SI  CLI     compare logical immediate
 + 96  SI  OI      or immediate
@@ -135,6 +137,7 @@ By opcode. + = IBM
   99  SI  LIE     look for immediate equal
   9A  SI  CALL    subroutine call
   9B  SI  LINE    look for immediate not equal
+? 9C      CALEXS  ???  
   9D  SI  IM      immediate in memory
   D0  SS  TRT     translate and test
 + D1  SS  MVN     move numerics (semibytes???)
@@ -160,3 +163,5 @@ By opcode. + = IBM
   FB  SS  ALM     add logical memory
 
 
+21 = INIOT ???
+93 = INIO ??

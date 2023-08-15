@@ -1,0 +1,27 @@
+INIO 'nome','campo parametri'
+INIOT 'nome'
+
+internal I/O ???
+
+0  stampa integrata
+1  display
+2  tastiera
+4  cicalino (beeper)
+6  rotella decimali
+7  video graphico
+
+
+; PRINT A$
+  la rx,A$
+  st rx,parmadd
+wait: iniot x'00'
+  bc 7,wait
+  inio param+1,x'01'
+  ...
+
+
+param:	  dc x'0050'
+paramadd: dc x'00000000'
+	  dc x'0a'    
+
+

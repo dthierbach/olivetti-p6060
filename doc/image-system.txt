@@ -1,8 +1,8 @@
 http://bitsavers.org/pdf/ibm/floppy/GA21-9182-5_Diskette_General_Information_Manual_Jul80.pdf
 
-P6FWR4.1   01/0/01-07/0/24  0x000d00 3328
-P6FWO	   07/0/25-13/0/15  0x006700 26368
-P6SW	   13/0/16-52/0/18  0x00b080 45184
+P6FWR4.1   01/0/01-07/0/24  0x000d00 3328	# resident firmware
+P6FWO	   07/0/25-13/0/15  0x006700 26368	# optional firmware
+P6SW	   13/0/16-52/0/18  0x00b080 45184	# system (assembly code)
 P6FSYS	   52/0/19-73/0/26  0x02ad00 175360	(deleted)
 
 dd if=system.img of=P6FWR4.1 skip=3328 count=23040 iflag=skip_bytes,count_bytes

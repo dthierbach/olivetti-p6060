@@ -32,6 +32,9 @@ static bool set_reg_profile(RAnal *anal) {
     "gpr	lr	.32	56	0\n" // r14
     "gpr	pc	.32	60	0\n" // r15
 */
+    "=PC	r15\n"
+    "=SP	r13\n"
+    "=A0	r0\n"
     "gpr	r0	.32	0	0\n"
     "gpr	r1	.32	4	0\n"
     "gpr	r2	.32	8	0\n"
@@ -52,6 +55,18 @@ static bool set_reg_profile(RAnal *anal) {
   return r_reg_set_profile_string (anal->reg, p);
 }
 
+static void anal_balr(RAnalOp *op, const ut8* data) 
+{
+  int reg1 = MSN(data,1);
+  int reg2 = LSN(data,1);
+  if (reg2 == 0) {
+    op->type = R_ANAL_OP_TYPE_LEA;
+    op->ptr = op->addr + 2;
+  } else {
+    op->type = R_ANAL_OP_TYPE_RCALL;
+  }
+}
+
 static void anal_rrd(RAnalOp *op, int balr_reg, ut64 balr_offset, int reg_index, const ut8 *data, int n)
 {
   int reg_base = MSN(data,n);
@@ -59,6 +74,7 @@ static void anal_rrd(RAnalOp *op, int balr_reg, ut64 balr_offset, int reg_index,
   if ((reg_base == 0 && reg_index == balr_reg) || (reg_index == 0 && reg_base == balr_reg))
   {
     op->ptr = balr_offset + disp;
+    // op->ptrsize
   }
 }
 
@@ -108,10 +124,22 @@ static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int 
   op->mnemonic = r_strbuf_drain (op_buf);
   op->addr = addr;
   op->type = R_ANAL_OP_TYPE_ILL;
+  // op->val = immediate val
+  // op->stackptr
+  // op->refptr
+  // op->src[3]
+  // op->dst
+  // op->reg = destination register
+  // op->ireg = register for indirect memory
+  // op->disp = displacement?
+  // vliw = begin of opcode block - use for call??
   if (!opc) {
     return -1;
   }
   op->type = opc->type;
+  if (opc->type == R_ANAL_OP_TYPE_UCALL) {
+    anal_balr(op, data);
+  }
   op->cond = opc->cond;
   switch (opc->format) {
     case INSTR_RX_RRRD:
@@ -132,6 +160,8 @@ static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int 
       anal_rrd(op, balr_reg, balr_offset, 0, data, 4);
       anal_rrd(op, balr_reg, balr_offset, 0, data, 2);
       break;
+    case INSTR_SS_NBD:
+      anal_rrd(op, balr_reg, balr_offset, 0, data, 2);
     default:
       break;
   }

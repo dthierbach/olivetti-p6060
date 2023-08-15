@@ -1,5 +1,3 @@
-/* example r_asm plugin by pancake at 2014 */
-
 #include <r_asm.h>
 #include <r_lib.h>
 #include <r_anal.h>
@@ -13,7 +11,6 @@ static int p6060_disassemble (RAsm *a, RAsmOp *op, const ut8 *b, int l)
   }
   return op->size;
 }
-
 
 RAsmPlugin r_asm_plugin_p6060 = {
 	.name = "p6060",
