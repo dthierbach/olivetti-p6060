@@ -6,7 +6,9 @@
 
 static int p6060_disassemble (RAsm *a, RAsmOp *op, const ut8 *b, int l)
 {
-  if (!p6060_mnemonic (&op->buf_asm, &op->size, b)) {
+  static p6060_state state; // should put this in "user" (?)
+
+  if (!p6060_mnemonic (&state, &op->buf_asm, &op->size, a->pc, b)) {
     return -1;
   }
   return op->size;

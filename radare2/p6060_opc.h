@@ -6,6 +6,7 @@ enum p6060_mask {
 
 enum p6060_instr_format {
   INVALID = 0,
+  INSTR_YY_RD, // for SS_NBD args
   INSTR_RR_RR,
   INSTR_RR_0R,
   INSTR_RR_U0,
@@ -23,7 +24,7 @@ enum p6060_instr_format {
   INSTR_SS_NBD
 };
 
-struct p6060_opcode {
+typedef struct p6060_opcode_t {
   char* name;
   ut8 opcode;
   enum p6060_mask mask;
@@ -31,7 +32,18 @@ struct p6060_opcode {
   _RAnalOpType type;	/* type of opcode */
   _RAnalCond cond;	/* condition type */
   char *description;
-};
+} p6060_opcode;
+
+typedef enum p6060_mode_t {
+  P6060_NORMAL = 0,
+  P6060_NBD = 1
+} p6060_mode;
+
+typedef struct p6060_state_t {
+  p6060_mode mode;
+  ut64 start;
+  ut64 end;
+} p6060_state;
 
 /*
 
@@ -56,7 +68,7 @@ NOPR    =BCR 0  no operation
 
 */
 
-struct p6060_opcode opcode_bc_list[] = {
+p6060_opcode opcode_bc_list[] = {
    { "bo"    ,    1, MASK_BC    , INSTR_RX_0RRD  , R_ANAL_OP_TYPE_CJMP, R_ANAL_COND_VS, "branch on overflow"  },
 // { "bh"    ,    2, MASK_BC    , INSTR_RX_0RRD  , R_ANAL_OP_TYPE_CJMP, R_ANAL_COND_GT, "branch on high"      },
    { "bp"    ,    2, MASK_BC    , INSTR_RX_0RRD  , R_ANAL_OP_TYPE_CJMP, R_ANAL_COND_GT, "branch on plus"      },
@@ -76,7 +88,7 @@ struct p6060_opcode opcode_bc_list[] = {
    { NULL    ,    0, 0          , 0              , 0, 0,                                ""}
 };
 
-struct p6060_opcode opcode_bcr_list[] = {
+p6060_opcode opcode_bcr_list[] = {
    { "bor"   ,    1, MASK_BCR   , INSTR_RR_0R    , R_ANAL_OP_TYPE_CJMP, R_ANAL_COND_VS, "branch on overflow"  },
 // { "bhr"   ,    2, MASK_BCR   , INSTR_RR_0R    , R_ANAL_OP_TYPE_CJMP, R_ANAL_COND_GT, "branch on high"      },
    { "bpr"   ,    2, MASK_BCR   , INSTR_RR_0R    , R_ANAL_OP_TYPE_CJMP, R_ANAL_COND_GT, "branch on plus"      },
@@ -96,7 +108,7 @@ struct p6060_opcode opcode_bcr_list[] = {
    { NULL    ,    0, 0          , 0              , 0, 0,                                ""}
 };
 
-struct p6060_opcode opcode_list[] = {
+p6060_opcode opcode_list[] = {
   { "a"     , 0x5A, MASK       , INSTR_RX_RRRD   , R_ANAL_OP_TYPE_ADD   , 0, "add"                                  },
   { "ah"    , 0x4A, MASK       , INSTR_RX_RRRD   , R_ANAL_OP_TYPE_ADD   , 0, "add halfword"                         },
   { "al"    , 0x5E, MASK       , INSTR_RX_RRRD   , R_ANAL_OP_TYPE_ADD   , 0, "add logical"                          },
@@ -212,9 +224,13 @@ struct p6060_opcode opcode_list[] = {
 // 0xde = CMST
 // 0xdf = CMSS
 
-static struct p6060_opcode* opcode[256];
-static struct p6060_opcode* opcode_bc[16];
-static struct p6060_opcode* opcode_bcr[16];
+p6060_opcode opcode_arg = 
+  { "arg", 0, MASK, INSTR_YY_RD, R_ANAL_OP_TYPE_UNK, 0, "argument" };
+
+
+static p6060_opcode* opcode[256];
+static p6060_opcode* opcode_bc[16];
+static p6060_opcode* opcode_bcr[16];
 
 static bool p6060_init(void *user) {
   for (int i = 0; i < 256; i++) {
@@ -224,7 +240,7 @@ static bool p6060_init(void *user) {
     opcode_bc[i] = NULL;
     opcode_bcr[i] = NULL;
   }
-  struct p6060_opcode** op;
+  p6060_opcode** op;
   for (int i = 0; opcode_list[i].name != NULL; i++) {
     opcode[opcode_list[i].opcode] = &opcode_list[i];
   }
@@ -282,10 +298,24 @@ static void disp_rd(RStrBuf *sb, const ut8 *b, int n)
   }
 };
 
-static struct p6060_opcode* p6060_mnemonic(RStrBuf *op_buf, int* op_size, const ut8 *b)
+static p6060_opcode* p6060_mnemonic(p6060_state *state,
+  RStrBuf *op_buf, int* op_size, ut64 op_addr, const ut8 *b)
 {
   int n;
-  struct p6060_opcode* opc = opcode[b[0]];
+  p6060_opcode* opc;
+
+  // special treatment for multi opcode (callexs)
+  if (state && state->mode == P6060_NBD && 
+      op_addr >= state->start && op_addr <= state->end) 
+  {
+    opc = &opcode_arg;
+    if (op_addr == state->end) {
+      state->mode = P6060_NORMAL;
+      state->start = state->end = UT64_MAX;
+    }
+  } else {
+    opc = opcode[b[0]];
+  }
   *op_size = 1;
   if (!opc) {
     r_strbuf_set (op_buf, "invalid");
@@ -306,6 +336,10 @@ static struct p6060_opcode* p6060_mnemonic(RStrBuf *op_buf, int* op_size, const 
   r_strbuf_set (op_buf, opc->name);
   r_strbuf_append (op_buf, " ");
   switch(opc->format) {
+    case INSTR_YY_RD:
+      disp_rd(op_buf, b, 0);
+      *op_size = 2;
+      break;
     case INSTR_RR_RR:
       r_strbuf_appendf (op_buf, "r%d, r%d", MSN(b,1), LSN(b,1));
       *op_size = 2;
@@ -376,11 +410,20 @@ static struct p6060_opcode* p6060_mnemonic(RStrBuf *op_buf, int* op_size, const 
       break;
     case INSTR_SS_NBD:
       n = b[1] & 0x1f;
-      *op_size = 4 + 2*n;
-      disp_rd(op_buf, b, 2);
-      for (int i = 1; i <= n; i++) {
-	r_strbuf_append (op_buf, ", ");
-	disp_rd(op_buf, b, 2+2*i);
+      // TODO
+      if (0) {
+	*op_size = 4 + 2*n;
+	disp_rd(op_buf, b, 2);
+	for (int i = 1; i <= n; i++) {
+	  r_strbuf_append (op_buf, ", ");
+	  disp_rd(op_buf, b, 2+2*i);
+	}
+      } else {
+	*op_size = 4;
+	disp_rd(op_buf, b, 2);
+	state->mode = P6060_NBD;
+	state->start = op_addr + 4;
+	state->end = op_addr + 2*n + 2;
       }
       break;
     case INVALID:

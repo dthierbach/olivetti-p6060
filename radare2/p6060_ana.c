@@ -78,11 +78,24 @@ static void anal_rrd(RAnalOp *op, int balr_reg, ut64 balr_offset, int reg_index,
   }
 }
 
+static void anal_rd(RAnalOp *op, int balr_reg, ut64 balr_offset, const ut8 *data)
+{
+  int reg_base = MSN(data,0);
+  ut64 disp = (LSN(data,0) << 8) | data[1];
+  if (reg_base == balr_reg)
+  {
+    op->ptr = balr_offset + disp;
+    // op->ptrsize
+  }
+}
+
 static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int len, RAnalOpMask mask) {
   // printf(">>>>> mask=%02x %p\n", mask, data);
   // RSpace "balr"
   // r_flag_foreach_space(flag, space, callback, NULL)
   // R_API void r_flag_foreach_range(RFlag *f, ut64 from, ut64 to, RFlagItemCb cb, void *user);
+
+  static p6060_state state; // should put this in "user" (?)
 
   RFlag* flag = anal->flb.f;
   RSpace* space = r_spaces_get(&flag->spaces, "balr");
@@ -118,7 +131,8 @@ static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int 
   }
   RStrBuf* op_buf = r_strbuf_new("");
   int op_size = 0;
-  struct p6060_opcode* opc = p6060_mnemonic (op_buf, &op_size, data);
+  p6060_opcode* opc = 
+    p6060_mnemonic (&state, op_buf, &op_size, addr, data);
   memset (op, '\0', sizeof (RAnalOp));
   op->size = op_size;
   op->mnemonic = r_strbuf_drain (op_buf);
@@ -142,6 +156,9 @@ static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int 
   }
   op->cond = opc->cond;
   switch (opc->format) {
+    case INSTR_YY_RD:
+      anal_rd(op, balr_reg, balr_offset, data);
+      break;
     case INSTR_RX_RRRD:
     case INSTR_RX_0RRD:
     case INSTR_RX_MRRD:
