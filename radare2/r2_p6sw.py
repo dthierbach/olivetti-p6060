@@ -14,19 +14,56 @@ epilog = [0x58, 0xd0, 0xd0, 0x00, 0x41, 0x00, 0x00, None, 0x22, 0x00, 0x28, 0x00
 # global
 seg_maxlen = 0
 
-# balr
-# f balr.r10_1f9a 184 @ 0x1f9a
-# f balr.r7_3996 (0x3dbc-0x3996)@ 0x3996
+# using
+# f using.r10_1f9a 184 @ 0x1f9a
+# f using.r7_3996 (0x3dbc-0x3996)@ 0x3996
+# f using.r8_fa96 (0x10b00-0xfa96) @ 0xfa96
+# s
+# s61 enviroment
+# f using.r8_10216 (0x10b00-0x10216) @ 0x10216
+# s?
+# f using.r3_12f96 (0x13780-0x12f96) @ 0x12f96
 
 # reloc tables
 
+# prefix:
+# lxxxx_loop    label
+# dxxxx_len     data
+# vxxxx_buf     local variable
+
+
 reloc = [
-    # Seg 26
+    # Seg 26 = catalog
     0x03ece, 0x03ed1, 0x03ed4, 0x03ed7, 0x03eda, 0x03edd, 0x03ee0, 0x03ee3,
     # Seg ??
-    0x1294e
-]
+    0x1294e,
+    # Seg 60 = btoc
+    0x101cc, 0x101cf, 0x101d2
+]    
 
+funcs = [
+    {'seg': 0x74, 'ofs': 0x0004},
+    {'seg': 0x74, 'ofs': 0x0004},
+    {'seg': 0x55, 'ofs': 0x03dc},
+    {'seg': 0x10, 'ofs': 0x1960},
+    {'seg': 0x10, 'ofs': 0x1c88, 'name': 's10_print'},
+    {'seg': 0x4a, 'ofs': 0x0004},
+    {'seg': 0x4a, 'ofs': 0x00b0}
+]    
+
+
+
+using = [
+    {'reg': 'r7', 'begin': 0x01f9a, 'end': 0x01f9a+184},
+    # Seg 26 = catalog
+    {'reg': 'r7', 'begin': 0x03996, 'end': 0x03dbc},
+    {'reg': 'r8', 'begin': 0x0fa96, 'end': 0x10b00},
+    {'reg': 'r8', 'begin': 0x10216, 'end': 0x10b00},
+    {'reg': 'r8', 'begin': 0x12916, 'end': 0x12946},
+    {'reg': 'r8', 'begin': 0x12966, 'end': 0x1297a},
+    {'reg': 'r8', 'begin': 0x12992, 'end': 0x129aa},
+    {'reg': 'r3', 'begin': 0x12f96, 'end': 0x13780}
+]    
 
 def search(fw, addr, end):
     i = addr;
@@ -71,18 +108,30 @@ def analyze_seg(fw, addr):
     # print(f"# {end:05x}")
     search(fw, addr, end)
 
-def hardwired():
-    print("fs balr")
-    print("f balr.r10_1f9a 184 @ 0x1f9a")
-    print("f balr.r7_3996 (0x3dbc-0x3996)@ 0x3996")
-    print("Cd 1 (0x3f00-0x3dbc) @ 0x3dbc")
-    print("f balr.r8_12916 (0x12946-0x12916) @ 0x12916")
-    print("Cd 1 (0x12954-0x12946) @ 0x12946")
-    print("f balr.r8_12966 (0x1297a-0x12966) @ 0x12966")
-    print("Cd 1 (0x12980-0x1297a) @ 0x1297a")
-    print("f balr.r8_12992 (0x129aa-0x12992) @ 0x12992")
-    # print("# Cd 1 (0x12a00-0x129aa) @ 0x129aa")
+def print_using():
+    print("fs using")
+    for u in using:
+        r = u['reg']
+        b = u['begin']
+        e = u['end']
+        print(f"f using.{r}_{b:x} (0x{e:x}-0x{b:x}) @ 0x{b:x}")
     
+def hardwired():
+    #print("fs using")
+    #print("f using.r10_1f9a 184 @ 0x1f9a")
+    #print("f using.r7_3996 (0x3dbc-0x3996)@ 0x3996")
+    ## print("Cd 1 (0x3f00-0x3dbc) @ 0x3dbc")
+    #print("f using.r8_fa96 (0x10b00-0xfa96) @ 0xfa96")
+    #print("f using.r8_12916 (0x12946-0x12916) @ 0x12916")
+    ## print("Cd 1 (0x12954-0x12946) @ 0x12946")
+    #print("f using.r8_12966 (0x1297a-0x12966) @ 0x12966")
+    ## print("Cd 1 (0x12980-0x1297a) @ 0x1297a")
+    #print("f using.r8_12992 (0x129aa-0x12992) @ 0x12992")
+    ## print("# Cd 1 (0x12a00-0x129aa) @ 0x129aa")
+    #print("f using.r8_10216 (0x10b00-0x10216) @ 0x10216")
+    #print("f using.r3_12f96 (0x13780-0x12f96) @ 0x12f96")
+    print("s 0x3980")
+
 def analyze(fw):
     global seg_maxlen
     print(f"Cd 1 3*256 @ 0")
@@ -106,6 +155,7 @@ def analyze(fw):
         # print(f"{i:04x} {k:05x} {j}")
         analyze_seg(fw, k)
     analyze_reloc(fw)
+    print_using()
     hardwired()
     # seg_maxlen = 0x1fac
     # print(f"# max seg len 0x{seg_maxlen:x}")

@@ -12,10 +12,12 @@
 
 #include "p6060_opc.h"
 
+typedef ut64 using_t[16];
+
 static bool set_reg_profile(RAnal *anal) {
   const char *p =
 /*
-    "=PC	r15\n"
+    "=PC	pc\n"
     "=LR	r14\n"
     "=SP	r13\n"
     "=BP	r12\n"
@@ -32,7 +34,7 @@ static bool set_reg_profile(RAnal *anal) {
     "gpr	lr	.32	56	0\n" // r14
     "gpr	pc	.32	60	0\n" // r15
 */
-    "=PC	r15\n"
+    "=PC	pc\n"
     "=SP	r13\n"
     "=A0	r0\n"
     "gpr	r0	.32	0	0\n"
@@ -51,11 +53,12 @@ static bool set_reg_profile(RAnal *anal) {
     "gpr	r13	.32	52	0\n"
     "gpr	r14	.32	56	0\n"
     "gpr	r15	.32	60	0\n"
+    "gpr	pc	.32	64	0\n"
     ;
   return r_reg_set_profile_string (anal->reg, p);
 }
 
-static void anal_balr(RAnalOp *op, const ut8* data) 
+static void anal_using(RAnalOp *op, const ut8* data) 
 {
   int reg1 = MSN(data,1);
   int reg2 = LSN(data,1);
@@ -67,46 +70,50 @@ static void anal_balr(RAnalOp *op, const ut8* data)
   }
 }
 
-static void anal_rrd(RAnalOp *op, int balr_reg, ut64 balr_offset, int reg_index, const ut8 *data, int n)
+static void anal_rrd(RAnalOp *op, using_t using, int reg_index, const ut8 *data, int n)
 {
   int reg_base = MSN(data,n);
   ut64 disp = (LSN(data,n) << 8) | data[n+1];
-  if ((reg_base == 0 && reg_index == balr_reg) || (reg_index == 0 && reg_base == balr_reg))
-  {
-    op->ptr = balr_offset + disp;
+  if (reg_base == 0 && using[reg_index] != 0) {
+    op->ptr = using[reg_index] + disp;
+    // op->ptrsize
+  } else 
+  if (reg_index == 0 && using[reg_base] != 0) {
+    op->ptr = using[reg_base] + disp;
     // op->ptrsize
   }
 }
 
-static void anal_rd(RAnalOp *op, int balr_reg, ut64 balr_offset, const ut8 *data)
+static void anal_rd(RAnalOp *op, using_t using, const ut8 *data)
 {
   int reg_base = MSN(data,0);
   ut64 disp = (LSN(data,0) << 8) | data[1];
-  if (reg_base == balr_reg)
+  if (using[reg_base] != 0)
   {
-    op->ptr = balr_offset + disp;
+    op->ptr = using[reg_base] + disp;
     // op->ptrsize
   }
 }
 
 static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int len, RAnalOpMask mask) {
   // printf(">>>>> mask=%02x %p\n", mask, data);
-  // RSpace "balr"
+  // RSpace "using"
   // r_flag_foreach_space(flag, space, callback, NULL)
   // R_API void r_flag_foreach_range(RFlag *f, ut64 from, ut64 to, RFlagItemCb cb, void *user);
 
   static p6060_state state; // should put this in "user" (?)
 
   RFlag* flag = anal->flb.f;
-  RSpace* space = r_spaces_get(&flag->spaces, "balr");
+  RSpace* space = r_spaces_get(&flag->spaces, "using");
   RSkipListNode *it, *tmp1;
   RFlagsAtOffset *flags_at;
   RListIter *it2, *tmp2;
   RFlagItem *fi;
-  int balr_reg = -1;
-  ut64 balr_offset;
+  using_t using;
   // slow, iterates over each.
-  // Only pick first for now.
+  for (int i = 0; i < 16; i++) {
+    using[i] = 0;
+  }
   if (space) {
     r_skiplist_foreach_safe (flag->by_off, it, tmp1, flags_at)
     {
@@ -114,15 +121,17 @@ static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int 
       {
 	r_list_foreach_safe (flags_at->flags, it2, tmp2, fi)
 	{
-	  if (fi->space == space && fi->offset <= addr && fi->offset + fi->size >= addr) {
-	    char* s = strstr(fi->realname, "balr.r");
-	    if (s) {
-	      s += 6;
-	      balr_reg = atoi(s);
+	  if (fi->space == space && fi->offset <= addr && fi->offset + fi->size >= addr) 
+	  {
+	    char* prefix = "using.r";
+	    char* s = strstr(fi->realname, prefix);
+	    if (s) 
+	    {
+	      s += strlen(prefix);
+	      int using_reg = atoi(s);
 	      s = strstr(s, "_");
 	      s += 1;
-	      balr_offset = strtol(s, NULL, 16);
-	      // TODO exit loop, by setting tmp???
+	      using[using_reg] = strtol(s, NULL, 16);
 	    }
 	  }
 	}
@@ -152,35 +161,38 @@ static int p6060_anop(RAnal *anal, RAnalOp *op, ut64 addr, const ut8 *data, int 
   }
   op->type = opc->type;
   if (opc->type == R_ANAL_OP_TYPE_UCALL) {
-    anal_balr(op, data);
+    anal_using(op, data);
   }
   op->cond = opc->cond;
   switch (opc->format) {
     case INSTR_YY_RD:
-      anal_rd(op, balr_reg, balr_offset, data);
+      anal_rd(op, using, data);
       break;
     case INSTR_RX_RRRD:
     case INSTR_RX_0RRD:
     case INSTR_RX_MRRD:
-      anal_rrd(op, balr_reg, balr_offset, LSN(data,1), data, 2);
+      anal_rrd(op, using, LSN(data,1), data, 2);
       break;
     case INSTR_RS_RRRD:
-      anal_rrd(op, balr_reg, balr_offset, 0, data, 2);
+      anal_rrd(op, using, 0, data, 2);
       break;
     case INSTR_SI_URD:
-      anal_rrd(op, balr_reg, balr_offset, 0, data, 2);
+      anal_rrd(op, using, 0, data, 2);
       break;
     case INSTR_SS_LLRDRD:
     case INSTR_SS_L0RDRD:
     case INSTR_SS_0RDRD:
     case INSTR_SS_0LRDRD:
-      anal_rrd(op, balr_reg, balr_offset, 0, data, 4);
-      anal_rrd(op, balr_reg, balr_offset, 0, data, 2);
+      anal_rrd(op, using, 0, data, 4);
+      anal_rrd(op, using, 0, data, 2);
       break;
     case INSTR_SS_NBD:
-      anal_rrd(op, balr_reg, balr_offset, 0, data, 2);
+      anal_rrd(op, using, 0, data, 2);
     default:
       break;
+  }
+  if (opc->type == R_ANAL_OP_TYPE_CALL || opc->type == R_ANAL_OP_TYPE_UCALL) {
+    op->jump = op->ptr;
   }
   if (opc->mask == MASK_BC) {
     op->fail = op->addr + op->size;
