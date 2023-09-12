@@ -5,6 +5,9 @@ import sys
 import argparse
 
 # https://pypi.org/project/ebcdic/
+#  https://vtda.org/bits/1_ccmp-utilities/ImageDisk/imd118.zip
+# imd118.zip
+# IMD.TXT chapter 6
 
 class EOF(Exception):
     pass

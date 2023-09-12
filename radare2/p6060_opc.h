@@ -210,6 +210,7 @@ p6060_opcode opcode_list[] = {
   { "??21"  , 0x21, MASK       , INSTR_RR_U0     , R_ANAL_OP_TYPE_UNK   , 0, "INIOT ?"                              },
   { "??27"  , 0x27, MASK       , INSTR_RR_U0     , R_ANAL_OP_TYPE_UNK   , 0, "INIOT ?"                              },
   { "??0b"  , 0x0b, MASK       , INSTR_RR_RR     , R_ANAL_OP_TYPE_UNK   , 0, "unknown"                              },
+  { "??2b"  , 0x2b, MASK       , INSTR_RR_RR     , R_ANAL_OP_TYPE_UNK   , 0, "unknown"                              },
   { "??93"  , 0x93, MASK       , INSTR_SI_URD    , R_ANAL_OP_TYPE_UNK   , 0, "INIO ?"                               },
   { "??4e"  , 0x4e, MASK       , INSTR_RS_RRRD   , R_ANAL_OP_TYPE_UNK   , 0, "unknown"                              }, // RS is guess
   { "??4f"  , 0x4f, MASK       , INSTR_RS_RRRD   , R_ANAL_OP_TYPE_UNK   , 0, "unknown"                              }, // RS is guess
