@@ -39,7 +39,7 @@ def load_comment(f_in):
     print(f"-- {f_in.tell():06x} file comment")
     byte = f_in.read(1)
     while byte != b'\x1a':
-        print(byte.decode('ascii'))
+        print(byte.decode('ascii'), end='')
         byte = f_in.read(1)
 
 def load_header(f_in):
@@ -51,6 +51,7 @@ def load_track(f_in):
     print(f"-- {f_in.tell():06x} track")
     track={}
     track["mode"] = read_bytes(f_in,1)
+    # mode = transfer rate + density
     track["cyl"] = read_bytes(f_in,1)
     headb = f_in.read(1)[0]
     track["head"] = headb & 1
@@ -80,9 +81,22 @@ def load_data(f_in, f_out, sector, track):
     print(f"-- {f_in.tell():06x} data cyl={cyl} head={head} sector={sector}")
     mode = read_bytes(f_in, 1)
     print(f"mode={mode}")
+    # 00 = unvailable, couldn't be read
+    # 01 = normal
+    # 02 = normal + compressed
+    # 03 = normal              + deleted-data addr mark
+    # 04 = normal + compressed + deleted-data addr mark 
+    # 05 = normal                                       + data error
+    # 06 = normal + compressed                          + data error
+    # 07 = normal              + deleted-data addr mark + data error
+    # 08 = normal + compressed + deleted-data addr mark + data error
     if mode == 0:
         return
     mode -= 1
+    if (mode & 2):
+        print(f"delete data address mark")
+    if (mode & 4):
+        print(f"data error")
     if (mode & 1) == 1:
         x = read_bytes(f_in, 1)
         print(f"compressed {x:02x}")
