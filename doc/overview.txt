@@ -1,0 +1,115 @@
+cd /mnt/home/dirk/repos/git2/olivetti/p6060/extract/raw
+
+../../tools/imagedisk.py ../../images/system.imd -o system.raw
+
+
+hexdump -C system.raw  | less
+
+ ../../tools/vtoc.py system.raw 
+volume label='      '
+name='P6FWR4.1'
+  01001-07024 create=09.07.1980 expire=None
+name='P6FWO'
+  07025-13015 create=09.06.1980 expire=None
+name='P6SW4'
+  13016-52018 create=09.06.1980 expire=None
+
+for f in ../../images/nonpub/*imd ; do echo $f ; done
+
+for f in ../../images/nonpub/*imd ; do echo $f ; ../../tools/imagedisk.py "$f" -o `basename $f` ; done
+
+for f in * ; do echo $f ; ../../tools/vtoc.py "$f" ; done
+
+014.imd
+volume label='K01179'
+name='P6FSYS'
+  01001-7326 create=None expire=None
+
+015.imd
+volume label='K01179'
+name='P6FSYS'
+  01001-7326 create=None expire=None
+
+017.imd
+volume label='K01179'
+name='P6FSYS'
+  01001-7326 create=None expire=None
+
+034.imd
+volume label='DISK05'
+name='P6FSYS'
+  01001-7326 create=None expire=None
+
+094.imd
+volume label='K01179'
+name='P6FSYS'
+  01001-7326 create=None expire=None
+
+120.imd
+volume label='K01179'
+name='P6FSYS'
+  01001-7326 create=None expire=None
+
+genuser.imd
+No VOL1 header
+
+genuser2.imd
+volume label='GEUSTS'
+name='P6FSYS'
+  01001-7326 create=None expire=None
+
+prgpreis.imd
+volume label='DISK05'
+name='P6FWR2.0'
+  01001-08003 create=23.11.1976 expire=None
+name='P6FWO'
+  08004-10004 create=None expire=None
+name='P6SW'
+  11013-52007 create=None expire=None
+name='P6FSYS'
+  52008-73026 create=None expire=None
+
+sysbearb.imd
+volume label='K01179'
+name='P6FWR2.0'
+  01001-08003 create=23.11.1976 expire=None
+name='P6FWO'
+  08004-10004 create=None expire=None
+name='P6SW'
+  11013-52007 create=None expire=None
+name='P6FSYS'
+  52008-73026 create=None expire=None
+
+sysblank.imd
+volume label='K01179'
+name='P6FWR2.0'
+  01001-08003 create=23.11.1976 expire=None
+name='P6FWO'
+  08004-10004 create=None expire=None
+name='P6SW'
+  11013-52007 create=None expire=None
+name='P6FSYS'
+  52008-73026 create=None expire=None
+
+sysman.imd
+volume label='K01179'
+name='P6FWR2.0'
+  01001-08003 create=23.11.1976 expire=None
+name='P6FWO'
+  08004-10004 create=None expire=None
+name='P6SW'
+  11013-52007 create=None expire=None
+name='P6FSYS'
+  52008-73026 create=None expire=None
+
+sysselek.imd
+volume label='K01179'
+name='P6FWR2.0'
+  01001-08003 create=23.11.1976 expire=None
+name='P6FWO'
+  08004-10004 create=None expire=None
+name='P6SW'
+  11013-52007 create=None expire=None
+name='P6FSYS'
+  52008-73026 create=None expire=None
+  

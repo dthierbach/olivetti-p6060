@@ -5,7 +5,7 @@
 import sys
 from struct import unpack_from
 
-name = '../extract/system/P6SW'
+name = '../extract/system_4.1/P6SW'
 
 prolog = [0x18, 0x0d, 0x41, 0xd0, 0x00, None, 0x23, 0xdd, 0x50, 0x00, 0xd0, 0x00]
 
@@ -45,6 +45,8 @@ reloc = [
     0x052ce, # 0x52d1,
     # Seg 4a = file
     0x09e26, 0x09e29, 0x09eea,
+    # Seg 4c = dchange
+    0xa396, 0xa399, 0xa39c, 0xa39f, 0xa3a2, 0xa3a5, 
     # Seg 55
     0xcbd0, 0xcbd3, 0xcbd6, 0xce36, 0xce39,
     # Seg 5a
@@ -85,6 +87,9 @@ funcs = [
     {'extern': 's4a_0004', 'begin': 0x09d84},
     {'extern': 's4a_00b0', 'begin': 0x09e30},
     {                      'begin': 0x0cb82, 'end': 0x0cb98, 'name': 'f0cb82'},
+    {'extern': 's4c_0004', 'begin': 0x0a184, 'end': 0x0a31c, 'name': 's4c_dchange'},	# DCHANGE 35
+    {                      'begin': 0x0a31c, 'end': 0x0a370, 'name': 's4c_xxx'},
+    {'extern': 's4d_0004', 'begin': 0x0a404},
     {'extern': 's55_03dc', 'begin': 0x0cbdc, 'end': 0x0ce12},
     {                      'begin': 0x0ce12, 'end': 0x0ce22, 'name': 'f0ce12'},
     {'extern': 's55_0640', 'begin': 0x0ce40},
@@ -93,17 +98,17 @@ funcs = [
     {'extern': 's71_0004', 'begin': 0x12a04},
     {'extern': 's74_0004', 'begin': 0x12f84},
     {'extern': 's7f_0574', 'begin': 0x16374},
-    {'extern': 's24_00c8', 'begin': 0x03fc8, 'name': 's24_space'},     # SPACE  1
-    {'extern': 's26_0004', 'begin': 0x04784, 'name': 's26_purge'},     # PURGE  2
-    {'extern': 's77_0558', 'begin': 0x13d58, 'name': 's77_create'},    # CREATE  3
-    {'extern': 's48_0004', 'begin': 0x09704, 'name': 's48_modify'},     # MODIFY  4
-    {'extern': 's49_0078', 'begin': 0x09b78, 'name': 's49_truncate'}, # TRUNCATE  5
-    {'extern': 's28_0004', 'begin': 0x04984, 'name': 's28_delete'}, # DELETE  6
+    {'extern': 's24_00c8', 'begin': 0x03fc8, 'name': 's24_space'},	# SPACE  1
+    {'extern': 's26_0004', 'begin': 0x04784, 'name': 's26_purge'},	# PURGE  2
+    {'extern': 's77_0558', 'begin': 0x13d58, 'name': 's77_create'},	# CREATE  3
+    {'extern': 's48_0004', 'begin': 0x09704, 'name': 's48_modify'},	# MODIFY  4
+    {'extern': 's49_0078', 'begin': 0x09b78, 'name': 's49_truncate'},	# TRUNCATE  5
+    {'extern': 's28_0004', 'begin': 0x04984, 'name': 's28_delete'},	# DELETE  6
     {'extern': 's2a_0004', 'begin': 0x04e84, 'end': 0x05286, 'name': 's2a_list'}, # LIST  7
-    {'extern': 's29_0004', 'begin': 0x04b84, 'name': 's29_fetch'}, # FETCH  8
-    {'extern': 's6a_0004', 'begin': 0x12084, 'name': 's6a_validate'}, # VALIDATE  9
-    {'extern': 's22_0004', 'begin': 0x03384, 'name': 's22_resequence'},     # RESEQUENCE  10
-    {'extern': 's12_0004', 'begin': 0x02784, 'name': 's12_new'},    # NEW  11
+    {'extern': 's29_0004', 'begin': 0x04b84, 'name': 's29_fetch'},	# FETCH  8
+    {'extern': 's6a_0004', 'begin': 0x12084, 'name': 's6a_validate'},	# VALIDATE  9
+    {'extern': 's22_0004', 'begin': 0x03384, 'name': 's22_resequence'},	# RESEQUENCE  10
+    {'extern': 's12_0004', 'begin': 0x02784, 'name': 's12_new'},	# NEW  11
     {'extern': 's55_0004', 'begin': 0x0c804, 'end': 0x0cb82, 'name': 's55_old'},    # OLD  12
     {'extern': 's77_0004', 'begin': 0x13804},    # SAVE  13
     {'extern': 's1f_0004', 'begin': 0x03204},    # REPLACE  14
@@ -127,7 +132,6 @@ funcs = [
     {'extern': 's57_036c', 'begin': 0x0e3ec}, # TEXT 32
     # (missing) DECOMPILE 33
     {'extern': 's57_0004', 'begin': 0x0e084},    # TRANSCODE 34
-    {'extern': 's4c_0004', 'begin': 0x0a184},    # DCHANGE 35
     {'extern': 's5c_0004', 'begin': 0x0f284},    # LBOPEN 36
     {'extern': 's5d_0004', 'begin': 0x0f504},    # LBCLOSE 37
     {'extern': 's5e_0004', 'begin': 0x0f704},    # LBSTORE 38
@@ -157,6 +161,8 @@ using = [
     # Seg 4a = file
     {'reg': 'r3',  'begin': 0x09d96, 'end': 0x09e20},
     {'reg': 'r3',  'begin': 0x09e42, 'end': 0x09ee4},
+    # Seg 4c = dchange
+    {'reg': 'r3',  'begin': 0x0a196, 'end': 0x0a370},
     # Seg 55
     {'reg': 'r3',  'begin': 0x0c816, 'end': 0x0cb82},
     {'reg': 'r9',  'begin': 0x0cbee, 'end': 0x0ce22},
@@ -272,7 +278,8 @@ def hardwired():
     #print("f using.r3_12f96 (0x13780-0x12f96) @ 0x12f96")
     for i in range(0,48):
         print(f"Cs 3 @ 0xec86 + {i}*3")
-    print("s 0x3980")
+    # print("s 0x3980") # s23_catalog
+    print("s 0xa184") # S4c_dchange
 
 def analyze(fw):
     global seg_maxlen

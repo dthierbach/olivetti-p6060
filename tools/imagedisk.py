@@ -129,5 +129,6 @@ args = parser.parse_args()
 
 print("---- dump")
 load_all(args.infile, args.outfile)
+# doesn't close files, but that's ok
 print("---- end")
 

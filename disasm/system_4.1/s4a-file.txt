@@ -1,0 +1,10 @@
+9d80
+
+s4a_0004 ??? first file
+s4a_00b0 ??? next file 
+
+using r3 9d96 9e20
+using r3 9e42 9ee4
+
+9e26 = 55 0640
+9e29 = 10 1960

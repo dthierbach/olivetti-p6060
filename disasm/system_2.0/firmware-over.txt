@@ -1,0 +1,2871 @@
+  ../../tools/fw.py --overlay ../../extract/system_2.0/P6FWO > firmware-over.txt
+  
+  3 overlays
+     addr  len  reloc  size (byte/word)
+    000080 0a00 000880 000800 / 400
+    000a80 0700 001080 000600 / 300
+    001180 0a80 001980 000800 / 400
+  ...3
+==== Overlay 0
+  relocs at 0880
+  123 relocations
+0080: 0000: 9c 97  MBIP M9,B7       B7 := [M9++]         
+0082: 0001: 8c 27  BMIP M2,A7       [M2++] := A7         
+0084: 0002: 92 97  MAIM M9,A7       A7 := [M9--]         
+0086: 0003: 88 27  AMIP M2,A7       [M2++] := A7         
+0088: 0004: de 0a  MLIP M0,L10      L10 := [M0++]        
+008a: 0005: 00 92  SAI 0092         jump 0092            
+008c: 0006: ed a9  LMIM M10,L9      [M10--] := L9        
+008e: 0007: c9 10  SEDI 10          set DI 0x10          
+0090: 0008: 13 b9  SAI 13b9         jump 13b9            mask 1f00
+0092: 0009: a5 af  ICL L10          L10++                
+0094: 000a: d1 a9  MLI M10,L9       L9 := [M10]          
+0096: 000b: ed a2  LMIM M10,L2      [M10--] := L2        
+0098: 000c: d1 aa  MLI M10,L10      L10 := [M10]         
+009a: 000d: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+009c: 000e: 14 f5  SAI 14f5         jump 14f5            mask 1f00
+009e: 000f: de 02  MLIP M0,L2       L2 := [M0++]         
+00a0: 0010: 00 93  SAI 0093         jump 0093            
+00a2: 0011: d1 22  MLI M2,L2        L2 := [M2]           
+00a4: 0012: a5 7f  ICL L7           L7++                 
+00a6: 0013: a5 7f  ICL L7           L7++                 
+00a8: 0014: e5 af  ICL L10          L10--                
+00aa: 0015: e5 af  ICL L10          L10--                
+00ac: 0016: 9c ac  MBIP M10,B12     B12 := [M10++]       
+00ae: 0017: 8c 9c  BMIP M9,A12      [M9++] := A12        
+00b0: 0018: e5 7f  ICL L7           L7--                 
+00b2: 0019: 62 16  SAD0 2,16        br D2=0,0016         
+00b4: 001a: 13 f3  SAI 13f3         jump 13f3            mask 1f00
+00b6: 001b: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+00b8: 001c: 14 ea  SAI 14ea         jump 14ea            mask 1f00
+00ba: 001d: de 07  MLIP M0,L7       L7 := [M0++]         
+00bc: 001e: 00 a8  SAI 00a8         jump 00a8            
+00be: 001f: e1 78  LMI M7,L8        [M7] := L8           
+00c0: 0020: de 08  MLIP M0,L8       L8 := [M0++]         
+00c2: 0021: 00 b0  SAI 00b0         jump 00b0            
+00c4: 0022: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+00c6: 0023: 14 f5  SAI 14f5         jump 14f5            mask 1f00
+00c8: 0024: ee 87  LMIP M8,L7       [M8++] := L7         
+00ca: 0025: bc 9a  SLL L9,L10       L9 <-> L10           
+00cc: 0026: ba aa  SAB A10,B10      A10 <-> B10          
+00ce: 0027: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+00d0: 0028: 14 f5  SAI 14f5         jump 14f5            mask 1f00
+00d2: 0029: ee 87  LMIP M8,L7       [M8++] := L7         
+00d4: 002a: ba 99  SAB A9,B9        A9 <-> B9            
+00d6: 002b: ee 89  LMIP M8,L9       [M8++] := L9         
+00d8: 002c: ed 8a  LMIM M8,L10      [M8--] := L10        
+00da: 002d: e5 8f  ICL L8           L8--                 
+00dc: 002e: dd 82  MLIM M8,L2       L2 := [M8--]         
+00de: 002f: de 87  MLIP M8,L7       L7 := [M8++]         
+00e0: 0030: 13 fd  SAI 13fd         jump 13fd            mask 1f00
+00e2: 0031: 77 e6  CRTA A07,Ce6     A07 := 0xe6          
+00e4: 0032: c8 01  REDI 01          reset DI 0x01        
+00e6: 0033: a6 7e  ADDB A7,B14      B14 := A7+B14+DI0    
+00e8: 0034: de 07  MLIP M0,L7       L7 := [M0++]         
+00ea: 0035: 12 3f  SAI 123f         jump 123f            mask ff00
+00ec: 0036: c8 01  REDI 01          reset DI 0x01        
+00ee: 0037: 96 7e  ADDA A7,B14      A7 := A7+B14+DI0     
+00f0: 0038: 60 3a  SAD0 0,3a        br D0=0,003a         
+00f2: 0039: 95 7f  ICB B7           B7++                 
+00f4: 003a: d1 78  MLI M7,L8        L8 := [M7]           
+00f6: 003b: c4 80  SLSA A8,C0       A8 << DI0            
+00f8: 003c: d4 81  SLSA B8          B8 << DI0            
+00fa: 003d: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+00fc: 003e: bf 90                                        
+00fe: 003f: 12 44  SAI 1244         jump 1244            mask ff00
+0100: 0040: 14 95  SAI 1495         jump 1495            mask ff00
+0102: 0041: 14 00  SAI 1400         jump 1400            mask ff00
+0104: 0042: 15 a4  SAI 15a4         jump 15a4            mask ff00
+0106: 0043: 15 6a  SAI 156a         jump 156a            mask ff00
+0108: 0044: 3c 64  MAD A12,C64      A12 := [64]          
+010a: 0045: ee 0b  LMIP M0,L11      [M0++] := L11        
+010c: 0046: 00 00  SAI 0000         jump 0000            
+010e: 0047: 57 09  CRTB B07,C09     B07 := 0x09          
+0110: 0048: c8 01  REDI 01          reset DI 0x01        
+0112: 0049: 96 b7  ADDA A11,B7      A11 := A11+B7+DI0    
+0114: 004a: 60 4c  SAD0 0,4c        br D0=0,004c         
+0116: 004b: 95 bf  ICB B11          B11++                
+0118: 004c: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+011a: 004d: 12 1b  SAI 121b         jump 121b            mask 1f00
+011c: 004e: ba 77  SAB A7,B7        A7 <-> B7            
+011e: 004f: c9 01  SEDI 01          set DI 0x01          
+0120: 0050: b6 27  SOT A2,B7        A2-B7+DI0            
+0122: 0051: ba 72  SAB A7,B2        A7 <-> B2            
+0124: 0052: b6 72  SOT A7,B2        A7-B2+DI0            
+0126: 0053: ba 72  SAB A7,B2        A7 <-> B2            
+0128: 0054: 61 56  SAD0 1,56        br D1=0,0056         
+012a: 0055: bc 27  SLL L2,L7        L2 <-> L7            
+012c: 0056: de 07  MLIP M0,L7       L7 := [M0++]         
+012e: 0057: 12 63  SAI 1263         jump 1263            mask ff00
+0130: 0058: e1 72  LMI M7,L2        [M7] := L2           
+0132: 0059: de 08  MLIP M0,L8       L8 := [M0++]         
+0134: 005a: 12 61  SAI 1261         jump 1261            mask ff00
+0136: 005b: de 0b  MLIP M0,L11      L11 := [M0++]        
+0138: 005c: 12 46  SAI 1246         jump 1246            mask ff00
+013a: 005d: d1 bb  MLI M11,L11      L11 := [M11]         
+013c: 005e: c4 80  SLSA A8,C0       A8 << DI0            
+013e: 005f: d4 81  SLSA B8          B8 << DI0            
+0140: 0060: 13 fb  SAI 13fb         jump 13fb            mask 1f00
+0142: 0061: 63 30  SAD0 3,30        br D3=0,0030         
+0144: 0062: 00 0b  SAI 000b         jump 000b            
+0146: 0063: c0 00                                        
+0148: 0064: 12 13  SAI 1213         jump 1213            
+014a: 0065: 11 64  SAI 1164         jump 1164            
+014c: 0066: de 0a  MLIP M0,L10      L10 := [M0++]        
+014e: 0067: 00 0e  SAI 000e         jump 000e            
+0150: 0068: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0152: 0069: 14 f0  SAI 14f0         jump 14f0            mask 1f00
+0154: 006a: 67 6e  SAD0 7,6e        br D7=0,006e         
+0156: 006b: 69 e4  SAD1 1,e4        br D1=1,00e4         
+0158: 006c: 6a e4  SAD1 2,e4        br D2=1,00e4         
+015a: 006d: 72 ff  CRTA A02,Cff     A02 := 0xff          
+015c: 006e: 85 2f  ICA A2           A2++                 
+015e: 006f: d8 2f  TAB A2,B15       B15 := A2            
+0160: 0070: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0162: 0071: 12 1b  SAI 121b         jump 121b            mask 1f00
+0164: 0072: c9 11  SEDI 11          set DI 0x11          
+0166: 0073: ba 77  SAB A7,B7        A7 <-> B7            
+0168: 0074: b6 27  SOT A2,B7        A2-B7+DI0            
+016a: 0075: ba 72  SAB A7,B2        A7 <-> B2            
+016c: 0076: b6 72  SOT A7,B2        A7-B2+DI0            
+016e: 0077: 61 7d  SAD0 1,7d        br D1=0,007d         
+0170: 0078: ba 27  SAB A2,B7        A2 <-> B7            
+0172: 0079: c8 10  REDI 10          reset DI 0x10        
+0174: 007a: bc 9a  SLL L9,L10       L9 <-> L10           
+0176: 007b: ba aa  SAB A10,B10      A10 <-> B10          
+0178: 007c: ba 99  SAB A9,B9        A9 <-> B9            
+017a: 007d: d8 b8  TAB A11,B8       B8 := A11            
+017c: 007e: e9 8b  TBA A8,B11       A8 := B11            
+017e: 007f: ba 88  SAB A8,B8        A8 <-> B8            
+0180: 0080: c8 01  REDI 01          reset DI 0x01        
+0182: 0081: 5c 0a  CRTB B12,C0a     B12 := 0x0a          
+0184: 0082: 96 8c  ADDA A8,B12      A8 := A8+B12+DI0     
+0186: 0083: 60 85  SAD0 0,85        br D0=0,0085         
+0188: 0084: 95 8f  ICB B8           B8++                 
+018a: 0085: 7e c4  CRTA A14,Cc4     A14 := 0xc4          
+018c: 0086: f6 e2  ORA A14,B2       A14 := A14 or B2     
+018e: 0087: 88 8e  AMIP M8,A14      [M8++] := A14        
+0190: 0088: 88 82  AMIP M8,A2       [M8++] := A2         
+0192: 0089: c9 01  SEDI 01          set DI 0x01          
+0194: 008a: c6 27  SOTA A2,B7       A2 := A2-B7+DI0      
+0196: 008b: ba 72  SAB A7,B2        A7 <-> B2            
+0198: 008c: c6 72  SOTA A7,B2       A7 := A7-B2+DI0      
+019a: 008d: ba 72  SAB A7,B2        A7 <-> B2            
+019c: 008e: ba 77  SAB A7,B7        A7 <-> B7            
+019e: 008f: c9 29  SEDI 29          set DI 0x29          
+01a0: 0090: 7e 07  CRTA A14,C07     A14 := 0x07          
+01a2: 0091: c6 ef  SOTA A14,B15     A14 := A14-B15+DI0   
+01a4: 0092: 61 96  SAD0 1,96        br D1=0,0096         
+01a6: 0093: 7e 0f  CRTA A14,C0f     A14 := 0x0f          
+01a8: 0094: e7 ef  OREB A14,B15     B15 := A14 xor B15   
+01aa: 0095: c8 21  REDI 21          reset DI 0x21        
+01ac: 0096: a5 7f  ICL L7           L7++                 
+01ae: 0097: f5 7f  VRL L7           L7==0                
+01b0: 0098: 63 9a  SAD0 3,9a        br D3=0,009a         
+01b2: 0099: e5 7f  ICL L7           L7--                 
+01b4: 009a: 62 a2  SAD0 2,a2        br D2=0,00a2         
+01b6: 009b: 7e 00  CRTA A14,C00     A14 := 0x00          
+01b8: 009c: de 09  MLIP M0,L9       L9 := [M0++]         
+01ba: 009d: 01 30  SAI 0130         jump 0130            
+01bc: 009e: a8 9e  AMI M9,A14       [M9] := A14          
+01be: 009f: f5 2f  VRL L2           L2==0                
+01c0: 00a0: 63 e0  SAD0 3,e0        br D3=0,00e0         
+01c2: 00a1: e5 2f  ICL L2           L2--                 
+01c4: 00a2: 7e c4  CRTA A14,Cc4     A14 := 0xc4          
+01c6: 00a3: c8 01  REDI 01          reset DI 0x01        
+01c8: 00a4: 96 0f  ADDA A0,B15      A0 := A0+B15+DI0     
+01ca: 00a5: 12 de  SAI 12de         jump 12de            mask 1f00
+01cc: 00a6: 12 da  SAI 12da         jump 12da            mask 1f00
+01ce: 00a7: 12 c8  SAI 12c8         jump 12c8            mask 1f00
+01d0: 00a8: 12 d2  SAI 12d2         jump 12d2            mask 1f00
+01d2: 00a9: 12 d5  SAI 12d5         jump 12d5            mask 1f00
+01d4: 00aa: 12 b8  SAI 12b8         jump 12b8            mask 1f00
+01d6: 00ab: 12 b4  SAI 12b4         jump 12b4            mask 1f00
+01d8: 00ac: 9c 9c  MBIP M9,B12      B12 := [M9++]        
+01da: 00ad: 98 ae  MAIP M10,A14     A14 := [M10++]       
+01dc: 00ae: 87 ec  ORB A14,B12      B12 := A14 or B12    
+01de: 00af: 6b b2  SAD1 3,b2        br D3=1,00b2         
+01e0: 00b0: 7e ff  CRTA A14,Cff     A14 := 0xff          
+01e2: 00b1: e7 ec  OREB A14,B12     B12 := A14 xor B12   
+01e4: 00b2: 8c 8c  BMIP M8,A12      [M8++] := A12        
+01e6: 00b3: 12 97  SAI 1297         jump 1297            mask 1f00
+01e8: 00b4: 9c 9c  MBIP M9,B12      B12 := [M9++]        
+01ea: 00b5: 98 ae  MAIP M10,A14     A14 := [M10++]       
+01ec: 00b6: e7 ec  OREB A14,B12     B12 := A14 xor B12   
+01ee: 00b7: 12 af  SAI 12af         jump 12af            mask 1f00
+01f0: 00b8: 66 c5  SAD0 6,c5        br D6=0,00c5         
+01f2: 00b9: 68 c5  SAD1 0,c5        br D0=1,00c5         
+01f4: 00ba: e5 8f  ICL L8           L8--                 
+01f6: 00bb: e5 8f  ICL L8           L8--                 
+01f8: 00bc: c9 00  SEDI 00          set DI 0x00          
+01fa: 00bd: f6 e7  ORA A14,B7       A14 := A14 or B7     
+01fc: 00be: 88 8e  AMIP M8,A14      [M8++] := A14        
+01fe: 00bf: 88 87  AMIP M8,A7       [M8++] := A7         
+0200: 00c0: c9 00  SEDI 00          set DI 0x00          
+0202: 00c1: de 02  MLIP M0,L2       L2 := [M0++]         
+0204: 00c2: 00 00  SAI 0000         jump 0000            
+0206: 00c3: bc 9a  SLL L9,L10       L9 <-> L10           
+0208: 00c4: ba aa  SAB A10,B10      A10 <-> B10          
+020a: 00c5: c8 08  REDI 08          reset DI 0x08        
+020c: 00c6: 9c ac  MBIP M10,B12     B12 := [M10++]       
+020e: 00c7: 12 af  SAI 12af         jump 12af            mask 1f00
+0210: 00c8: 7e ff  CRTA A14,Cff     A14 := 0xff          
+0212: 00c9: 69 cf  SAD1 1,cf        br D1=1,00cf         
+0214: 00ca: 9c 9c  MBIP M9,B12      B12 := [M9++]        
+0216: 00cb: 9c ae  MBIP M10,B14     B14 := [M10++]       
+0218: 00cc: d7 ee  OREA A14,B14     A14 := A14 xor B14   
+021a: 00cd: b7 ec  ANDB A14,B12     B12 := A14 and B12   
+021c: 00ce: 12 af  SAI 12af         jump 12af            mask 1f00
+021e: 00cf: 9c ac  MBIP M10,B12     B12 := [M10++]       
+0220: 00d0: 9c 9e  MBIP M9,B14      B14 := [M9++]        
+0222: 00d1: 12 cc  SAI 12cc         jump 12cc            mask 1f00
+0224: 00d2: 66 c5  SAD0 6,c5        br D6=0,00c5         
+0226: 00d3: 69 c5  SAD1 1,c5        br D1=1,00c5         
+0228: 00d4: 12 ba  SAI 12ba         jump 12ba            mask 1f00
+022a: 00d5: 7e ff  CRTA A14,Cff     A14 := 0xff          
+022c: 00d6: 69 ca  SAD1 1,ca        br D1=1,00ca         
+022e: 00d7: 9c 9e  MBIP M9,B14      B14 := [M9++]        
+0230: 00d8: 9c ac  MBIP M10,B12     B12 := [M10++]       
+0232: 00d9: 12 cc  SAI 12cc         jump 12cc            mask 1f00
+0234: 00da: 9c 9c  MBIP M9,B12      B12 := [M9++]        
+0236: 00db: 98 ae  MAIP M10,A14     A14 := [M10++]       
+0238: 00dc: b7 ec  ANDB A14,B12     B12 := A14 and B12   
+023a: 00dd: 12 af  SAI 12af         jump 12af            mask 1f00
+023c: 00de: 5c 00  CRTB B12,C00     B12 := 0x00          
+023e: 00df: 12 af  SAI 12af         jump 12af            mask 1f00
+0240: 00e0: 7e 78  CRTA A14,C78     A14 := 0x78          
+0242: 00e1: de 08  MLIP M0,L8       L8 := [M0++]         
+0244: 00e2: 12 ec  SAI 12ec         jump 12ec            mask ff00
+0246: 00e3: 12 5e  SAI 125e         jump 125e            mask 1f00
+0248: 00e4: 7e 78  CRTA A14,C78     A14 := 0x78          
+024a: 00e5: de 08  MLIP M0,L8       L8 := [M0++]         
+024c: 00e6: 12 ea  SAI 12ea         jump 12ea            mask ff00
+024e: 00e7: a5 bf  ICL L11          L11++                
+0250: 00e8: a5 bf  ICL L11          L11++                
+0252: 00e9: 12 5e  SAI 125e         jump 125e            mask 1f00
+0254: 00ea: 10 0a  SAI 100a         jump 100a            
+0256: 00eb: 00 5a  SAI 005a         jump 005a            
+0258: 00ec: 0d ff  SAI 0dff         jump 0dff            
+025a: 00ed: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+025c: 00ee: 14 ec  SAI 14ec         jump 14ec            mask 1f00
+025e: 00ef: 98 82  MAIP M8,A2       A2 := [M8++]         
+0260: 00f0: bc 9a  SLL L9,L10       L9 <-> L10           
+0262: 00f1: ba aa  SAB A10,B10      A10 <-> B10          
+0264: 00f2: 8e 2f  VRA A2           A2==0                
+0266: 00f3: 63 ff  SAD0 3,ff        br D3=0,00ff         
+0268: 00f4: e1 ea  LMI A14,L10      [A14] := L10         
+026a: 00f5: 22 9a  AMD A02,C9a      [9a] := A2           
+026c: 00f6: de ea  MLIP A14,L10     L10 := [A14++]       
+026e: 00f7: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0270: 00f8: 14 ec  SAI 14ec         jump 14ec            mask 1f00
+0272: 00f9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0274: 00fa: 14 f7  SAI 14f7         jump 14f7            mask 1f00
+0276: 00fb: ae ef  ICA A14          A14--                
+0278: 00fc: 32 9a  MAD A02,C9a      A2 := [9a]           
+027a: 00fd: ae 2f  ICA A2           A2--                 
+027c: 00fe: 62 f5  SAD0 2,f5        br D2=0,00f5         
+027e: 00ff: 13 fb  SAI 13fb         jump 13fb            mask 1f00
+0280: 0100: c8 01  REDI 01          reset DI 0x01        mask ff01
+0282: 0101: 96 0d  ADDA A0,B13      A0 := A0+B13+DI0     
+0284: 0102: 13 0f  SAI 130f         jump 130f            mask 1f00
+0286: 0103: 14 a5  SAI 14a5         jump 14a5            mask 1f00
+0288: 0104: 12 00  SAI 1200         jump 1200            mask 1f00
+028a: 0105: 13 ac  SAI 13ac         jump 13ac            mask 1f00
+028c: 0106: 15 46  SAI 1546         jump 1546            mask 1f00
+028e: 0107: 00 00  SAI 0000         jump 0000            mask 1f00
+0290: 0108: 15 d1  SAI 15d1         jump 15d1            mask 1f00
+0292: 0109: 13 20  SAI 1320         jump 1320            mask 1f00
+0294: 010a: 15 61  SAI 1561         jump 1561            mask 1f00
+0296: 010b: 12 31  SAI 1231         jump 1231            mask 1f00
+0298: 010c: 00 00  SAI 0000         jump 0000            mask 1f00
+029a: 010d: 00 00  SAI 0000         jump 0000            mask 1f00
+029c: 010e: 00 00  SAI 0000         jump 0000            mask 1f00
+029e: 010f: f9 0f  TBAM A0,B15      A0.M := B15.M        
+02a0: 0110: 15 00  SAI 1500         jump 1500            mask 1f00
+02a2: 0111: 12 ed  SAI 12ed         jump 12ed            mask 1f00
+02a4: 0112: 13 2a  SAI 132a         jump 132a            mask 1f00
+02a6: 0113: 13 5f  SAI 135f         jump 135f            mask 1f00
+02a8: 0114: 13 87  SAI 1387         jump 1387            mask 1f00
+02aa: 0115: 13 85  SAI 1385         jump 1385            mask 1f00
+02ac: 0116: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02ae: 0117: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02b0: 0118: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02b2: 0119: 15 ca  SAI 15ca         jump 15ca            mask 1f00
+02b4: 011a: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02b6: 011b: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02b8: 011c: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02ba: 011d: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02bc: 011e: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02be: 011f: 13 f7  SAI 13f7         jump 13f7            mask 1f00
+02c0: 0120: a5 bf  ICL L11          L11++                
+02c2: 0121: d8 b7  TAB A11,B7       B7 := A11            
+02c4: 0122: e9 7b  TBA A7,B11       A7 := B11            
+02c6: 0123: a5 bf  ICL L11          L11++                
+02c8: 0124: a5 bf  ICL L11          L11++                
+02ca: 0125: a5 bf  ICL L11          L11++                
+02cc: 0126: a5 bf  ICL L11          L11++                
+02ce: 0127: 6a 29  SAD1 2,29        br D2=1,0129         
+02d0: 0128: bc 79  SLL L7,L9        L7 <-> L9            
+02d2: 0129: 13 fd  SAI 13fd         jump 13fd            mask 1f00
+02d4: 012a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+02d6: 012b: 12 1b  SAI 121b         jump 121b            mask 1f00
+02d8: 012c: c8 30  REDI 30          reset DI 0x30        
+02da: 012d: ba 22  SAB A2,B2        A2 <-> B2            
+02dc: 012e: c8 01  REDI 01          reset DI 0x01        
+02de: 012f: b6 27  SOT A2,B7        A2-B7+DI0            
+02e0: 0130: 61 53  SAD0 1,53        br D1=0,0153         
+02e2: 0131: c9 01  SEDI 01          set DI 0x01          
+02e4: 0132: b6 27  SOT A2,B7        A2-B7+DI0            
+02e6: 0133: 60 55  SAD0 0,55        br D0=0,0155         
+02e8: 0134: c8 01  REDI 01          reset DI 0x01        
+02ea: 0135: b6 72  SOT A7,B2        A7-B2+DI0            
+02ec: 0136: 61 55  SAD0 1,55        br D1=0,0155         
+02ee: 0137: c9 01  SEDI 01          set DI 0x01          
+02f0: 0138: b6 72  SOT A7,B2        A7-B2+DI0            
+02f2: 0139: 60 53  SAD0 0,53        br D0=0,0153         
+02f4: 013a: ba 22  SAB A2,B2        A2 <-> B2            
+02f6: 013b: f5 2f  VRL L2           L2==0                
+02f8: 013c: 63 4d  SAD0 3,4d        br D3=0,014d         
+02fa: 013d: e5 2f  ICL L2           L2--                 
+02fc: 013e: f5 7f  VRL L7           L7==0                
+02fe: 013f: 63 47  SAD0 3,47        br D3=0,0147         
+0300: 0140: e5 7f  ICL L7           L7--                 
+0302: 0141: 9c ac  MBIP M10,B12     B12 := [M10++]       
+0304: 0142: 98 98  MAIP M9,A8       A8 := [M9++]         
+0306: 0143: c9 01  SEDI 01          set DI 0x01          
+0308: 0144: b6 8c  SOT A8,B12       A8-B12+DI0           
+030a: 0145: 62 58  SAD0 2,58        br D2=0,0158         
+030c: 0146: 13 3b  SAI 133b         jump 133b            mask 1f00
+030e: 0147: 6b 4a  SAD1 3,4a        br D3=1,014a         
+0310: 0148: 5c 00  CRTB B12,C00     B12 := 0x00          
+0312: 0149: 13 42  SAI 1342         jump 1342            mask 1f00
+0314: 014a: 9c ac  MBIP M10,B12     B12 := [M10++]       
+0316: 014b: 78 00  CRTA A08,C00     A08 := 0x00          
+0318: 014c: 13 43  SAI 1343         jump 1343            mask 1f00
+031a: 014d: 72 01  CRTA A02,C01     A02 := 0x01          
+031c: 014e: de 07  MLIP M0,L7       L7 := [M0++]         
+031e: 014f: 00 a8  SAI 00a8         jump 00a8            
+0320: 0150: d1 78  MLI M7,L8        L8 := [M7]           
+0322: 0151: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0324: 0152: ad a1  EDC L10          L10.MMM--, ECOF if zero 
+0326: 0153: c9 20  SEDI 20          set DI 0x20          
+0328: 0154: 13 3a  SAI 133a         jump 133a            mask 1f00
+032a: 0155: c9 10  SEDI 10          set DI 0x10          
+032c: 0156: bc 27  SLL L2,L7        L2 <-> L7            
+032e: 0157: 13 3a  SAI 133a         jump 133a            mask 1f00
+0330: 0158: c9 01  SEDI 01          set DI 0x01          
+0332: 0159: b6 8c  SOT A8,B12       A8-B12+DI0           
+0334: 015a: 60 5d  SAD0 0,5d        br D0=0,015d         
+0336: 015b: 72 04  CRTA A02,C04     A02 := 0x04          
+0338: 015c: 13 4e  SAI 134e         jump 134e            mask 1f00
+033a: 015d: 72 02  CRTA A02,C02     A02 := 0x02          
+033c: 015e: 13 4e  SAI 134e         jump 134e            mask 1f00
+033e: 015f: 9c 8f  MBIP M8,B15      B15 := [M8++]        
+0340: 0160: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0342: 0161: 14 ec  SAI 14ec         jump 14ec            mask 1f00
+0344: 0162: 9c 97  MBIP M9,B7       B7 := [M9++]         
+0346: 0163: 77 04  CRTA A07,C04     A07 := 0x04          
+0348: 0164: 87 77  ORB A7,B7        B7 := A7 or B7       
+034a: 0165: 98 97  MAIP M9,A7       A7 := [M9++]         
+034c: 0166: a5 9f  ICL L9           L9++                 
+034e: 0167: 9c 9a  MBIP M9,B10      B10 := [M9++]        
+0350: 0168: 91 9a  MAI M9,A10       A10 := [M9]          
+0352: 0169: 9c a2  MBIP M10,B2      B2 := [M10++]        
+0354: 016a: 92 a2  MAIM M10,A2      A2 := [M10--]        
+0356: 016b: 8c a7  BMIP M10,A7      [M10++] := A7        
+0358: 016c: a8 a7  AMI M10,A7       [M10] := A7          
+035a: 016d: 79 04  CRTA A09,C04     A09 := 0x04          
+035c: 016e: 97 92  AND A9,B2        A9 and B2            
+035e: 016f: 62 72  SAD0 2,72        br D2=0,0172         
+0360: 0170: de 02  MLIP M0,L2       L2 := [M0++]         
+0362: 0171: 00 00  SAI 0000         jump 0000            
+0364: 0172: 79 03  CRTA A09,C03     A09 := 0x03          
+0366: 0173: b7 92  ANDB A9,B2       B2 := A9 and B2      
+0368: 0174: b7 97  ANDB A9,B7       B7 := A9 and B7      
+036a: 0175: c8 07  REDI 07          reset DI 0x07        
+036c: 0176: ba 77  SAB A7,B7        A7 <-> B7            
+036e: 0177: 96 a7  ADDA A10,B7      A10 := A10+B7+DI0    
+0370: 0178: a6 7a  ADDB A7,B10      B10 := A7+B10+DI0    
+0372: 0179: c9 01  SEDI 01          set DI 0x01          
+0374: 017a: bc 27  SLL L2,L7        L2 <-> L7            
+0376: 017b: d6 27  SOTB A2,B7       B7 := A2-B7+DI0      
+0378: 017c: ba 72  SAB A7,B2        A7 <-> B2            
+037a: 017d: c6 72  SOTA A7,B2       A7 := A7-B2+DI0      
+037c: 017e: ba 77  SAB A7,B7        A7 <-> B7            
+037e: 017f: f5 7f  VRL L7           L7==0                
+0380: 0180: 63 84  SAD0 3,84        br D3=0,0184         
+0382: 0181: e5 7f  ICL L7           L7--                 
+0384: 0182: 8a af  BMIM M10,A15     [M10--] := A15       
+0386: 0183: 13 7f  SAI 137f         jump 137f            mask 1f00
+0388: 0184: 13 fb  SAI 13fb         jump 13fb            mask 1f00
+038a: 0185: 5f ff  CRTB B15,Cff     B15 := 0xff          
+038c: 0186: 13 60  SAI 1360         jump 1360            mask 1f00
+038e: 0187: 9c 8f  MBIP M8,B15      B15 := [M8++]        
+0390: 0188: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0392: 0189: 14 ec  SAI 14ec         jump 14ec            mask 1f00
+0394: 018a: 9c 97  MBIP M9,B7       B7 := [M9++]         
+0396: 018b: a5 9f  ICL L9           L9++                 
+0398: 018c: a5 9f  ICL L9           L9++                 
+039a: 018d: 9c 9a  MBIP M9,B10      B10 := [M9++]        
+039c: 018e: 91 9a  MAI M9,A10       A10 := [M9]          
+039e: 018f: 9c a2  MBIP M10,B2      B2 := [M10++]        
+03a0: 0190: 72 04  CRTA A02,C04     A02 := 0x04          
+03a2: 0191: 97 22  AND A2,B2        A2 and B2            
+03a4: 0192: 62 96  SAD0 2,96        br D2=0,0196         
+03a6: 0193: de 02  MLIP M0,L2       L2 := [M0++]         
+03a8: 0194: 00 00  SAI 0000         jump 0000            
+03aa: 0195: 13 99  SAI 1399         jump 1399            mask 1f00
+03ac: 0196: 72 03  CRTA A02,C03     A02 := 0x03          
+03ae: 0197: b7 22  ANDB A2,B2       B2 := A2 and B2      
+03b0: 0198: 91 a2  MAI M10,A2       A2 := [M10]          
+03b2: 0199: d8 a9  TAB A10,B9       B9 := A10            
+03b4: 019a: e9 9a  TBA A9,B10       A9 := B10            
+03b6: 019b: ba 99  SAB A9,B9        A9 <-> B9            
+03b8: 019c: c8 07  REDI 07          reset DI 0x07        
+03ba: 019d: ba 22  SAB A2,B2        A2 <-> B2            
+03bc: 019e: 96 a2  ADDA A10,B2      A10 := A10+B2+DI0    
+03be: 019f: a6 2a  ADDB A2,B10      B10 := A2+B10+DI0    
+03c0: 01a0: ba 22  SAB A2,B2        A2 <-> B2            
+03c2: 01a1: a5 2f  ICL L2           L2++                 
+03c4: 01a2: e5 2f  ICL L2           L2--                 
+03c6: 01a3: 63 a7  SAD0 3,a7        br D3=0,01a7         
+03c8: 01a4: 92 a7  MAIM M10,A7      A7 := [M10--]        
+03ca: 01a5: c7 7f  ORE A7,B15       A7 xor B15           
+03cc: 01a6: 63 a2  SAD0 3,a2        br D3=0,01a2         
+03ce: 01a7: 82 92  AMIM M9,A2       [M9--] := A2         
+03d0: 01a8: 72 c4  CRTA A02,Cc4     A02 := 0xc4          
+03d2: 01a9: 87 22  ORB A2,B2        B2 := A2 or B2       
+03d4: 01aa: 8a 92  BMIM M9,A2       [M9--] := A2         
+03d6: 01ab: 13 fb  SAI 13fb         jump 13fb            mask 1f00
+03d8: 01ac: 37 98  MAD A07,C98      A7 := [98]           
+03da: 01ad: 85 7f  ICA A7           A7++                 
+03dc: 01ae: 85 7f  ICA A7           A7++                 
+03de: 01af: 27 98  AMD A07,C98      [98] := A7           
+03e0: 01b0: 9c 87  MBIP M8,B7       B7 := [M8++]         
+03e2: 01b1: 98 87  MAIP M8,A7       A7 := [M8++]         
+03e4: 01b2: 79 c0  CRTA A09,Cc0     A09 := 0xc0          
+03e6: 01b3: 87 97  ORB A9,B7        B7 := A9 or B7       
+03e8: 01b4: 8c 27  BMIP M2,A7       [M2++] := A7         
+03ea: 01b5: 88 27  AMIP M2,A7       [M2++] := A7         
+03ec: 01b6: de 0a  MLIP M0,L10      L10 := [M0++]        
+03ee: 01b7: 00 91  SAI 0091         jump 0091            
+03f0: 01b8: c8 10  REDI 10          reset DI 0x10        
+03f2: 01b9: e1 a2  LMI M10,L2       [M10] := L2          
+03f4: 01ba: 7a 03  CRTA A10,C03     A10 := 0x03          
+03f6: 01bb: b7 a7  ANDB A10,B7      B7 := A10 and B7     
+03f8: 01bc: a5 7f  ICL L7           L7++                 
+03fa: 01bd: a5 7f  ICL L7           L7++                 
+03fc: 01be: 3a 98  MAD A10,C98      A10 := [98]          
+03fe: 01bf: d8 ad  TAB A10,B13      B13 := A10           
+0400: 01c0: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0402: 01c1: 14 e6  SAI 14e6         jump 14e6            mask 1f00
+0404: 01c2: 68 c6  SAD1 0,c6        br D0=1,01c6         
+0406: 01c3: 7a 93  CRTA A10,C93     A10 := 0x93          
+0408: 01c4: e1 a2  LMI M10,L2       [M10] := L2          
+040a: 01c5: 13 c7  SAI 13c7         jump 13c7            mask 1f00
+040c: 01c6: a8 29  AMI M2,A9        [M2] := A9           
+040e: 01c7: 3a 6a  MAD A10,C6a      A10 := [6a]          
+0410: 01c8: 8e af  VRA A10          A10==0               
+0412: 01c9: 63 df  SAD0 3,df        br D3=0,01df         
+0414: 01ca: de 09  MLIP M0,L9       L9 := [M0++]         
+0416: 01cb: 00 90  SAI 0090         jump 0090            
+0418: 01cc: e1 9b  LMI M9,L11       [M9] := L11          
+041a: 01cd: 79 8a  CRTA A09,C8a     A09 := 0x8a          
+041c: 01ce: d1 9b  MLI M9,L11       L11 := [M9]          
+041e: 01cf: d1 99  MLI M9,L9        L9 := [M9]           
+0420: 01d0: de 07  MLIP M0,L7       L7 := [M0++]         
+0422: 01d1: 2e a9  AMD A14,Ca9      [a9] := A14          
+0424: 01d2: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0426: 01d3: bc 07  SLL L0,L7        L0 <-> L7            
+0428: 01d4: ae af  ICA A10          A10--                
+042a: 01d5: 62 d0  SAD0 2,d0        br D2=0,01d0         
+042c: 01d6: 2a 6a  AMD A10,C6a      [6a] := A10          
+042e: 01d7: c9 01  SEDI 01          set DI 0x01          
+0430: 01d8: ba 9b  SAB A9,B11       A9 <-> B11           
+0432: 01d9: d6 bb  SOTB A11,B11     B11 := A11-B11+DI0   
+0434: 01da: d6 99  SOTB A9,B9       B9 := A9-B9+DI0      
+0436: 01db: ba 9b  SAB A9,B11       A9 <-> B11           
+0438: 01dc: 7a 90  CRTA A10,C90     A10 := 0x90          
+043a: 01dd: d1 ab  MLI M10,L11      L11 := [M10]         
+043c: 01de: e1 a9  LMI M10,L9       [M10] := L9          
+043e: 01df: 7a 90  CRTA A10,C90     A10 := 0x90          
+0440: 01e0: de a9  MLIP M10,L9      L9 := [M10++]        
+0442: 01e1: 5d 08  CRTB B13,C08     B13 := 0x08          
+0444: 01e2: c8 01  REDI 01          reset DI 0x01        
+0446: 01e3: 96 9d  ADDA A9,B13      A9 := A9+B13+DI0     
+0448: 01e4: 60 e6  SAD0 0,e6        br D0=0,01e6         
+044a: 01e5: 95 9f  ICB B9           B9++                 
+044c: 01e6: c9 01  SEDI 01          set DI 0x01          
+044e: 01e7: ba 99  SAB A9,B9        A9 <-> B9            
+0450: 01e8: a6 29  ADDB A2,B9       B9 := A2+B9+DI0      
+0452: 01e9: 96 92  ADDA A9,B2       A9 := A9+B2+DI0      
+0454: 01ea: de a2  MLIP M10,L2      L2 := [M10++]        
+0456: 01eb: 8c 2a  BMIP M2,A10      [M2++] := A10        
+0458: 01ec: 88 29  AMIP M2,A9       [M2++] := A9         
+045a: 01ed: 8c 29  BMIP M2,A9       [M2++] := A9         
+045c: 01ee: a5 2f  ICL L2           L2++                 
+045e: 01ef: a5 2f  ICL L2           L2++                 
+0460: 01f0: a5 2f  ICL L2           L2++                 
+0462: 01f1: 68 f3  SAD1 0,f3        br D0=1,01f3         
+0464: 01f2: 12 09  SAI 1209         jump 1209            mask 1f00
+0466: 01f3: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0468: 01f4: a6 dc  ADDB A13,B12     B12 := A13+B12+DI0   
+046a: 01f5: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+046c: 01f6: ae 05  ICA A0           A0--                 
+046e: 01f7: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0470: 01f8: ae 2f  ICA A2           A2--                 
+0472: 01f9: c4 80  SLSA A8,C0       A8 << DI0            
+0474: 01fa: d4 81  SLSA B8          B8 << DI0            
+0476: 01fb: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0478: 01fc: b0 d8                                        
+047a: 01fd: ae ef  ICA A14          A14--                
+047c: 01fe: d1 e0  MLI A14,L0       L0 := [A14]
+  !addr
+047e: 01ff: 00 00  SAI 0000         jump 0000            
+0480: 0200: 3c 64  MAD A12,C64      A12 := [64]          
+0482: 0201: d8 b2  TAB A11,B2       B2 := A11            
+0484: 0202: e9 2b  TBA A2,B11       A2 := B11            
+0486: 0203: 5f 09  CRTB B15,C09     B15 := 0x09          
+0488: 0204: c8 01  REDI 01          reset DI 0x01        
+048a: 0205: 96 bf  ADDA A11,B15     A11 := A11+B15+DI0   
+048c: 0206: 60 08  SAD0 0,08        br D0=0,0208         
+048e: 0207: 95 bf  ICB B11          B11++                
+0490: 0208: 5f 05  CRTB B15,C05     B15 := 0x05          
+0492: 0209: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0494: 020a: 14 ec  SAI 14ec         jump 14ec            mask 1f00
+0496: 020b: be ff  ICB B15          B15--                
+0498: 020c: 62 09  SAD0 2,09        br D2=0,0209         
+049a: 020d: 9c 97  MBIP M9,B7       B7 := [M9++]         
+049c: 020e: 91 97  MAI M9,A7        A7 := [M9]           
+049e: 020f: de 09  MLIP M0,L9       L9 := [M0++]         
+04a0: 0210: 14 18  SAI 1418         jump 1418            mask ff00
+04a2: 0211: e1 97  LMI M9,L7        [M9] := L7           
+04a4: 0212: bc 2b  SLL L2,L11       L2 <-> L11           
+04a6: 0213: de 08  MLIP M0,L8       L8 := [M0++]         
+04a8: 0214: 14 16  SAI 1416         jump 1416            mask ff00
+04aa: 0215: 13 f9  SAI 13f9         jump 13f9            mask 1f00
+04ac: 0216: 63 57  SAD0 3,57        br D3=0,0257         
+04ae: 0217: 1e 00  SAI 1e00         jump 1e00            
+04b0: 0218: c0 00                                        
+04b2: 0219: 1c 17  SAI 1c17         jump 1c17            
+04b4: 021a: 39 00  MAD A09,C00      A9 := [00]           
+04b6: 021b: 0c 02  SAI 0c02         jump 0c02            
+04b8: 021c: 1b 39  SAI 1b39         jump 1b39            
+04ba: 021d: 01 40  SAI 0140         jump 0140            
+04bc: 021e: 5c 00  CRTB B12,C00     B12 := 0x00          
+04be: 021f: 5c 01  CRTB B12,C01     B12 := 0x01          
+04c0: 0220: 5a 3c  CRTB B10,C3c     B10 := 0x3c          
+04c2: 0221: 18 5c  SAI 185c         jump 185c            
+04c4: 0222: 02 38  SAI 0238         jump 0238            
+04c6: 0223: 3f 40  MAD A15,C40      A15 := [40]          
+04c8: 0224: 16 5c  SAI 165c         jump 165c            
+04ca: 0225: 03 38  SAI 0338         jump 0338            
+04cc: 0226: 3f 40  MAD A15,C40      A15 := [40]          
+04ce: 0227: 14 1c  SAI 141c         jump 141c            
+04d0: 0228: 45 01  SADE 5 01                             
+04d2: 0229: 32 01  MAD A02,C01      A2 := [01]           
+04d4: 022a: 9b 01  ROTB B0          B0.M <-> B0.P        
+04d6: 022b: 15 1c  SAI 151c         jump 151c            
+04d8: 022c: 45 05  SADE 5 05                             
+04da: 022d: 32 01  MAD A02,C01      A2 := [01]           
+04dc: 022e: 91 01  MAI M0,A1        A1 := [M0]           
+04de: 022f: 18 1c  SAI 181c         jump 181c            
+04e0: 0230: 45 01  SADE 5 01                             
+04e2: 0231: 32 01  MAD A02,C01      A2 := [01]           
+04e4: 0232: 81 01                                        
+04e6: 0233: 1a 15  SAI 1a15         jump 1a15            
+04e8: 0234: 18 41  SAI 1841         jump 1841            
+04ea: 0235: 1b 42  SAI 1b42         jump 1b42            
+04ec: 0236: 40 19  SADE 0 19                             
+04ee: 0237: 5c 00  CRTB B12,C00     B12 := 0x00          
+04f0: 0238: 38 3f  MAD A08,C3f      A8 := [3f]           
+04f2: 0239: 40 1a  SADE 0 1a                             
+04f4: 023a: 19 45  SAI 1945         jump 1945            
+04f6: 023b: 02 32  SAI 0232         jump 0232            
+04f8: 023c: 01 76  SAI 0176         jump 0176            
+04fa: 023d: 01 5c  SAI 015c         jump 015c            
+04fc: 023e: 00 15  SAI 0015         jump 0015            
+04fe: 023f: 1a 38  SAI 1a38         jump 1a38            
+0500: 0240: 7b 5c  CRTA A11,C5c     A11 := 0x5c          
+0502: 0241: 02 52  SAI 0252         jump 0252            
+0504: 0242: 06 32  SAI 0632         jump 0632            
+0506: 0243: 01 57  SAI 0157         jump 0157            
+0508: 0244: 01 15  SAI 0115         jump 0115            
+050a: 0245: 1b 45  SAI 1b45         jump 1b45            
+050c: 0246: 02 32  SAI 0232         jump 0232            
+050e: 0247: 01 13  SAI 0113         jump 0113            
+0510: 0248: 01 5c  SAI 015c         jump 015c            
+0512: 0249: 00 5c  SAI 005c         jump 005c            
+0514: 024a: 03 5c  SAI 035c         jump 035c            
+0516: 024b: 00 18  SAI 0018         jump 0018            
+0518: 024c: 1b 41  SAI 1b41         jump 1b41            
+051a: 024d: 19 38  SAI 1938         jump 1938            
+051c: 024e: 7b 50  CRTA A11,C50     A11 := 0x50          
+051e: 024f: 5a 06  CRTB B10,C06     B10 := 0x06          
+0520: 0250: 28 1a  AMD A08,C1a      [1a] := A8           
+0522: 0251: 15 18  SAI 1518         jump 1518            
+0524: 0252: 41 40  SADE 1 40                             
+0526: 0253: 1a 19  SAI 1a19         jump 1a19            
+0528: 0254: 45 05  SADE 5 05                             
+052a: 0255: 32 01  MAD A02,C01      A2 := [01]           
+052c: 0256: 09 01  SAI 0901         jump 0901            
+052e: 0257: 1a 19  SAI 1a19         jump 1a19            
+0530: 0258: 40 19  SADE 0 19                             
+0532: 0259: 1b 40  SAI 1b40         jump 1b40            
+0534: 025a: 5c 00  CRTB B12,C00     B12 := 0x00          
+0536: 025b: 5c 00  CRTB B12,C00     B12 := 0x00          
+0538: 025c: 1b 15  SAI 1b15         jump 1b15            
+053a: 025d: 1b 42  SAI 1b42         jump 1b42            
+053c: 025e: 38 7b  MAD A08,C7b      A8 := [7b]           
+053e: 025f: 5c 03  CRTB B12,C03     B12 := 0x03          
+0540: 0260: 50 5c  CRTB B00,C5c     B00 := 0x5c          
+0542: 0261: 00 1a  SAI 001a         jump 001a            
+0544: 0262: 19 38  SAI 1938         jump 1938            
+0546: 0263: 7b 50  CRTA A11,C50     A11 := 0x50          
+0548: 0264: 5a 15  CRTB B10,C15     B10 := 0x15          
+054a: 0265: 15 16  SAI 1516         jump 1516            
+054c: 0266: 41 1b  SADE 1 1b                             
+054e: 0267: 42 40  SADE 2 40                             
+0550: 0268: 17 17  SAI 1717         jump 1717            
+0552: 0269: 1b 41  SAI 1b41         jump 1b41            
+0554: 026a: 40 17  SADE 0 17                             
+0556: 026b: 14 45  SAI 1445         jump 1445            
+0558: 026c: 01 32  SAI 0132         jump 0132            
+055a: 026d: 01 14  SAI 0114         jump 0114            
+055c: 026e: 01 15  SAI 0115         jump 0115            
+055e: 026f: 15 1b  SAI 151b         jump 151b            
+0560: 0270: 41 40  SADE 1 40                             
+0562: 0271: 08 7e  SAI 087e         jump 087e            
+0564: 0272: 14 1c  SAI 141c         jump 141c            
+0566: 0273: 45 02  SADE 5 02                             
+0568: 0274: 32 01  MAD A02,C01      A2 := [01]           
+056a: 0275: 06 01  SAI 0601         jump 0601            
+056c: 0276: 30 02  MAD A00,C02      A0 := [02]           
+056e: 0277: 0d 3c  SAI 0d3c         jump 0d3c            
+0570: 0278: 5c 00  CRTB B12,C00     B12 := 0x00          
+0572: 0279: 0a 00  SAI 0a00         jump 0a00            
+0574: 027a: 5a 19  CRTB B10,C19     B10 := 0x19          
+0576: 027b: 5c 01  CRTB B12,C01     B12 := 0x01          
+0578: 027c: 38 3f  MAD A08,C3f      A8 := [3f]           
+057a: 027d: 40 5c  SADE 0 5c                             
+057c: 027e: 00 5c  SAI 005c         jump 005c            
+057e: 027f: 00 5c  SAI 005c         jump 005c            
+0580: 0280: 03 50  SAI 0350         jump 0350            
+0582: 0281: 5a 17  CRTB B10,C17     B10 := 0x17          
+0584: 0282: 17 1b  SAI 171b         jump 171b            
+0586: 0283: 41 40  SADE 1 40                             
+0588: 0284: 17 14  SAI 1714         jump 1714            
+058a: 0285: 45 01  SADE 5 01                             
+058c: 0286: 32 01  MAD A02,C01      A2 := [01]           
+058e: 0287: 05 01  SAI 0501         jump 0501            
+0590: 0288: 08 17  SAI 0817         jump 0817            
+0592: 0289: 3d 5c  MAD A13,C5c      A13 := [5c]          
+0594: 028a: 00 5c  SAI 005c         jump 005c            
+0596: 028b: 01 1b  SAI 011b         jump 011b            
+0598: 028c: 15 1b  SAI 151b         jump 151b            
+059a: 028d: 42 38  SADE 2 38                             
+059c: 028e: 7b 5c  CRTA A11,C5c     A11 := 0x5c          
+059e: 028f: 00 50  SAI 0050         jump 0050            
+05a0: 0290: 5c 01  CRTB B12,C01     B12 := 0x01          
+05a2: 0291: 15 19  SAI 1519         jump 1519            
+05a4: 0292: 38 7b  MAD A08,C7b      A8 := [7b]           
+05a6: 0293: 50 5a  CRTB B00,C5a     B00 := 0x5a          
+05a8: 0294: 3d 0d  MAD A13,C0d      A13 := [0d]          
+05aa: 0295: 63 30  SAD0 3,30        br D3=0,0230         
+05ac: 0296: 00 0c  SAI 000c         jump 000c            
+05ae: 0297: c0 00                                        
+05b0: 0298: 12 13  SAI 1213         jump 1213            
+05b2: 0299: 3c 64  MAD A12,C64      A12 := [64]          
+05b4: 029a: c8 20  REDI 20          reset DI 0x20        
+05b6: 029b: de 07  MLIP M0,L7       L7 := [M0++]         
+05b8: 029c: 00 83  SAI 0083         jump 0083            
+05ba: 029d: d1 7a  MLI M7,L10       L10 := [M7]          
+05bc: 029e: 5f 0f  CRTB B15,C0f     B15 := 0x0f          
+05be: 029f: c9 01  SEDI 01          set DI 0x01          
+05c0: 02a0: c6 af  SOTA A10,B15     A10 := A10-B15+DI0   
+05c2: 02a1: 61 a3  SAD0 1,a3        br D1=0,02a3         
+05c4: 02a2: be af  ICB B10          B10--                
+05c6: 02a3: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+05c8: 02a4: 14 f5  SAI 14f5         jump 14f5            mask 1f00
+05ca: 02a5: bc 7a  SLL L7,L10       L7 <-> L10           
+05cc: 02a6: ba aa  SAB A10,B10      A10 <-> B10          
+05ce: 02a7: f5 af  VRL L10          L10==0               
+05d0: 02a8: 63 dc  SAD0 3,dc        br D3=0,02dc         
+05d2: 02a9: e5 af  ICL L10          L10--                
+05d4: 02aa: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+05d6: 02ab: 14 f0  SAI 14f0         jump 14f0            mask 1f00
+05d8: 02ac: 66 dd  SAD0 6,dd        br D6=0,02dd         
+05da: 02ad: de 07  MLIP M0,L7       L7 := [M0++]         
+05dc: 02ae: 00 90  SAI 0090         jump 0090            
+05de: 02af: e1 72  LMI M7,L2        [M7] := L2           
+05e0: 02b0: bc 9a  SLL L9,L10       L9 <-> L10           
+05e2: 02b1: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+05e4: 02b2: 14 f0  SAI 14f0         jump 14f0            mask 1f00
+05e6: 02b3: d8 b9  TAB A11,B9       B9 := A11            
+05e8: 02b4: e9 9b  TBA A9,B11       A9 := B11            
+05ea: 02b5: 7a 0e  CRTA A10,C0e     A10 := 0x0e          
+05ec: 02b6: c8 01  REDI 01          reset DI 0x01        
+05ee: 02b7: a6 a9  ADDB A10,B9      B9 := A10+B9+DI0     
+05f0: 02b8: 60 ba  SAD0 0,ba        br D0=0,02ba         
+05f2: 02b9: 85 9f  ICA A9           A9++                 
+05f4: 02ba: e9 ab  TBA A10,B11      A10 := B11           
+05f6: 02bb: d8 ba  TAB A11,B10      B10 := A11           
+05f8: 02bc: ba aa  SAB A10,B10      A10 <-> B10          
+05fa: 02bd: 5f 0a  CRTB B15,C0a     B15 := 0x0a          
+05fc: 02be: c8 01  REDI 01          reset DI 0x01        
+05fe: 02bf: 96 af  ADDA A10,B15     A10 := A10+B15+DI0   
+0600: 02c0: 60 c2  SAD0 0,c2        br D0=0,02c2         
+0602: 02c1: 95 af  ICB B10          B10++                
+0604: 02c2: 66 df  SAD0 6,df        br D6=0,02df         
+0606: 02c3: c8 01  REDI 01          reset DI 0x01        
+0608: 02c4: a6 29  ADDB A2,B9       B9 := A2+B9+DI0      
+060a: 02c5: 96 92  ADDA A9,B2       A9 := A9+B2+DI0      
+060c: 02c6: ba 99  SAB A9,B9        A9 <-> B9            
+060e: 02c7: de 07  MLIP M0,L7       L7 := [M0++]         
+0610: 02c8: 00 90  SAI 0090         jump 0090            
+0612: 02c9: d1 77  MLI M7,L7        L7 := [M7]           
+0614: 02ca: c9 01  SEDI 01          set DI 0x01          
+0616: 02cb: ba 77  SAB A7,B7        A7 <-> B7            
+0618: 02cc: ba 27  SAB A2,B7        A2 <-> B7            
+061a: 02cd: c6 27  SOTA A2,B7       A2 := A2-B7+DI0      
+061c: 02ce: d6 72  SOTB A7,B2       B2 := A7-B2+DI0      
+061e: 02cf: 60 e1  SAD0 0,e1        br D0=0,02e1         
+0620: 02d0: a5 2f  ICL L2           L2++                 
+0622: 02d1: 77 c4  CRTA A07,Cc4     A07 := 0xc4          
+0624: 02d2: f6 72  ORA A7,B2        A7 := A7 or B2       
+0626: 02d3: 88 a7  AMIP M10,A7      [M10++] := A7        
+0628: 02d4: 88 a2  AMIP M10,A2      [M10++] := A2        
+062a: 02d5: 9c 9e  MBIP M9,B14      B14 := [M9++]        
+062c: 02d6: 8c ae  BMIP M10,A14     [M10++] := A14       
+062e: 02d7: e5 2f  ICL L2           L2--                 
+0630: 02d8: 62 d5  SAD0 2,d5        br D2=0,02d5         
+0632: 02d9: 5f 0d  CRTB B15,C0d     B15 := 0x0d          
+0634: 02da: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0636: 02db: bf 3d                                        
+0638: 02dc: a5 bf  ICL L11          L11++                
+063a: 02dd: a5 bf  ICL L11          L11++                
+063c: 02de: 14 b3  SAI 14b3         jump 14b3            mask 1f00
+063e: 02df: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0640: 02e0: 14 f2  SAI 14f2         jump 14f2            mask 1f00
+0642: 02e1: 5f c4  CRTB B15,Cc4     B15 := 0xc4          
+0644: 02e2: 8c af  BMIP M10,A15     [M10++] := A15       
+0646: 02e3: 5f 00  CRTB B15,C00     B15 := 0x00          
+0648: 02e4: 8c af  BMIP M10,A15     [M10++] := A15       
+064a: 02e5: 14 d9  SAI 14d9         jump 14d9            mask 1f00
+064c: 02e6: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+064e: 02e7: a0 cc                                        
+0650: 02e8: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0652: 02e9: a8 e2  AMI A14,A2       [A14] := A2          
+0654: 02ea: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0656: 02eb: b6 f9  SOT A15,B9       A15-B9+DI0           
+0658: 02ec: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+065a: 02ed: a9 30  EDB B3           data.B -> B3         
+065c: 02ee: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+065e: 02ef: a9 c5  EDB B12          data.B -> B12        
+0660: 02f0: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0662: 02f1: ac 96                                        
+0664: 02f2: 77 02  CRTA A07,C02     A07 := 0x02          
+0666: 02f3: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0668: 02f4: ae 08  ICA A0           A0--                 
+066a: 02f5: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+066c: 02f6: 0b 76  SAI 0b76         jump 0b76            
+066e: 02f7: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0670: 02f8: 01 c7  SAI 01c7         jump 01c7            
+0672: 02f9: 00 00  SAI 0000         jump 0000            
+0674: 02fa: 00 00  SAI 0000         jump 0000            
+0676: 02fb: 00 00  SAI 0000         jump 0000            
+0678: 02fc: 00 00  SAI 0000         jump 0000            
+067a: 02fd: 00 00  SAI 0000         jump 0000            
+067c: 02fe: 00 00  SAI 0000         jump 0000            
+067e: 02ff: 00 00  SAI 0000         jump 0000            
+0680: 0300: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0682: 0301: 12 1b  SAI 121b         jump 121b            mask 1f00
+0684: 0302: ba 22  SAB A2,B2        A2 <-> B2            
+0686: 0303: c8 07  REDI 07          reset DI 0x07        
+0688: 0304: 96 72  ADDA A7,B2       A7 := A7+B2+DI0      
+068a: 0305: a6 27  ADDB A2,B7       B7 := A2+B7+DI0      
+068c: 0306: 72 fc  CRTA A02,Cfc     A02 := 0xfc          
+068e: 0307: a7 27  ANDA A2,B7       A2 := A2 and B7      
+0690: 0308: 63 11  SAD0 3,11        br D3=0,0311         
+0692: 0309: 77 07  CRTA A07,C07     A07 := 0x07          
+0694: 030a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0696: 030b: a5 0f  ICL L0           L0++                 
+0698: 030c: 15 0f  SAI 150f         jump 150f            mask 1f00
+069a: 030d: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+069c: 030e: ae 08  ICA A0           A0--                 
+069e: 030f: de 07  MLIP M0,L7       L7 := [M0++]         
+06a0: 0310: 03 ff  SAI 03ff         jump 03ff            
+06a2: 0311: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+06a4: 0312: 14 e6  SAI 14e6         jump 14e6            mask 1f00
+06a6: 0313: de 0a  MLIP M0,L10      L10 := [M0++]        
+06a8: 0314: 00 90  SAI 0090         jump 0090            
+06aa: 0315: ee ab  LMIP M10,L11     [M10++] := L11       
+06ac: 0316: ee a7  LMIP M10,L7      [M10++] := L7        
+06ae: 0317: de 07  MLIP M0,L7       L7 := [M0++]         
+06b0: 0318: 00 08  SAI 0008         jump 0008            
+06b2: 0319: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+06b4: 031a: 14 e6  SAI 14e6         jump 14e6            mask 1f00
+06b6: 031b: ee a8  LMIP M10,L8      [M10++] := L8        
+06b8: 031c: de 08  MLIP M0,L8       L8 := [M0++]         
+06ba: 031d: 00 b0  SAI 00b0         jump 00b0            
+06bc: 031e: d1 87  MLI M8,L7        L7 := [M8]           
+06be: 031f: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+06c0: 0320: 14 e6  SAI 14e6         jump 14e6            mask 1f00
+06c2: 0321: a5 8f  ICL L8           L8++                 
+06c4: 0322: a5 8f  ICL L8           L8++                 
+06c6: 0323: d1 89  MLI M8,L9        L9 := [M8]           
+06c8: 0324: a5 bf  ICL L11          L11++                
+06ca: 0325: ee 8b  LMIP M8,L11      [M8++] := L11        
+06cc: 0326: f5 7f  VRL L7           L7==0                
+06ce: 0327: 63 2c  SAD0 3,2c        br D3=0,032c         
+06d0: 0328: e5 7f  ICL L7           L7--                 
+06d2: 0329: 9c 9c  MBIP M9,B12      B12 := [M9++]        
+06d4: 032a: 8c 2c  BMIP M2,A12      [M2++] := A12        
+06d6: 032b: 15 26  SAI 1526         jump 1526            mask 1f00
+06d8: 032c: de 0a  MLIP M0,L10      L10 := [M0++]        
+06da: 032d: 00 90  SAI 0090         jump 0090            
+06dc: 032e: de ab  MLIP M10,L11     L11 := [M10++]       
+06de: 032f: de a7  MLIP M10,L7      L7 := [M10++]        
+06e0: 0330: de a2  MLIP M10,L2      L2 := [M10++]        
+06e2: 0331: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+06e4: 0332: 14 e8  SAI 14e8         jump 14e8            mask 1f00
+06e6: 0333: dd 89  MLIM M8,L9       L9 := [M8--]         
+06e8: 0334: dd 8a  MLIM M8,L10      L10 := [M8--]        
+06ea: 0335: d1 88  MLI M8,L8        L8 := [M8]           
+06ec: 0336: f5 7f  VRL L7           L7==0                
+06ee: 0337: 63 42  SAD0 3,42        br D3=0,0342         
+06f0: 0338: e5 7f  ICL L7           L7--                 
+06f2: 0339: f5 8f  VRL L8           L8==0                
+06f4: 033a: 63 3f  SAD0 3,3f        br D3=0,033f         
+06f6: 033b: e5 8f  ICL L8           L8--                 
+06f8: 033c: 9c 9c  MBIP M9,B12      B12 := [M9++]        
+06fa: 033d: 8c 2c  BMIP M2,A12      [M2++] := A12        
+06fc: 033e: 15 36  SAI 1536         jump 1536            mask 1f00
+06fe: 033f: 9c ac  MBIP M10,B12     B12 := [M10++]       
+0700: 0340: 8c 2c  BMIP M2,A12      [M2++] := A12        
+0702: 0341: 15 36  SAI 1536         jump 1536            mask 1f00
+0704: 0342: de 07  MLIP M0,L7       L7 := [M0++]         
+0706: 0343: 00 a8  SAI 00a8         jump 00a8            
+0708: 0344: d1 78  MLI M7,L8        L8 := [M7]           
+070a: 0345: 13 fb  SAI 13fb         jump 13fb            mask 1f00
+070c: 0346: a5 9f  ICL L9           L9++                 
+070e: 0347: a5 9f  ICL L9           L9++                 
+0710: 0348: a5 9f  ICL L9           L9++                 
+0712: 0349: a5 9f  ICL L9           L9++                 
+0714: 034a: 9c 9a  MBIP M9,B10      B10 := [M9++]        
+0716: 034b: 98 9a  MAIP M9,A10      A10 := [M9++]        
+0718: 034c: 9c a7  MBIP M10,B7      B7 := [M10++]        
+071a: 034d: 77 03  CRTA A07,C03     A07 := 0x03          
+071c: 034e: b7 77  ANDB A7,B7       B7 := A7 and B7      
+071e: 034f: 98 a7  MAIP M10,A7      A7 := [M10++]        
+0720: 0350: a5 9f  ICL L9           L9++                 
+0722: 0351: a5 9f  ICL L9           L9++                 
+0724: 0352: bc 9b  SLL L9,L11       L9 <-> L11           
+0726: 0353: ba bb  SAB A11,B11      A11 <-> B11          
+0728: 0354: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+072a: 0355: 14 e6  SAI 14e6         jump 14e6            mask 1f00
+072c: 0356: de 09  MLIP M0,L9       L9 := [M0++]         
+072e: 0357: 00 4c  SAI 004c         jump 004c            
+0730: 0358: ee 97  LMIP M9,L7       [M9++] := L7         
+0732: 0359: e1 92  LMI M9,L2        [M9] := L2           
+0734: 035a: bc 29  SLL L2,L9        L2 <-> L9            
+0736: 035b: ba 99  SAB A9,B9        A9 <-> B9            
+0738: 035c: bc 72  SLL L7,L2        L7 <-> L2            
+073a: 035d: ba 22  SAB A2,B2        A2 <-> B2            
+073c: 035e: c9 20  SEDI 20          set DI 0x20          
+073e: 035f: de 00  MLIP M0,L0       L0 := [M0++]
+  !addr
+0740: 0360: b5 23                                        
+0742: 0361: de 09  MLIP M0,L9       L9 := [M0++]         
+0744: 0362: 00 4c  SAI 004c         jump 004c            
+0746: 0363: de 97  MLIP M9,L7       L7 := [M9++]         
+0748: 0364: d1 92  MLI M9,L2        L2 := [M9]           
+074a: 0365: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+074c: 0366: 14 e8  SAI 14e8         jump 14e8            mask 1f00
+074e: 0367: 5c 06  CRTB B12,C06     B12 := 0x06          
+0750: 0368: de 00  MLIP M0,L0       L0 := [M0++]
+  !addr
+0752: 0369: b4 d8  ECO A13          cmd.B <- [A13]       
+0754: 036a: 63 43  SAD0 3,43        br D3=0,0343         
+0756: 036b: 00 60  SAI 0060         jump 0060            
+0758: 036c: 15 5c  SAI 155c         jump 155c            
+075a: 036d: 01 38  SAI 0138         jump 0138            
+075c: 036e: 3f 40  MAD A15,C40      A15 := [40]          
+075e: 036f: 16 5c  SAI 165c         jump 165c            
+0760: 0370: 02 38  SAI 0238         jump 0238            
+0762: 0371: 3f 40  MAD A15,C40      A15 := [40]          
+0764: 0372: 3c 15  MAD A12,C15      A12 := [15]          
+0766: 0373: 5c 01  CRTB B12,C01     B12 := 0x01          
+0768: 0374: 38 3f  MAD A08,C3f      A8 := [3f]           
+076a: 0375: 16 42  SAI 1642         jump 1642            
+076c: 0376: 40 15  SADE 0 15                             
+076e: 0377: 39 00  MAD A09,C00      A9 := [00]           
+0770: 0378: 45 04  SADE 5 04                             
+0772: 0379: 32 01  MAD A02,C01      A2 := [01]           
+0774: 037a: 4b 01  SADE b 01                             
+0776: 037b: 15 15  SAI 1515         jump 1515            
+0778: 037c: 39 01  MAD A09,C01      A9 := [01]           
+077a: 037d: 41 40  SADE 1 40                             
+077c: 037e: 10 14  SAI 1014         jump 1014            
+077e: 037f: 16 42  SAI 1642         jump 1642            
+0780: 0380: 40 3c  SADE 0 3c                             
+0782: 0381: 17 39  SAI 1739         jump 1739            
+0784: 0382: 01 40  SAI 0140         jump 0140            
+0786: 0383: 17 13  SAI 1713         jump 1713            
+0788: 0384: 45 02  SADE 5 02                             
+078a: 0385: 32 01  MAD A02,C01      A2 := [01]           
+078c: 0386: 3b 01  MAD A11,C01      A11 := [01]          
+078e: 0387: 10 10  SAI 1010         jump 1010            
+0790: 0388: 16 41  SAI 1641         jump 1641            
+0792: 0389: 40 3c  SADE 0 3c                             
+0794: 038a: 10 15  SAI 1015         jump 1015            
+0796: 038b: 45 02  SADE 5 02                             
+0798: 038c: 32 01  MAD A02,C01      A2 := [01]           
+079a: 038d: 29 01  AMD A09,C01      [01] := A9           
+079c: 038e: 5c 01  CRTB B12,C01     B12 := 0x01          
+079e: 038f: 10 10  SAI 1010         jump 1010            
+07a0: 0390: 16 41  SAI 1641         jump 1641            
+07a2: 0391: 39 01  MAD A09,C01      A9 := [01]           
+07a4: 0392: 42 38  SADE 2 38                             
+07a6: 0393: 7b 5c  CRTA A11,C5c     A11 := 0x5c          
+07a8: 0394: 02 52  SAI 0252         jump 0252            
+07aa: 0395: 01 32  SAI 0132         jump 0132            
+07ac: 0396: 01 0b  SAI 010b         jump 010b            
+07ae: 0397: 01 10  SAI 0110         jump 0110            
+07b0: 0398: 10 39  SAI 1039         jump 1039            
+07b2: 0399: 01 41  SAI 0141         jump 0141            
+07b4: 039a: 40 08  SADE 0 08                             
+07b6: 039b: 23 3c  AMD A03,C3c      [3c] := A3           
+07b8: 039c: 17 17  SAI 1717         jump 1717            
+07ba: 039d: 39 01  MAD A09,C01      A9 := [01]           
+07bc: 039e: 41 40  SADE 1 40                             
+07be: 039f: 08 3a  SAI 083a         jump 083a            
+07c0: 03a0: 30 02  MAD A00,C02      A0 := [02]           
+07c2: 03a1: 10 39  SAI 1039         jump 1039            
+07c4: 03a2: 00 40  SAI 0040         jump 0040            
+07c6: 03a3: 0d 3c  SAI 0d3c         jump 0d3c            
+07c8: 03a4: 63 10  SAD0 3,10        br D3=0,0310         
+07ca: 03a5: 00 02  SAI 0002         jump 0002            
+07cc: 03a6: c4 01  SLSA A0,C1       A0 << DI0            
+07ce: 03a7: 3c 64  MAD A12,C64      A12 := [64]          
+07d0: 03a8: de 08  MLIP M0,L8       L8 := [M0++]         
+07d2: 03a9: 00 83  SAI 0083         jump 0083            
+07d4: 03aa: d1 89  MLI M8,L9        L9 := [M8]           
+07d6: 03ab: d1 88  MLI M8,L8        L8 := [M8]           
+07d8: 03ac: 5e 0f  CRTB B14,C0f     B14 := 0x0f          
+07da: 03ad: c9 01  SEDI 01          set DI 0x01          
+07dc: 03ae: c6 9e  SOTA A9,B14      A9 := A9-B14+DI0     
+07de: 03af: 61 b1  SAD0 1,b1        br D1=0,03b1         
+07e0: 03b0: be 9f  ICB B9           B9--                 
+07e2: 03b1: de 0a  MLIP M0,L10      L10 := [M0++]        
+07e4: 03b2: 00 ff  SAI 00ff         jump 00ff            
+07e6: 03b3: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+07e8: 03b4: 15 c8  SAI 15c8         jump 15c8            mask 1f00
+07ea: 03b5: 66 c1  SAD0 6,c1        br D6=0,03c1         
+07ec: 03b6: 85 2f  ICA A2           A2++                 
+07ee: 03b7: 79 01  CRTA A09,C01     A09 := 0x01          
+07f0: 03b8: e5 8f  ICL L8           L8--                 
+07f2: 03b9: e5 8f  ICL L8           L8--                 
+07f4: 03ba: e5 8f  ICL L8           L8--                 
+07f6: 03bb: 92 8a  MAIM M8,A10      A10 := [M8--]        
+07f8: 03bc: 99 8a  MBI M8,B10       B10 := [M8]          
+07fa: 03bd: a5 af  ICL L10          L10++                
+07fc: 03be: 88 a9  AMIP M10,A9      [M10++] := A9        
+07fe: 03bf: a8 a2  AMI M10,A2       [M10] := A2          
+0800: 03c0: 14 d9  SAI 14d9         jump 14d9            mask 1f00
+0802: 03c1: 69 c4  SAD1 1,c4        br D1=1,03c4         
+0804: 03c2: 6a c4  SAD1 2,c4        br D2=1,03c4         
+0806: 03c3: 15 b7  SAI 15b7         jump 15b7            mask 1f00
+0808: 03c4: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+080a: 03c5: 14 f2  SAI 14f2         jump 14f2            mask 1f00
+080c: 03c6: 72 00  CRTA A02,C00     A02 := 0x00          
+080e: 03c7: 15 b7  SAI 15b7         jump 15b7            mask 1f00
+0810: 03c8: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0812: 03c9: ac 98                                        
+0814: 03ca: 9c 87  MBIP M8,B7       B7 := [M8++]         
+0816: 03cb: 77 00  CRTA A07,C00     A07 := 0x00          
+0818: 03cc: 27 6a  AMD A07,C6a      [6a] := A7           
+081a: 03cd: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+081c: 03ce: 15 fe  SAI 15fe         jump 15fe            mask 1f00
+081e: 03cf: de 00  MLIP M0,L0       L0 := [M0++]
+  !addr
+0820: 03d0: ae 42  ICA A4           A4--                 
+0822: 03d1: bc ba  SLL L11,L10      L11 <-> L10          
+0824: 03d2: 9c 9b  MBIP M9,B11      B11 := [M9++]        
+0826: 03d3: 92 9b  MAIM M9,A11      A11 := [M9--]        
+0828: 03d4: a5 bf  ICL L11          L11++                
+082a: 03d5: a5 bf  ICL L11          L11++                
+082c: 03d6: ba bb  SAB A11,B11      A11 <-> B11          
+082e: 03d7: 5d 03  CRTB B13,C03     B13 := 0x03          
+0830: 03d8: a7 bd  ANDA A11,B13     A11 := A11 and B13   
+0832: 03d9: 9e 2f  VRB B2           B2==0                
+0834: 03da: 63 e0  SAD0 3,e0        br D3=0,03e0         
+0836: 03db: bc 2b  SLL L2,L11       L2 <-> L11           
+0838: 03dc: 9e 2f  VRB B2           B2==0                
+083a: 03dd: 63 e0  SAD0 3,e0        br D3=0,03e0         
+083c: 03de: de 00  MLIP M0,L0       L0 := [M0++]
+  !addr
+083e: 03df: ae 9f  ICA A9           A9--                 
+0840: 03e0: d8 27  TAB A2,B7        B7 := A2             
+0842: 03e1: 72 00  CRTA A02,C00     A02 := 0x00          
+0844: 03e2: 77 08  CRTA A07,C08     A07 := 0x08          
+0846: 03e3: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0848: 03e4: 15 fc  SAI 15fc         jump 15fc            mask 1f00
+084a: 03e5: bc ba  SLL L11,L10      L11 <-> L10          
+084c: 03e6: 9c 97  MBIP M9,B7       B7 := [M9++]         
+084e: 03e7: 98 97  MAIP M9,A7       A7 := [M9++]         
+0850: 03e8: 98 9a  MAIP M9,A10      A10 := [M9++]        
+0852: 03e9: 98 9a  MAIP M9,A10      A10 := [M9++]        
+0854: 03ea: 9c 9a  MBIP M9,B10      B10 := [M9++]        
+0856: 03eb: c8 01  REDI 01          reset DI 0x01        
+0858: 03ec: a6 2a  ADDB A2,B10      B10 := A2+B10+DI0    
+085a: 03ed: 96 a2  ADDA A10,B2      A10 := A10+B2+DI0    
+085c: 03ee: 5c 06  CRTB B12,C06     B12 := 0x06          
+085e: 03ef: de 09  MLIP M0,L9       L9 := [M0++]         
+0860: 03f0: c3 a9  SLDA A10,C9      A10 >> DI0           
+0862: 03f1: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0864: 03f2: bc 09  SLL L0,L9        L0 <-> L9            
+0866: 03f3: 5d 07  CRTB B13,C07     B13 := 0x07          
+0868: 03f4: 8c 2d  BMIP M2,A13      [M2++] := A13        
+086a: 03f5: 5d 00  CRTB B13,C00     B13 := 0x00          
+086c: 03f6: 8c 27  BMIP M2,A7       [M2++] := A7         
+086e: 03f7: 88 27  AMIP M2,A7       [M2++] := A7         
+0870: 03f8: 8c 2d  BMIP M2,A13      [M2++] := A13        
+0872: 03f9: 88 2a  AMIP M2,A10      [M2++] := A10        
+0874: 03fa: 89 2a  BMI M2,A10       [M2] := A10          
+0876: 03fb: 13 fb  SAI 13fb         jump 13fb            mask 1f00
+0878: 03fc: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+087a: 03fd: ad bf  EDC L11          L11.MMM--, ECOF if zero 
+087c: 03fe: d1 00  MLI M0,L0        L0 := [M0]           
+087e: 03ff: a9 9a  EDB B9           data.B -> B9         
+==== Overlay 1
+  relocs at 1080
+  50 relocations
+0a80: 0000: 17 15  SAI 1715         jump 1715            mask ff00
+0a82: 0001: 17 1d  SAI 171d         jump 171d            mask ff00
+0a84: 0002: 16 cc  SAI 16cc         jump 16cc            mask ff00
+0a86: 0003: 16 ef  SAI 16ef         jump 16ef            mask ff00
+0a88: 0004: 17 22  SAI 1722         jump 1722            mask ff00
+0a8a: 0005: 17 0e  SAI 170e         jump 170e            mask ff00
+0a8c: 0006: 17 c4  SAI 17c4         jump 17c4            mask ff00
+0a8e: 0007: 17 60  SAI 1760         jump 1760            mask ff00
+0a90: 0008: 17 5a  SAI 175a         jump 175a            mask ff00
+0a92: 0009: 16 27  SAI 1627         jump 1627            mask ff00
+0a94: 000a: 16 1b  SAI 161b         jump 161b            mask ff00
+0a96: 000b: 16 2c  SAI 162c         jump 162c            mask ff00
+0a98: 000c: 16 21  SAI 1621         jump 1621            mask ff00
+0a9a: 000d: 17 f5  SAI 17f5         jump 17f5            mask ff00
+0a9c: 000e: 16 81  SAI 1681         jump 1681            mask ff00
+0a9e: 000f: 17 0b  SAI 170b         jump 170b            mask ff00
+0aa0: 0010: 16 18  SAI 1618         jump 1618            mask ff00
+0aa2: 0011: e9 7e  TBA A7,B14       A7 := B14            
+0aa4: 0012: 57 16  CRTB B07,C16     B07 := 0x16          
+0aa6: 0013: de 78  MLIP M7,L8       L8 := [M7++]         
+0aa8: 0014: c4 80  SLSA A8,C0       A8 << DI0            
+0aaa: 0015: d4 81  SLSA B8          B8 << DI0            
+0aac: 0016: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0aae: 0017: bf 3b                                        
+0ab0: 0018: 63 13  SAD0 3,13        br D3=0,0013         
+0ab2: 0019: 00 00  SAI 0000         jump 0000            
+0ab4: 001a: 06 1c  SAI 061c         jump 061c            
+0ab6: 001b: 63 31  SAD0 3,31        br D3=0,0031         
+0ab8: 001c: 00 08  SAI 0008         jump 0008            
+0aba: 001d: 12 13  SAI 1213         jump 1213            
+0abc: 001e: 11 3e  SAI 113e         jump 113e            
+0abe: 001f: 00 06  SAI 0006         jump 0006            
+0ac0: 0020: 11 ff  SAI 11ff         jump 11ff            
+0ac2: 0021: 63 31  SAD0 3,31        br D3=0,0031         
+0ac4: 0022: 00 08  SAI 0008         jump 0008            
+0ac6: 0023: 12 13  SAI 1213         jump 1213            
+0ac8: 0024: 11 3e  SAI 113e         jump 113e            
+0aca: 0025: 00 06  SAI 0006         jump 0006            
+0acc: 0026: 0f ff  SAI 0fff         jump 0fff            
+0ace: 0027: 63 13  SAD0 3,13        br D3=0,0013         
+0ad0: 0028: 00 08  SAI 0008         jump 0008            
+0ad2: 0029: 10 3c  SAI 103c         jump 103c            
+0ad4: 002a: 39 00  MAD A09,C00      A9 := [00]           
+0ad6: 002b: 06 08  SAI 0608         jump 0608            
+0ad8: 002c: 63 13  SAD0 3,13        br D3=0,0013         
+0ada: 002d: 00 08  SAI 0008         jump 0008            
+0adc: 002e: 10 3c  SAI 103c         jump 103c            
+0ade: 002f: 39 01  MAD A09,C01      A9 := [01]           
+0ae0: 0030: 40 12  SADE 0 12                             
+0ae2: 0031: 13 11  SAI 1311         jump 1311            
+0ae4: 0032: 3e 01  MAD A14,C01      A14 := [01]          
+0ae6: 0033: 39 01  MAD A09,C01      A9 := [01]           
+0ae8: 0034: 13 39  SAI 1339         jump 1339            
+0aea: 0035: 01 61  SAI 0161         jump 0161            
+0aec: 0036: 13 00  SAI 1300         jump 1300            
+0aee: 0037: 00 39  SAI 0039         jump 0039            
+0af0: 0038: 01 12  SAI 0112         jump 0112            
+0af2: 0039: 39 01  MAD A09,C01      A9 := [01]           
+0af4: 003a: 61 14  SAD0 1,14        br D1=0,0014         
+0af6: 003b: 00 00  SAI 0000         jump 0000            
+0af8: 003c: 13 14  SAI 1314         jump 1314            
+0afa: 003d: 3e 02  MAD A14,C02      A14 := [02]          
+0afc: 003e: 01 10  SAI 0110         jump 0110            
+0afe: 003f: 40 62  SADE 0 62                             
+0b00: 0040: 14 62  SAI 1462         jump 1462            
+0b02: 0041: 13 31  SAI 1331         jump 1331            
+0b04: 0042: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b06: 0043: 16 4a  SAI 164a         jump 164a            mask 1f00
+0b08: 0044: bc b2  SLL L11,L2       L11 <-> L2           
+0b0a: 0045: ba 22  SAB A2,B2        A2 <-> B2            
+0b0c: 0046: 5f 04  CRTB B15,C04     B15 := 0x04          
+0b0e: 0047: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b10: 0048: 17 75  SAI 1775         jump 1775            mask 1f00
+0b12: 0049: 16 60  SAI 1660         jump 1660            mask 1f00
+0b14: 004a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b16: 004b: 16 51  SAI 1651         jump 1651            mask 1f00
+0b18: 004c: a5 9f  ICL L9           L9++                 
+0b1a: 004d: 98 92  MAIP M9,A2       A2 := [M9++]         
+0b1c: 004e: 99 92  MBI M9,B2        B2 := [M9]           
+0b1e: 004f: bc 29  SLL L2,L9        L2 <-> L9            
+0b20: 0050: 16 7b  SAI 167b         jump 167b            mask 1f00
+0b22: 0051: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0b24: 0052: a9 30  EDB B3           data.B -> B3         
+0b26: 0053: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b28: 0054: 16 4a  SAI 164a         jump 164a            mask 1f00
+0b2a: 0055: a5 9f  ICL L9           L9++                 
+0b2c: 0056: a5 9f  ICL L9           L9++                 
+0b2e: 0057: a5 9f  ICL L9           L9++                 
+0b30: 0058: a5 9f  ICL L9           L9++                 
+0b32: 0059: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b34: 005a: 16 62  SAI 1662         jump 1662            mask 1f00
+0b36: 005b: de 09  MLIP M0,L9       L9 := [M0++]         
+0b38: 005c: 00 89  SAI 0089         jump 0089            
+0b3a: 005d: d1 99  MLI M9,L9        L9 := [M9]           
+0b3c: 005e: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b3e: 005f: 16 62  SAI 1662         jump 1662            mask 1f00
+0b40: 0060: de 00  MLIP M0,L0       L0 := [M0++]
+0b42: 0061: b0 d8                                        
+0b44: 0062: 5c 09  CRTB B12,C09     B12 := 0x09          
+0b46: 0063: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b48: 0064: 16 7f  SAI 167f         jump 167f            mask 1f00
+0b4a: 0065: bc 2a  SLL L2,L10       L2 <-> L10           
+0b4c: 0066: ba aa  SAB A10,B10      A10 <-> B10          
+0b4e: 0067: 9c 92  MBIP M9,B2       B2 := [M9++]         
+0b50: 0068: 98 92  MAIP M9,A2       A2 := [M9++]         
+0b52: 0069: a5 2f  ICL L2           L2++                 
+0b54: 006a: de 07  MLIP M0,L7       L7 := [M0++]         
+0b56: 006b: 00 89  SAI 0089         jump 0089            
+0b58: 006c: e1 79  LMI M7,L9        [M7] := L9           
+0b5a: 006d: 79 bf  CRTA A09,Cbf     A09 := 0xbf          
+0b5c: 006e: de 07  MLIP M0,L7       L7 := [M0++]         
+0b5e: 006f: ac bd                                        
+0b60: 0070: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b62: 0071: bc 07  SLL L0,L7        L0 <-> L7            
+0b64: 0072: de 09  MLIP M0,L9       L9 := [M0++]         
+0b66: 0073: f9 b6  TBAM A11,B6      A11.M := B6.M        
+0b68: 0074: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b6a: 0075: bc 09  SLL L0,L9        L0 <-> L9            
+0b6c: 0076: bc 9a  SLL L9,L10       L9 <-> L10           
+0b6e: 0077: ba 99  SAB A9,B9        A9 <-> B9            
+0b70: 0078: ba aa  SAB A10,B10      A10 <-> B10          
+0b72: 0079: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b74: 007a: 16 7d  SAI 167d         jump 167d            mask 1f00
+0b76: 007b: ae ef  ICA A14          A14--                
+0b78: 007c: d1 e0  MLI A14,L0       L0 := [A14]
+0b7a: 007d: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0b7c: 007e: bb 59  AZAP A5          A5.P := 0            
+0b7e: 007f: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0b80: 0080: a9 c5  EDB B12          data.B -> B12        
+0b82: 0081: 63 00  SAD0 3,00        br D3=0,0000         
+0b84: 0082: 00 00  SAI 0000         jump 0000            
+0b86: 0083: 10 39  SAI 1039         jump 1039            
+0b88: 0084: 1d 40  SAI 1d40         jump 1d40            
+0b8a: 0085: 0d ff  SAI 0dff         jump 0dff            
+0b8c: 0086: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0b8e: 0087: 16 51  SAI 1651         jump 1651            mask 1f00
+0b90: 0088: de 07  MLIP M0,L7       L7 := [M0++]         
+0b92: 0089: 18 f5  SAI 18f5         jump 18f5            mask ff00
+0b94: 008a: c4 70  SLSA A7,C0       A7 << DI0            
+0b96: 008b: d4 71  SLSA B7          B7 << DI0            
+0b98: 008c: a5 9f  ICL L9           L9++                 
+0b9a: 008d: 8c 97  BMIP M9,A7       [M9++] := A7         
+0b9c: 008e: 88 97  AMIP M9,A7       [M9++] := A7         
+0b9e: 008f: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0ba0: 0090: 16 ed  SAI 16ed         jump 16ed            mask 1f00
+0ba2: 0091: de 09  MLIP M0,L9       L9 := [M0++]         
+0ba4: 0092: 18 f8  SAI 18f8         jump 18f8            mask ff00
+0ba6: 0093: c4 90  SLSA A9,C0       A9 << DI0            
+0ba8: 0094: d4 91  SLSA B9          B9 << DI0            
+0baa: 0095: 8c 92  BMIP M9,A2       [M9++] := A2         
+0bac: 0096: 88 92  AMIP M9,A2       [M9++] := A2         
+0bae: 0097: bc ba  SLL L11,L10      L11 <-> L10          
+0bb0: 0098: a5 2f  ICL L2           L2++                 
+0bb2: 0099: d8 2b  TAB A2,B11       B11 := A2            
+0bb4: 009a: e9 b2  TBA A11,B2       A11 := B2            
+0bb6: 009b: de 02  MLIP M0,L2       L2 := [M0++]         
+0bb8: 009c: 00 00  SAI 0000         jump 0000            
+0bba: 009d: 95 bf  ICB B11          B11++                
+0bbc: 009e: 57 02  CRTB B07,C02     B07 := 0x02          
+0bbe: 009f: 77 08  CRTA A07,C08     A07 := 0x08          
+0bc0: 00a0: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0bc2: 00a1: 16 c8  SAI 16c8         jump 16c8            mask 1f00
+0bc4: 00a2: e9 ba  TBA A11,B10      A11 := B10           
+0bc6: 00a3: d8 ab  TAB A10,B11      B11 := A10           
+0bc8: 00a4: c4 20  SLSA A2,C0       A2 << DI0            
+0bca: 00a5: d4 21  SLSA B2          B2 << DI0            
+0bcc: 00a6: c4 20  SLSA A2,C0       A2 << DI0            
+0bce: 00a7: d4 21  SLSA B2          B2 << DI0            
+0bd0: 00a8: 5c 03  CRTB B12,C03     B12 := 0x03          
+0bd2: 00a9: b7 bc  ANDB A11,B12     B12 := A11 and B12   
+0bd4: 00aa: 77 02  CRTA A07,C02     A07 := 0x02          
+0bd6: 00ab: e7 7c  OREB A7,B12      B12 := A7 xor B12    
+0bd8: 00ac: c8 01  REDI 01          reset DI 0x01        
+0bda: 00ad: 96 2c  ADDA A2,B12      A2 := A2+B12+DI0     
+0bdc: 00ae: 60 b0  SAD0 0,b0        br D0=0,00b0         
+0bde: 00af: 95 2f  ICB B2           B2++                 
+0be0: 00b0: bc 27  SLL L2,L7        L2 <-> L7            
+0be2: 00b1: ba 77  SAB A7,B7        A7 <-> B7            
+0be4: 00b2: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0be6: 00b3: 16 ca  SAI 16ca         jump 16ca            mask 1f00
+0be8: 00b4: 5d 09  CRTB B13,C09     B13 := 0x09          
+0bea: 00b5: ba aa  SAB A10,B10      A10 <-> B10          
+0bec: 00b6: a5 af  ICL L10          L10++                
+0bee: 00b7: 9c ae  MBIP M10,B14     B14 := [M10++]       
+0bf0: 00b8: 8c 2e  BMIP M2,A14      [M2++] := A14        
+0bf2: 00b9: be df  ICB B13          B13--                
+0bf4: 00ba: 62 b7  SAD0 2,b7        br D2=0,00b7         
+0bf6: 00bb: d8 2a  TAB A2,B10       B10 := A2            
+0bf8: 00bc: e9 a2  TBA A10,B2       A10 := B2            
+0bfa: 00bd: ba aa  SAB A10,B10      A10 <-> B10          
+0bfc: 00be: d3 20  SLDB B2          B2 >> DI0            
+0bfe: 00bf: c3 21  SLDA A2,C1       A2 >> DI0            
+0c00: 00c0: d3 20  SLDB B2          B2 >> DI0            
+0c02: 00c1: c3 21  SLDA A2,C1       A2 >> DI0            
+0c04: 00c2: 8c 92  BMIP M9,A2       [M9++] := A2         
+0c06: 00c3: a8 92  AMI M9,A2        [M9] := A2           
+0c08: 00c4: 8c ad  BMIP M10,A13     [M10++] := A13       
+0c0a: 00c5: e5 7f  ICL L7           L7--                 
+0c0c: 00c6: 62 c4  SAD0 2,c4        br D2=0,00c4         
+0c0e: 00c7: 16 60  SAI 1660         jump 1660            mask 1f00
+0c10: 00c8: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0c12: 00c9: ad bf  EDC L11          L11.MMM--, ECOF if zero 
+0c14: 00ca: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0c16: 00cb: a0 cc                                        
+0c18: 00cc: 63 22  SAD0 3,22        br D3=0,0022         
+0c1a: 00cd: 00 0c  SAI 000c         jump 000c            
+0c1c: 00ce: 10 14  SAI 1014         jump 1014            
+0c1e: 00cf: 12 3e  SAI 123e         jump 123e            
+0c20: 00d0: 01 10  SAI 0110         jump 0110            
+0c22: 00d1: 14 11  SAI 1411         jump 1411            
+0c24: 00d2: 3e 00  MAD A14,C00      A14 := [00]          
+0c26: 00d3: 39 01  MAD A09,C01      A9 := [01]           
+0c28: 00d4: 10 39  SAI 1039         jump 1039            
+0c2a: 00d5: 01 61  SAI 0161         jump 0161            
+0c2c: 00d6: 10 00  SAI 1000         jump 1000            
+0c2e: 00d7: 00 39  SAI 0039         jump 0039            
+0c30: 00d8: 01 14  SAI 0114         jump 0114            
+0c32: 00d9: 39 01  MAD A09,C01      A9 := [01]           
+0c34: 00da: 61 13  SAD0 1,13        br D1=0,0013         
+0c36: 00db: 00 00  SAI 0000         jump 0000            
+0c38: 00dc: 10 13  SAI 1013         jump 1013            
+0c3a: 00dd: 3e 02  MAD A14,C02      A14 := [02]          
+0c3c: 00de: 01 13  SAI 0113         jump 0113            
+0c3e: 00df: 10 3e  SAI 103e         jump 103e            
+0c40: 00e0: 02 02  SAI 0202         jump 0202            
+0c42: 00e1: 40 62  SADE 0 62                             
+0c44: 00e2: 13 62  SAI 1362         jump 1362            
+0c46: 00e3: 10 31  SAI 1031         jump 1031            
+0c48: 00e4: 9c 87  MBIP M8,B7       B7 := [M8++]         
+0c4a: 00e5: de 09  MLIP M0,L9       L9 := [M0++]
+  !value
+0c4c: 00e6: b1 ad  ESE M10          sel.B <- [M10]       
+0c4e: 00e7: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0c50: 00e8: bc 09  SLL L0,L9        L0 <-> L9            
+0c52: 00e9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0c54: 00ea: 16 4c  SAI 164c         jump 164c            mask 1f00
+0c56: 00eb: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0c58: 00ec: ae 42  ICA A4           A4--                 
+0c5a: 00ed: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0c5c: 00ee: ac 94                                        
+0c5e: 00ef: 63 00  SAD0 3,00        br D3=0,0000         
+0c60: 00f0: 00 00  SAI 0000         jump 0000            
+0c62: 00f1: 31 00  MAD A01,C00      A1 := [00]           
+0c64: 00f2: 00 00  SAI 0000         jump 0000            
+0c66: 00f3: 00 00  SAI 0000         jump 0000            
+0c68: 00f4: 00 00  SAI 0000         jump 0000            
+0c6a: 00f5: 00 00  SAI 0000         jump 0000            
+0c6c: 00f6: 00 00  SAI 0000         jump 0000            
+0c6e: 00f7: 00 00  SAI 0000         jump 0000            
+0c70: 00f8: 00 00  SAI 0000         jump 0000            
+0c72: 00f9: 00 00  SAI 0000         jump 0000            
+0c74: 00fa: 00 00  SAI 0000         jump 0000            
+0c76: 00fb: 00 00  SAI 0000         jump 0000            
+0c78: 00fc: 00 00  SAI 0000         jump 0000            
+0c7a: 00fd: 00 00  SAI 0000         jump 0000            
+0c7c: 00fe: 00 00  SAI 0000         jump 0000            
+0c7e: 00ff: 00 00  SAI 0000         jump 0000            
+0c80: 0100: c8 01  REDI 01          reset DI 0x01        mask 0001
+0c82: 0101: 96 0d  ADDA A0,B13      A0 := A0+B13+DI0     
+0c84: 0102: 18 fa  SAI 18fa         jump 18fa            mask 1f00
+0c86: 0103: 1f cc  SAI 1fcc         jump 1fcc            mask 1f00
+0c88: 0104: 16 11  SAI 1611         jump 1611            mask 1f00
+0c8a: 0105: 9c 8f  MBIP M8,B15      B15 := [M8++]        
+0c8c: 0106: 96 0f  ADDA A0,B15      A0 := A0+B15+DI0     
+0c8e: 0107: 16 42  SAI 1642         jump 1642            mask 1f00
+0c90: 0108: 16 53  SAI 1653         jump 1653            mask 1f00
+0c92: 0109: 16 e4  SAI 16e4         jump 16e4            mask 1f00
+0c94: 010a: 16 86  SAI 1686         jump 1686            mask 1f00
+0c96: 010b: 63 24  SAD0 3,24        br D3=0,0124         
+0c98: 010c: 00 00  SAI 0000         jump 0000            
+0c9a: 010d: 06 12  SAI 0612         jump 0612            
+0c9c: 010e: 63 33  SAD0 3,33        br D3=0,0133         
+0c9e: 010f: 00 28  SAI 0028         jump 0028            
+0ca0: 0110: 10 3c  SAI 103c         jump 103c            
+0ca2: 0111: 39 00  MAD A09,C00      A9 := [00]           
+0ca4: 0112: 40 14  SADE 0 14                             
+0ca6: 0113: 15 13  SAI 1513         jump 1513            
+0ca8: 0114: 06 0c  SAI 060c         jump 060c            
+0caa: 0115: 63 24  SAD0 3,24        br D3=0,0124         
+0cac: 0116: 00 30  SAI 0030         jump 0030            
+0cae: 0117: 10 3c  SAI 103c         jump 103c            
+0cb0: 0118: 39 03  MAD A09,C03      A9 := [03]           
+0cb2: 0119: 40 14  SADE 0 14                             
+0cb4: 011a: 15 12  SAI 1512         jump 1512            
+0cb6: 011b: 3e 01  MAD A14,C01      A14 := [01]          
+0cb8: 011c: 06 2f  SAI 062f         jump 062f            
+0cba: 011d: 63 34  SAD0 3,34        br D3=0,0134         
+0cbc: 011e: 00 70  SAI 0070         jump 0070            
+0cbe: 011f: 10 3c  SAI 103c         jump 103c            
+0cc0: 0120: 39 01  MAD A09,C01      A9 := [01]           
+0cc2: 0121: 06 08  SAI 0608         jump 0608            
+0cc4: 0122: 63 34  SAD0 3,34        br D3=0,0134         
+0cc6: 0123: 00 70  SAI 0070         jump 0070            
+0cc8: 0124: 10 3c  SAI 103c         jump 103c            
+0cca: 0125: 39 02  MAD A09,C02      A9 := [02]           
+0ccc: 0126: 40 14  SADE 0 14                             
+0cce: 0127: 15 12  SAI 1512         jump 1512            
+0cd0: 0128: 3e 01  MAD A14,C01      A14 := [01]          
+0cd2: 0129: 16 17  SAI 1617         jump 1617            
+0cd4: 012a: 13 3e  SAI 133e         jump 133e            
+0cd6: 012b: 01 14  SAI 0114         jump 0114            
+0cd8: 012c: 16 45  SAI 1645         jump 1645            
+0cda: 012d: 06 32  SAI 0632         jump 0632            
+0cdc: 012e: 01 0b  SAI 010b         jump 010b            
+0cde: 012f: 01 15  SAI 0115         jump 0115            
+0ce0: 0130: 17 45  SAI 1745         jump 1745            
+0ce2: 0131: 01 32  SAI 0132         jump 0132            
+0ce4: 0132: 01 05  SAI 0105         jump 0105            
+0ce6: 0133: 01 30  SAI 0130         jump 0130            
+0ce8: 0134: 49 15  SADE 9 15                             
+0cea: 0135: 14 11  SAI 1411         jump 1411            
+0cec: 0136: 3e 00  MAD A14,C00      A14 := [00]          
+0cee: 0137: 39 01  MAD A09,C01      A9 := [01]           
+0cf0: 0138: 15 39  SAI 1539         jump 1539            
+0cf2: 0139: 01 61  SAI 0161         jump 0161            
+0cf4: 013a: 15 00  SAI 1500         jump 1500            
+0cf6: 013b: 00 39  SAI 0039         jump 0039            
+0cf8: 013c: 01 14  SAI 0114         jump 0114            
+0cfa: 013d: 39 01  MAD A09,C01      A9 := [01]           
+0cfc: 013e: 61 16  SAD0 1,16        br D1=0,0116         
+0cfe: 013f: 00 00  SAI 0000         jump 0000            
+0d00: 0140: 15 16  SAI 1516         jump 1516            
+0d02: 0141: 3e 02  MAD A14,C02      A14 := [02]          
+0d04: 0142: 01 10  SAI 0110         jump 0110            
+0d06: 0143: 32 03  MAD A02,C03      A2 := [03]           
+0d08: 0144: 08 08  SAI 0808         jump 0808            
+0d0a: 0145: 08 03  SAI 0803         jump 0803            
+0d0c: 0146: 12 06  SAI 1206         jump 1206            
+0d0e: 0147: 0c 15  SAI 0c15         jump 0c15            
+0d10: 0148: 16 3e  SAI 163e         jump 163e            
+0d12: 0149: 02 02  SAI 0202         jump 0202            
+0d14: 014a: 10 32  SAI 1032         jump 1032            
+0d16: 014b: 03 05  SAI 0305         jump 0305            
+0d18: 014c: 05 17  SAI 0517         jump 0517            
+0d1a: 014d: 03 15  SAI 0315         jump 0315            
+0d1c: 014e: 16 3e  SAI 163e         jump 163e            
+0d1e: 014f: 02 03  SAI 0203         jump 0203            
+0d20: 0150: 10 32  SAI 1032         jump 1032            
+0d22: 0151: 02 07  SAI 0207         jump 0207            
+0d24: 0152: 0a 02  SAI 0a02         jump 0a02            
+0d26: 0153: 43 06  SADE 3 06                             
+0d28: 0154: 04 41  SAI 0441         jump 0441            
+0d2a: 0155: 06 01  SAI 0601         jump 0601            
+0d2c: 0156: 42 40  SADE 2 40                             
+0d2e: 0157: 62 16  SAD0 2,16        br D2=0,0116         
+0d30: 0158: 62 15  SAD0 2,15        br D2=0,0115         
+0d32: 0159: 31 ff  MAD A01,Cff      A1 := [ff]           
+0d34: 015a: 63 30  SAD0 3,30        br D3=0,0130         
+0d36: 015b: 00 04  SAI 0004         jump 0004            
+0d38: 015c: 12 13  SAI 1213         jump 1213            
+0d3a: 015d: 11 3e  SAI 113e         jump 113e            
+0d3c: 015e: 00 06  SAI 0006         jump 0006            
+0d3e: 015f: 05 ff  SAI 05ff         jump 05ff            
+0d40: 0160: 63 11  SAD0 3,11        br D3=0,0111         
+0d42: 0161: 00 02  SAI 0002         jump 0002            
+0d44: 0162: 10 12  SAI 1012         jump 1012            
+0d46: 0163: 11 3e  SAI 113e         jump 113e            
+0d48: 0164: 01 10  SAI 0110         jump 0110            
+0d4a: 0165: 12 45  SAI 1245         jump 1245            
+0d4c: 0166: 01 32  SAI 0132         jump 0132            
+0d4e: 0167: 01 05  SAI 0105         jump 0105            
+0d50: 0168: 01 30  SAI 0130         jump 0130            
+0d52: 0169: 49 11  SADE 9 11                             
+0d54: 016a: 33 30  MAD A03,C30      A3 := [30]           
+0d56: 016b: 39 01  MAD A09,C01      A9 := [01]           
+0d58: 016c: 12 39  SAI 1239         jump 1239            
+0d5a: 016d: 01 61  SAI 0161         jump 0161            
+0d5c: 016e: 12 00  SAI 1200         jump 1200            
+0d5e: 016f: 00 12  SAI 0012         jump 0012            
+0d60: 0170: 12 3e  SAI 123e         jump 123e            
+0d62: 0171: 02 01  SAI 0201         jump 0201            
+0d64: 0172: 39 01  MAD A09,C01      A9 := [01]           
+0d66: 0173: 40 62  SADE 0 62                             
+0d68: 0174: 12 31  SAI 1231         jump 1231            
+0d6a: 0175: bc 2b  SLL L2,L11       L2 <-> L11           
+0d6c: 0176: ba bb  SAB A11,B11      A11 <-> B11          
+0d6e: 0177: e9 2f  TBA A2,B15       A2 := B15            
+0d70: 0178: 9c 9d  MBIP M9,B13      B13 := [M9++]        
+0d72: 0179: d3 d0  SLDB B13         B13 >> DI0           
+0d74: 017a: 60 94  SAD0 0,94        br D0=0,0194         
+0d76: 017b: de 0a  MLIP M0,L10      L10 := [M0++]        
+0d78: 017c: 00 91  SAI 0091         jump 0091            
+0d7a: 017d: ee a9  LMIP M10,L9      [M10++] := L9        
+0d7c: 017e: e1 a2  LMI M10,L2       [M10] := L2          
+0d7e: 017f: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0d80: 0180: 16 ed  SAI 16ed         jump 16ed            mask 1f00
+0d82: 0181: 66 93  SAD0 6,93        br D6=0,0193         
+0d84: 0182: de 09  MLIP M0,L9       L9 := [M0++]         
+0d86: 0183: 00 89  SAI 0089         jump 0089            
+0d88: 0184: e1 92  LMI M9,L2        [M9] := L2           
+0d8a: 0185: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0d8c: 0186: 16 ed  SAI 16ed         jump 16ed            mask 1f00
+0d8e: 0187: 66 93  SAD0 6,93        br D6=0,0193         
+0d90: 0188: de 0a  MLIP M0,L10      L10 := [M0++]        
+0d92: 0189: 00 89  SAI 0089         jump 0089            
+0d94: 018a: d1 aa  MLI M10,L10      L10 := [M10]         
+0d96: 018b: bc ab  SLL L10,L11      L10 <-> L11          
+0d98: 018c: c8 08  REDI 08          reset DI 0x08        
+0d9a: 018d: 9e 2f  VRB B2           B2==0                
+0d9c: 018e: 63 95  SAD0 3,95        br D3=0,0195         
+0d9e: 018f: c9 08  SEDI 08          set DI 0x08          
+0da0: 0190: bc 2b  SLL L2,L11       L2 <-> L11           
+0da2: 0191: 9e 2f  VRB B2           B2==0                
+0da4: 0192: 63 95  SAD0 3,95        br D3=0,0195         
+0da6: 0193: bc ab  SLL L10,L11      L10 <-> L11          
+0da8: 0194: 17 c1  SAI 17c1         jump 17c1            mask 1f00
+0daa: 0195: d8 bc  TAB A11,B12      B12 := A11           
+0dac: 0196: d8 2f  TAB A2,B15       B15 := A2            
+0dae: 0197: d8 27  TAB A2,B7        B7 := A2             
+0db0: 0198: 5e 00  CRTB B14,C00     B14 := 0x00          
+0db2: 0199: 77 08  CRTA A07,C08     A07 := 0x08          
+0db4: 019a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+0db6: 019b: 16 c8  SAI 16c8         jump 16c8            mask 1f00
+0db8: 019c: d8 bb  TAB A11,B11      B11 := A11           
+0dba: 019d: e9 bc  TBA A11,B12      A11 := B12           
+0dbc: 019e: c8 01  REDI 01          reset DI 0x01        
+0dbe: 019f: 96 2b  ADDA A2,B11      A2 := A2+B11+DI0     
+0dc0: 01a0: a6 b2  ADDB A11,B2      B2 := A11+B2+DI0     
+0dc2: 01a1: 61 93  SAD0 1,93        br D1=0,0193         
+0dc4: 01a2: 9e ef  VRB B14          B14==0               
+0dc6: 01a3: 62 93  SAD0 2,93        br D2=0,0193         
+0dc8: 01a4: de 09  MLIP M0,L9       L9 := [M0++]         
+0dca: 01a5: 00 91  SAI 0091         jump 0091            
+0dcc: 01a6: d1 99  MLI M9,L9        L9 := [M9]           
+0dce: 01a7: 9c 97  MBIP M9,B7       B7 := [M9++]         
+0dd0: 01a8: 98 97  MAIP M9,A7       A7 := [M9++]         
+0dd2: 01a9: 9c 97  MBIP M9,B7       B7 := [M9++]         
+0dd4: 01aa: b6 27  SOT A2,B7        A2-B7+DI0            
+0dd6: 01ab: ba 72  SAB A7,B2        A7 <-> B2            
+0dd8: 01ac: b6 72  SOT A7,B2        A7-B2+DI0            
+0dda: 01ad: ba 72  SAB A7,B2        A7 <-> B2            
+0ddc: 01ae: 61 93  SAD0 1,93        br D1=0,0193         
+0dde: 01af: bc ab  SLL L10,L11      L10 <-> L11          
+0de0: 01b0: 52 00  CRTB B02,C00     B02 := 0x00          
+0de2: 01b1: e9 2f  TBA A2,B15       A2 := B15            
+0de4: 01b2: ba 22  SAB A2,B2        A2 <-> B2            
+0de6: 01b3: 66 b5  SAD0 6,b5        br D6=0,01b5         
+0de8: 01b4: bc 2a  SLL L2,L10       L2 <-> L10           
+0dea: 01b5: 88 92  AMIP M9,A2       [M9++] := A2         
+0dec: 01b6: 8c 92  BMIP M9,A2       [M9++] := A2         
+0dee: 01b7: 8c 9a  BMIP M9,A10      [M9++] := A10        
+0df0: 01b8: 88 9a  AMIP M9,A10      [M9++] := A10        
+0df2: 01b9: de 0a  MLIP M0,L10      L10 := [M0++]        
+0df4: 01ba: 00 92  SAI 0092         jump 0092            
+0df6: 01bb: de a2  MLIP M10,L2      L2 := [M10++]        
+0df8: 01bc: d8 2f  TAB A2,B15       B15 := A2            
+0dfa: 01bd: ba 22  SAB A2,B2        A2 <-> B2            
+0dfc: 01be: 57 7f  CRTB B07,C7f     B07 := 0x7f          
+0dfe: 01bf: b7 27  ANDB A2,B7       B7 := A2 and B7      
+0e00: 01c0: 16 7b  SAI 167b         jump 167b            mask 1f00
+0e02: 01c1: 77 43  CRTA A07,C43     A07 := 0x43          
+0e04: 01c2: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+0e06: 01c3: ae 31  ICA A3           A3--                 
+0e08: 01c4: 63 34  SAD0 3,34        br D3=0,0134         
+0e0a: 01c5: 00 70  SAI 0070         jump 0070            
+0e0c: 01c6: 16 10  SAI 1610         jump 1610            
+0e0e: 01c7: 12 3e  SAI 123e         jump 123e            
+0e10: 01c8: 01 14  SAI 0114         jump 0114            
+0e12: 01c9: 15 13  SAI 1513         jump 1513            
+0e14: 01ca: 3e 01  MAD A14,C01      A14 := [01]          
+0e16: 01cb: 16 15  SAI 1615         jump 1615            
+0e18: 01cc: 45 01  SADE 5 01                             
+0e1a: 01cd: 32 01  MAD A02,C01      A2 := [01]           
+0e1c: 01ce: 05 01  SAI 0501         jump 0501            
+0e1e: 01cf: 30 49  MAD A00,C49      A0 := [49]           
+0e20: 01d0: 10 14  SAI 1014         jump 1014            
+0e22: 01d1: 11 3e  SAI 113e         jump 113e            
+0e24: 01d2: 00 39  SAI 0039         jump 0039            
+0e26: 01d3: 01 10  SAI 0110         jump 0110            
+0e28: 01d4: 39 01  MAD A09,C01      A9 := [01]           
+0e2a: 01d5: 61 10  SAD0 1,10        br D1=0,0110         
+0e2c: 01d6: 00 00  SAI 0000         jump 0000            
+0e2e: 01d7: 39 01  MAD A09,C01      A9 := [01]           
+0e30: 01d8: 14 39  SAI 1439         jump 1439            
+0e32: 01d9: 01 61  SAI 0161         jump 0161            
+0e34: 01da: 17 00  SAI 1700         jump 1700            
+0e36: 01db: 00 10  SAI 0010         jump 0010            
+0e38: 01dc: 17 3e  SAI 173e         jump 173e            
+0e3a: 01dd: 02 01  SAI 0201         jump 0201            
+0e3c: 01de: 39 00  MAD A09,C00      A9 := [00]           
+0e3e: 01df: 40 0e  SADE 0 0e                             
+0e40: 01e0: 3f ff  MAD A15,Cff      A15 := [ff]          
+0e42: 01e1: 39 01  MAD A09,C01      A9 := [01]           
+0e44: 01e2: 15 39  SAI 1539         jump 1539            
+0e46: 01e3: 01 61  SAI 0161         jump 0161            
+0e48: 01e4: 16 00  SAI 1600         jump 1600            
+0e4a: 01e5: 00 10  SAI 0010         jump 0010            
+0e4c: 01e6: 17 3e  SAI 173e         jump 173e            
+0e4e: 01e7: 02 01  SAI 0201         jump 0201            
+0e50: 01e8: 10 16  SAI 1016         jump 1016            
+0e52: 01e9: 3e 02  MAD A14,C02      A14 := [02]          
+0e54: 01ea: 02 16  SAI 0216         jump 0216            
+0e56: 01eb: 17 3e  SAI 173e         jump 173e            
+0e58: 01ec: 02 03  SAI 0203         jump 0203            
+0e5a: 01ed: 43 10  SADE 3 10                             
+0e5c: 01ee: 17 3e  SAI 173e         jump 173e            
+0e5e: 01ef: 02 01  SAI 0201         jump 0201            
+0e60: 01f0: 41 40  SADE 1 40                             
+0e62: 01f1: 62 16  SAD0 2,16        br D2=0,0116         
+0e64: 01f2: 62 17  SAD0 2,17        br D2=0,0117         
+0e66: 01f3: 62 10  SAD0 2,10        br D2=0,0110         
+0e68: 01f4: 31 ff  MAD A01,Cff      A1 := [ff]           
+0e6a: 01f5: 63 29  SAD0 3,29        br D3=0,0129         
+0e6c: 01f6: 06 00  SAI 0600         jump 0600            
+0e6e: 01f7: 10 13  SAI 1013         jump 1013            
+0e70: 01f8: 12 3e  SAI 123e         jump 123e            
+0e72: 01f9: 01 10  SAI 0110         jump 0110            
+0e74: 01fa: 13 45  SAI 1345         jump 1345            
+0e76: 01fb: 01 32  SAI 0132         jump 0132            
+0e78: 01fc: 01 05  SAI 0105         jump 0105            
+0e7a: 01fd: 01 30  SAI 0130         jump 0130            
+0e7c: 01fe: 49 11  SADE 9 11                             
+0e7e: 01ff: 12 33  SAI 1233         jump 1233            
+0e80: 0200: 4f 10  SADE f 10                             
+0e82: 0201: 12 3e  SAI 123e         jump 123e            
+0e84: 0202: 03 13  SAI 0313         jump 0313            
+0e86: 0203: 39 1d  MAD A09,C1d      A9 := [1d]           
+0e88: 0204: 39 01  MAD A09,C01      A9 := [01]           
+0e8a: 0205: 0c 02  SAI 0c02         jump 0c02            
+0e8c: 0206: 3c 15  MAD A12,C15      A12 := [15]          
+0e8e: 0207: 39 00  MAD A09,C00      A9 := [00]           
+0e90: 0208: 40 13  SADE 0 13                             
+0e92: 0209: 10 13  SAI 1013         jump 1013            
+0e94: 020a: 61 16  SAD0 1,16        br D1=0,0216         
+0e96: 020b: 00 00  SAI 0000         jump 0000            
+0e98: 020c: 17 0e  SAI 170e         jump 170e            
+0e9a: 020d: 3f ff  MAD A15,Cff      A15 := [ff]          
+0e9c: 020e: 39 00  MAD A09,C00      A9 := [00]           
+0e9e: 020f: 40 16  SADE 0 16                             
+0ea0: 0210: 10 13  SAI 1013         jump 1013            
+0ea2: 0211: 61 18  SAD0 1,18        br D1=0,0218         
+0ea4: 0212: 00 00  SAI 0000         jump 0000            
+0ea6: 0213: 16 10  SAI 1610         jump 1610            
+0ea8: 0214: 13 61  SAI 1361         jump 1361            
+0eaa: 0215: 19 00  SAI 1900         jump 1900            
+0eac: 0216: 00 1b  SAI 001b         jump 001b            
+0eae: 0217: 18 19  SAI 1819         jump 1819            
+0eb0: 0218: 3e 02  MAD A14,C02      A14 := [02]          
+0eb2: 0219: 01 38  SAI 0138         jump 0138            
+0eb4: 021a: 2b 40  AMD A11,C40      [40] := A11          
+0eb6: 021b: 1b 17  SAI 1b17         jump 1b17            
+0eb8: 021c: 45 04  SADE 5 04                             
+0eba: 021d: 32 01  MAD A02,C01      A2 := [01]           
+0ebc: 021e: 0c 01  SAI 0c01         jump 0c01            
+0ebe: 021f: 17 1b  SAI 171b         jump 171b            
+0ec0: 0220: 40 14  SADE 0 14                             
+0ec2: 0221: 18 40  SAI 1840         jump 1840            
+0ec4: 0222: 1a 19  SAI 1a19         jump 1a19            
+0ec6: 0223: 40 62  SADE 0 62                             
+0ec8: 0224: 19 62  SAI 1962         jump 1962            
+0eca: 0225: 18 13  SAI 1813         jump 1813            
+0ecc: 0226: 16 3e  SAI 163e         jump 163e            
+0ece: 0227: 02 02  SAI 0202         jump 0202            
+0ed0: 0228: 14 40  SAI 1440         jump 1440            
+0ed2: 0229: 39 02  MAD A09,C02      A9 := [02]           
+0ed4: 022a: 3c 16  MAD A12,C16      A12 := [16]          
+0ed6: 022b: 3e 02  MAD A14,C02      A14 := [02]          
+0ed8: 022c: 02 1a  SAI 021a         jump 021a            
+0eda: 022d: 40 17  SADE 0 17                             
+0edc: 022e: 15 45  SAI 1545         jump 1545            
+0ede: 022f: 02 32  SAI 0232         jump 0232            
+0ee0: 0230: 01 0b  SAI 010b         jump 010b            
+0ee2: 0231: 01 39  SAI 0139         jump 0139            
+0ee4: 0232: 1d 39  SAI 1d39         jump 1d39            
+0ee6: 0233: 00 40  SAI 0040         jump 0040            
+0ee8: 0234: 30 0d  MAD A00,C0d      A0 := [0d]           
+0eea: 0235: 31 16  MAD A01,C16      A1 := [16]           
+0eec: 0236: 13 45  SAI 1345         jump 1345            
+0eee: 0237: 06 32  SAI 0632         jump 0632            
+0ef0: 0238: 01 0c  SAI 010c         jump 010c            
+0ef2: 0239: 01 15  SAI 0115         jump 0115            
+0ef4: 023a: 17 07  SAI 1707         jump 1707            
+0ef6: 023b: 01 80  SAI 0180         jump 0180            
+0ef8: 023c: 74 b1  CRTA A04,Cb1     A04 := 0xb1          
+0efa: 023d: 43 40  SADE 3 40                             
+0efc: 023e: 16 14  SAI 1614         jump 1614            
+0efe: 023f: 45 01  SADE 5 01                             
+0f00: 0240: 32 01  MAD A02,C01      A2 := [01]           
+0f02: 0241: 25 01  AMD A05,C01      [01] := A5           
+0f04: 0242: 13 10  SAI 1310         jump 1310            
+0f06: 0243: 13 61  SAI 1361         jump 1361            
+0f08: 0244: 19 00  SAI 1900         jump 1900            
+0f0a: 0245: 00 1b  SAI 001b         jump 001b            
+0f0c: 0246: 16 19  SAI 1619         jump 1619            
+0f0e: 0247: 3e 02  MAD A14,C02      A14 := [02]          
+0f10: 0248: 01 40  SAI 0140         jump 0140            
+0f12: 0249: 16 19  SAI 1619         jump 1619            
+0f14: 024a: 3e 02  MAD A14,C02      A14 := [02]          
+0f16: 024b: 01 14  SAI 0114         jump 0114            
+0f18: 024c: 19 3e  SAI 193e         jump 193e            
+0f1a: 024d: 02 01  SAI 0201         jump 0201            
+0f1c: 024e: 40 14  SADE 0 14                             
+0f1e: 024f: 19 3e  SAI 193e         jump 193e            
+0f20: 0250: 02 01  SAI 0201         jump 0201            
+0f22: 0251: 1b 40  SAI 1b40         jump 1b40            
+0f24: 0252: 62 19  SAD0 2,19        br D2=0,0219         
+0f26: 0253: 16 1a  SAI 161a         jump 161a            
+0f28: 0254: 45 01  SADE 5 01                             
+0f2a: 0255: 32 01  MAD A02,C01      A2 := [01]           
+0f2c: 0256: 25 01  AMD A05,C01      [01] := A5           
+0f2e: 0257: 13 10  SAI 1310         jump 1310            
+0f30: 0258: 13 61  SAI 1361         jump 1361            
+0f32: 0259: 18 00  SAI 1800         jump 1800            
+0f34: 025a: 00 1b  SAI 001b         jump 001b            
+0f36: 025b: 18 16  SAI 1816         jump 1816            
+0f38: 025c: 3e 02  MAD A14,C02      A14 := [02]          
+0f3a: 025d: 01 40  SAI 0140         jump 0140            
+0f3c: 025e: 18 16  SAI 1816         jump 1816            
+0f3e: 025f: 3e 02  MAD A14,C02      A14 := [02]          
+0f40: 0260: 01 18  SAI 0118         jump 0118            
+0f42: 0261: 1a 3e  SAI 1a3e         jump 1a3e            
+0f44: 0262: 02 01  SAI 0201         jump 0201            
+0f46: 0263: 40 18  SADE 0 18                             
+0f48: 0264: 1a 3e  SAI 1a3e         jump 1a3e            
+0f4a: 0265: 02 01  SAI 0201         jump 0201            
+0f4c: 0266: 1b 40  SAI 1b40         jump 1b40            
+0f4e: 0267: 62 18  SAD0 2,18        br D2=0,0218         
+0f50: 0268: 39 1d  MAD A09,C1d      A9 := [1d]           
+0f52: 0269: 39 1d  MAD A09,C1d      A9 := [1d]           
+0f54: 026a: 16 16  SAI 1616         jump 1616            
+0f56: 026b: 3e 02  MAD A14,C02      A14 := [02]          
+0f58: 026c: 01 43  SAI 0143         jump 0143            
+0f5a: 026d: 40 17  SADE 0 17                             
+0f5c: 026e: 16 16  SAI 1616         jump 1616            
+0f5e: 026f: 3e 02  MAD A14,C02      A14 := [02]          
+0f60: 0270: 01 13  SAI 0113         jump 0113            
+0f62: 0271: 16 16  SAI 1616         jump 1616            
+0f64: 0272: 3e 02  MAD A14,C02      A14 := [02]          
+0f66: 0273: 01 44  SAI 0144         jump 0144            
+0f68: 0274: 0c 02  SAI 0c02         jump 0c02            
+0f6a: 0275: 13 10  SAI 1310         jump 1310            
+0f6c: 0276: 13 61  SAI 1361         jump 1361            
+0f6e: 0277: 18 00  SAI 1800         jump 1800            
+0f70: 0278: 00 18  SAI 0018         jump 0018            
+0f72: 0279: 16 45  SAI 1645         jump 1645            
+0f74: 027a: 01 32  SAI 0132         jump 0132            
+0f76: 027b: 01 11  SAI 0111         jump 0111            
+0f78: 027c: 01 18  SAI 0118         jump 0118            
+0f7a: 027d: 16 3e  SAI 163e         jump 163e            
+0f7c: 027e: 02 01  SAI 0201         jump 0201            
+0f7e: 027f: 17 01  SAI 1701         jump 1701            
+0f80: 0280: 18 16  SAI 1816         jump 1816            
+0f82: 0281: 3e 02  MAD A14,C02      A14 := [02]          
+0f84: 0282: 01 43  SAI 0143         jump 0143            
+0f86: 0283: 40 62  SADE 0 62                             
+0f88: 0284: 18 13  SAI 1813         jump 1813            
+0f8a: 0285: 10 13  SAI 1013         jump 1013            
+0f8c: 0286: 61 18  SAD0 1,18        br D1=0,0218         
+0f8e: 0287: 00 00  SAI 0000         jump 0000            
+0f90: 0288: 18 16  SAI 1816         jump 1816            
+0f92: 0289: 45 01  SADE 5 01                             
+0f94: 028a: 32 01  MAD A02,C01      A2 := [01]           
+0f96: 028b: 2f 01  AMD A15,C01      [01] := A15          
+0f98: 028c: 1b 18  SAI 1b18         jump 1b18            
+0f9a: 028d: 16 3e  SAI 163e         jump 163e            
+0f9c: 028e: 02 01  SAI 0201         jump 0201            
+0f9e: 028f: 40 3c  SADE 0 3c                             
+0fa0: 0290: 13 10  SAI 1310         jump 1310            
+0fa2: 0291: 13 61  SAI 1361         jump 1361            
+0fa4: 0292: 19 00  SAI 1900         jump 1900            
+0fa6: 0293: 00 19  SAI 0019         jump 0019            
+0fa8: 0294: 16 45  SAI 1645         jump 1645            
+0faa: 0295: 01 32  SAI 0132         jump 0132            
+0fac: 0296: 01 16  SAI 0116         jump 0116            
+0fae: 0297: 01 18  SAI 0118         jump 0118            
+0fb0: 0298: 19 3e  SAI 193e         jump 193e            
+0fb2: 0299: 02 01  SAI 0201         jump 0201            
+0fb4: 029a: 1b 16  SAI 1b16         jump 1b16            
+0fb6: 029b: 19 3e  SAI 193e         jump 193e            
+0fb8: 029c: 02 01  SAI 0201         jump 0201            
+0fba: 029d: 43 18  SADE 3 18                             
+0fbc: 029e: 19 3e  SAI 193e         jump 193e            
+0fbe: 029f: 02 01  SAI 0201         jump 0201            
+0fc0: 02a0: 41 40  SADE 1 40                             
+0fc2: 02a1: 62 19  SAD0 2,19        br D2=0,0219         
+0fc4: 02a2: 62 18  SAD0 2,18        br D2=0,0218         
+0fc6: 02a3: 13 10  SAI 1310         jump 1310            
+0fc8: 02a4: 13 61  SAI 1361         jump 1361            
+0fca: 02a5: 19 00  SAI 1900         jump 1900            
+0fcc: 02a6: 00 19  SAI 0019         jump 0019            
+0fce: 02a7: 16 45  SAI 1645         jump 1645            
+0fd0: 02a8: 01 32  SAI 0132         jump 0132            
+0fd2: 02a9: 01 10  SAI 0110         jump 0110            
+0fd4: 02aa: 01 16  SAI 0116         jump 0116            
+0fd6: 02ab: 19 3e  SAI 193e         jump 193e            
+0fd8: 02ac: 02 01  SAI 0201         jump 0201            
+0fda: 02ad: 16 19  SAI 1619         jump 1619            
+0fdc: 02ae: 3e 02  MAD A14,C02      A14 := [02]          
+0fde: 02af: 01 17  SAI 0117         jump 0117            
+0fe0: 02b0: 43 40  SADE 3 40                             
+0fe2: 02b1: 62 19  SAD0 2,19        br D2=0,0219         
+0fe4: 02b2: 62 16  SAD0 2,16        br D2=0,0216         
+0fe6: 02b3: 10 32  SAI 1032         jump 1032            
+0fe8: 02b4: 01 80  SAI 0180         jump 0180            
+0fea: 02b5: 01 3c  SAI 013c         jump 013c            
+0fec: 02b6: 10 13  SAI 1013         jump 1013            
+0fee: 02b7: 42 13  SADE 2 13                             
+0ff0: 02b8: 13 01  SAI 1301         jump 1301            
+0ff2: 02b9: 61 16  SAD0 1,16        br D1=0,0216         
+0ff4: 02ba: 00 00  SAI 0000         jump 0000            
+0ff6: 02bb: 1a 13  SAI 1a13         jump 1a13            
+0ff8: 02bc: 16 3e  SAI 163e         jump 163e            
+0ffa: 02bd: 02 02  SAI 0202         jump 0202            
+0ffc: 02be: 40 1a  SADE 0 1a                             
+0ffe: 02bf: 16 45  SAI 1645         jump 1645            
+1000: 02c0: 01 32  SAI 0132         jump 0132            
+1002: 02c1: 01 2b  SAI 012b         jump 012b            
+1004: 02c2: 01 39  SAI 0139         jump 0139            
+1006: 02c3: 1d 39  SAI 1d39         jump 1d39            
+1008: 02c4: 1d 01  SAI 1d01         jump 1d01            
+100a: 02c5: 40 13  SADE 0 13                             
+100c: 02c6: 10 13  SAI 1013         jump 1013            
+100e: 02c7: 61 18  SAD0 1,18        br D1=0,0218         
+1010: 02c8: 00 00  SAI 0000         jump 0000            
+1012: 02c9: 1b 18  SAI 1b18         jump 1b18            
+1014: 02ca: 16 3e  SAI 163e         jump 163e            
+1016: 02cb: 02 01  SAI 0201         jump 0201            
+1018: 02cc: 40 18  SADE 0 18                             
+101a: 02cd: 16 3e  SAI 163e         jump 163e            
+101c: 02ce: 02 01  SAI 0201         jump 0201            
+101e: 02cf: 18 1a  SAI 181a         jump 181a            
+1020: 02d0: 3e 02  MAD A14,C02      A14 := [02]          
+1022: 02d1: 01 40  SAI 0140         jump 0140            
+1024: 02d2: 18 1a  SAI 181a         jump 181a            
+1026: 02d3: 3e 02  MAD A14,C02      A14 := [02]          
+1028: 02d4: 01 1b  SAI 011b         jump 011b            
+102a: 02d5: 40 62  SADE 0 62                             
+102c: 02d6: 18 14  SAI 1814         jump 1814            
+102e: 02d7: 39 02  MAD A09,C02      A9 := [02]           
+1030: 02d8: 3c 16  MAD A12,C16      A12 := [16]          
+1032: 02d9: 3e 02  MAD A14,C02      A14 := [02]          
+1034: 02da: 02 40  SAI 0240         jump 0240            
+1036: 02db: 14 16  SAI 1416         jump 1416            
+1038: 02dc: 45 01  SADE 5 01                             
+103a: 02dd: 32 01  MAD A02,C01      A2 := [01]           
+103c: 02de: 2b 01  AMD A11,C01      [01] := A11          
+103e: 02df: 39 1d  MAD A09,C1d      A9 := [1d]           
+1040: 02e0: 39 1d  MAD A09,C1d      A9 := [1d]           
+1042: 02e1: 01 40  SAI 0140         jump 0140            
+1044: 02e2: 13 10  SAI 1310         jump 1310            
+1046: 02e3: 13 61  SAI 1361         jump 1361            
+1048: 02e4: 19 00  SAI 1900         jump 1900            
+104a: 02e5: 00 1b  SAI 001b         jump 001b            
+104c: 02e6: 16 19  SAI 1619         jump 1619            
+104e: 02e7: 3e 02  MAD A14,C02      A14 := [02]          
+1050: 02e8: 01 40  SAI 0140         jump 0140            
+1052: 02e9: 16 19  SAI 1619         jump 1619            
+1054: 02ea: 3e 02  MAD A14,C02      A14 := [02]          
+1056: 02eb: 01 14  SAI 0114         jump 0114            
+1058: 02ec: 19 3e  SAI 193e         jump 193e            
+105a: 02ed: 02 01  SAI 0201         jump 0201            
+105c: 02ee: 40 14  SADE 0 14                             
+105e: 02ef: 19 3e  SAI 193e         jump 193e            
+1060: 02f0: 02 01  SAI 0201         jump 0201            
+1062: 02f1: 1b 40  SAI 1b40         jump 1b40            
+1064: 02f2: 62 19  SAD0 2,19        br D2=0,0219         
+1066: 02f3: 62 16  SAD0 2,16        br D2=0,0216         
+1068: 02f4: 31 ff  MAD A01,Cff      A1 := [ff]           
+106a: 02f5: 01 00  SAI 0100         jump 0100            
+106c: 02f6: ff ff                                        
+106e: 02f7: 00 01  SAI 0001         jump 0001            
+1070: 02f8: 01 ff  SAI 01ff         jump 01ff            
+1072: 02f9: ff ff                                        
+1074: 02fa: e5 8f  ICL L8           L8--                 
+1076: 02fb: 98 8b  MAIP M8,A11      A11 := [M8++]        
+1078: 02fc: 17 75  SAI 1775         jump 1775            mask 1f00
+107a: 02fd: 00 00  SAI 0000         jump 0000            
+107c: 02fe: 00 00  SAI 0000         jump 0000            
+107e: 02ff: 00 00  SAI 0000         jump 0000            
+==== Overlay 2
+  relocs at 1980
+  64 relocations
+1180: 0000: c8 01  REDI 01          reset DI 0x01        
+1182: 0001: 96 0d  ADDA A0,B13      A0 := A0+B13+DI0     
+1184: 0002: 19 05  SAI 1905         jump 1905            mask 1f00
+1186: 0003: 19 14  SAI 1914         jump 1914            mask 1f00
+1188: 0004: 1c a0  SAI 1ca0         jump 1ca0            mask 1f00
+118a: 0005: a5 bf  ICL L11          L11++                
+118c: 0006: 99 b7  MBI M11,B7       B7 := [M11]          
+118e: 0007: 6a 12  SAD1 2,12        br D2=1,0012         
+1190: 0008: de 09  MLIP M0,L9       L9 := [M0++]         
+1192: 0009: 01 2d  SAI 012d         jump 012d            
+1194: 000a: d1 99  MLI M9,L9        L9 := [M9]           
+1196: 000b: 77 00  CRTA A07,C00     A07 := 0x00          
+1198: 000c: d4 70  SLSA B7          B7 << DI0            
+119a: 000d: c4 71  SLSA A7,C1       A7 << DI0            
+119c: 000e: d4 70  SLSA B7          B7 << DI0            
+119e: 000f: c4 71  SLSA A7,C1       A7 << DI0            
+11a0: 0010: 96 97  ADDA A9,B7       A9 := A9+B7+DI0      
+11a2: 0011: a6 79  ADDB A7,B9       B9 := A7+B9+DI0      
+11a4: 0012: ae ef  ICA A14          A14--                
+11a6: 0013: d1 e0  MLI A14,L0       L0 := [A14]
+11a8: 0014: 98 87  MAIP M8,A7       A7 := [M8++]         
+11aa: 0015: 27 7a  AMD A07,C7a      [7a] := A7           
+11ac: 0016: ee 08  LMIP M0,L8       [M0++] := L8         
+11ae: 0017: 00 00  SAI 0000         jump 0000            
+11b0: 0018: de 08  MLIP M0,L8       L8 := [M0++]         
+11b2: 0019: 19 1b  SAI 191b         jump 191b            
+11b4: 001a: 1c f2  SAI 1cf2         jump 1cf2            mask 1f00
+11b6: 001b: 3a 00  MAD A10,C00      A10 := [00]          
+11b8: 001c: 3a 0d  MAD A10,C0d      A10 := [0d]          
+11ba: 001d: 3a 0b  MAD A10,C0b      A10 := [0b]          
+11bc: 001e: 42 40  SADE 2 40                             
+11be: 001f: 3a 02  MAD A10,C02      A10 := [02]          
+11c0: 0020: 3a 0e  MAD A10,C0e      A10 := [0e]          
+11c2: 0021: 3a 0c  MAD A10,C0c      A10 := [0c]          
+11c4: 0022: 42 40  SADE 2 40                             
+11c6: 0023: 3a 01  MAD A10,C01      A10 := [01]          
+11c8: 0024: 3a 09  MAD A10,C09      A10 := [09]          
+11ca: 0025: 3a 0b  MAD A10,C0b      A10 := [0b]          
+11cc: 0026: 42 40  SADE 2 40                             
+11ce: 0027: 3a 03  MAD A10,C03      A10 := [03]          
+11d0: 0028: 3a 0a  MAD A10,C0a      A10 := [0a]          
+11d2: 0029: 3a 0c  MAD A10,C0c      A10 := [0c]          
+11d4: 002a: 42 40  SADE 2 40                             
+11d6: 002b: 3a 0a  MAD A10,C0a      A10 := [0a]          
+11d8: 002c: 39 02  MAD A09,C02      A9 := [02]           
+11da: 002d: 40 64  SADE 0 64                             
+11dc: 002e: 57 00  CRTB B07,C00     B07 := 0x00          
+11de: 002f: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+11e0: 0030: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+11e2: 0031: bc 9a  SLL L9,L10       L9 <-> L10           
+11e4: 0032: 63 51  SAD0 3,51        br D3=0,0051         
+11e6: 0033: 61 60  SAD0 1,60        br D1=0,0060         
+11e8: 0034: 57 02  CRTB B07,C02     B07 := 0x02          
+11ea: 0035: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+11ec: 0036: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+11ee: 0037: 61 3f  SAD0 1,3f        br D1=0,003f         
+11f0: 0038: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+11f2: 0039: 1b e4  SAI 1be4         jump 1be4            mask 1f00
+11f4: 003a: 61 3d  SAD0 1,3d        br D1=0,003d         
+11f6: 003b: 72 00  CRTA A02,C00     A02 := 0x00          
+11f8: 003c: 19 7c  SAI 197c         jump 197c            mask 1f00
+11fa: 003d: 72 01  CRTA A02,C01     A02 := 0x01          
+11fc: 003e: 19 8b  SAI 198b         jump 198b            mask 1f00
+11fe: 003f: 62 46  SAD0 2,46        br D2=0,0046         
+1200: 0040: d8 92  TAB A9,B2        B2 := A9             
+1202: 0041: e9 29  TBA A2,B9        A2 := B9             
+1204: 0042: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1206: 0043: 1b db  SAI 1bdb         jump 1bdb            mask 1f00
+1208: 0044: 61 3d  SAD0 1,3d        br D1=0,003d         
+120a: 0045: 19 47  SAI 1947         jump 1947            mask 1f00
+120c: 0046: bc 92  SLL L9,L2        L9 <-> L2            
+120e: 0047: 57 0a  CRTB B07,C0a     B07 := 0x0a          
+1210: 0048: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1212: 0049: 1c 73  SAI 1c73         jump 1c73            mask 1f00
+1214: 004a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1216: 004b: 1b e7  SAI 1be7         jump 1be7            mask 1f00
+1218: 004c: 61 4f  SAD0 1,4f        br D1=0,004f         
+121a: 004d: 72 02  CRTA A02,C02     A02 := 0x02          
+121c: 004e: 19 7c  SAI 197c         jump 197c            mask 1f00
+121e: 004f: 72 03  CRTA A02,C03     A02 := 0x03          
+1220: 0050: 19 8b  SAI 198b         jump 198b            mask 1f00
+1222: 0051: 57 02  CRTB B07,C02     B07 := 0x02          
+1224: 0052: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1226: 0053: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+1228: 0054: 63 ff  SAD0 3,ff        br D3=0,00ff         
+122a: 0055: bc 92  SLL L9,L2        L9 <-> L2            
+122c: 0056: 57 01  CRTB B07,C01     B07 := 0x01          
+122e: 0057: 61 5c  SAD0 1,5c        br D1=0,005c         
+1230: 0058: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1232: 0059: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+1234: 005a: 61 3b  SAD0 1,3b        br D1=0,003b         
+1236: 005b: 19 65  SAI 1965         jump 1965            mask 1f00
+1238: 005c: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+123a: 005d: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+123c: 005e: 60 7b  SAD0 0,7b        br D0=0,007b         
+123e: 005f: 19 47  SAI 1947         jump 1947            mask 1f00
+1240: 0060: 57 02  CRTB B07,C02     B07 := 0x02          
+1242: 0061: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1244: 0062: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+1246: 0063: 61 6f  SAD0 1,6f        br D1=0,006f         
+1248: 0064: bc 92  SLL L9,L2        L9 <-> L2            
+124a: 0065: 57 0a  CRTB B07,C0a     B07 := 0x0a          
+124c: 0066: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+124e: 0067: 1c 73  SAI 1c73         jump 1c73            mask 1f00
+1250: 0068: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1252: 0069: 1b e7  SAI 1be7         jump 1be7            mask 1f00
+1254: 006a: 61 6d  SAD0 1,6d        br D1=0,006d         
+1256: 006b: 72 04  CRTA A02,C04     A02 := 0x04          
+1258: 006c: 19 7c  SAI 197c         jump 197c            mask 1f00
+125a: 006d: 72 05  CRTA A02,C05     A02 := 0x05          
+125c: 006e: 19 8b  SAI 198b         jump 198b            mask 1f00
+125e: 006f: 62 76  SAD0 2,76        br D2=0,0076         
+1260: 0070: d8 92  TAB A9,B2        B2 := A9             
+1262: 0071: e9 29  TBA A2,B9        A2 := B9             
+1264: 0072: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1266: 0073: 1b db  SAI 1bdb         jump 1bdb            mask 1f00
+1268: 0074: 60 79  SAD0 0,79        br D0=0,0079         
+126a: 0075: 19 65  SAI 1965         jump 1965            mask 1f00
+126c: 0076: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+126e: 0077: 1b e4  SAI 1be4         jump 1be4            mask 1f00
+1270: 0078: 60 7b  SAD0 0,7b        br D0=0,007b         
+1272: 0079: 72 07  CRTA A02,C07     A02 := 0x07          
+1274: 007a: 19 8b  SAI 198b         jump 198b            mask 1f00
+1276: 007b: 72 06  CRTA A02,C06     A02 := 0x06          
+1278: 007c: 57 00  CRTB B07,C00     B07 := 0x00          
+127a: 007d: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+127c: 007e: 19 08  SAI 1908         jump 1908            mask 1f00
+127e: 007f: bc 9a  SLL L9,L10       L9 <-> L10           
+1280: 0080: ba aa  SAB A10,B10      A10 <-> B10          
+1282: 0081: 57 02  CRTB B07,C02     B07 := 0x02          
+1284: 0082: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1286: 0083: 19 08  SAI 1908         jump 1908            mask 1f00
+1288: 0084: 5e 08  CRTB B14,C08     B14 := 0x08          
+128a: 0085: 91 97  MAI M9,A7        A7 := [M9]           
+128c: 0086: 99 a7  MBI M10,B7       B7 := [M10]          
+128e: 0087: 88 a7  AMIP M10,A7      [M10++] := A7        
+1290: 0088: 8c 97  BMIP M9,A7       [M9++] := A7         
+1292: 0089: be ef  ICB B14          B14--                
+1294: 008a: 62 85  SAD0 2,85        br D2=0,0085         
+1296: 008b: 22 79  AMD A02,C79      [79] := A2           
+1298: 008c: de 08  MLIP M0,L8       L8 := [M0++]         
+129a: 008d: 19 8f  SAI 198f         jump 198f            mask ff00
+129c: 008e: 1b 20  SAI 1b20         jump 1b20            mask 1f00
+129e: 008f: 3a 00  MAD A10,C00      A10 := [00]          
+12a0: 0090: 3a 01  MAD A10,C01      A10 := [01]          
+12a2: 0091: 42 64  SADE 2 64                             
+12a4: 0092: d8 b9  TAB A11,B9       B9 := A11            
+12a6: 0093: 1c de  SAI 1cde         jump 1cde            
+12a8: 0094: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+12aa: 0095: 1c dc  SAI 1cdc         jump 1cdc            
+12ac: 0096: a5 2f  ICL L2           L2++                 
+12ae: 0097: de 07  MLIP M0,L7       L7 := [M0++]         
+12b0: 0098: 00 35  SAI 0035         jump 0035            
+12b2: 0099: e1 72  LMI M7,L2        [M7] := L2           
+12b4: 009a: 67 9f  SAD0 7,9f        br D7=0,009f         
+12b6: 009b: 68 9d  SAD1 0,9d        br D0=1,009d         
+12b8: 009c: 1b a3  SAI 1ba3         jump 1ba3            mask 1f00
+12ba: 009d: 6a 9f  SAD1 2,9f        br D2=1,009f         
+12bc: 009e: 1a 04  SAI 1a04         jump 1a04            mask 1f00
+12be: 009f: 57 02  CRTB B07,C02     B07 := 0x02          
+12c0: 00a0: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+12c2: 00a1: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+12c4: 00a2: 61 a6  SAD0 1,a6        br D1=0,00a6         
+12c6: 00a3: 57 01  CRTB B07,C01     B07 := 0x01          
+12c8: 00a4: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+12ca: 00a5: 1c 73  SAI 1c73         jump 1c73            mask 1f00
+12cc: 00a6: 57 00  CRTB B07,C00     B07 := 0x00          
+12ce: 00a7: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+12d0: 00a8: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+12d2: 00a9: 61 ad  SAD0 1,ad        br D1=0,00ad         
+12d4: 00aa: 57 03  CRTB B07,C03     B07 := 0x03          
+12d6: 00ab: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+12d8: 00ac: 1c 73  SAI 1c73         jump 1c73            mask 1f00
+12da: 00ad: 5c 80  CRTB B12,C80     B12 := 0x80          
+12dc: 00ae: 57 01  CRTB B07,C01     B07 := 0x01          
+12de: 00af: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+12e0: 00b0: 19 08  SAI 1908         jump 1908            mask 1f00
+12e2: 00b1: e5 9f  ICL L9           L9--                 
+12e4: 00b2: 91 97  MAI M9,A7        A7 := [M9]           
+12e6: 00b3: f6 7c  ORA A7,B12       A7 := A7 or B12      
+12e8: 00b4: a8 97  AMI M9,A7        [M9] := A7           
+12ea: 00b5: 57 03  CRTB B07,C03     B07 := 0x03          
+12ec: 00b6: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+12ee: 00b7: 19 08  SAI 1908         jump 1908            mask 1f00
+12f0: 00b8: e5 9f  ICL L9           L9--                 
+12f2: 00b9: 91 97  MAI M9,A7        A7 := [M9]           
+12f4: 00ba: f6 7c  ORA A7,B12       A7 := A7 or B12      
+12f6: 00bb: a8 97  AMI M9,A7        [M9] := A7           
+12f8: 00bc: de 08  MLIP M0,L8       L8 := [M0++]         
+12fa: 00bd: 19 bf  SAI 19bf         jump 19bf            mask ff00
+12fc: 00be: 1b 20  SAI 1b20         jump 1b20            mask 1f00
+12fe: 00bf: 3a 05  MAD A10,C05      A10 := [05]          
+1300: 00c0: 3a 02  MAD A10,C02      A10 := [02]          
+1302: 00c1: 3a 02  MAD A10,C02      A10 := [02]          
+1304: 00c2: 41 40  SADE 1 40                             
+1306: 00c3: 3a 04  MAD A10,C04      A10 := [04]          
+1308: 00c4: 3a 00  MAD A10,C00      A10 := [00]          
+130a: 00c5: 3a 00  MAD A10,C00      A10 := [00]          
+130c: 00c6: 41 3c  SADE 1 3c                             
+130e: 00c7: 3a 05  MAD A10,C05      A10 := [05]          
+1310: 00c8: 42 40  SADE 2 40                             
+1312: 00c9: 3a 03  MAD A10,C03      A10 := [03]          
+1314: 00ca: 3a 0a  MAD A10,C0a      A10 := [0a]          
+1316: 00cb: 3a 01  MAD A10,C01      A10 := [01]          
+1318: 00cc: 3a 02  MAD A10,C02      A10 := [02]          
+131a: 00cd: 43 3a  SADE 3 3a                             
+131c: 00ce: 03 3a  SAI 033a         jump 033a            
+131e: 00cf: 00 43  SAI 0043         jump 0043            
+1320: 00d0: 42 43  SADE 2 43                             
+1322: 00d1: 3a 00  MAD A10,C00      A10 := [00]          
+1324: 00d2: 42 40  SADE 2 40                             
+1326: 00d3: 3c 64  MAD A12,C64      A12 := [64]          
+1328: 00d4: de 08  MLIP M0,L8       L8 := [M0++]         
+132a: 00d5: 00 c8  SAI 00c8         jump 00c8            
+132c: 00d6: 57 07  CRTB B07,C07     B07 := 0x07          
+132e: 00d7: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1330: 00d8: 19 08  SAI 1908         jump 1908            mask 1f00
+1332: 00d9: ee 89  LMIP M8,L9       [M8++] := L9         
+1334: 00da: e5 9f  ICL L9           L9--                 
+1336: 00db: e5 9f  ICL L9           L9--                 
+1338: 00dc: ee 89  LMIP M8,L9       [M8++] := L9         
+133a: 00dd: 57 08  CRTB B07,C08     B07 := 0x08          
+133c: 00de: c8 01  REDI 01          reset DI 0x01        
+133e: 00df: 96 97  ADDA A9,B7       A9 := A9+B7+DI0      
+1340: 00e0: a6 79  ADDB A7,B9       B9 := A7+B9+DI0      
+1342: 00e1: 9c 97  MBIP M9,B7       B7 := [M9++]         
+1344: 00e2: 91 97  MAI M9,A7        A7 := [M9]           
+1346: 00e3: e1 87  LMI M8,L7        [M8] := L7           
+1348: 00e4: 57 03  CRTB B07,C03     B07 := 0x03          
+134a: 00e5: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+134c: 00e6: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+134e: 00e7: 61 ed  SAD0 1,ed        br D1=0,00ed         
+1350: 00e8: 57 02  CRTB B07,C02     B07 := 0x02          
+1352: 00e9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1354: 00ea: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+1356: 00eb: 1c d9  SAI 1cd9         jump 1cd9            mask 1f00
+1358: 00ec: c9 00  SEDI 00          set DI 0x00          
+135a: 00ed: de 08  MLIP M0,L8       L8 := [M0++]         
+135c: 00ee: 00 c8  SAI 00c8         jump 00c8            
+135e: 00ef: de 8a  MLIP M8,L10      L10 := [M8++]        
+1360: 00f0: de 82  MLIP M8,L2       L2 := [M8++]         
+1362: 00f1: 99 ad  MBI M10,B13      B13 := [M10]         
+1364: 00f2: 37 79  MAD A07,C79      A7 := [79]           
+1366: 00f3: d8 7c  TAB A7,B12       B12 := A7            
+1368: 00f4: c9 20  SEDI 20          set DI 0x20          
+136a: 00f5: c8 01  REDI 01          reset DI 0x01        
+136c: 00f6: 96 0c  ADDA A0,B12      A0 := A0+B12+DI0     
+136e: 00f7: 1a 63  SAI 1a63         jump 1a63            mask 1f00
+1370: 00f8: 1a 45  SAI 1a45         jump 1a45            mask 1f00
+1372: 00f9: 1a 63  SAI 1a63         jump 1a63            mask 1f00
+1374: 00fa: 1a 53  SAI 1a53         jump 1a53            mask 1f00
+1376: 00fb: 1a 69  SAI 1a69         jump 1a69            mask 1f00
+1378: 00fc: 1a 45  SAI 1a45         jump 1a45            mask 1f00
+137a: 00fd: 1a 69  SAI 1a69         jump 1a69            mask 1f00
+137c: 00fe: 1a 53  SAI 1a53         jump 1a53            mask 1f00
+137e: 00ff: de 07  MLIP M0,L7       L7 := [M0++]         
+1380: 0100: 00 35  SAI 0035         jump 0035            
+1382: 0101: de 08  MLIP M0,L8       L8 := [M0++]         
+1384: 0102: 00 01  SAI 0001         jump 0001            
+1386: 0103: e1 78  LMI M7,L8        [M7] := L8           
+1388: 0104: 37 7a  MAD A07,C7a      A7 := [7a]           
+138a: 0105: ae 7f  ICA A7           A7--                 
+138c: 0106: 62 ff  SAD0 2,ff        br D2=0,01ff         
+138e: 0107: 57 07  CRTB B07,C07     B07 := 0x07          
+1390: 0108: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1392: 0109: 19 08  SAI 1908         jump 1908            mask 1f00
+1394: 010a: bc 9a  SLL L9,L10       L9 <-> L10           
+1396: 010b: ba aa  SAB A10,B10      A10 <-> B10          
+1398: 010c: 99 ad  MBI M10,B13      B13 := [M10]         
+139a: 010d: 1a e0  SAI 1ae0         jump 1ae0            mask 1f00
+139c: 010e: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+139e: 010f: 1b 26  SAI 1b26         jump 1b26            mask 1f00
+13a0: 0110: 57 02  CRTB B07,C02     B07 := 0x02          
+13a2: 0111: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+13a4: 0112: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+13a6: 0113: 63 34  SAD0 3,34        br D3=0,0134         
+13a8: 0114: 1a ed  SAI 1aed         jump 1aed            mask 1f00
+13aa: 0115: de 08  MLIP M0,L8       L8 := [M0++]         
+13ac: 0116: 00 c8  SAI 00c8         jump 00c8            
+13ae: 0117: de 8a  MLIP M8,L10      L10 := [M8++]        
+13b0: 0118: de 82  MLIP M8,L2       L2 := [M8++]         
+13b2: 0119: d1 88  MLI M8,L8        L8 := [M8]           
+13b4: 011a: 99 ad  MBI M10,B13      B13 := [M10]         
+13b6: 011b: 37 79  MAD A07,C79      A7 := [79]           
+13b8: 011c: d8 7c  TAB A7,B12       B12 := A7            
+13ba: 011d: 57 03  CRTB B07,C03     B07 := 0x03          
+13bc: 011e: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+13be: 011f: 1b d9  SAI 1bd9         jump 1bd9            mask 1f00
+13c0: 0120: 9c 27  MBIP M2,B7       B7 := [M2++]         
+13c2: 0121: 91 27  MAI M2,A7        A7 := [M2]           
+13c4: 0122: 61 2d  SAD0 1,2d        br D1=0,012d         
+13c6: 0123: c8 01  REDI 01          reset DI 0x01        
+13c8: 0124: 96 0c  ADDA A0,B12      A0 := A0+B12+DI0     
+13ca: 0125: 1a ca  SAI 1aca         jump 1aca            mask 1f00
+13cc: 0126: 1a 96  SAI 1a96         jump 1a96            mask 1f00
+13ce: 0127: 1a d4  SAI 1ad4         jump 1ad4            mask 1f00
+13d0: 0128: 1a 96  SAI 1a96         jump 1a96            
+13d2: 0129: 1a ca  SAI 1aca         jump 1aca            
+13d4: 012a: 1a bd  SAI 1abd         jump 1abd            
+13d6: 012b: 1a d4  SAI 1ad4         jump 1ad4            
+13d8: 012c: 1a bd  SAI 1abd         jump 1abd            
+13da: 012d: d3 c0  SLDB B12         B12 >> DI0           
+13dc: 012e: c8 01  REDI 01          reset DI 0x01        
+13de: 012f: 96 0c  ADDA A0,B12      A0 := A0+B12+DI0     
+13e0: 0130: 1a 7c  SAI 1a7c         jump 1a7c            
+13e2: 0131: 1a 88  SAI 1a88         jump 1a88            
+13e4: 0132: 1a a3  SAI 1aa3         jump 1aa3            
+13e6: 0133: 1a af  SAI 1aaf         jump 1aaf            
+13e8: 0134: de 08  MLIP M0,L8       L8 := [M0++]         
+13ea: 0135: 00 c8  SAI 00c8         jump 00c8            
+13ec: 0136: de 8a  MLIP M8,L10      L10 := [M8++]        
+13ee: 0137: de 82  MLIP M8,L2       L2 := [M8++]         
+13f0: 0138: 99 ad  MBI M10,B13      B13 := [M10]         
+13f2: 0139: 37 79  MAD A07,C79      A7 := [79]           
+13f4: 013a: d8 7c  TAB A7,B12       B12 := A7            
+13f6: 013b: c8 21  REDI 21          reset DI 0x21        
+13f8: 013c: 96 0c  ADDA A0,B12      A0 := A0+B12+DI0     
+13fa: 013d: 1a 45  SAI 1a45         jump 1a45            
+13fc: 013e: 1a 63  SAI 1a63         jump 1a63            
+13fe: 013f: 1a 53  SAI 1a53         jump 1a53            
+1400: 0140: 1a 63  SAI 1a63         jump 1a63            
+1402: 0141: 1a 45  SAI 1a45         jump 1a45            
+1404: 0142: 1a 69  SAI 1a69         jump 1a69            
+1406: 0143: 1a 53  SAI 1a53         jump 1a53            
+1408: 0144: 1a 69  SAI 1a69         jump 1a69            
+140a: 0145: 9c 27  MBIP M2,B7       B7 := [M2++]         
+140c: 0146: 91 27  MAI M2,A7        A7 := [M2]           
+140e: 0147: e5 7f  ICL L7           L7--                 
+1410: 0148: d3 d0  SLDB B13         B13 >> DI0           
+1412: 0149: 61 50  SAD0 1,50        br D1=0,0150         
+1414: 014a: de 08  MLIP M0,L8       L8 := [M0++]         
+1416: 014b: 00 00  SAI 0000         jump 0000            
+1418: 014c: 82 27  AMIM M2,A7       [M2--] := A7         
+141a: 014d: 89 27  BMI M2,A7        [M2] := A7           
+141c: 014e: c8 08  REDI 08          reset DI 0x08        
+141e: 014f: 1a 72  SAI 1a72         jump 1a72            
+1420: 0150: d1 88  MLI M8,L8        L8 := [M8]           
+1422: 0151: 5d 40  CRTB B13,C40     B13 := 0x40          
+1424: 0152: 1a 4c  SAI 1a4c         jump 1a4c            
+1426: 0153: 9c 27  MBIP M2,B7       B7 := [M2++]         
+1428: 0154: 91 27  MAI M2,A7        A7 := [M2]           
+142a: 0155: a5 7f  ICL L7           L7++                 
+142c: 0156: d4 d0  SLSA B13         B13 << DI0           
+142e: 0157: 79 80  CRTA A09,C80     A09 := 0x80          
+1430: 0158: 97 9d  AND A9,B13       A9 and B13           
+1432: 0159: 62 60  SAD0 2,60        br D2=0,0160         
+1434: 015a: de 08  MLIP M0,L8       L8 := [M0++]         
+1436: 015b: 00 00  SAI 0000         jump 0000            
+1438: 015c: 82 27  AMIM M2,A7       [M2--] := A7         
+143a: 015d: 89 27  BMI M2,A7        [M2] := A7           
+143c: 015e: c9 08  SEDI 08          set DI 0x08          
+143e: 015f: 1a 72  SAI 1a72         jump 1a72            
+1440: 0160: d1 88  MLI M8,L8        L8 := [M8]           
+1442: 0161: 5d 01  CRTB B13,C01     B13 := 0x01          
+1444: 0162: 1a 5c  SAI 1a5c         jump 1a5c            
+1446: 0163: e5 2f  ICL L2           L2--                 
+1448: 0164: 92 27  MAIM M2,A7       A7 := [M2--]         
+144a: 0165: 99 27  MBI M2,B7        B7 := [M2]           
+144c: 0166: e5 7f  ICL L7           L7--                 
+144e: 0167: c8 08  REDI 08          reset DI 0x08        
+1450: 0168: 1a 6e  SAI 1a6e         jump 1a6e            
+1452: 0169: e5 2f  ICL L2           L2--                 
+1454: 016a: 92 27  MAIM M2,A7       A7 := [M2--]         
+1456: 016b: 99 27  MBI M2,B7        B7 := [M2]           
+1458: 016c: a5 7f  ICL L7           L7++                 
+145a: 016d: c9 08  SEDI 08          set DI 0x08          
+145c: 016e: 8c 27  BMIP M2,A7       [M2++] := A7         
+145e: 016f: a8 27  AMI M2,A7        [M2] := A7           
+1460: 0170: de 08  MLIP M0,L8       L8 := [M0++]         
+1462: 0171: 00 01  SAI 0001         jump 0001            
+1464: 0172: 6b 0e  SAD1 3,0e        br D3=1,010e         
+1466: 0173: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1468: 0174: 1b 26  SAI 1b26         jump 1b26            
+146a: 0175: de 07  MLIP M0,L7       L7 := [M0++]         
+146c: 0176: 00 35  SAI 0035         jump 0035            
+146e: 0177: d1 78  MLI M7,L8        L8 := [M7]           
+1470: 0178: e5 8f  ICL L8           L8--                 
+1472: 0179: e1 78  LMI M7,L8        [M7] := L8           
+1474: 017a: 62 34  SAD0 2,34        br D2=0,0134         
+1476: 017b: 1a ff  SAI 1aff         jump 1aff            
+1478: 017c: e5 7f  ICL L7           L7--                 
+147a: 017d: 82 27  AMIM M2,A7       [M2--] := A7         
+147c: 017e: 8a 27  BMIM M2,A7       [M2--] := A7         
+147e: 017f: 92 27  MAIM M2,A7       A7 := [M2--]         
+1480: 0180: 99 27  MBI M2,B7        B7 := [M2]           
+1482: 0181: e5 7f  ICL L7           L7--                 
+1484: 0182: 8c 27  BMIP M2,A7       [M2++] := A7         
+1486: 0183: a8 27  AMI M2,A7        [M2] := A7           
+1488: 0184: d3 d0  SLDB B13         B13 >> DI0           
+148a: 0185: 60 9f  SAD0 0,9f        br D0=0,019f         
+148c: 0186: a5 8f  ICL L8           L8++                 
+148e: 0187: 1a d1  SAI 1ad1         jump 1ad1            
+1490: 0188: a5 7f  ICL L7           L7++                 
+1492: 0189: 82 27  AMIM M2,A7       [M2--] := A7         
+1494: 018a: 8a 27  BMIM M2,A7       [M2--] := A7         
+1496: 018b: 92 27  MAIM M2,A7       A7 := [M2--]         
+1498: 018c: 99 27  MBI M2,B7        B7 := [M2]           
+149a: 018d: e5 7f  ICL L7           L7--                 
+149c: 018e: 8c 27  BMIP M2,A7       [M2++] := A7         
+149e: 018f: a8 27  AMI M2,A7        [M2] := A7           
+14a0: 0190: d4 d0  SLSA B13         B13 << DI0           
+14a2: 0191: 77 80  CRTA A07,C80     A07 := 0x80          
+14a4: 0192: 97 7d  AND A7,B13       A7 and B13           
+14a6: 0193: 63 9f  SAD0 3,9f        br D3=0,019f         
+14a8: 0194: e5 8f  ICL L8           L8--                 
+14aa: 0195: 1a dd  SAI 1add         jump 1add            
+14ac: 0196: e5 2f  ICL L2           L2--                 
+14ae: 0197: e5 2f  ICL L2           L2--                 
+14b0: 0198: 92 27  MAIM M2,A7       A7 := [M2--]         
+14b2: 0199: 99 27  MBI M2,B7        B7 := [M2]           
+14b4: 019a: e5 7f  ICL L7           L7--                 
+14b6: 019b: 8c 27  BMIP M2,A7       [M2++] := A7         
+14b8: 019c: a8 27  AMI M2,A7        [M2] := A7           
+14ba: 019d: de 02  MLIP M0,L2       L2 := [M0++]         
+14bc: 019e: 00 00  SAI 0000         jump 0000            
+14be: 019f: de 08  MLIP M0,L8       L8 := [M0++]         
+14c0: 01a0: 00 01  SAI 0001         jump 0001            
+14c2: 01a1: c8 08  REDI 08          reset DI 0x08        
+14c4: 01a2: 1a e3  SAI 1ae3         jump 1ae3            
+14c6: 01a3: e5 7f  ICL L7           L7--                 
+14c8: 01a4: 82 27  AMIM M2,A7       [M2--] := A7         
+14ca: 01a5: 8a 27  BMIM M2,A7       [M2--] := A7         
+14cc: 01a6: 92 27  MAIM M2,A7       A7 := [M2--]         
+14ce: 01a7: 99 27  MBI M2,B7        B7 := [M2]           
+14d0: 01a8: a5 7f  ICL L7           L7++                 
+14d2: 01a9: 8c 27  BMIP M2,A7       [M2++] := A7         
+14d4: 01aa: a8 27  AMI M2,A7        [M2] := A7           
+14d6: 01ab: d3 d0  SLDB B13         B13 >> DI0           
+14d8: 01ac: 60 c6  SAD0 0,c6        br D0=0,01c6         
+14da: 01ad: e5 8f  ICL L8           L8--                 
+14dc: 01ae: 1a d1  SAI 1ad1         jump 1ad1            
+14de: 01af: a5 7f  ICL L7           L7++                 
+14e0: 01b0: 82 27  AMIM M2,A7       [M2--] := A7         
+14e2: 01b1: 8a 27  BMIM M2,A7       [M2--] := A7         
+14e4: 01b2: 92 27  MAIM M2,A7       A7 := [M2--]         
+14e6: 01b3: 99 27  MBI M2,B7        B7 := [M2]           
+14e8: 01b4: a5 7f  ICL L7           L7++                 
+14ea: 01b5: 8c 27  BMIP M2,A7       [M2++] := A7         
+14ec: 01b6: a8 27  AMI M2,A7        [M2] := A7           
+14ee: 01b7: d4 d0  SLSA B13         B13 << DI0           
+14f0: 01b8: 77 80  CRTA A07,C80     A07 := 0x80          
+14f2: 01b9: 97 7d  AND A7,B13       A7 and B13           
+14f4: 01ba: 63 c6  SAD0 3,c6        br D3=0,01c6         
+14f6: 01bb: a5 8f  ICL L8           L8++                 
+14f8: 01bc: 1a dd  SAI 1add         jump 1add            
+14fa: 01bd: e5 2f  ICL L2           L2--                 
+14fc: 01be: e5 2f  ICL L2           L2--                 
+14fe: 01bf: 92 27  MAIM M2,A7       A7 := [M2--]         
+1500: 01c0: 99 27  MBI M2,B7        B7 := [M2]           
+1502: 01c1: a5 7f  ICL L7           L7++                 
+1504: 01c2: 8c 27  BMIP M2,A7       [M2++] := A7         
+1506: 01c3: a8 27  AMI M2,A7        [M2] := A7           
+1508: 01c4: de 02  MLIP M0,L2       L2 := [M0++]         
+150a: 01c5: 00 00  SAI 0000         jump 0000            
+150c: 01c6: de 08  MLIP M0,L8       L8 := [M0++]         
+150e: 01c7: 00 01  SAI 0001         jump 0001            
+1510: 01c8: c9 08  SEDI 08          set DI 0x08          
+1512: 01c9: 1a e3  SAI 1ae3         jump 1ae3            
+1514: 01ca: e5 7f  ICL L7           L7--                 
+1516: 01cb: 82 27  AMIM M2,A7       [M2--] := A7         
+1518: 01cc: 89 27  BMI M2,A7        [M2] := A7           
+151a: 01cd: de 02  MLIP M0,L2       L2 := [M0++]         
+151c: 01ce: 00 00  SAI 0000         jump 0000            
+151e: 01cf: d3 d0  SLDB B13         B13 >> DI0           
+1520: 01d0: 60 e0  SAD0 0,e0        br D0=0,01e0         
+1522: 01d1: 5d 40  CRTB B13,C40     B13 := 0x40          
+1524: 01d2: c8 08  REDI 08          reset DI 0x08        
+1526: 01d3: 1a e3  SAI 1ae3         jump 1ae3            
+1528: 01d4: a5 7f  ICL L7           L7++                 
+152a: 01d5: 82 27  AMIM M2,A7       [M2--] := A7         
+152c: 01d6: 89 27  BMI M2,A7        [M2] := A7           
+152e: 01d7: de 02  MLIP M0,L2       L2 := [M0++]         
+1530: 01d8: 00 00  SAI 0000         jump 0000            
+1532: 01d9: d4 d0  SLSA B13         B13 << DI0           
+1534: 01da: 77 80  CRTA A07,C80     A07 := 0x80          
+1536: 01db: 97 7d  AND A7,B13       A7 and B13           
+1538: 01dc: 63 e0  SAD0 3,e0        br D3=0,01e0         
+153a: 01dd: 5d 01  CRTB B13,C01     B13 := 0x01          
+153c: 01de: c9 08  SEDI 08          set DI 0x08          
+153e: 01df: 1a e3  SAI 1ae3         jump 1ae3            
+1540: 01e0: de 08  MLIP M0,L8       L8 := [M0++]         
+1542: 01e1: 00 00  SAI 0000         jump 0000            
+1544: 01e2: 1a e3  SAI 1ae3         jump 1ae3            
+1546: 01e3: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1548: 01e4: 1b 26  SAI 1b26         jump 1b26            
+154a: 01e5: de 07  MLIP M0,L7       L7 := [M0++]         
+154c: 01e6: 00 35  SAI 0035         jump 0035            
+154e: 01e7: d1 78  MLI M7,L8        L8 := [M7]           
+1550: 01e8: e5 8f  ICL L8           L8--                 
+1552: 01e9: 63 ff  SAD0 3,ff        br D3=0,01ff         
+1554: 01ea: e1 78  LMI M7,L8        [M7] := L8           
+1556: 01eb: f5 2f  VRL L2           L2==0                
+1558: 01ec: 63 f6  SAD0 3,f6        br D3=0,01f6         
+155a: 01ed: de 08  MLIP M0,L8       L8 := [M0++]         
+155c: 01ee: 1a f0  SAI 1af0         jump 1af0            
+155e: 01ef: 1b 20  SAI 1b20         jump 1b20            
+1560: 01f0: 3a 03  MAD A10,C03      A10 := [03]          
+1562: 01f1: 3a 03  MAD A10,C03      A10 := [03]          
+1564: 01f2: 3a 04  MAD A10,C04      A10 := [04]          
+1566: 01f3: 42 40  SADE 2 40                             
+1568: 01f4: 3c 64  MAD A12,C64      A12 := [64]          
+156a: 01f5: 1a 15  SAI 1a15         jump 1a15            
+156c: 01f6: de 08  MLIP M0,L8       L8 := [M0++]         
+156e: 01f7: 1a f9  SAI 1af9         jump 1af9            
+1570: 01f8: 1b 20  SAI 1b20         jump 1b20            
+1572: 01f9: 3a 03  MAD A10,C03      A10 := [03]          
+1574: 01fa: 3a 03  MAD A10,C03      A10 := [03]          
+1576: 01fb: 3a 05  MAD A10,C05      A10 := [05]          
+1578: 01fc: 41 40  SADE 1 40                             
+157a: 01fd: 3c 64  MAD A12,C64      A12 := [64]          
+157c: 01fe: 1a 15  SAI 1a15         jump 1a15            
+157e: 01ff: 57 06  CRTB B07,C06     B07 := 0x06          
+1580: 0200: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1582: 0201: 19 08  SAI 1908         jump 1908            
+1584: 0202: 9c 92  MBIP M9,B2       B2 := [M9++]         
+1586: 0203: 91 92  MAI M9,A2        A2 := [M9]           
+1588: 0204: 57 09  CRTB B07,C09     B07 := 0x09          
+158a: 0205: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+158c: 0206: 19 08  SAI 1908         jump 1908            
+158e: 0207: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1590: 0208: 1c 81  SAI 1c81         jump 1c81            
+1592: 0209: 57 06  CRTB B07,C06     B07 := 0x06          
+1594: 020a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1596: 020b: 19 08  SAI 1908         jump 1908            
+1598: 020c: a5 9f  ICL L9           L9++                 
+159a: 020d: a5 9f  ICL L9           L9++                 
+159c: 020e: 9c 92  MBIP M9,B2       B2 := [M9++]         
+159e: 020f: 91 92  MAI M9,A2        A2 := [M9]           
+15a0: 0210: 57 0a  CRTB B07,C0a     B07 := 0x0a          
+15a2: 0211: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+15a4: 0212: 19 08  SAI 1908         jump 1908            
+15a6: 0213: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+15a8: 0214: 1c 81  SAI 1c81         jump 1c81            
+15aa: 0215: 5e 00  CRTB B14,C00     B14 := 0x00          
+15ac: 0216: 5f 39  CRTB B15,C39     B15 := 0x39          
+15ae: 0217: 5c 02  CRTB B12,C02     B12 := 0x02          
+15b0: 0218: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+15b2: 0219: 1b 24  SAI 1b24         jump 1b24            
+15b4: 021a: 8c 2f  BMIP M2,A15      [M2++] := A15        
+15b6: 021b: 89 2e  BMI M2,A14       [M2] := A14          
+15b8: 021c: de 08  MLIP M0,L8       L8 := [M0++]         
+15ba: 021d: 19 17  SAI 1917         jump 1917            
+15bc: 021e: d1 88  MLI M8,L8        L8 := [M8]           
+15be: 021f: 1b 22  SAI 1b22         jump 1b22            
+15c0: 0220: c4 80  SLSA A8,C0       A8 << DI0            
+15c2: 0221: d4 81  SLSA B8          B8 << DI0            
+15c4: 0222: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+15c6: 0223: b0 d8                                        
+15c8: 0224: de 00  MLIP M0,L0       L0 := [M0++]
+  !addr
+15ca: 0225: a9 c3  EDB B12          data.B -> B12        
+15cc: 0226: 8c ad  BMIP M10,A13     [M10++] := A13       
+15ce: 0227: 37 7a  MAD A07,C7a      A7 := [7a]           
+15d0: 0228: 8e 7f  VRA A7           A7==0                
+15d2: 0229: 63 63  SAD0 3,63        br D3=0,0263         
+15d4: 022a: de 09  MLIP M0,L9       L9 := [M0++]         
+15d6: 022b: 02 58  SAI 0258         jump 0258            
+15d8: 022c: 98 97  MAIP M9,A7       A7 := [M9++]         
+15da: 022d: 99 97  MBI M9,B7        B7 := [M9]           
+15dc: 022e: 5e 00  CRTB B14,C00     B14 := 0x00          
+15de: 022f: 8a 9e  BMIM M9,A14      [M9--] := A14        
+15e0: 0230: 89 9e  BMI M9,A14       [M9] := A14          
+15e2: 0231: c4 70  SLSA A7,C0       A7 << DI0            
+15e4: 0232: 61 43  SAD0 1,43        br D1=0,0243         
+15e6: 0233: 66 4c  SAD0 6,4c        br D6=0,024c         
+15e8: 0234: c3 70  SLDA A7,C0       A7 >> DI0            
+15ea: 0235: c9 01  SEDI 01          set DI 0x01          
+15ec: 0236: ba 78  SAB A7,B8        A7 <-> B8            
+15ee: 0237: b6 87  SOT A8,B7        A8-B7+DI0            
+15f0: 0238: b6 78  SOT A7,B8        A7-B8+DI0            
+15f2: 0239: 61 3d  SAD0 1,3d        br D1=0,023d         
+15f4: 023a: c8 08  REDI 08          reset DI 0x08        
+15f6: 023b: bc 78  SLL L7,L8        L7 <-> L8            
+15f8: 023c: c9 01  SEDI 01          set DI 0x01          
+15fa: 023d: c6 87  SOTA A8,B7       A8 := A8-B7+DI0      
+15fc: 023e: d6 78  SOTB A7,B8       B8 := A7-B8+DI0      
+15fe: 023f: de 07  MLIP M0,L7       L7 := [M0++]         
+1600: 0240: 00 35  SAI 0035         jump 0035            
+1602: 0241: d1 77  MLI M7,L7        L7 := [M7]           
+1604: 0242: 1b 54  SAI 1b54         jump 1b54            
+1606: 0243: 67 4c  SAD0 7,4c        br D7=0,024c         
+1608: 0244: c3 70  SLDA A7,C0       A7 >> DI0            
+160a: 0245: c9 01  SEDI 01          set DI 0x01          
+160c: 0246: ba 78  SAB A7,B8        A7 <-> B8            
+160e: 0247: b6 87  SOT A8,B7        A8-B7+DI0            
+1610: 0248: b6 78  SOT A7,B8        A7-B8+DI0            
+1612: 0249: 61 3d  SAD0 1,3d        br D1=0,023d         
+1614: 024a: c9 08  SEDI 08          set DI 0x08          
+1616: 024b: 1b 3b  SAI 1b3b         jump 1b3b            
+1618: 024c: c3 70  SLDA A7,C0       A7 >> DI0            
+161a: 024d: c8 01  REDI 01          reset DI 0x01        
+161c: 024e: 96 87  ADDA A8,B7       A8 := A8+B7+DI0      
+161e: 024f: a6 78  ADDB A7,B8       B8 := A7+B8+DI0      
+1620: 0250: de 07  MLIP M0,L7       L7 := [M0++]         
+1622: 0251: 00 35  SAI 0035         jump 0035            
+1624: 0252: d1 77  MLI M7,L7        L7 := [M7]           
+1626: 0253: 65 5c  SAD0 5,5c        br D5=0,025c         
+1628: 0254: e5 7f  ICL L7           L7--                 
+162a: 0255: 63 5e  SAD0 3,5e        br D3=0,025e         
+162c: 0256: 66 59  SAD0 6,59        br D6=0,0259         
+162e: 0257: 77 80  CRTA A07,C80     A07 := 0x80          
+1630: 0258: 87 78  ORB A7,B8        B8 := A7 or B8       
+1632: 0259: 8c 98  BMIP M9,A8       [M9++] := A8         
+1634: 025a: a8 98  AMI M9,A8        [M9] := A8           
+1636: 025b: 19 12  SAI 1912         jump 1912            
+1638: 025c: e5 7f  ICL L7           L7--                 
+163a: 025d: 62 61  SAD0 2,61        br D2=0,0261         
+163c: 025e: 37 7a  MAD A07,C7a      A7 := [7a]           
+163e: 025f: c3 70  SLDA A7,C0       A7 >> DI0            
+1640: 0260: 61 63  SAD0 1,63        br D1=0,0263         
+1642: 0261: 5d 01  CRTB B13,C01     B13 := 0x01          
+1644: 0262: 1b 65  SAI 1b65         jump 1b65            
+1646: 0263: 77 80  CRTA A07,C80     A07 := 0x80          
+1648: 0264: 87 7d  ORB A7,B13       B13 := A7 or B13     
+164a: 0265: a5 af  ICL L10          L10++                
+164c: 0266: 9c a9  MBIP M10,B9      B9 := [M10++]        
+164e: 0267: 91 a9  MAI M10,A9       A9 := [M10]          
+1650: 0268: 67 9a  SAD0 7,9a        br D7=0,029a         
+1652: 0269: f5 8f  VRL L8           L8==0                
+1654: 026a: 63 88  SAD0 3,88        br D3=0,0288         
+1656: 026b: 9a 97  MBIM M9,B7       B7 := [M9--]         
+1658: 026c: d4 70  SLSA B7          B7 << DI0            
+165a: 026d: 60 72  SAD0 0,72        br D0=0,0272         
+165c: 026e: e5 8f  ICL L8           L8--                 
+165e: 026f: 9e 7f  VRB B7           B7==0                
+1660: 0270: 62 69  SAD0 2,69        br D2=0,0269         
+1662: 0271: 1b a2  SAI 1ba2         jump 1ba2            
+1664: 0272: 9e 7f  VRB B7           B7==0                
+1666: 0273: 63 6b  SAD0 3,6b        br D3=0,026b         
+1668: 0274: d3 70  SLDB B7          B7 >> DI0            
+166a: 0275: 77 00  CRTA A07,C00     A07 := 0x00          
+166c: 0276: c9 01  SEDI 01          set DI 0x01          
+166e: 0277: c6 87  SOTA A8,B7       A8 := A8-B7+DI0      
+1670: 0278: ba 78  SAB A7,B8        A7 <-> B8            
+1672: 0279: d6 78  SOTB A7,B8       B8 := A7-B8+DI0      
+1674: 027a: 61 69  SAD0 1,69        br D1=0,0269         
+1676: 027b: 96 87  ADDA A8,B7       A8 := A8+B7+DI0      
+1678: 027c: d8 8c  TAB A8,B12       B12 := A8            
+167a: 027d: a5 9f  ICL L9           L9++                 
+167c: 027e: c8 20  REDI 20          reset DI 0x20        
+167e: 027f: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1680: 0280: 1c 00  SAI 1c00         jump 1c00            
+1682: 0281: 91 97  MAI M9,A7        A7 := [M9]           
+1684: 0282: c8 01  REDI 01          reset DI 0x01        
+1686: 0283: c6 7c  SOTA A7,B12      A7 := A7-B12+DI0     
+1688: 0284: 8a 9c  BMIM M9,A12      [M9--] := A12        
+168a: 0285: 8a 9d  BMIM M9,A13      [M9--] := A13        
+168c: 0286: 88 97  AMIP M9,A7       [M9++] := A7         
+168e: 0287: 1b d5  SAI 1bd5         jump 1bd5            
+1690: 0288: de 08  MLIP M0,L8       L8 := [M0++]         
+1692: 0289: 80 80                                        
+1694: 028a: 91 97  MAI M9,A7        A7 := [M9]           
+1696: 028b: 97 78  AND A7,B8        A7 and B8            
+1698: 028c: 62 cf  SAD0 2,cf        br D2=0,02cf         
+169a: 028d: 8e 7f  VRA A7           A7==0                
+169c: 028e: 62 91  SAD0 2,91        br D2=0,0291         
+169e: 028f: e5 9f  ICL L9           L9--                 
+16a0: 0290: 1b 8a  SAI 1b8a         jump 1b8a            
+16a2: 0291: ae 7f  ICA A7           A7--                 
+16a4: 0292: 63 d4  SAD0 3,d4        br D3=0,02d4         
+16a6: 0293: d8 7c  TAB A7,B12       B12 := A7            
+16a8: 0294: c9 20  SEDI 20          set DI 0x20          
+16aa: 0295: 5f 01  CRTB B15,C01     B15 := 0x01          
+16ac: 0296: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+16ae: 0297: 1c 00  SAI 1c00         jump 1c00            
+16b0: 0298: 8c 9c  BMIP M9,A12      [M9++] := A12        
+16b2: 0299: 1b d4  SAI 1bd4         jump 1bd4            
+16b4: 029a: f5 8f  VRL L8           L8==0                
+16b6: 029b: 63 be  SAD0 3,be        br D3=0,02be         
+16b8: 029c: 9c 97  MBIP M9,B7       B7 := [M9++]         
+16ba: 029d: d4 70  SLSA B7          B7 << DI0            
+16bc: 029e: 60 a8  SAD0 0,a8        br D0=0,02a8         
+16be: 029f: e5 8f  ICL L8           L8--                 
+16c0: 02a0: 9e 7f  VRB B7           B7==0                
+16c2: 02a1: 62 9a  SAD0 2,9a        br D2=0,029a         
+16c4: 02a2: ae ef  ICA A14          A14--                
+16c6: 02a3: de 08  MLIP M0,L8       L8 := [M0++]         
+16c8: 02a4: 19 17  SAI 1917         jump 1917            
+16ca: 02a5: d1 88  MLI M8,L8        L8 := [M8]           
+16cc: 02a6: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+16ce: 02a7: ae 1a  ICA A1           A1--                 
+16d0: 02a8: 9e 7f  VRB B7           B7==0                
+16d2: 02a9: 63 9c  SAD0 3,9c        br D3=0,029c         
+16d4: 02aa: d3 70  SLDB B7          B7 >> DI0            
+16d6: 02ab: 77 00  CRTA A07,C00     A07 := 0x00          
+16d8: 02ac: c9 01  SEDI 01          set DI 0x01          
+16da: 02ad: c6 87  SOTA A8,B7       A8 := A8-B7+DI0      
+16dc: 02ae: ba 78  SAB A7,B8        A7 <-> B8            
+16de: 02af: d6 78  SOTB A7,B8       B8 := A7-B8+DI0      
+16e0: 02b0: 61 9a  SAD0 1,9a        br D1=0,029a         
+16e2: 02b1: 96 87  ADDA A8,B7       A8 := A8+B7+DI0      
+16e4: 02b2: d8 8c  TAB A8,B12       B12 := A8            
+16e6: 02b3: e5 9f  ICL L9           L9--                 
+16e8: 02b4: c9 20  SEDI 20          set DI 0x20          
+16ea: 02b5: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+16ec: 02b6: 1c 00  SAI 1c00         jump 1c00            
+16ee: 02b7: 91 97  MAI M9,A7        A7 := [M9]           
+16f0: 02b8: c8 01  REDI 01          reset DI 0x01        
+16f2: 02b9: c6 7c  SOTA A7,B12      A7 := A7-B12+DI0     
+16f4: 02ba: 8c 9c  BMIP M9,A12      [M9++] := A12        
+16f6: 02bb: 8c 9d  BMIP M9,A13      [M9++] := A13        
+16f8: 02bc: 82 97  AMIM M9,A7       [M9--] := A7         
+16fa: 02bd: 1b d5  SAI 1bd5         jump 1bd5            
+16fc: 02be: de 08  MLIP M0,L8       L8 := [M0++]         
+16fe: 02bf: 80 80                                        
+1700: 02c0: 91 97  MAI M9,A7        A7 := [M9]           
+1702: 02c1: 97 78  AND A7,B8        A7 and B8            
+1704: 02c2: 62 cf  SAD0 2,cf        br D2=0,02cf         
+1706: 02c3: 8e 7f  VRA A7           A7==0                
+1708: 02c4: 62 c7  SAD0 2,c7        br D2=0,02c7         
+170a: 02c5: a5 9f  ICL L9           L9++                 
+170c: 02c6: 1b c0  SAI 1bc0         jump 1bc0            
+170e: 02c7: ae 7f  ICA A7           A7--                 
+1710: 02c8: 63 d4  SAD0 3,d4        br D3=0,02d4         
+1712: 02c9: d8 7c  TAB A7,B12       B12 := A7            
+1714: 02ca: c8 20  REDI 20          reset DI 0x20        
+1716: 02cb: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1718: 02cc: 1c 00  SAI 1c00         jump 1c00            
+171a: 02cd: 8a 9c  BMIM M9,A12      [M9--] := A12        
+171c: 02ce: 1b d4  SAI 1bd4         jump 1bd4            
+171e: 02cf: c7 78  ORE A7,B8        A7 xor B8            
+1720: 02d0: 63 a2  SAD0 3,a2        br D3=0,02a2         
+1722: 02d1: 97 8d  AND A8,B13       A8 and B13           
+1724: 02d2: 63 d5  SAD0 3,d5        br D3=0,02d5         
+1726: 02d3: 87 7d  ORB A7,B13       B13 := A7 or B13     
+1728: 02d4: 89 9d  BMI M9,A13       [M9] := A13          
+172a: 02d5: 82 a9  AMIM M10,A9      [M10--] := A9        
+172c: 02d6: 89 a9  BMI M10,A9       [M10] := A9          
+172e: 02d7: ae ef  ICA A14          A14--                
+1730: 02d8: d1 e0  MLI A14,L0       L0 := [A14]
+1732: 02d9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1734: 02da: 19 08  SAI 1908         jump 1908            
+1736: 02db: 9c 97  MBIP M9,B7       B7 := [M9++]         
+1738: 02dc: cb 7f  AZBM B7          B7.M := 0            
+173a: 02dd: 9e 7f  VRB B7           B7==0                
+173c: 02de: a5 9f  ICL L9           L9++                 
+173e: 02df: a5 9f  ICL L9           L9++                 
+1740: 02e0: 9c 97  MBIP M9,B7       B7 := [M9++]         
+1742: 02e1: d4 70  SLSA B7          B7 << DI0            
+1744: 02e2: 9a e7  MBIM A14,B7      B7 := [A14--]        
+1746: 02e3: d1 e0  MLI A14,L0       L0 := [A14]
+1748: 02e4: bc 9a  SLL L9,L10       L9 <-> L10           
+174a: 02e5: ba aa  SAB A10,B10      A10 <-> B10          
+174c: 02e6: 1b e9  SAI 1be9         jump 1be9            
+174e: 02e7: bc 9a  SLL L9,L10       L9 <-> L10           
+1750: 02e8: bc a2  SLL L10,L2       L10 <-> L2           
+1752: 02e9: e5 9f  ICL L9           L9--                 
+1754: 02ea: e5 af  ICL L10          L10--                
+1756: 02eb: 77 7f  CRTA A07,C7f     A07 := 0x7f          
+1758: 02ec: 9a a7  MBIM M10,B7      B7 := [M10--]        
+175a: 02ed: b7 77  ANDB A7,B7       B7 := A7 and B7      
+175c: 02ee: 9a 9e  MBIM M9,B14      B14 := [M9--]        
+175e: 02ef: a7 7e  ANDA A7,B14      A7 := A7 and B14     
+1760: 02f0: c9 01  SEDI 01          set DI 0x01          
+1762: 02f1: b6 77  SOT A7,B7        A7-B7+DI0            
+1764: 02f2: 62 fc  SAD0 2,fc        br D2=0,02fc         
+1766: 02f3: e5 9f  ICL L9           L9--                 
+1768: 02f4: e5 9f  ICL L9           L9--                 
+176a: 02f5: e5 af  ICL L10          L10--                
+176c: 02f6: e5 af  ICL L10          L10--                
+176e: 02f7: bc b2  SLL L11,L2       L11 <-> L2           
+1770: 02f8: 5e 03  CRTB B14,C03     B14 := 0x03          
+1772: 02f9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1774: 02fa: 1b fe  SAI 1bfe         jump 1bfe            
+1776: 02fb: bc b2  SLL L11,L2       L11 <-> L2           
+1778: 02fc: 92 e7  MAIM A14,A7      A7 := [A14--]        
+177a: 02fd: d1 e0  MLI A14,L0       L0 := [A14]          
+177c: 02fe: de 00  MLIP M0,L0       L0 := [M0++]         
+177e: 02ff: b2 fe  ETIB B15         type.B -> B15        
+1780: 0300: 99 9f  MBI M9,B15       B15 := [M9]          
+1782: 0301: 37 6a  MAD A07,C6a      A7 := [6a]           
+1784: 0302: 8e 7f  VRA A7           A7==0                
+1786: 0303: 62 09  SAD0 2,09        br D2=0,0309         
+1788: 0304: 37 6b  MAD A07,C6b      A7 := [6b]           
+178a: 0305: c9 01  SEDI 01          set DI 0x01          
+178c: 0306: b6 7f  SOT A7,B15       A7-B15+DI0           
+178e: 0307: 61 09  SAD0 1,09        br D1=0,0309         
+1790: 0308: d8 7f  TAB A7,B15       B15 := A7            
+1792: 0309: 77 02  CRTA A07,C02     A07 := 0x02          
+1794: 030a: 87 7f  ORB A7,B15       B15 := A7 or B15     
+1796: 030b: 37 cf  MAD A07,Ccf      A7 := [cf]           
+1798: 030c: c8 17  REDI 17          reset DI 0x17        
+179a: 030d: 8e 7f  VRA A7           A7==0                
+179c: 030e: 63 10  SAD0 3,10        br D3=0,0310         
+179e: 030f: c9 10  SEDI 10          set DI 0x10          
+17a0: 0310: 77 00  CRTA A07,C00     A07 := 0x00          
+17a2: 0311: d8 ee  TAB A14,B14      B14 := A14           
+17a4: 0312: 7e 80  CRTA A14,C80     A14 := 0x80          
+17a6: 0313: d8 98  TAB A9,B8        B8 := A9             
+17a8: 0314: e9 89  TBA A8,B9        A8 := B9             
+17aa: 0315: 69 3c  SAD1 1,3c        br D1=1,033c         
+17ac: 0316: 9a 97  MBIM M9,B7       B7 := [M9--]         
+17ae: 0317: 9e 7f  VRB B7           B7==0                
+17b0: 0318: 63 22  SAD0 3,22        br D3=0,0322         
+17b2: 0319: c7 e7  ORE A14,B7       A14 xor B7           
+17b4: 031a: 62 16  SAD0 2,16        br D2=0,0316         
+17b6: 031b: 8e 7f  VRA A7           A7==0                
+17b8: 031c: 63 45  SAD0 3,45        br D3=0,0345         
+17ba: 031d: ae 7f  ICA A7           A7--                 
+17bc: 031e: 63 45  SAD0 3,45        br D3=0,0345         
+17be: 031f: 85 7f  ICA A7           A7++                 
+17c0: 0320: d8 7f  TAB A7,B15       B15 := A7            
+17c2: 0321: 1c 25  SAI 1c25         jump 1c25            
+17c4: 0322: 85 7f  ICA A7           A7++                 
+17c6: 0323: c7 7f  ORE A7,B15       A7 xor B15           
+17c8: 0324: 62 16  SAD0 2,16        br D2=0,0316         
+17ca: 0325: e9 ee  TBA A14,B14      A14 := B14           
+17cc: 0326: a5 9f  ICL L9           L9++                 
+17ce: 0327: d8 97  TAB A9,B7        B7 := A9             
+17d0: 0328: e9 79  TBA A7,B9        A7 := B9             
+17d2: 0329: ba 77  SAB A7,B7        A7 <-> B7            
+17d4: 032a: 9c 7e  MBIP M7,B14      B14 := [M7++]        
+17d6: 032b: 9e ef  VRB B14          B14==0               
+17d8: 032c: 63 2e  SAD0 3,2e        br D3=0,032e         
+17da: 032d: 8c 9e  BMIP M9,A14      [M9++] := A14        
+17dc: 032e: c7 78  ORE A7,B8        A7 xor B8            
+17de: 032f: 62 2a  SAD0 2,2a        br D2=0,032a         
+17e0: 0330: c7 87  ORE A8,B7        A8 xor B7            
+17e2: 0331: 62 2a  SAD0 2,2a        br D2=0,032a         
+17e4: 0332: 6a 37  SAD1 2,37        br D2=1,0337         
+17e6: 0333: d8 98  TAB A9,B8        B8 := A9             
+17e8: 0334: e9 89  TBA A8,B9        A8 := B9             
+17ea: 0335: 99 7e  MBI M7,B14       B14 := [M7]          
+17ec: 0336: 8c 9e  BMIP M9,A14      [M9++] := A14        
+17ee: 0337: 5e 00  CRTB B14,C00     B14 := 0x00          
+17f0: 0338: 8c 9e  BMIP M9,A14      [M9++] := A14        
+17f2: 0339: be ff  ICB B15          B15--                
+17f4: 033a: 62 38  SAD0 2,38        br D2=0,0338         
+17f6: 033b: 1c 6d  SAI 1c6d         jump 1c6d            
+17f8: 033c: 9c 97  MBIP M9,B7       B7 := [M9++]         
+17fa: 033d: 9e 7f  VRB B7           B7==0                
+17fc: 033e: 63 54  SAD0 3,54        br D3=0,0354         
+17fe: 033f: c7 e7  ORE A14,B7       A14 xor B7           
+1800: 0340: 62 3c  SAD0 2,3c        br D2=0,033c         
+1802: 0341: 8e 7f  VRA A7           A7==0                
+1804: 0342: 63 45  SAD0 3,45        br D3=0,0345         
+1806: 0343: ae 7f  ICA A7           A7--                 
+1808: 0344: 62 51  SAD0 2,51        br D2=0,0351         
+180a: 0345: 64 49  SAD0 4,49        br D4=0,0349         
+180c: 0346: 7e 78  CRTA A14,C78     A14 := 0x78          
+180e: 0347: 5e 01  CRTB B14,C01     B14 := 0x01          
+1810: 0348: 1b 16  SAI 1b16         jump 1b16            
+1812: 0349: c9 07  SEDI 07          set DI 0x07          
+1814: 034a: d8 89  TAB A8,B9        B9 := A8             
+1816: 034b: e9 98  TBA A9,B8        A9 := B8             
+1818: 034c: 69 4f  SAD1 1,4f        br D1=1,034f         
+181a: 034d: c9 10  SEDI 10          set DI 0x10          
+181c: 034e: 1c 3c  SAI 1c3c         jump 1c3c            
+181e: 034f: c8 10  REDI 10          reset DI 0x10        
+1820: 0350: 1c 16  SAI 1c16         jump 1c16            
+1822: 0351: 85 7f  ICA A7           A7++                 
+1824: 0352: d8 7f  TAB A7,B15       B15 := A7            
+1826: 0353: 1c 57  SAI 1c57         jump 1c57            
+1828: 0354: 85 7f  ICA A7           A7++                 
+182a: 0355: c7 7f  ORE A7,B15       A7 xor B15           
+182c: 0356: 62 3c  SAD0 2,3c        br D2=0,033c         
+182e: 0357: e9 ee  TBA A14,B14      A14 := B14           
+1830: 0358: e5 9f  ICL L9           L9--                 
+1832: 0359: d8 97  TAB A9,B7        B7 := A9             
+1834: 035a: e9 79  TBA A7,B9        A7 := B9             
+1836: 035b: ba 77  SAB A7,B7        A7 <-> B7            
+1838: 035c: 9a 7e  MBIM M7,B14      B14 := [M7--]        
+183a: 035d: 9e ef  VRB B14          B14==0               
+183c: 035e: 63 60  SAD0 3,60        br D3=0,0360         
+183e: 035f: 8a 9e  BMIM M9,A14      [M9--] := A14        
+1840: 0360: c7 78  ORE A7,B8        A7 xor B8            
+1842: 0361: 62 5c  SAD0 2,5c        br D2=0,035c         
+1844: 0362: c7 87  ORE A8,B7        A8 xor B7            
+1846: 0363: 62 5c  SAD0 2,5c        br D2=0,035c         
+1848: 0364: 6b 69  SAD1 3,69        br D3=1,0369         
+184a: 0365: d8 98  TAB A9,B8        B8 := A9             
+184c: 0366: e9 89  TBA A8,B9        A8 := B9             
+184e: 0367: 99 7e  MBI M7,B14       B14 := [M7]          
+1850: 0368: 8a 9e  BMIM M9,A14      [M9--] := A14        
+1852: 0369: 5e 00  CRTB B14,C00     B14 := 0x00          
+1854: 036a: 8a 9e  BMIM M9,A14      [M9--] := A14        
+1856: 036b: be ff  ICB B15          B15--                
+1858: 036c: 62 6a  SAD0 2,6a        br D2=0,036a         
+185a: 036d: 77 00  CRTA A07,C00     A07 := 0x00          
+185c: 036e: a0 97                                        
+185e: 036f: 27 cf  AMD A07,Ccf      [cf] := A7           
+1860: 0370: bc 89  SLL L8,L9        L8 <-> L9            
+1862: 0371: ae ef  ICA A14          A14--                
+1864: 0372: d1 e0  MLI A14,L0       L0 := [A14]          
+1866: 0373: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1868: 0374: 19 08  SAI 1908         jump 1908            
+186a: 0375: 9c 97  MBIP M9,B7       B7 := [M9++]         
+186c: 0376: cb 7f  AZBM B7          B7.M := 0            
+186e: 0377: 9e 7f  VRB B7           B7==0                
+1870: 0378: 63 7f  SAD0 3,7f        br D3=0,037f         
+1872: 0379: a5 9f  ICL L9           L9++                 
+1874: 037a: a5 9f  ICL L9           L9++                 
+1876: 037b: 99 97  MBI M9,B7        B7 := [M9]           
+1878: 037c: 77 80  CRTA A07,C80     A07 := 0x80          
+187a: 037d: e7 77  OREB A7,B7       B7 := A7 xor B7      
+187c: 037e: 8c 97  BMIP M9,A7       [M9++] := A7         
+187e: 037f: ae ef  ICA A14          A14--                
+1880: 0380: d1 e0  MLI A14,L0       L0 := [A14]          
+1882: 0381: ba 99  SAB A9,B9        A9 <-> B9            
+1884: 0382: d8 9a  TAB A9,B10       B10 := A9            
+1886: 0383: e9 a9  TBA A10,B9       A10 := B9            
+1888: 0384: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+188a: 0385: 1c 9e  SAI 1c9e         jump 1c9e            
+188c: 0386: c9 01  SEDI 01          set DI 0x01          
+188e: 0387: 77 06  CRTA A07,C06     A07 := 0x06          
+1890: 0388: c6 7d  SOTA A7,B13      A7 := A7-B13+DI0     
+1892: 0389: d8 77  TAB A7,B7        B7 := A7             
+1894: 038a: c3 70  SLDA A7,C0       A7 >> DI0            
+1896: 038b: 60 8d  SAD0 0,8d        br D0=0,038d         
+1898: 038c: e5 af  ICL L10          L10--                
+189a: 038d: 9e df  VRB B13          B13==0               
+189c: 038e: 62 91  SAD0 2,91        br D2=0,0391         
+189e: 038f: 5c 81  CRTB B12,C81     B12 := 0x81          
+18a0: 0390: 1c 95  SAI 1c95         jump 1c95            
+18a2: 0391: be df  ICB B13          B13--                
+18a4: 0392: 79 c0  CRTA A09,Cc0     A09 := 0xc0          
+18a6: 0393: f6 9d  ORA A9,B13       A9 := A9 or B13      
+18a8: 0394: d8 9c  TAB A9,B12       B12 := A9            
+18aa: 0395: 5e 00  CRTB B14,C00     B14 := 0x00          
+18ac: 0396: bc a2  SLL L10,L2       L10 <-> L2           
+18ae: 0397: ba 22  SAB A2,B2        A2 <-> B2            
+18b0: 0398: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+18b2: 0399: 1c 9c  SAI 1c9c         jump 1c9c            
+18b4: 039a: ae ef  ICA A14          A14--                
+18b6: 039b: d1 e0  MLI A14,L0       L0 := [A14]          
+18b8: 039c: de 00  MLIP M0,L0       L0 := [M0++]         
+18ba: 039d: b9 9b  ENUA A9          name -> A9           
+18bc: 039e: de 00  MLIP M0,L0       L0 := [M0++]         
+18be: 039f: 87 0e  ORB A0,B14       B14 := A0 or B14     
+18c0: 03a0: de 0b  MLIP M0,L11      L11 := [M0++]        
+18c2: 03a1: 01 65  SAI 0165         jump 0165            
+18c4: 03a2: d1 b2  MLI M11,L2       L2 := [M11]          
+18c6: 03a3: 7b 61  CRTA A11,C61     A11 := 0x61          
+18c8: 03a4: d1 b7  MLI M11,L7       L7 := [M11]          
+18ca: 03a5: f5 2f  VRL L2           L2==0                
+18cc: 03a6: 63 ca  SAD0 3,ca        br D3=0,03ca         
+18ce: 03a7: e5 2f  ICL L2           L2--                 
+18d0: 03a8: 91 9b  MAI M9,A11       A11 := [M9]          
+18d2: 03a9: f5 7f  VRL L7           L7==0                
+18d4: 03aa: 63 d2  SAD0 3,d2        br D3=0,03d2         
+18d6: 03ab: e5 7f  ICL L7           L7--                 
+18d8: 03ac: 9c ad  MBIP M10,B13     B13 := [M10++]       
+18da: 03ad: d4 d0  SLSA B13         B13 << DI0           
+18dc: 03ae: 9e df  VRB B13          B13==0               
+18de: 03af: 63 a9  SAD0 3,a9        br D3=0,03a9         
+18e0: 03b0: 60 b5  SAD0 0,b5        br D0=0,03b5         
+18e2: 03b1: d3 d1  SLDB B13         B13 >> DI0           
+18e4: 03b2: f6 bd  ORA A11,B13      A11 := A11 or B13    
+18e6: 03b3: 88 9b  AMIP M9,A11      [M9++] := A11        
+18e8: 03b4: 1c a5  SAI 1ca5         jump 1ca5            
+18ea: 03b5: d3 d0  SLDB B13         B13 >> DI0           
+18ec: 03b6: c9 01  SEDI 01          set DI 0x01          
+18ee: 03b7: d6 2d  SOTB A2,B13      B13 := A2-B13+DI0    
+18f0: 03b8: 61 bc  SAD0 1,bc        br D1=0,03bc         
+18f2: 03b9: 9e 2f  VRB B2           B2==0                
+18f4: 03ba: 63 c5  SAD0 3,c5        br D3=0,03c5         
+18f6: 03bb: be 2f  ICB B2           B2--                 
+18f8: 03bc: ba 2d  SAB A2,B13       A2 <-> B13           
+18fa: 03bd: c9 01  SEDI 01          set DI 0x01          
+18fc: 03be: d6 2d  SOTB A2,B13      B13 := A2-B13+DI0    
+18fe: 03bf: c9 01  SEDI 01          set DI 0x01          
+1900: 03c0: a5 2f  ICL L2           L2++                 
+1902: 03c1: c6 9d  SOTA A9,B13      A9 := A9-B13+DI0     
+1904: 03c2: 60 c4  SAD0 0,c4        br D0=0,03c4         
+1906: 03c3: 95 9f  ICB B9           B9++                 
+1908: 03c4: 1c a5  SAI 1ca5         jump 1ca5            
+190a: 03c5: a5 7f  ICL L7           L7++                 
+190c: 03c6: e5 af  ICL L10          L10--                
+190e: 03c7: 72 ff  CRTA A02,Cff     A02 := 0xff          
+1910: 03c8: e7 2d  OREB A2,B13      B13 := A2 xor B13    
+1912: 03c9: 89 ad  BMI M10,A13      [M10] := A13         
+1914: 03ca: 72 08  CRTA A02,C08     A02 := 0x08          
+1916: 03cb: 7b 61  CRTA A11,C61     A11 := 0x61          
+1918: 03cc: ee b7  LMIP M11,L7      [M11++] := L7        
+191a: 03cd: a5 bf  ICL L11          L11++                
+191c: 03ce: ee ba  LMIP M11,L10     [M11++] := L10       
+191e: 03cf: 22 ec  AMD A02,Cec      [ec] := A2           
+1920: 03d0: de 00  MLIP M0,L0       L0 := [M0++]         
+1922: 03d1: b0 2a                                        
+1924: 03d2: 7b 63  CRTA A11,C63     A11 := 0x63          
+1926: 03d3: a5 2f  ICL L2           L2++                 
+1928: 03d4: ee b9  LMIP M11,L9      [M11++] := L9        
+192a: 03d5: a5 bf  ICL L11          L11++                
+192c: 03d6: e1 b2  LMI M11,L2       [M11] := L2          
+192e: 03d7: 72 31  CRTA A02,C31     A02 := 0x31          
+1930: 03d8: 1c cf  SAI 1ccf         jump 1ccf            
+1932: 03d9: 63 db  SAD0 3,db        br D3=0,03db         
+1934: 03da: 1a f6  SAI 1af6         jump 1af6            
+1936: 03db: 1a 34  SAI 1a34         jump 1a34            
+1938: 03dc: d1 00  MLI M0,L0        L0 := [M0]           
+193a: 03dd: ac 94                                        
+193c: 03de: e9 9b  TBA A9,B11       A9 := B11            
+193e: 03df: ba 99  SAB A9,B9        A9 <-> B9            
+1940: 03e0: a5 9f  ICL L9           L9++                 
+1942: 03e1: a5 9f  ICL L9           L9++                 
+1944: 03e2: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+1946: 03e3: 1b db  SAI 1bdb         jump 1bdb            
+1948: 03e4: d5 ff  TDIB B15         B15 := DI            
+194a: 03e5: 57 00  CRTB B07,C00     B07 := 0x00          
+194c: 03e6: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+194e: 03e7: 1b d9  SAI 1bd9         jump 1bd9            
+1950: 03e8: c5 7f  TDIA A7          A7 := DI             
+1952: 03e9: d7 7f  OREA A7,B15      A7 := A7 xor B15     
+1954: 03ea: c3 70  SLDA A7,C0       A7 >> DI0            
+1956: 03eb: 61 ed  SAD0 1,ed        br D1=0,03ed         
+1958: 03ec: 19 94  SAI 1994         jump 1994            
+195a: 03ed: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+195c: 03ee: 1c f0  SAI 1cf0         jump 1cf0            
+195e: 03ef: 19 ff  SAI 19ff         jump 19ff            
+1960: 03f0: d1 00  MLI M0,L0        L0 := [M0]
+  !addr
+1962: 03f1: a9 30  EDB B3           data.B -> B3         
+1964: 03f2: 8e 7f  VRA A7           A7==0                
+1966: 03f3: 63 f6  SAD0 3,f6        br D3=0,03f6         
+1968: 03f4: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
+196a: 03f5: 0b e0  SAI 0be0         jump 0be0            
+196c: 03f6: 1b 20  SAI 1b20         jump 1b20            
+196e: 03f7: 00 00  SAI 0000         jump 0000            
+1970: 03f8: 00 00  SAI 0000         jump 0000            
+1972: 03f9: 00 00  SAI 0000         jump 0000            
+1974: 03fa: 00 00  SAI 0000         jump 0000            
+1976: 03fb: 00 00  SAI 0000         jump 0000            
+1978: 03fc: 00 00  SAI 0000         jump 0000            
+197a: 03fd: 00 00  SAI 0000         jump 0000            
+197c: 03fe: 00 00  SAI 0000         jump 0000            
+197e: 03ff: 00 00  SAI 0000         jump 0000            

@@ -1,0 +1,16 @@
+p. 131 "P6060 ESE"
+
+LVT <unit-name>|*
+
+K0 DSK0-R 1.0
+  DKS = disk system
+  1.0 = distribution in library 0
+
+
+LIBRARY  CREAT  BEG OF EXT   END OF EXT   SECTORS  EMPTY SECTOR
+
+FREE SPACE
+MAX BLOCK OF FREE SPACE
+
+OPEN LIBRARIES
+STORED LIBRARIES

@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+
+import sys
+
+import argparse
+
+parser = argparse.ArgumentParser(description='Decode image disk file')
+parser.add_argument(dest='infile', type=argparse.FileType('rb'))
+parser.add_argument('-o', '--overlay', action='store_true')
+args = parser.parse_args()
+
+print("---- dump")
+
+class EOF(Exception):
+    pass
+
+opcode={}
+opcode[0xc9] = 'SEDI'
+opcode[0x88] = 'AMIP'
+opcode[0x8c] = 'BMIP?'
+opcode[0xa8] = 'AMI'
+opcode[0xac] = 'BMI?'
+opcode[0xf0] = 'ALFA'
+opcode[0x50] = 'RESET'
+
+# jumps are not marked by bit 15 = 0 ...
+
+ovl_addr={}
+ovl_len={}
+ovl_reloc={}
+ovl_count=0
+
+relocs={}
+
+secsize = 0x80
+
+def dump_header(f_in):
+    global ovl_count
+    buf = f_in.read(0x80)
+    pos = 0
+    n = 0
+    while True:
+        ovl_addr[n] = (buf[pos] << 8 | buf[pos+1]) * secsize
+        if ovl_addr[n] == 0:
+            break
+        ovl_len[n] = buf[pos+2] * secsize
+        ovl_reloc[n] = ovl_addr[n] + (buf[pos+3] * secsize)
+        pos = pos + 6
+        n = n + 1
+    ovl_count = n
+    print(f"{ovl_count} overlays")
+    print("   addr  len  reloc  size ")
+    for i in range(ovl_count):
+        print(f"  {ovl_addr[i]:06x} {ovl_len[i]:04x} {ovl_reloc[i]:06x} {ovl_reloc[i]-ovl_addr[i]:06x}")
+    
+
+def dump_reloc(f_in, reloc):
+    global relocs
+    f_in.seek(reloc)
+    relocs={}
+    n = 0
+    print(f"  relocs at {reloc:04x}")
+    while True:
+        buf = f_in.read(4)
+        if not buf:
+            break
+        addr = buf[0] << 8 | buf[1]
+        mask = buf[2] << 8 | buf[3]
+        if mask == 0xffff:
+            break
+        relocs[addr] = mask
+        n = n + 1
+    print(f"  {n} relocations")
+
+def dump_instr(fpos, rpos, buf, reloc):
+    val1 = buf[0]
+    val2 = buf[1]
+    s = ""
+    if val1 & 0xe0 == 0:
+        addr = ((val1 & 0x1f) << 8 | val2) << 1 | 0x10000
+        s = f"SAI {addr:06x}"
+    elif val1 & 0xf8 == 0x20:
+        addr = val2 << 1 | rpos & 0xfe00 
+        s = f"SAD0 {val1 & 0x7},{addr:06x}"
+    elif val1 & 0xf8 == 0x28:
+        addr = val2 << 1 | rpos & 0xfe00 
+        s = f"SAD1 {val1 & 0x7},{addr:06x}"
+    elif val1 & 0x80 == 0:
+        s = f"??? {val1 & 0xf},#{val2:02x}"
+    elif val1 in opcode:
+        s = opcode[val1]
+    print(f"{fpos:04x}: {rpos:06x}: {val1:02x} {val2:02x}  {s:10}  {reloc}")
+
+def dump_overlay(f_in, start, end):
+    f_in.seek(start)
+    fpos = start
+    rpos = 0xb000
+    while fpos < end:
+        buf = f_in.read(2)
+        if len(buf) < 2:
+            break
+        r = ""
+        if rpos in relocs:
+            r = f"mask {relocs[rpos]:04x}"
+        dump_instr(fpos, rpos, buf, r)
+        fpos = fpos + 2
+        rpos = rpos + 1
+        
+def dump_overlays(f_in):
+    print(f"...{ovl_count}")
+    for i in range(ovl_count):
+        print(f"==== Overlay {i}")
+        dump_reloc(f_in, ovl_reloc[i])
+        dump_overlay(f_in, ovl_addr[i], ovl_reloc[i])
+        
+def dump_all(f_in):
+    # loaded at 8800
+    fpos = 0
+    rpos = 0x11000
+    while True:
+        buf = f_in.read(2)
+        if len(buf) < 2:
+            break
+        dump_instr(fpos, rpos, buf, "")
+        fpos = fpos + 2
+        rpos = rpos + 2
+
+if args.overlay:        
+    dump_header(args.infile)
+    dump_overlays(args.infile)
+else:
+    dump_all(args.infile)
+

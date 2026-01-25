@@ -1,0 +1,687 @@
+p. 81 "P6060 ESE"
+
+CATALOG <filename>|*|+|:, lib-ref,P|T|D,F
+
+* = sublibrary package
++ = sublibrary commune
+: = all sublibrary
+lib-ref = (lib-name, unit-name)  lib-name  (,unit-name)
+P = program files
+T = text files
+D = data files
+F = full information
+
+CAT:,(INSTALL,UD),P,F
+
+FILE = file name (includes * or + for lib)
+TYPE = type
+CREAT = creation date
+LAST MOD = last modifcation date
+MAX SIZE =
+USED SIZE
+CODE = identification code
+EXT = extension 1-4
+DEAD = no longer accessible
+OPEN
+C=XXXXX  max 5 digits, used bytes in common library
+
+K0DKS0-R 1.0  VOLLABEL = SYSDIS  LIBRARY = INSTAL  DATE:02-11-77
+
+
+-----------
+
+s10_1c88 = s10_print (buffer, &int16 len)
+
+s4a_0004 ??? first file
+s4a_00b0 ??? next file 
+
+
+; global r11 = ZRM
+; global r12 = COMAREA
+; global r13 = AREA LOCALE  (or stack?)
+
+r14 = stack pointer?
+r15 = ?
+
+-----------
+
+r13
+  4	r2
+  8	r3
+ 12	r4
+ 16	r5
+ 20	r6
+ 24	r7
+ 28	r8
+ 32	r9
+ 34
+ 36-39  from 0x3e19
+ 41 len=73?   print buffer? v_buffer
+   53 = 41+12 = create
+   63 = 41+22 = last mod
+109
+116-119
+116 0
+117 0
+118 0
+119 0
+120
+# 124
+
+r7
+
+r11 ZRM
+  521: 0, 86, 186, 192
+
+r12 COMAREA
+  272 = current day
+  274 = current month
+  276 = current year
+  508 = ?
+  521 = arg for s10_1960
+  552 = arg for s10_1960
+  820 = buffer for reading? size=128 ? via s10_1960
+    824 = addr of vollabel
+  
+    862 = create day
+    864 = create month
+    866 = create year
+    868 = lastmod day
+    870 = lastmod month
+    872 = lastmod year
+
+r14
+  0
+  1-6 library?
+
+
+----
+
+fs symbols
+f d03eb4_title_len 2 @ 0x3eb4
+Cf 2 w @ 0x3eb4
+
+
+========================================
+
+            ;-- segment.s23:
+            0x00003980 pf bbw segment active len # size=4
+ segment : 0x00003980 = 0x23
+  active : 0x00003981 = 0x00
+     len : 0x00003982 = 0x056a ; ==== Segment 23
+            0x00003984      180d           lr r0, r13                  ; prolog 124
+            0x00003986      41d0007c       la r13, 124
+            0x0000398a      23dd           asa r13, r13
+            0x0000398c      5000d000       st r0, 0(,r13)
+            0x00003990      9029d004       stm r2, r9, 4(r13)
+            0x00003994      0570           balr r7, r0                 ; balr.r7_3996
+                                                                       ; 0x3996
+            ;-- balr.r7_3996:
+            0x00003996      93250000       ??93 0, 37
+            0x0000399a      9220d029       mvi 41(r13), 32		; v_buffer
+            0x0000399e      d249d02ad029   mvc 42(73,r13), 41(r13) 	; v_buffer+1
+            0x000039a4      d204d0247483   mvc 36(4,r13), 1155(r7)     ; 0x3e19 s_header, 4 spaces
+            0x000039aa      93247426       ??93 1062(r7), 36           ; 0x3dbc
+            0x000039ae      41607324       la r6, 804(,r7)             ; 0x3cba done
+            0x000039b2      4190741c       la r9, 1052(,r7)            ; 0x3db2 print_line
+            0x000039b6      9200d074       mvi 116(r13), 0
+            0x000039ba      d203d075d074   mvc 117(3,r13), 116(r13)
+            0x000039c0      92207432       mvi 1074(r7), 32            ; 0x3dc8
+            0x000039c4      d21374337432   mvc 1075(19,r7), 1074(r7)   ; 0x3dc9
+            0x000039ca      9c027538       calexs 1336(r7)             ; reloc.s74_0004 ; 0x3ece 
+            0x000039ce      7449           arg 1097(r7)                ; 0x3ddf
+            0x000039d0      7432           arg 1074(r7)                ; 0x3dc8
+            0x000039d2      9500b209       cli 521(r11), 0
+        ┌─< 0x000039d6      47707324       bc 7, 804(,r7)              ; 0x3cba done
+        │   0x000039da      d206c1fc7432   mvc 508(6,r12), 1074(r7)    ; 0x3dc8
+        │   0x000039e0      d205c1f0743f   mvc 496(5,r12), 1087(r7)    ; 0x3dd5
+        │   0x000039e6      d205c1f67439   mvc 502(5,r12), 1081(r7)    ; 0x3dcf
+        │   0x000039ec      9c00753b       calexs 1339(r7)             ; reloc.s55_0640 ; 0x3ed1 
+        │   0x000039f0      9500b209       cli 521(r11), 0
+       ┌──< 0x000039f4      47707324       bc 7, 804(,r7)              ; 0x3cba done
+       ││   0x000039f8      95c0e000       cli 0(r14), 192
+      ┌───< 0x000039fc      47b0706e       bc 11, 110(,r7)             ; 0x3a04
+      │││   0x00003a00      92ffd077       mvi 119(r13), 255
+      └───> 0x00003a04      9520c1f6       cli 502(r12), 32
+      ┌───< 0x00003a08      47707082       bc 7, 130(,r7)              ; 0x3a18
+      │││   0x00003a0c      9520c1f0       cli 496(r12), 32
+     ┌────< 0x00003a10      47707082       bc 7, 130(,r7)              ; 0x3a18
+     ││││   0x00003a14      922ac1f6       mvi 502(r12), 42
+     └└───> 0x00003a18      9520c1fd       cli 509(r12), 32
+      ┌───< 0x00003a1c      478070b4       be 180(,r7)                 ; 0x3a4a
+      │││   0x00003a20      d50174457447   clc 1093(1,r7), 1095(r7)    ; 0x3ddb
+     ┌────< 0x00003a26      4780709a       be 154(,r7)                 ; 0x3a30
+     ││││   0x00003a2a      92c0b209       mvi 521(r11), 192
+     ││││   0x00003a2e      07f6           br r6			; done
+     └────> 0x00003a30      9c00753e       calexs 1342(r7)             ; reloc.s55_03dc ; 0x3ed4 
+      │││   0x00003a34      95bab209       cli 521(r11), 186
+      │││   0x00003a38      0776           bcr 7, r6			; done
+      │││   0x00003a3a      9200b209       mvi 521(r11), 0
+      │││   0x00003a3e      9201d075       mvi 117(r13), 1
+      │││   0x00003a42      9201d074       mvi 116(r13), 1
+     ┌────< 0x00003a46      47f071f0       b 496(,r7)                  ; 0x3b86
+     │└───> 0x00003a4a      95207445       cli 1093(r7), 32            ; 0x3ddb
+     │┌───< 0x00003a4e      478070c2       be 194(,r7)                 ; 0x3a58
+     ││││   0x00003a52      d200d0767445   mvc 118(,r13), 1093(r7)     ; 0x3ddb
+     │└───> 0x00003a58      95207446       cli 1094(r7), 32            ; 0x3ddc
+     │┌───< 0x00003a5c      478070ce       be 206(,r7)                 ; 0x3a64
+     ││││   0x00003a60      9201d074       mvi 116(r13), 1
+     │└───> 0x00003a64      d2057505e001   mvc 1285(5,r7), 1(r14)      ; 0x3e9b ; header library
+     │ ││   0x00003a6a      0589           balr r8, r9	   	       ; print_line
+     │ ││   0x00003a6c      0589           balr r8, r9		       ; print_line
+     │ ││   0x00003a6e      9c057541       calexs 1345(r7)             ; reloc.s10_1960 ; 0x3ed7
+     │ ││   0x00003a72      0002           arg 2
+     │ ││   0x00003a74      c334           arg 820(r12)
+     │ ││   0x00003a76      e000           arg 0(r14)
+     │ ││   0x00003a78      7520           arg 1312(r7)                ; 0x3eb6
+     │ ││   0x00003a7a      746c           arg 1132(r7)                ; 0x3e02
+     │ ││   0x00003a7c      9500b209       cli 521(r11), 0
+     │┌───< 0x00003a80      47707324       bc 7, 804(,r7)              ; 0x3cba done
+     ││││   0x00003a84      922074f0       mvi 1264(r7), 32            ; 0x3e86 ; header vollabel
+     ││││   0x00003a88      d20474f174f0   mvc 1265(4,r7), 1264(r7)    ; 0x3e87
+     ││││   0x00003a8e      4110c338       la r1, 824(,r12)
+     ││││   0x00003a92      82001000       iso 0(,r1)
+    ┌─────< 0x00003a96      4730710a       bc 3, 266(,r7)              ; 0x3aa0 not printable
+    │││││   0x00003a9a      d20574f01000   mvc 1264(5,r7), 0(r1)       ; 0x3e86
+    └─────> 0x00003aa0      d2017515c110   mvc 1301(1,r7), 272(r12)    ; 0x3eab ; part of str = day
+     ││││   0x00003aa6      d2017518c112   mvc 1304(1,r7), 274(r12)    ; 0x3eae ; part of str = month
+     ││││   0x00003aac      d201751bc114   mvc 1307(1,r7), 276(r12)    ; 0x3eb1 ; part of str = year
+     ││││   0x00003ab2      9c027544       calexs 1348(r7)             ; reloc.s10_print ; 0x3eda
+     ││││   0x00003ab6      74cd           arg 1229(r7)                ; 0x3e63 s_title
+     ││││   0x00003ab8      751e           arg 1310(r7) = 0x0050       ; 0x3eb4
+     ││││   0x00003aba      953ac1fc       cli 508(r12), 58
+    ┌─────< 0x00003abe      4770715a       bc 7, 346(,r7)              ; 0x3af0
+    │││││   0x00003ac2      922ac1fc       mvi 508(r12), 42
+    │││││   0x00003ac6      4550717e       bal r5, 382(,r7)            ; 0x3b14
+    │││││   0x00003aca      0589           balr r8, r9		       ; print_line
+    │││││   0x00003acc      45507196       bal r5, 406(,r7)            ; 0x3b2c
+    │││││   0x00003ad0      922bc1fc       mvi 508(r12), 43
+    │││││   0x00003ad4      4550717e       bal r5, 382(,r7)            ; 0x3b14
+    │││││   0x00003ad8      0589           balr r8, r9		       ; print_line
+    │││││   0x00003ada      455071a4       bal r5, 420(,r7)            ; 0x3b3a loop
+    │││││   0x00003ade      9220c1fc       mvi 508(r12), 32
+    │││││   0x00003ae2      4550717e       bal r5, 382(,r7)            ; 0x3b14
+    │││││   0x00003ae6      0589           balr r8, r9		       ; print_line
+    │││││   0x00003ae8      455071a4       bal r5, 420(,r7)            ; 0x3b3a loop
+   ┌──────< 0x00003aec      47f07324       b 804(,r7)                  ; 0x3cba done
+   │└─────> 0x00003af0      9c007547       calexs 1351(r7)             ; reloc.s4a_0004 ; 0x3edd
+   │ ││││   0x00003af4      9556b209       cli 521(r11), 86
+   │┌─────< 0x00003af8      4770716e       bc 7, 366(,r7)              ; 0x3b04
+   ││││││   0x00003afc      9200b209       mvi 521(r11), 0
+  ┌───────< 0x00003b00      47f07324       b 804(,r7)                  ; 0x3cba done
+  ││└─────> 0x00003b04      9500b209       cli 521(r11), 0
+  ││┌─────< 0x00003b08      47707324       bc 7, 804(,r7)              ; 0x3cba done
+  │││││││   0x00003b0c      45507196       bal r5, 406(,r7)            ; 0x3b2c
+  ────────< 0x00003b10      47f07324       b 804(,r7)                  ; 0x3cba done
+; fcn local ??
+  │││││││   0x00003b14      9c007547       calexs 1351(r7)             ; reloc.s4a_0004 ; 0x3edd
+  │││││││   0x00003b18      9500b209       cli 521(r11), 0
+  │││││││   0x00003b1c      0785           ber r5
+  │││││││   0x00003b1e      9556b209       cli 521(r11), 86
+  │││││││   0x00003b22      0776           bcr 7, r6			; done
+  │││││││   0x00003b24      9200b209       mvi 521(r11), 0
+  │││││││   0x00003b28      47f05006       b 6(,r5)
+  │││││││   0x00003b2c      0589           balr r8, r9		       ; print_line
+  │││││││   0x00003b2e      9c027544       calexs 1348(r7)             ; reloc.s10_print ; 0x3eda
+  │││││││   0x00003b32      7483           arg 1155(r7)                ; 0x3e19 s_header ; buf len 4
+  │││││││   0x00003b34      746e           arg 1134(r7)                ; 0x3e04 = 0x004a
+  │││││││   0x00003b36      0589           balr r8, r9		       ; print_line
+  │││││││   0x00003b38      0589           balr r8, r9		       ; print_line
+----------  ; loop:
+  ────────> 0x00003b3a      2121           ??21 33
+  │││││││   0x00003b3c      9506b1bb       cli 443(r11), 6
+  ────────< 0x00003b40      47807324       be 804(,r7)                 ; 0x3cba done
+  │││││││   0x00003b44      9c00754a       calexs 1354(r7)             ; reloc.s4a_00b0 ; 0x3ee0 
+  │││││││   0x00003b48      9556b209       cli 521(r11), 86
+  ────────< 0x00003b4c      477071c0       bc 7, 448(,r7)              ; 0x3b56
+  │││││││   0x00003b50      9200b209       mvi 521(r11), 0
+  │││││││   0x00003b54      07f5           br r5
+  ────────> 0x00003b56      9500b209       cli 521(r11), 0
+  │││││││   0x00003b5a      0776           bcr 7, r6			; done
+  │││││││   0x00003b5c      9500d076       cli 118(r13), 0
+  ────────< 0x00003b60      478071e8       be 488(,r7)                 ; 0x3b7e
+  │││││││   0x00003b64      d500d076c22c   clc 118(,r13), 556(r12)
+  ────────< 0x00003b6a      478071e8       be 488(,r7)                 ; 0x3b7e
+  │││││││   0x00003b6e      9544d076       cli 118(r13), 68
+  ────────< 0x00003b72      477071a4       bc 7, 420(,r7)              ; 0x3b3a loop
+  │││││││   0x00003b76      9102c22c       tm 556(r12), 2
+  ────────< 0x00003b7a      478071a4       be 420(,r7)                 ; 0x3b3a loop
+  ────────> 0x00003b7e      9500d074       cli 116(r13), 0
+  ────────< 0x00003b82      478072fa       be 762(,r7)                 ; 0x3c90
+  │││└────> 0x00003b86      9c057541       calexs 1345(r7)             ; reloc.s10_1960 ; 0x3ed7
+  │││ │││   0x00003b8a      0002           arg 2
+  │││ │││   0x00003b8c      c334           arg 820(r12)
+  │││ │││   0x00003b8e      c21d           arg 541(r12)
+  │││ │││   0x00003b90      c228           arg 552(r12)
+  │││ │││   0x00003b92      746c           arg 1132(r7)                ; 0x3e02
+  │││ │││   0x00003b94      9500b209       cli 521(r11), 0
+  │││ │││   0x00003b98      0776           bcr 7, r6			; done
+  │││ │││   0x00003b9a      9220d029       mvi 41(r13), 32		; v_buffer
+  │││ │││   0x00003b9e      d249d02ad029   mvc 42(73,r13), 41(r13)	; v_buffer+1
+  │││ │││   0x00003ba4      d501c342c228   clc 834(1,r12), 552(r12)
+  │││┌────< 0x00003baa      47707254       bc 7, 596(,r7)              ; 0x3bea
+  │││││││   0x00003bae      9500c340       cli 832(r12), 0
+  ────────< 0x00003bb2      47807254       be 596(,r7)                 ; 0x3bea
+  │││││││   0x00003bb6      9504c340       cli 832(r12), 4
+  ────────< 0x00003bba      47207254       bp 596(,r7)                 ; 0x3bea
+  │││││││   0x00003bbe      d201c22ac344   mvc 554(1,r12), 836(r12)
+  │││││││   0x00003bc4      fb11c22ac348   alm 554(1,r12), 840(1,r12)
+  │││││││   0x00003bca      fb11c22ac34c   alm 554(1,r12), 844(1,r12)
+  │││││││   0x00003bd0      fb11c22ac350   alm 554(1,r12), 848(1,r12)
+  │││││││   0x00003bd6      d501c22ac336   clc 554(1,r12), 822(r12)
+  ────────< 0x00003bdc      47707254       bc 7, 596(,r7)              ; 0x3bea
+  │││││││   0x00003be0      d501c22a7472   clc 554(1,r12), 1138(r7)    ; 0x3e08
+  ────────< 0x00003be6      4770725a       bc 7, 602(,r7)              ; 0x3bf0
+  ───└────> 0x00003bea      47f0754e       b 1358(,r7)                 ; 0x3ee4
+  │││ │││   0x00003bee      09             invalid  ; fill?
+  │││ │││   0x00003bef      00             invalid  ; fill?
+      	    ; store_create
+  ────────> 0x00003bf0      d201d035c35e   mvc 53(1,r13), 862(r12)	; v_buffer+12
+  │││ │││   0x00003bf6      922dd037       mvi 55(r13), 45 "-"
+  │││ │││   0x00003bfa      d201d038c360   mvc 56(1,r13), 864(r12)
+  │││ │││   0x00003c00      922dd03a       mvi 58(r13), 45 "-"
+  │││ │││   0x00003c04      d201d03bc362   mvc 59(1,r13), 866(r12)
+      	    ; store_lastmod
+  │││ │││   0x00003c0a      d201d03fc364   mvc 63(1,r13), 868(r12)
+  │││ │││   0x00003c10      922dd041       mvi 65(r13), 45 "-"
+  │││ │││   0x00003c14      d201d042c366   mvc 66(1,r13), 870(r12)
+  │││ │││   0x00003c1a      922dd044       mvi 68(r13), 45 "-"
+  │││ │││   0x00003c1e      d201d045c368   mvc 69(1,r13), 872(r12)
+  │││ │││   0x00003c24      4820c336       lh r2, 822(,r12)
+  │││ │││   0x00003c28      4140d04a       la r4, 74(,r13)
+  │││ │││   0x00003c2c      45807348       bal r8, 840(,r7)            ; 0x3cde
+  │││ │││   0x00003c30      4820c338       lh r2, 824(,r12)
+  │││ │││   0x00003c34      4140d055       la r4, 85(,r13)
+  │││ │││   0x00003c38      45807348       bal r8, 840(,r7)            ; 0x3cde
+  │││ │││   0x00003c3c      d207d05fc370   mvc 95(7,r13), 880(r12)
+  │││ │││   0x00003c42      d200d06ac340   mvc 106(,r13), 832(r12)
+  │││ │││   0x00003c48      9630d06a       oi 106(r13), 48
+  │││ │││   0x00003c4c      9101c334       tm 820(r12), 1
+  │││┌────< 0x00003c50      478072c4       be 708(,r7)                 ; 0x3c5a
+  │││││││   0x00003c54      d203d06d7522   mvc 109(3,r13), 1314(r7)    ; 0x3eb8
+  │││└────> 0x00003c5a      9550c22c       cli 556(r12), 80
+  │││┌────< 0x00003c5e      477072fa       bc 7, 762(,r7)              ; 0x3c90
+  │││││││   0x00003c62      fb11c2287534   alm 552(1,r12), 1332(1,r7)  ; 0x3eca
+  │││││││   0x00003c68      9c057541       calexs 1345(r7)             ; reloc.s10_1960 ; 0x3ed7
+  │││││││   0x00003c6c      0002           arg 2
+  │││││││   0x00003c6e      c334           arg 820(r12)
+  │││││││   0x00003c70      c21d           arg 541(r12)
+  │││││││   0x00003c72      c228           arg 552(r12)
+  │││││││   0x00003c74      746c           arg 1132(r7)                ; 0x3e02
+  │││││││   0x00003c76      9500b209       cli 521(r11), 0
+  │││││││   0x00003c7a      0776           bcr 7, r6			; done
+  │││││││   0x00003c7c      9108c348       tm 840(r12), 8
+  ────────< 0x00003c80      478072fa       be 762(,r7)                 ; 0x3c90
+  │││││││   0x00003c84      d201d06d7536   mvc 109(1,r13), 1334(r7)    ; 0x3ecc
+  │││││││   0x00003c8a      db04d06fc34c   cbs 111(4,r13), 844(r12)
+  ───└────> 0x00003c90      d200d029c1fc   mvc 41(,r13), 508(r12)	; v_buffer
+  │││ │││   0x00003c96      d205d02ac1fd   mvc 42(5,r13), 509(r12)	; v_buffer+1
+  │││ │││   0x00003c9c      d200d032c22c   mvc 50(,r13), 556(r12)
+  │││ │││   0x00003ca2      9500d074       cli 116(r13), 0
+  │││┌────< 0x00003ca6      4780733c       be 828(,r7)                 ; 0x3cd2
+  │││││││   0x00003caa      9c027544       calexs 1348(r7)             ; reloc.s10_print ; 0x3eda
+  │││││││   0x00003cae      d024           arg 36(r13)
+  │││││││   0x00003cb0      7526           arg 1318(r7)                ; 0x3ebc = 0x0050
+  ────────> 0x00003cb2      9501d075       cli 117(r13), 1
+  ────────< 0x00003cb6      477071a4       bc 7, 420(,r7)              ; 0x3b3a  loop
+----------- ; done
+  └└└─└└└─> 0x00003cba      9324742a       ??93 1066(r7), 36           ; 0x3dc0
+     │      0x00003cbe      5010c130       st r1, 304(,r12)
+     │      0x00003cc2      9829d004       lm r2, r9, 4(r13)
+     │      0x00003cc6      58d0d000       l r13, 0(,r13)
+     │      0x00003cca      4100007c       la r0, 124
+     │      0x00003cce      2200           fsa r0, r0
+     │      0x00003cd0      2800           retext 0
+-----------------------------------------------------------------     
+     └────> 0x00003cd2      9c027544       calexs 1348(r7)             ; reloc.s10_print ; 0x3eda
+            0x00003cd6      d024           arg 36(r13)
+            0x00003cd8      752e           arg 1326(r7)                ; 0x3ec4 = 000f
+  ────────< 0x00003cda      47f0731c       b 796(,r7)                  ; 0x3cb2
+-----------------------------------------------------------------
+; fcn local ret=r8
+; process file?
+            0x00003cde      0c02           slri r2, 0
+            0x00003ce0      9701d078       xi 120(r13), 1
+            0x00003ce4      9500d077       cli 119(r13), 0
+        ┌─< 0x00003ce8      47807358       be 856(,r7)                 ; 0x3cee
+        │   0x00003cec      1a22           ar r2, r2
+        └─> 0x00003cee      0462           sll r2, 6
+            0x00003cf0      9501d078       cli 120(r13), 1
+        ┌─< 0x00003cf4      4780738c       be 908(,r7)                 ; 0x3d22 
+        │   0x00003cf8      1b99           sr r9, r9
+        │   0x00003cfa      1929           cr r2, r9
+       ┌──< 0x00003cfc      4780738c       be 908(,r7)                 ; 0x3d22 
+       ││   0x00003d00      5f207474       sl r2, 1140(,r7)            ; 0x3e0a
+       ││   0x00003d04      9500d077       cli 119(r13), 0
+      ┌───< 0x00003d08      4780737a       be 890(,r7)                 ; 0x3d10
+      │││   0x00003d0c      5f207474       sl r2, 1140(,r7)            ; 0x3e0a
+      └───> 0x00003d10      4390c335       ic r9, 821(,r12)
+       ││   0x00003d14      1a29           ar r2, r9
+       ││   0x00003d16      9500c335       cli 821(r12), 0
+      ┌───< 0x00003d1a      4770738c       bc 7, 908(,r7)              ; 0x3d22 
+      │││   0x00003d1e      5e207478       al r2, 1144(,r7)            ; 0x3e0e
+      └└└─> 0x00003d22      42207482       stc r2, 1154(,r7)           ; 0x3e18
+            0x00003d26      0872           srl r2, 7
+            0x00003d28      413003e8       la r3, 1000
+            0x00003d2c      4190747c       la r9, 1148(,r7)            ; 0x3e12
+            0x00003d30      d20173a87398   mvc 936(1,r7), 920(r7)      ; 0x3d3e
+            0x00003d36      d20173e07398   mvc 992(1,r7), 920(r7)      ; 0x3d76
+            0x00003d3c      85320000       dm r3, r2, 0
+            0x00003d40      4890747c       lh r9, 1148(,r7)            ; 0x3e12
+            0x00003d44      0479           sll r9, 7
+            0x00003d46      40907480       sth r9, 1152(,r7)           ; 0x3e16
+            0x00003d4a      4820747e       lh r2, 1150(,r7)            ; 0x3e14
+            0x00003d4e      0472           sll r2, 7
+            0x00003d50      43207482       ic r2, 1154(,r7)            ; 0x3e18
+        ┌─> 0x00003d54      1812           lr r1, r2
+        ╎   0x00003d56      08f1           srl r1, 15
+        ╎   0x00003d58      1b00           sr r0, r0
+        ╎   0x00003d5a      1910           cr r1, r0
+       ┌──< 0x00003d5c      478073de       be 990(,r7)                 ; 0x3d74
+       │╎   0x00003d60      0c01           slri r1, 0
+       │╎   0x00003d62      421002c9       stc r1, 713
+       │╎   0x00003d66      fb117480752a   alm 1152(1,r7), 1322(1,r7)  ; 0x3e16
+       │╎   0x00003d6c      4a207528       ah r2, 1320(,r7)            ; 0x3ebe
+       │└─< 0x00003d70      47f073be       b 958(,r7)                  ; 0x3d54
+       └──> 0x00003d74      85320000       dm r3, r2, 0
+            0x00003d78      fb11747c7480   alm 1148(1,r7), 1152(1,r7)  ; 0x3e12
+            0x00003d7e      db034000747c   cbs 0(3,r4), 1148(r7)       ; 0x3e12
+        ┌─> 0x00003d84      0104           alri r4, 0
+        ╎   0x00003d86      95204000       cli 0(r4), 32
+        └─< 0x00003d8a      477073ee       bc 7, 1006(,r7)             ; 0x3d84
+            0x00003d8e      db024000747e   cbs 0(2,r4), 1150(r7)       ; 0x3e14
+        ┌─> 0x00003d94      4190741c       la r9, 1052(,r7)            ; 0x3db2
+        ╎   0x00003d98      95204002       cli 2(r4), 32
+        ╎   0x00003d9c      0778           bcr 7, r8		; ret
+        ╎   0x00003d9e      d20040024001   mvc 2(,r4), 1(r4)
+        ╎   0x00003da4      d20040014000   mvc 1(,r4), 0(r4)
+        ╎   0x00003daa      92304000       mvi 0(r4), 48
+        └─< 0x00003dae      47f073fe       b 1022(,r7)                 ; 0x3d94
+-----------------------------------------------------	
+; fcn local ret=r8  print_line
+; print with zero len = print line?
+            0x00003db2      9c027544       calexs 1348(r7)             ; reloc.s10_print ; 0x3eda
+            0x00003db6      d029           arg 41(r13)		       ; v_buffer
+            0x00003db8      7472           arg 1138(r7) = 0000         ; 0x3e08
+            0x00003dba      07f8           br r8
+----------------------------------------------------	    
+            0x00003dbc      .byte 0x00
+            0x00003dbd      .byte 0x2b
+            0x00003dbe      .byte 0xef
+            0x00003dbf      .byte 0xef
+            0x00003dc0      .byte 0x01
+            0x00003dc1      .byte 0xff
+            0x00003dc2      .byte 0xff
+            0x00003dc3      .byte 0xff
+            0x00003dc4      .byte 0xff
+            0x00003dc5      .byte 0x8b
+            0x00003dc6      .byte 0x00
+            0x00003dc7      .byte 0x20
+; result of command line parsing?	    
+            0x00003dc8      .byte 0x40
+            0x00003dc9      .byte 0x40
+            0x00003dca      .byte 0x40
+            0x00003dcb      .byte 0x40
+            0x00003dcc      .byte 0x40
+            0x00003dcd      .byte 0x40
+            0x00003dce      .byte 0x40
+            0x00003dcf      .byte 0x40
+            0x00003dd0      .byte 0x40
+            0x00003dd1      .byte 0x40
+            0x00003dd2      .byte 0x40
+            0x00003dd3      .byte 0x40
+            0x00003dd4      .byte 0x40
+            0x00003dd5      .byte 0x40
+            0x00003dd6      .byte 0x40
+            0x00003dd7      .byte 0x40
+            0x00003dd8      .byte 0x40
+            0x00003dd9      .byte 0x40
+            0x00003dda      .byte 0x40
+            0x00003ddb      .byte 0x40
+            0x00003ddc      .byte 0x40
+            0x00003ddd      .byte 0x20
+            0x00003dde      .byte 0x20
+; command optin descriptor, for s74_0004 ???	    
+            0x00003ddf      .byte 0x83
+            0x00003de0      .byte 0x07
+            0x00003de1      .byte 0xa1
+            0x00003de2      .byte 0x07
+            0x00003de3      .byte 0x2a  ; "*" lib package
+            0x00003de4      .byte 0xa1
+            0x00003de5      .byte 0x07
+            0x00003de6      .byte 0x2b  ; "+" lib common
+            0x00003de7      .byte 0xa1
+            0x00003de8      .byte 0x07
+            0x00003de9      .byte 0x3a  ; ":" lib all
+            0x00003dea      .byte 0xe0	; comma
+            0x00003deb      .byte 0x40
+            0x00003dec      .byte 0x00
+            0x00003ded      .byte 0x81
+            0x00003dee      .byte 0x0c
+            0x00003def      .byte 0xe0  ; comma
+            0x00003df0      .byte 0xa1
+            0x00003df1      .byte 0x01
+            0x00003df2      .byte 0x50  ; "P"  program files
+            0x00003df3      .byte 0xa1
+            0x00003df4      .byte 0x01
+            0x00003df5      .byte 0x54  ; "T"  text files
+            0x00003df6      .byte 0xa1
+            0x00003df7      .byte 0x01
+            0x00003df8      .byte 0x44  ; "D"  data files
+            0x00003df9      .byte 0xa1
+            0x00003dfa      .byte 0x01
+            0x00003dfb      .byte 0x4f  ; "O" ?
+            0x00003dfc      .byte 0xe0	; comma
+            0x00003dfd      .byte 0xa1
+            0x00003dfe      .byte 0x01
+            0x00003dff      .byte 0x46  ; "F"  full information
+            0x00003e00      .byte 0xc1
+            0x00003e01      .byte 0x00
+            0x00003e02      .byte 0x00 ; arg for s10_1960 (2 bytes?)
+            0x00003e03      .byte 0x01
+            0x00003e04      .byte 0x00 ; len = 4a ??
+            0x00003e05      .byte 0x4a
+            0x00003e06      .byte 0x00
+            0x00003e07      .byte 0x1b
+            0x00003e08      .byte 0x00 ; len = 0  1138(r7) 
+            0x00003e09      .byte 0x00
+            0x00003e0a      .byte 0x00
+            0x00003e0b      .byte 0x00
+            0x00003e0c      .byte 0x00
+            0x00003e0d      .byte 0x80
+            0x00003e0e      .byte 0x00
+            0x00003e0f      .byte 0x00
+            0x00003e10      .byte 0x01
+            0x00003e11      .byte 0x00
+            0x00003e12      .byte 0x40
+            0x00003e13      .byte 0x40
+            0x00003e14      .byte 0x40
+            0x00003e15      .byte 0x40
+            0x00003e16      .byte 0x40
+            0x00003e17      .byte 0x40
+            0x00003e18      .byte 0x40
+; FILE TYPE ...
+; s_header
+; 00003e10  01 00 40 40 40 40 40 40  40 20 20 20 20 20 46 49  |..@@@@@@@
+; "     FILE   TYPE  CREAT    LAST MOD  MAX SIZE  USED SIZE   CODE      EXT       K0ESE0-R"
+;  01234567890123456789012345678901234567890123456789012345678901234567890123456789
+;  0         1         2         3         4         5         6         7
+
+            0x00003e19      .byte 0x20  ; char len=4?
+            0x00003e1a      .byte 0x20
+            0x00003e1b      .byte 0x20
+            0x00003e1c      .byte 0x20
+            0x00003e1d      .byte 0x20
+            0x00003e1e      .byte 0x46  ; "FILE"
+            0x00003e1f      .byte 0x49
+            0x00003e20      .byte 0x4c
+            0x00003e21      .byte 0x45
+            0x00003e22      .byte 0x20
+            0x00003e23      .byte 0x20
+            0x00003e24      .byte 0x20
+            0x00003e25      .byte 0x54  ; "TYPE"
+            0x00003e26      .byte 0x59
+            0x00003e27      .byte 0x50
+            0x00003e28      .byte 0x45
+            0x00003e29      .byte 0x20
+            0x00003e2a      .byte 0x20
+            0x00003e2b      .byte 0x43
+            0x00003e2c      .byte 0x52
+            0x00003e2d      .byte 0x45
+            0x00003e2e      .byte 0x41
+            0x00003e2f      .byte 0x54
+            0x00003e30      .byte 0x20
+            0x00003e31      .byte 0x20
+            0x00003e32      .byte 0x20
+            0x00003e33      .byte 0x20
+            0x00003e34      .byte 0x4c
+            0x00003e35      .byte 0x41
+            0x00003e36      .byte 0x53
+            0x00003e37      .byte 0x54
+            0x00003e38      .byte 0x20
+            0x00003e39      .byte 0x4d
+            0x00003e3a      .byte 0x4f
+            0x00003e3b      .byte 0x44
+            0x00003e3c      .byte 0x20
+            0x00003e3d      .byte 0x20
+            0x00003e3e      .byte 0x4d
+            0x00003e3f      .byte 0x41
+            0x00003e40      .byte 0x58
+            0x00003e41      .byte 0x20
+            0x00003e42      .byte 0x53
+            0x00003e43      .byte 0x49
+            0x00003e44      .byte 0x5a
+            0x00003e45      .byte 0x45
+            0x00003e46      .byte 0x20
+            0x00003e47      .byte 0x20
+            0x00003e48      .byte 0x55
+            0x00003e49      .byte 0x53
+            0x00003e4a      .byte 0x45
+            0x00003e4b      .byte 0x44
+            0x00003e4c      .byte 0x20
+            0x00003e4d      .byte 0x53
+            0x00003e4e      .byte 0x49
+            0x00003e4f      .byte 0x5a
+            0x00003e50      .byte 0x45
+            0x00003e51      .byte 0x20
+            0x00003e52      .byte 0x20
+            0x00003e53      .byte 0x20
+            0x00003e54      .byte 0x43
+            0x00003e55      .byte 0x4f
+            0x00003e56      .byte 0x44
+            0x00003e57      .byte 0x45
+            0x00003e58      .byte 0x20
+            0x00003e59      .byte 0x20
+            0x00003e5a      .byte 0x20
+            0x00003e5b      .byte 0x20
+            0x00003e5c      .byte 0x20
+            0x00003e5d      .byte 0x20
+            0x00003e5e      .byte 0x45  ; "EXT"
+            0x00003e5f      .byte 0x58
+            0x00003e60      .byte 0x54
+            0x00003e61      .byte 0x20
+            0x00003e62      .byte 0x20
+; Cs 0x50 @ 0x3e63	    
+            0x00003e63      .byte 0x20  ; string len 50
+; "     K0ESE0-R 4.1    *  VOLLABEL =         *  LIBRARY =         *  DATE:  -  -  "
+;  01234567890123456789012345678901234567890123456789012345678901234567890123456789
+; 3e86 vollabel
+; 3e9b 1285(r7) library
+; 3eab 1301(r7) = date day
+;  
+            0x00003eb3      .byte 0x00
+; Cf 2 w len @ 0x3eb4	    
+            0x00003eb4      .byte 0x00 0x50 ; arg 1310(r7), len of s_title
+            0x00003eb6      .byte 0x00      ; arg
+            0x00003eb7      .byte 0x06
+            0x00003eb8      .byte 0x4f      ; "OPEN"
+            0x00003eb9      .byte 0x50
+            0x00003eba      .byte 0x45
+            0x00003ebb      .byte 0x4e
+            0x00003ebc      .byte 0x00      ; arg 1318(r7), len of?
+            0x00003ebd      .byte 0x50
+            0x00003ebe      .byte 0x02      ; halfword
+            0x00003ebf      .byte 0x18
+            0x00003ec0      .byte 0x00
+            0x00003ec1      .byte 0x41
+            0x00003ec2      .byte 0x00
+            0x00003ec3      .byte 0x00
+            0x00003ec4      .byte 0x00      ; arg 1326(r7), len of?
+            0x00003ec5      .byte 0x0f
+            0x00003ec6      .byte 0x44      ; "DEAD"
+            0x00003ec7      .byte 0x45
+            0x00003ec8      .byte 0x41
+            0x00003ec9      .byte 0x44
+            0x00003eca      .byte 0x00      ; alm
+            0x00003ecb      .byte 0x01
+            0x00003ecc      .byte 0x43      ; movc len=1
+            0x00003ecd      .byte 0x3d
+            ;-- reloc.s74_0004:
+            0x00003ece pf bw seg offset # size=3
+    seg : 0x00003ece = 0x74
+ offset : 0x00003ecf = 0x0004
+            ;-- reloc.s55_03dc:
+            0x00003ed4 pf bw seg offset # size=3
+    seg : 0x00003ed4 = 0x55
+ offset : 0x00003ed5 = 0x03dc
+            ;-- reloc.s10_1960:
+            0x00003ed7 pf bw seg offset # size=3
+    seg : 0x00003ed7 = 0x10
+ offset : 0x00003ed8 = 0x1960
+            ;-- reloc.s10_print:	    ; s10_1c88
+            0x00003eda pf bw seg offset # size=3
+    seg : 0x00003eda = 0x10
+ offset : 0x00003edb = 0x1c88
+            ;-- reloc.s4a_0004:
+            0x00003edd pf bw seg offset # size=3
+    seg : 0x00003edd = 0x4a
+ offset : 0x00003ede = 0x0004
+            ;-- reloc.s4a_00b0:
+            0x00003ee0 pf bw seg offset # size=3
+    seg : 0x00003ee0 = 0x4a
+ offset : 0x00003ee1 = 0x00b0
+            ;-- reloc.s40_d203:  no used?
+            0x00003ee3 pf bw seg offset # size=3
+    seg : 0x00003ee3 = 0x40
+ offset : 0x00003ee4 = 0xd203
+ 
+            0x00003ee6      .byte 0xd0
+            0x00003ee7      .byte 0x6d
+            0x00003ee8      .byte 0x75
+            0x00003ee9      .byte 0x30
+            0x00003eea      .byte 0x47
+            0x00003eeb      .byte 0xf0
+            0x00003eec      .byte 0x72
+            0x00003eed      .byte 0xfa
+            0x00003eee      .byte 0xff
+            0x00003eef      .byte 0xff
+            0x00003ef0      .byte 0xff
+            0x00003ef1      .byte 0xff
+            0x00003ef2      .byte 0xff
+            0x00003ef3      .byte 0xff
+            0x00003ef4      .byte 0xff
+            0x00003ef5      .byte 0xff
+            0x00003ef6      .byte 0xff
+            0x00003ef7      .byte 0xff
+            0x00003ef8      .byte 0xff
+            0x00003ef9      .byte 0xff
+            0x00003efa      .byte 0xff
+            0x00003efb      .byte 0xff
+            0x00003efc      .byte 0xff
+            0x00003efd      .byte 0xff
+            0x00003efe      .byte 0xff
+            0x00003eff      .byte 0xff
+
+00003e00  c1 00 00 01 00 4a 00 1b  00 00 00 00 00 80 00 00  |.....J..........|
+00003e10  01 00 40 40 40 40 40 40  40 20 20 20 20 20 46 49  |..@@@@@@@     FI|
+00003e20  4c 45 20 20 20 54 59 50  45 20 20 43 52 45 41 54  |LE   TYPE  CREAT|
+00003e30  20 20 20 20 4c 41 53 54  20 4d 4f 44 20 20 4d 41  |    LAST MOD  MA|
+00003e40  58 20 53 49 5a 45 20 20  55 53 45 44 20 53 49 5a  |X SIZE  USED SIZ|
+00003e50  45 20 20 20 43 4f 44 45  20 20 20 20 20 20 45 58  |E   CODE      EX|
+00003e60  54 20 20 20 20 20 20 20  4b 30 45 53 45 30 2d 52  |T       K0ESE0-R|
+00003e70  20 34 2e 31 20 20 20 20  2a 20 20 56 4f 4c 4c 41  | 4.1    *  VOLLA|
+00003e80  42 45 4c 20 3d 20 20 20  20 20 20 20 20 20 2a 20  |BEL =         * |
+00003e90  20 4c 49 42 52 41 52 59  20 3d 20 20 20 20 20 20  | LIBRARY =      |
+00003ea0  20 20 20 2a 20 20 44 41  54 45 3a 20 20 2d 20 20  |   *  DATE:  -  |
+00003eb0  2d 20 20 00 00 50 00 06  4f 50 45 4e 00 50 02 18  |-  ..P..OPEN.P..|
+00003ec0  00 41 00 00 00 0f 44 45  41 44 00 01 43 3d 74 00  |.A....DEAD..C=t.|

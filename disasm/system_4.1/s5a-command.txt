@@ -1,0 +1,107 @@
+0x0000ec80  0900 0900 0900 4341 5453 5041 5055 5243  ......CATSPAPURC
+
+Cs 3 @ 0xec86
+Cs 3 @ 0xec86 + 1*3
+Cs 3 @ 0xec86 + 2*3
+Cs 3 @ 0xec86 + 3*3
+Cs 3 @ 0xec86 + 4*3
+Cs 3 @ 0xec86 + 5*3
+Cs 3 @ 0xec86 + 6*3
+Cs 3 @ 0xec86 + 7*3
+Cs 3 @ 0xec86 + 8*3
+Cs 3 @ 0xec86 + 9*3
+Cs 3 @ 0xec86 + 10*3
+Cs 3 @ 0xec86 + 11*3
+Cs 3 @ 0xec86 + 12*3
+Cs 3 @ 0xec86 + 13*3
+Cs 3 @ 0xec86 + 14*3
+Cs 3 @ 0xec86 + 15*3
+Cs 3 @ 0xec86 + 16*3
+Cs 3 @ 0xec86 + 17*3
+Cs 3 @ 0xec86 + 18*3
+Cs 3 @ 0xec86 + 19*3
+Cs 3 @ 0xec86 + 20*3
+Cs 3 @ 0xec86 + 21*3
+Cs 3 @ 0xec86 + 22*3
+Cs 3 @ 0xec86 + 23*3
+Cs 3 @ 0xec86 + 24*3
+Cs 3 @ 0xec86 + 25*3
+Cs 3 @ 0xec86 + 26*3
+Cs 3 @ 0xec86 + 27*3
+Cs 3 @ 0xec86 + 28*3
+Cs 3 @ 0xec86 + 29*3
+Cs 3 @ 0xec86 + 30*3
+Cs 3 @ 0xec86 + 31*3
+Cs 3 @ 0xec86 + 32*3
+Cs 3 @ 0xec86 + 33*3
+Cs 3 @ 0xec86 + 34*3
+Cs 3 @ 0xec86 + 35*3
+Cs 3 @ 0xec86 + 36*3
+Cs 3 @ 0xec86 + 37*3
+Cs 3 @ 0xec86 + 38*3
+Cs 3 @ 0xec86 + 39*3
+Cs 3 @ 0xec86 + 40*3
+Cs 3 @ 0xec86 + 41*3
+Cs 3 @ 0xec86 + 42*3
+Cs 3 @ 0xec86 + 43*3
+Cs 3 @ 0xec86 + 44*3
+Cs 3 @ 0xec86 + 45*3
+Cs 3 @ 0xec86 + 46*3
+Cs 3 @ 0xec86 + 47*3
+
+CAT SPA PUR CRE MOD TRU DEL LIS FET
+VAL RES NEW OLD SAV REP OPT DAT STK
+LDK SHI CON SEC PRO PRE RUN EXE AUT
+STA STO LIN MER COM TEX DEC TRA DCH
+LBO LBC LBS LBR LVT ENV DRA ERA REV
+STI LDI TES
+
+0x0000ed43  23 00 04  CAT
+            24 00 c8  SPA
+	    26 00 04  PUR
+	    77 05 58  CRE
+      ed4f  48 00 04  MOD
+            49 00 78  TRU
+	    28 00 04  DEL
+	    2a 00 04  LIS
+	    29 00 04  FET
+      ed5e  6a 00 04  VAL
+      	    22 00 04  RES
+	    12 00 04  NEW
+	    55 00 04  OLD
+	    77 00 04  SAV
+	    1f 00 04  REP
+0x0000ed70  25 00 04  OPT
+ 	    24 00 04  DAT
+	    24 02 40  STK
+	    24 02 b4  LDK
+	    22 03 08  SHI
+      ed7f  25 04 e4  CON
+      	    69 00 04  SEC
+	    62 00 04  PRO
+	    79 00 d0  PRE
+	    79 00 04  RUN
+      ed8f  72 00 04  EXE
+      	    1a 00 04  AUT
+	    27 00 04  STA
+	    27 04 10  STO
+	    1b 00 04  LIN
+	    5b 00 04  MER
+0x0000eda0  2c 00 04  COM
+	    57 03 6c  TEX
+	    2b 00 04  DEC
+	    57 00 04  TRA
+	    4c 00 04  DCH
+      edaf  5c 00 04  LBO
+      	    5d 00 04  LBC
+	    5e 00 04  LBS
+	    5f 00 04  LBR
+	    60 00 04  LVT   ok
+      edbe  61 00 04  ENV   ok
+      	    70 00 04
+	    70 00 54
+	    70 00 80
+	    6f 03 54
+	    6f 00 04  
+0x0000edd0  6b00 0419 0004 5000 04b8 0004 7f05 7410  
+0x0000ede0  1c88 0000 ffff ffff ffff ffff ffff ffff  

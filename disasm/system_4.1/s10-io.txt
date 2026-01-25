@@ -1,0 +1,598 @@
+    {'extern': 's10_1960', 'begin': 0x01c60, 'end': 0x01d8a},
+    {'extern': 's10_1c88', 'begin': 0x01f88, 'end': 0x02052, 'name': 's10_print'},
+    {'extern': 's10_1d64', 'begin': 0x02064, 'end': 0x0212e},
+    {'extern': 's10_1e58', 'begin': 0x02158, 'end': 0x0228a},
+
+args:
+  1  constant 2?
+  2  820(r12) = buffer
+  3  / 541(r12)
+  4  0x3eb6 = 00 06 / 552(r12)
+  5  0x3e02 = 00 01
+
+
+  calexs 1345(r7)             ; reloc.s10_1960 ; 0x3ed7
+  arg 2
+  arg 820(r12)
+  arg 0(r14)
+  arg 1312(r7)                ; 0x3eb6
+  arg 1132(r7)                ; 0x3e02
+
+  calexs 1345(r7)             ; reloc.s10_1960 ; 0x3ed7
+  arg 2
+  arg 820(r12)
+  arg 541(r12)
+  arg 552(r12)
+  arg 1132(r7)                ; 0x3e02
+
+  calexs 1345(r7)             ; reloc.s10_1960 ; 0x3ed7
+  arg 2
+  arg 820(r12)
+  arg 541(r12)
+  arg 552(r12)
+  arg 1132(r7)                ; 0x3e02
+
+
+┌ 298: s10_1960 ();
+│           0x00001c60      180d           lr r0, r13                  ; prolog 52
+│           0x00001c62      41d00034       la r13, 52
+│           0x00001c66      23dd           asa r13, r13
+│           0x00001c68      5000d000       st r0, 0(,r13)
+│           0x00001c6c      902ad004       stm r2, r10, 4(r13)
+│           0x00001c70      0580           balr r8, r0                 ; using.r8_1c72
+│                                                                      ; 0x1c72
+│           ;-- using.r8_1c72:
+│           0x00001c72      1841           lr r4, r1
+│           0x00001c74      41900006       la r9, 6
+│           0x00001c78      d20082d1400b   mvc 721(,r8), 11(r4)        ; 0x1f43
+│           0x00001c7e      9505400b       cli 11(r4), 5
+│       ┌─< 0x00001c82      47b0811c       bc 11, 284(,r8)             ; 0x1d8e
+│       │   0x00001c86      58a04010       l r10, 16(,r4)
+│       │   0x00001c8a      4800c00e       lh r0, 14(,r12)
+│       │   0x00001c8e      41200000       la r2, 0
+│       │   0x00001c92      f7d0c010a000   ses 16(13,r12), 0(,r10)
+│       │   0x00001c98      1851           lr r5, r1
+│       │   0x00001c9a      d20582cb5001   mvc 715(5,r8), 1(r5)        ; 0x1f3d
+│       │   0x00001ca0      92c0c001       mvi 1(r12), 192
+│       │   0x00001ca4      950282d1       cli 721(r8), 2              ; 0x1f43
+│      ┌──< 0x00001ca8      47d0803e       bnp 62(,r8)                 ; 0x1cb0
+│      ││   0x00001cac      9281c001       mvi 1(r12), 129
+│      └──> 0x00001cb0      d203c002400c   mvc 2(3,r12), 12(r4)
+│       │   0x00001cb6      58a04018       l r10, 24(,r4)
+│       │   0x00001cba      d501a00082c8   clc 0(1,r10), 712(r8)       ; 0x1f3a
+│      ┌──< 0x00001cc0      47d0805e       bnp 94(,r8)                 ; 0x1cd0
+│      ││   0x00001cc4      9680c00d       oi 13(r12), 128
+│      ││   0x00001cc8      92ffc007       mvi 7(r12), 255
+│     ┌───< 0x00001ccc      47f08064       b 100(,r8)                  ; 0x1cd6
+│     │└──> 0x00001cd0      d201c006a000   mvc 6(1,r12), 0(r10)
+│     └───> 0x00001cd6      58a04010       l r10, 16(,r4)
+│       │   0x00001cda      d200c000a000   mvc 0(,r12), 0(r10)
+│       │   0x00001ce0      58a04014       l r10, 20(,r4)
+│       │   0x00001ce4      d201d02ca000   mvc 44(1,r13), 0(r10)
+│       │   0x00001cea      91c05000       tm 0(r5), 192
+│      ┌──< 0x00001cee      47108086       bo 134(,r8)                 ; 0x1cf8
+│      ││   0x00001cf2      fa11d02c82d2   am 44(1,r13), 722(1,r8)     ; 0x1f44
+│      └──> 0x00001cf8      4870d02c       lh r7, 44(,r13)
+│       │   0x00001cfc      41600000       la r6, 0
+│       │   0x00001d00      43605009       ic r6, 9(,r5)
+│       │   0x00001d04      8567c009       dm r6, r7, 9(r12)
+│       │   0x00001d08      91c05000       tm 0(r5), 192
+│      ┌──< 0x00001d0c      474080a4       bm 164(,r8)                 ; 0x1d16
+│      ││   0x00001d10      fa11c00b82d2   am 11(1,r12), 722(1,r8)     ; 0x1f44
+│      └──> 0x00001d16      d201d02cc00b   mvc 44(1,r13), 11(r12)
+│       │   0x00001d1c      4d             invalid
+│       │   0x00001d1d      00             invalid
+│       │   0x00001d1e      c0             invalid
+│       │   0x00001d1f      00             invalid
+│      ┌──< 0x00001d20      47208112       bp 274(,r8)                 ; 0x1d84
+│     ┌───< 0x00001d24      474080c4       bm 196(,r8)                 ; 0x1d36
+│     │││   0x00001d28      9108b1bb       tm 443(r11), 8
+│    ┌────< 0x00001d2c      47e080c4       bno 196(,r8)                ; 0x1d36
+│    ││││   0x00001d30      9c018310       calexs 784(r8)              ; reloc.01f82.s10_1d64
+│    ││││                                                              ; 0x1f82
+│    ││││   0x00001d34      82ca           arg 714(r8)                 ; 0x1f3c = 2b
+│   ┌└└───> 0x00001d36      4f00c000       ??4f r0, r0, 0(r12)
+│   ╎ ┌───< 0x00001d3a      478080fe       be 254(,r8)                 ; 0x1d70
+│   ╎┌────< 0x00001d3e      47208112       bp 274(,r8)                 ; 0x1d84
+│   ╎││││   0x00001d42      959bb209       cli 521(r11), 155
+│  ┌──────< 0x00001d46      477080e0       bc 7, 224(,r8)              ; 0x1d52
+│  │╎││││   0x00001d4a      929ab209       mvi 521(r11), 154
+│ ┌───────< 0x00001d4e      47f080ea       b 234(,r8)                  ; 0x1d5c
+│ │└──────> 0x00001d52      9c018310       calexs 784(r8)              ; reloc.01f82.s10_1d64
+│ │ ╎││││                                                              ; 0x1f82
+│ │ ╎││││   0x00001d56      82cb           arg 715(r8)                 ; 0x1f3d = 20
+│ │ └─────< 0x00001d58      47f080c4       b 196(,r8)                  ; 0x1d36
+│ └───────> 0x00001d5c      9200c008       mvi 8(r12), 0
+│    ││││   0x00001d60      982ad004       lm r2, r10, 4(r13)
+│    ││││   0x00001d64      58d0d000       l r13, 0(,r13)
+│    ││││   0x00001d68      41000034       la r0, 52
+│    ││││   0x00001d6c      2200           fsa r0, r0
+│    ││││   0x00001d6e      2800           retext 0
+│    │└───> 0x00001d70      910182d1       tm 721(r8), 1               ; 0x1f43
+│    │ ││   0x00001d74      4780811c       be 284(,r8)                 ; 0x1d8e
+│    │ ││   0x00001d78      9110c00d       tm 13(r12), 16
+│    │ ││   0x00001d7c      4710811c       bo 284(,r8)                 ; 0x1d8e
+│    │ ││   0x00001d80      47f080ea       b 234(,r8)                  ; 0x1d5c
+└    └─└──> 0x00001d84      d200b2095007   mvc 521(,r11), 7(r5)
+        │   0x00001d8a      47f082d8       b 728(,r8)                  ; 0x1f4a
+        └─> 0x00001d8e      4e00c000       ??4e r0, r0, 0(r12)
+            0x00001d92      4710815e       bo 350(,r8)
+            0x00001d96      47208176       bp 374(,r8)
+            0x00001d9a      474080e0       bm 224(,r8)
+            0x00001d9e      95c7c001       cli 1(r12), 199
+            0x00001da2      47708146       bc 7, 326(,r8)
+            0x00001da6      94fdc00d       ni 13(r12), 253
+            0x00001daa      d200c001d032   mvc 1(,r12), 50(r13)
+            0x00001db0      81             invalid
+            0x00001db1      00             invalid
+            0x00001db2      c0             invalid
+            0x00001db3      00             invalid
+            0x00001db4      47f080c4       b 196(,r8)
+            0x00001db8      95c0c001       cli 1(r12), 192
+            0x00001dbc      47808292       be 658(,r8)
+            0x00001dc0      47f082f8       b 760(,r8)
+            0x00001dc4      9180c00d       tm 13(r12), 128
+            0x00001dc8      47108292       bo 658(,r8)
+            0x00001dcc      47f081fe       b 510(,r8)
+            0x00001dd0      910182d1       tm 721(r8), 1
+            0x00001dd4      4780811c       be 284(,r8)
+            0x00001dd8      9110c00d       tm 13(r12), 16
+            0x00001ddc      4710811c       bo 284(,r8)
+            0x00001de0      9299b209       mvi 521(r11), 153
+            0x00001de4      47f080ea       b 234(,r8)
+            0x00001de8      9120b1bb       tm 443(r11), 32
+            0x00001dec      471080e0       bo 224(,r8)
+            0x00001df0      9110b1bb       tm 443(r11), 16
+            0x00001df4      471081d2       bo 466(,r8)
+            0x00001df8      91c0b1bb       tm 443(r11), 192
+            0x00001dfc      4770820a       bc 7, 522(,r8)
+            0x00001e00      9108b1bb       tm 443(r11), 8
+            0x00001e04      478080fe       be 254(,r8)
+            0x00001e08      95c7c001       cli 1(r12), 199
+            0x00001e0c      47808134       be 308(,r8)
+            0x00001e10      d201c004b1be   mvc 4(1,r12), 446(r11)
+            0x00001e16      81             invalid
+            0x00001e17      00             invalid
+            0x00001e18      c0             invalid
+            0x00001e19      00             invalid
+            0x00001e1a      d201d02cc00b   mvc 44(1,r13), 11(r12)
+            0x00001e20      9500c008       cli 8(r12), 0
+            0x00001e24      478080c4       be 196(,r8)
+            0x00001e28      9518c00c       cli 12(r12), 24
+            0x00001e2c      478081c4       be 452(,r8)
+            0x00001e30      fb11d02e82d2   alm 46(1,r13), 722(1,r8)
+            0x00001e36      d201c009d02e   mvc 9(1,r12), 46(r13)
+            0x00001e3c      9200c008       mvi 8(r12), 0
+            0x00001e40      47f080c4       b 196(,r8)
+            0x00001e44      9102c00d       tm 13(r12), 2
+            0x00001e48      471081f6       bo 502(,r8)
+            0x00001e4c      d200d032c001   mvc 50(,r13), 1(r12)
+            0x00001e52      92c7c001       mvi 1(r12), 199
+            0x00001e56      d201d02ec009   mvc 46(1,r13), 9(r12)
+            0x00001e5c      9240c008       mvi 8(r12), 64
+            0x00001e60      9602c00d       oi 13(r12), 2
+            0x00001e64      47f080c4       b 196(,r8)
+            0x00001e68      9218c00c       mvi 12(r12), 24
+            0x00001e6c      47f080c4       b 196(,r8)
+            0x00001e70      9282c001       mvi 1(r12), 130
+            0x00001e74      940e82d1       ni 721(r8), 14
+            0x00001e78      47f0803e       b 62(,r8)
+            0x00001e7c      9120b09b       tm 155(r11), 32
+            0x00001e80      47f08258       b 600(,r8)
+            0x00001e84      4990d038       ch r9, 56(,r13)
+            0x00001e88      47808258       be 600(,r8)
+            0x00001e8c      95a0c000       cli 0(r12), 160
+            0x00001e90      4780822a       be 554(,r8)
+            0x00001e94      417082d8       la r7, 728(,r8)
+            0x00001e98      47f0822e       b 558(,r8)
+            0x00001e9c      417082f2       la r7, 754(,r8)
+            0x00001ea0      d21770037000   mvc 3(23,r7), 0(r7)
+            0x00001ea6      d2007000c00a   mvc 0(,r7), 10(r12)
+            0x00001eac      d2007001c00c   mvc 1(,r7), 12(r12)
+            0x00001eb2      d2007002c007   mvc 2(,r7), 7(r12)
+            0x00001eb8      fb00701bd03a   alm 27(,r7), 58(,r13)
+            0x00001ebe      9680b09b       oi 155(r11), 128
+            0x00001ec2      417082d8       la r7, 728(,r8)
+            0x00001ec6      5070c514       st r7, 1300(,r12)
+            0x00001eca      46908260       bct r9, 608(,r8)
+            0x00001ece      47f08112       b 274(,r8)
+            0x00001ed2      9180b1bb       tm 443(r11), 128
+            0x00001ed6      4780827a       be 634(,r8)
+            0x00001eda      9248d029       mvi 41(r13), 72
+            0x00001ede      d200d028c000   mvc 40(,r13), 0(r12)
+            0x00001ee4      4f00d028       ??4f r0, r0, 40(r13)
+            0x00001ee8      47f0828a       b 650(,r8)
+            0x00001eec      95c0c001       cli 1(r12), 192
+            0x00001ef0      4780828a       be 650(,r8)
+            0x00001ef4      9281c001       mvi 1(r12), 129
+            0x00001ef8      47f0803e       b 62(,r8)
+            0x00001efc      940e82d1       ni 721(r8), 14
+            0x00001f00      47f080c4       b 196(,r8)
+            0x00001f04      9180c00d       tm 13(r12), 128
+            0x00001f08      478080ea       be 234(,r8)
+            0x00001f0c      47f082ec       b 748(,r8)
+            0x00001f10      d201c004b1be   mvc 4(1,r12), 446(r11)
+            0x00001f16      58a04018       l r10, 24(,r4)
+            0x00001f1a      d201d02ca000   mvc 44(1,r13), 0(r10)
+            0x00001f20      f311d02c82c8   sm 44(1,r13), 712(1,r8)
+            0x00001f26      d201c006d02c   mvc 6(1,r12), 44(r13)
+            0x00001f2c      d201d02cc00b   mvc 44(1,r13), 11(r12)
+            0x00001f32      947fc00d       ni 13(r12), 127
+            0x00001f36      47f080c4       b 196(,r8)
+            0x00001f3a      00             invalid
+            0x00001f3b      ff             invalid
+            0x00001f3c      2b20           ??2b r2, r0
+            0x00001f3e      2020           rets 32
+            0x00001f40      2020           rets 32
+            0x00001f42      207a           rets 122
+            0x00001f44      00             invalid
+            0x00001f45      01d5           alri r5, 13
+            0x00001f47      e3             invalid
+            0x00001f48      5e40947f       al r4, 1151(,r9)
+            0x00001f4c      c0             invalid
+            0x00001f4d      0d             invalid
+            0x00001f4e      47f080ea       b 234(,r8)
+            0x00001f52      ff             invalid
+            0x00001f53      ff             invalid
+            0x00001f54      ff             invalid
+            0x00001f55      ff             invalid
+            0x00001f56      ff             invalid
+            0x00001f57      ff             invalid
+            0x00001f58      ff             invalid
+            0x00001f59      ff             invalid
+            0x00001f5a      ff             invalid
+            0x00001f5b      ff             invalid
+            0x00001f5c      ff             invalid
+            0x00001f5d      ff             invalid
+            0x00001f5e      81             invalid
+            0x00001f5f      00             invalid
+            0x00001f60      c0             invalid
+            0x00001f61      00             invalid
+            0x00001f62      41900006       la r9, 6
+            0x00001f66      47f0829e       b 670(,r8)
+            0x00001f6a      9505400b       cli 11(r4), 5
+            0x00001f6e      47b08292       bc 11, 658(,r8)
+            0x00001f72      9581c001       cli 1(r12), 129
+            0x00001f76      47708292       bc 7, 658(,r8)
+            0x00001f7a      47f08152       b 338(,r8)
+            0x00001f7e      40404040       sth r4, 64(,r4)
+            ;-- reloc.01f82.s10_1d64:
+            0x00001f82 pf bw seg offset # size=3
+    seg : 0x00001f82 = 0x10
+ offset : 0x00001f83 = 0x1d64
+            0x00001f85  ~   40000018       sth r0, 24
+┌ 202: s10_print ();
+│           0x00001f88      180d           lr r0, r13                  ; prolog 36
+│           0x00001f8a      41d00024       la r13, 36
+│           0x00001f8e      23dd           asa r13, r13
+│           0x00001f90      5000d000       st r0, 0(,r13)
+│           0x00001f94      906ad004       stm r6, r10, 4(r13)
+│           0x00001f98      05a0           balr r10, r0                ; using.r10_1f9a
+│                                                                      ; 0x1f9a
+│           ;-- using.r10_1f9a:
+│           0x00001f9a      932ad021       ??93 33(r13), 42
+│           0x00001f9e      58901008       l r9, 8(,r1)
+│           0x00001fa2      5860100c       l r6, 12(,r1)
+│           0x00001fa6      d200d01b6001   mvc 27(,r13), 1(r6)
+│           0x00001fac      9101d022       tm 34(r13), 1
+│           0x00001fb0      4710a0a0       bo 160(,r10)                ; 0x203a ; "P\x90\xd0\x1c\x93\x12\xd0\x1b\x98j\xd0\x04X\xd0\xd0"
+│           0x00001fb4      4180c190       la r8, 400(,r12)
+│           0x00001fb8      5080d01c       st r8, 28(,r13)
+│           0x00001fbc      9102b09d       tm 157(r11), 2
+│           0x00001fc0      4710a04e       bo 78(,r10)                 ; 0x1fe8
+│           0x00001fc4      9101b09a       tm 154(r11), 1
+│           0x00001fc8      4710a056       bo 86(,r10)                 ; 0x1ff0
+│           0x00001fcc      91c0b09f       tm 159(r11), 192
+│           0x00001fd0      4770a0a0       bc 7, 160(,r10)             ; 0x203a ; "P\x90\xd0\x1c\x93\x12\xd0\x1b\x98j\xd0\x04X\xd0\xd0"
+│           0x00001fd4      d24fc1909000   mvc 400(79,r12), 0(r9)
+│           0x00001fda      5870d018       l r7, 24(,r13)
+│           0x00001fde      9c01a0c0       calexs 192(r10)             ; reloc.0205a.s10_1d64
+│                                                                      ; 0x205a
+│           0x00001fe2      a0b8           arg 184(r10)                ; 0x2052 ; "*PRT   "
+│           0x00001fe4      47f0a0a0       b 160(,r10)                 ; 0x203a ; "P\x90\xd0\x1c\x93\x12\xd0\x1b\x98j\xd0\x04X\xd0\xd0"
+│           0x00001fe8      9c00a0c3       calexs 195(r10)             ; reloc.0205d.s10_1e58
+│                                                                      ; 0x205d
+│           0x00001fec      47f0a0a0       b 160(,r10)                 ; 0x203a ; "P\x90\xd0\x1c\x93\x12\xd0\x1b\x98j\xd0\x04X\xd0\xd0"
+│           0x00001ff0      2100           ??21 0
+│           0x00001ff2      4710a056       bo 86(,r10)                 ; 0x1ff0
+│           0x00001ff6      4780a06a       be 106(,r10)                ; 0x2004
+│           0x00001ffa      9c01a0c0       calexs 192(r10)             ; reloc.0205a.s10_1d64
+│                                                                      ; 0x205a
+│           0x00001ffe      a0b9           arg 185(r10)                ; 0x2053 ; "PRT   "
+│           0x00002000      47f0a056       b 86(,r10)                  ; 0x1ff0
+│           0x00002004      d24fc1909000   mvc 400(79,r12), 0(r9)
+│           0x0000200a      95006001       cli 1(r6), 0
+│           0x0000200e      4780a08e       be 142(,r10)                ; 0x2028
+│           0x00002012      920ad020       mvi 32(r13), 10
+│           0x00002016      9301d01b       ??93 27(r13), 1
+│           0x0000201a      4780a0a0       be 160(,r10)                ; 0x203a ; "P\x90\xd0\x1c\x93\x12\xd0\x1b\x98j\xd0\x04X\xd0\xd0"
+│           0x0000201e      9c01a0c0       calexs 192(r10)             ; reloc.0205a.s10_1d64
+│                                                                      ; 0x205a
+│           0x00002022      a0b9           arg 185(r10)                ; 0x2053 ; "PRT   "
+│           0x00002024      47f0a07c       b 124(,r10)                 ; 0x2016
+│           0x00002028      93040000       ??93 0, 4
+│           0x0000202c      4780a0a0       be 160(,r10)                ; 0x203a ; "P\x90\xd0\x1c\x93\x12\xd0\x1b\x98j\xd0\x04X\xd0\xd0"
+│           0x00002030      9c01a0c0       calexs 192(r10)             ; reloc.0205a.s10_1d64
+│                                                                      ; 0x205a
+│           0x00002034      a0b9           arg 185(r10)                ; 0x2053 ; "PRT   "
+│           0x00002036      47f0a08e       b 142(,r10)                 ; 0x2028
+│           0x0000203a      5090d01c       st r9, 28(,r13)
+│           0x0000203e      9312d01b       ??93 27(r13), 18
+│           0x00002042      986ad004       lm r6, r10, 4(r13)
+│           0x00002046      58d0d000       l r13, 0(,r13)
+│           0x0000204a      41000024       la r0, 36
+│           0x0000204e      2200           fsa r0, r0
+└           0x00002050      2800           retext 0
+            0x00002052      2a             invalid
+            0x00002053      50525420       st r5, 1056(r2,r5)
+            0x00002057      2020           rets 32
+            0x00002059      00             invalid
+            ;-- reloc.0205a.s10_1d64:
+            0x0000205a pf bw seg offset # size=3
+    seg : 0x0000205a = 0x10
+ offset : 0x0000205b = 0x1d64
+            ;-- reloc.0205d.s10_1e58:
+            0x0000205d pf bw seg offset # size=3
+    seg : 0x0000205d = 0x10
+ offset : 0x0000205e = 0x1e58
+            0x00002060      00             invalid
+            0x00002061      00             invalid
+            0x00002062      00             invalid
+            0x00002063      00             invalid
+
+┌ 202: s10_1d64 ();
+│           0x00002064      180d           lr r0, r13                  ; prolog 28
+│           0x00002066      41d0001c       la r13, 28
+│           0x0000206a      23dd           asa r13, r13
+│           0x0000206c      5000d000       st r0, 0(,r13)
+│           0x00002070      907ad004       stm r7, r10, 4(r13)
+│           0x00002074      0580           balr r8, r0                 ; using.r8_2076
+│                                                                      ; 0x2076 ; "X\x90\x10\b\x95*\x90"
+│           ;-- using.r8_2076:
+│           0x00002076      58901008       l r9, 8(,r1)
+│           0x0000207a      952a9000       cli 0(r9), 42
+│           0x0000207e      4780803c       be 60(,r8)                  ; 0x20b2
+│           0x00002082      952b9000       cli 0(r9), 43
+│           0x00002086      47708022       bc 7, 34(,r8)               ; 0x2098
+│           0x0000208a      921680bb       mvi 187(r8), 22             ; 0x2131
+│           0x0000208e      d20580c59001   mvc 197(5,r8), 1(r9)        ; 0x213b ; "      -DCH OMITTED \x1b\xef\xef"
+│           0x00002094      47f0802c       b 44(,r8)                   ; 0x20a2
+│           0x00002098      920a80bb       mvi 187(r8), 10             ; 0x2131
+│           0x0000209c      d20580c59000   mvc 197(5,r8), 0(r9)        ; 0x213b ; "      -DCH OMITTED \x1b\xef\xef"
+│           0x000020a2      41a080c1       la r10, 193(,r8)            ; 0x2137 ; "ABN       -DCH OMITTED \x1b\xef\xef"
+│           0x000020a6      50a080bc       st r10, 188(,r8)            ; 0x2132
+│           0x000020aa      922080d7       mvi 215(r8), 32             ; 0x214d ; " \x1b\xef\xef"
+│           0x000020ae      47f0804c       b 76(,r8)                   ; 0x20c2
+│           0x000020b2      427080bb       stc r7, 187(,r8)            ; 0x2131
+│           0x000020b6      41a0c190       la r10, 400(,r12)
+│           0x000020ba      50a080bc       st r10, 188(,r8)            ; 0x2132
+│           0x000020be      920080d7       mvi 215(r8), 0              ; 0x214d ; " \x1b\xef\xef"
+│           0x000020c2      931080bb       ??93 187(r8), 16            ; 0x2131
+│           0x000020c6      1baa           sr r10, r10
+│           0x000020c8      d201d018a02c   mvc 24(1,r13), 44(r10)
+│           0x000020ce      d203d014a0b8   mvc 20(3,r13), 184(r10)
+│           0x000020d4      932480d7       ??93 215(r8), 36            ; 0x214d ; " \x1b\xef\xef"
+│           0x000020d8      952a9000       cli 0(r9), 42
+│           0x000020dc      4770806e       bc 7, 110(,r8)              ; 0x20e4
+│           0x000020e0      932480db       ??93 219(r8), 36            ; 0x2151
+│           0x000020e4      93250000       ??93 0, 37
+│           0x000020e8      2121           ??21 33
+│           0x000020ea      47808072       be 114(,r8)                 ; 0x20e8
+│           0x000020ee      9506002c       cli 44, 6
+│           0x000020f2      47808096       be 150(,r8)                 ; 0x210c
+│           0x000020f6      950a002c       cli 44, 10
+│           0x000020fa      47708090       bc 7, 144(,r8)              ; 0x2106
+│           0x000020fe      920ad018       mvi 24(r13), 10
+│           0x00002102      47f0806e       b 110(,r8)                  ; 0x20e4
+│           0x00002106      d201002cd018   mvc 44(1), 24(r13)
+│           0x0000210c      d203a0b8d014   mvc 184(3,r10), 20(r13)
+│           0x00002112      920080bb       mvi 187(r8), 0              ; 0x2131
+│           0x00002116      931080bb       ??93 187(r8), 16            ; 0x2131
+│           0x0000211a      931180d7       ??93 215(r8), 17            ; 0x214d ; " \x1b\xef\xef"
+│           0x0000211e      987ad004       lm r7, r10, 4(r13)
+│           0x00002122      58d0d000       l r13, 0(,r13)
+│           0x00002126      4100001c       la r0, 28
+│           0x0000212a      2200           fsa r0, r0
+└           0x0000212c      2800           retext 0
+            0x0000212e      f3f2f107d3d6   sm 263(15,r15), 982(2,r13)
+            0x00002134      c1             invalid
+            0x00002135      c4             invalid
+            0x00002136      00             invalid
+            0x00002137      41424e20       la r4, 3616(r2,r4)
+            0x0000213b      2020           rets 32
+            0x0000213d      2020           rets 32
+            0x0000213f      2020           rets 32
+            0x00002141      2d             invalid
+            0x00002142      44434820       ex r4, 2080(r3,r4)
+            0x00002146      4f4d4954       ??4f r4, r13, 2388(r4)
+            0x0000214a      54454420       n r4, 1056(r5,r4)
+            0x0000214e      1bef           sr r14, r15
+            0x00002150      ef             invalid
+            0x00002151      00             invalid
+            0x00002152      3b             invalid
+            0x00002153      ef             invalid
+            0x00002154      ef             invalid
+            0x00002155      00             invalid
+            0x00002156      00             invalid
+            0x00002157      00             invalid
+┌ 306: s10_1e58 ();
+│           0x00002158      180d           lr r0, r13                  ; prolog 28
+│           0x0000215a      41d0001c       la r13, 28
+│           0x0000215e      23dd           asa r13, r13
+│           0x00002160      5000d000       st r0, 0(,r13)
+│           0x00002164      906ad004       stm r6, r10, 4(r13)
+│           0x00002168      05a0           balr r10, r0                ; using.r10_216a
+│                                                                      ; 0x216a ; "Ap"
+│           ;-- using.r10_216a:
+│           0x0000216a      41700000       la r7, 0
+│           0x0000216e      4370b09d       ic r7, 157(,r11)
+│           0x00002172      0827           srl r7, 2
+│           0x00002174      4270a12a       stc r7, 298(,r10)           ; 0x2294
+│           0x00002178      9407a12a       ni 298(r10), 7              ; 0x2294
+│           0x0000217c      96d0a12a       oi 298(r10), 208            ; 0x2294
+│           0x00002180      9180b09d       tm 157(r11), 128
+│           0x00002184      4780a022       be 34(,r10)                 ; 0x218c
+│           0x00002188      9730a12a       xi 298(r10), 48             ; 0x2294
+│           0x0000218c      4e00a12a       ??4e r0, r0, 298(r10)       ; 0x2294
+│           0x00002190      4710a022       bo 34(,r10)                 ; 0x218c
+│           0x00002194      4780a04c       be 76(,r10)                 ; 0x21b6
+│           0x00002198      959bb209       cli 521(r11), 155
+│           0x0000219c      4770a03e       bc 7, 62(,r10)              ; 0x21a8
+│           0x000021a0      929ab209       mvi 521(r11), 154
+│           0x000021a4      47f0a110       b 272(,r10)                 ; 0x227a
+│           0x000021a8      9c01a140       calexs 320(r10)             ; reloc.022aa.s10_1d64
+│                                                                      ; 0x22aa
+│           0x000021ac      a121           arg 289(r10)                ; 0x228b
+│           0x000021ae      47f0a022       b 34(,r10)                  ; 0x218c
+│           0x000021b2      47f0a110       b 272(,r10)                 ; 0x227a
+│           0x000021b6      d201a1316001   mvc 305(1,r10), 1(r6)       ; 0x229b
+│           0x000021bc      4180c190       la r8, 400(,r12)
+│           0x000021c0      5080a12c       st r8, 300(,r10)            ; 0x2296
+│           0x000021c4      d24fc1909000   mvc 400(79,r12), 0(r9)
+│           0x000021ca      4870a130       lh r7, 304(,r10)            ; 0x229a
+│           0x000021ce      1a87           ar r8, r7
+│           0x000021d0      d200a0b5c1e0   mvc 181(,r10), 480(r12)     ; 0x221f
+│           0x000021d6      920a8000       mvi 0(r8), 10
+│           0x000021da      fb10a130a120   alm 304(1,r10), 288(,r10)   ; 0x229a
+│           0x000021e0      9511b20f       cli 527(r11), 17
+│           0x000021e4      4780a0a0       be 160(,r10)                ; 0x220a
+│           0x000021e8      4180c190       la r8, 400(,r12)
+│           0x000021ec      4870a130       lh r7, 304(,r10)            ; 0x229a
+│           0x000021f0      4670a08e       bct r7, 142(,r10)           ; 0x21f8
+│           0x000021f4      47f0a0a0       b 160(,r10)                 ; 0x220a
+│           0x000021f8      951f8000       cli 0(r8), 31
+│           0x000021fc      4720a09a       bp 154(,r10)                ; 0x2204
+│           0x00002200      92008000       mvi 0(r8), 0
+│           0x00002204      0108           alri r8, 0
+│           0x00002206      47f0a086       b 134(,r10)                 ; 0x21f0
+│           0x0000220a      932ad018       ??93 24(r13), 42
+│           0x0000220e      9101d019       tm 25(r13), 1
+│           0x00002212      4710a110       bo 272(,r10)                ; 0x227a
+│           0x00002216      924ba12b       mvi 299(r10), 75            ; 0x2295
+│           0x0000221a      4f00a12a       ??4f r0, r0, 298(r10)       ; 0x2294
+│           0x0000221e      9200c1e0       mvi 480(r12), 0
+│           0x00002222      9190b1bb       tm 443(r11), 144
+│           0x00002226      4770a106       bc 7, 262(,r10)             ; 0x2270
+│           0x0000222a      9280a12b       mvi 299(r10), 128           ; 0x2295
+│           0x0000222e      92f0a0dd       mvi 221(r10), 240           ; 0x2247
+│           0x00002232      9551a131       cli 305(r10), 81            ; 0x229b
+│           0x00002236      4770a0d8       bc 7, 216(,r10)             ; 0x2242 ; "O"
+│           0x0000223a      9200a0dd       mvi 221(r10), 0             ; 0x2247
+│           0x0000223e      9250a131       mvi 305(r10), 80            ; 0x229b
+│           0x00002242      4f00a12a       ??4f r0, r0, 298(r10)       ; 0x2294
+│           0x00002246      4700a0f2       nop 242(,r10)               ; 0x225c ; "G\x80\xa1\x10\x95\x9b\xb2\tGp\xa1\x06\x92\x9a\xb2\tG\xf0\xa1\x10\x9c\x01\xa1@\xa1!G\U00020b18j\xd0\x04X\xd0\xd0"
+│           0x0000224a      d201a132a12a   mvc 306(1,r10), 298(r10)    ; 0x229c
+│           0x00002250      4170a13a       la r7, 314(,r10)            ; 0x22a4
+│           0x00002254      5070a134       st r7, 308(,r10)            ; 0x229e
+│           0x00002258      4f00a132       ??4f r0, r0, 306(r10)       ; 0x229c
+│           0x0000225c      4780a110       be 272(,r10)                ; 0x227a
+│           0x00002260      959bb209       cli 521(r11), 155
+│           0x00002264      4770a106       bc 7, 262(,r10)             ; 0x2270
+│           0x00002268      929ab209       mvi 521(r11), 154
+│           0x0000226c      47f0a110       b 272(,r10)                 ; 0x227a
+│           0x00002270      9c01a140       calexs 320(r10)             ; reloc.022aa.s10_1d64
+│                                                                      ; 0x22aa
+│           0x00002274      a121           arg 289(r10)                ; 0x228b
+│           0x00002276      47f0a0ac       b 172(,r10)                 ; 0x2216
+│           0x0000227a      986ad004       lm r6, r10, 4(r13)
+│           0x0000227e      58d0d000       l r13, 0(,r13)
+│           0x00002282      4100001c       la r0, 28
+│           0x00002286      2200           fsa r0, r0
+└           0x00002288      2800           retext 0
+            0x0000228a      0150           alri r0, 5
+            0x0000228c      52542020       lt r5, 32(r4,r2)
+            0x00002290      20ef           rets 239
+            0x00002292      c6             invalid
+            0x00002293      e9             invalid
+            0x00002294      9180c055       tm 85(r12), 128
+            0x00002298      47100000       bo 0
+            0x0000229c      95407000       cli 0(r7), 64
+            0x000022a0      47800001       be 1
+            0x000022a4      0a10           svc 16
+            0x000022a6      c6             invalid
+            0x000022a7      e9             invalid
+            0x000022a8      9240101d       mvi 29(r1), 64
+            0x000022ac pf bw seg offset # size=3
+    seg : 0x000022ac = 0x64
+ offset : 0x000022ad = 0x7000
+            0x000022af      00             invalid
+            0x000022b0      ff             invalid
+            0x000022b1      ff             invalid
+            0x000022b2      ff             invalid
+            0x000022b3      ff             invalid
+            0x000022b4      ff             invalid
+            0x000022b5      ff             invalid
+            0x000022b6      ff             invalid
+            0x000022b7      ff             invalid
+            0x000022b8      ff             invalid
+            0x000022b9      ff             invalid
+            0x000022ba      ff             invalid
+            0x000022bb      ff             invalid
+            0x000022bc      ff             invalid
+            0x000022bd      ff             invalid
+            0x000022be      ff             invalid
+            0x000022bf      ff             invalid
+            0x000022c0      ff             invalid
+            0x000022c1      ff             invalid
+            0x000022c2      ff             invalid
+            0x000022c3      ff             invalid
+            0x000022c4      ff             invalid
+            0x000022c5      ff             invalid
+            0x000022c6      ff             invalid
+            0x000022c7      ff             invalid
+            0x000022c8      ff             invalid
+            0x000022c9      ff             invalid
+            0x000022ca      ff             invalid
+            0x000022cb      ff             invalid
+            0x000022cc      ff             invalid
+            0x000022cd      ff             invalid
+            0x000022ce      ff             invalid
+            0x000022cf      ff             invalid
+            0x000022d0      ff             invalid
+            0x000022d1      ff             invalid
+            0x000022d2      ff             invalid
+            0x000022d3      ff             invalid
+            0x000022d4      ff             invalid
+            0x000022d5      ff             invalid
+            0x000022d6      ff             invalid
+            0x000022d7      ff             invalid
+            0x000022d8      ff             invalid
+            0x000022d9      ff             invalid
+            0x000022da      ff             invalid
+            0x000022db      ff             invalid
+            0x000022dc      ff             invalid
+            0x000022dd      ff             invalid
+            0x000022de      ff             invalid
+            0x000022df      ff             invalid
+            0x000022e0      ff             invalid
+            0x000022e1      ff             invalid
+            0x000022e2      ff             invalid
+            0x000022e3      ff             invalid
+            0x000022e4      ff             invalid
+            0x000022e5      ff             invalid
+            0x000022e6      ff             invalid
+            0x000022e7      ff             invalid
+            0x000022e8      ff             invalid
+            0x000022e9      ff             invalid
+            0x000022ea      ff             invalid
+            0x000022eb      ff             invalid
+            0x000022ec      ff             invalid
+            0x000022ed      ff             invalid
+            0x000022ee      ff             invalid
+            0x000022ef      ff             invalid
+            0x000022f0      ff             invalid
+            0x000022f1      ff             invalid
+            0x000022f2      ff             invalid
+            0x000022f3      ff             invalid
+            0x000022f4      ff             invalid
+            0x000022f5      ff             invalid
+            0x000022f6      ff             invalid
+            0x000022f7      ff             invalid
+            0x000022f8      ff             invalid
+            0x000022f9      ff             invalid
+            0x000022fa      ff             invalid
+            0x000022fb      ff             invalid
+            0x000022fc      ff             invalid
+            0x000022fd      ff             invalid
+            0x000022fe      ff             invalid
+            0x000022ff      ff             invalid
