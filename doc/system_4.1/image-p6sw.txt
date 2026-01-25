@@ -209,7 +209,7 @@ Segments at
   STA STO DRA ERA REV STI LDI
 0edf0
   #### Segment 5b
-  # renumber?
+  # renumber?  MERGE ?
   REPLACED LINES
   PREVIOUS LINES
   PRESENT LINE
@@ -328,8 +328,11 @@ r2 -a p6060 -i /tmp/xxx P6SW
 
 cd ~/repos/git2/olivetti/p6060/radare2/
 ./r2_p6sw.py > /tmp/xxx
+r2 -a p6060 P6SW -c '. /tmp/xxx'
+V
+p
 
-. /tmp/xxx
+
 fs using
 f using.r10_1f9a 184 @ 0x1f9a
 f using.r7_3996 (0x3dbc-0x3996)@ 0x3996

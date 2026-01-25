@@ -1,3 +1,5 @@
+-> olivetti-p6060.txt
+
 firmware opcodes
 
 jump, branch, load register immediate:
@@ -23,3 +25,21 @@ e2
 e5
 ed 
 f6 xy  store x to y ??
+
+
+-----
+
+idioms:
+
+MLI M00,L00	; jmp addr
+<addr>
+
+MLIP M00,Lxx	; Lxx := value
+<value>
+
+ADDA A0,..	; case switch
+jump table
+
+MLIP M0,L2	; subroutine call
+<addr>
+SLL L0,L2

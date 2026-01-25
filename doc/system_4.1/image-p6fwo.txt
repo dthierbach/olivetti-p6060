@@ -1,11 +1,16 @@
 overlay firmware
 
-  7  8000-87FF  ROM 4K
-  8  8800-BFFF  RAM firmware  (24 K)
+  7  8000-87FF  010000-010FFF  ROM 4K
+  8  8800-BFFF  011000-017FFF  RAM firmware  (24 K)
+
+011000-016a00  fixed part?
+016a00-018000  overlay? size = 1600
+
+long register has byte address, so use byte address.
 
 tables
 
-+00 word: addr, high byte first, always even
++00 word: addr, high byte first, always even (so byte offset?)
 +02 word: flags, ffff = end of table
 
 
@@ -37,15 +42,41 @@ tables
 +04    ??? load addr???
 +05
 
-0000  00 01 14 10 12 00;
-      00 15 1c 18 20 00;
-000c  00 31 15 10 1c 00;
-0012  00 46 16 10 20 00;
-      00 5c 05 04 24 00;
-001e  00 61 0e 0c 25 00;
-0024  00 6f 09 08 28 00;
-      00 78 12 10 2a 00;
-0030  00 8a 09 08 2d 00;
+0000  00 01 14 10 12 00;  #0
+      00 15 1c 18 20 00;  #1
+000c  00 31 15 10 1c 00;  #2
+0012  00 46 16 10 20 00;  #3
+      00 5c 05 04 24 00;  #4
+001e  00 61 0e 0c 25 00;  #5
+0024  00 6f 09 08 28 00;  #6
+      00 78 12 10 2a 00;  #7
+0030  00 8a 09 08 2d 00;  #8
+
+
+9 overlays
+   addr  len  reloc  
+  000080 0a00 000880 
+  000a80 0e00 001680 
+  001880 0a80 002080 
+  002300 0b00 002b00 
+  002e00 0280 003000 
+  003080 0700 003680 
+  003780 0480 003b80 
+  003c00 0900 004400 
+  004500 0480 004900 
+
+
+9 overlays
+      fpos        rpos    size    rom-addr
+  #0  000080 0a00 000880  000800
+  #1  000a80 0e00 001680  000c00	  	 4 jumps: 0300, 03f0, 04e8,07ce
+  #2  001880 0a80 002080  000800  003800	 3 jumps: 380a, 3828, 3f88
+  #3  002300 0b00 002b00  000800  000000	18 jumps: 0028-0768
+  #4  002e00 0280 003000  000200
+  #5  003080 0700 003680  000600	       3+4 jumps: 0d3a,3572,0c22 + 0c30,0c552,0bda,0cae
+  #6  003780 0480 003b80  000400  001000	7 jumps:  100e-13e0
+  #7  003c00 0900 004400  000800
+  #8  004500 0480 004900  000400
 
 
 # relocation table:
@@ -53,6 +84,13 @@ tables
 +02-03 ??? fixup type, mask ???
 
 00 00 ff ff = last entry
+
+relocation on opcodes:
+
+12 xx   mask ff
+13 xx   mask ff
+14 xx   mask 1f / ff
+15 xx   mask ff
 
 00000880  00 10 1f 00 00 1c 1f 00  00 34 1f 00 00 38 1f 00
 00000890  00 46 1f 00 00 50 1f 00  00 60 1f 00 00 6a ff 00

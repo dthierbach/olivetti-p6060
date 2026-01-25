@@ -1,3 +1,46 @@
+"Physical I/O in Assembler"
+
+CCW = channel control word
+
++00
+   7..4  channel name (physical)
+   3..0  unit name (bit 3: input/output)
++01
+   7..4  TDTD
+   3..0  command code
++02-05   address
++06-07   length
+
+TDTD
+1100  input data		RECEIVE
+1000  output data		SEND
+0101  cmd + input		CMD INPUT
+0100  cmd + output		CMD OUTPUT
+0010  immediate cmd		CMD
+
+TT
+10  input w/ data exchange
+01  input w/o data exchange
+00  output
+
+DD
+10  RECEIVE
+00  SEND
+11  CMD INPUT
+10  CMD OUTPUT
+
+opcodes
+
+SIO ccw
+WAIT ccw
+  IWAIT ??
+TEST ( ITEST )
+DEPA ccw
+INIOT X'00'	- format RR
+INIO addr,X'01'
+
+
+
 channel
 
  0x00  0    ??21
