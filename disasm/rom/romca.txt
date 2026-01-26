@@ -3,6 +3,7 @@
 0000: 8000: 50 80  CRTB B00,C80     B00 := 0x80          
 0002: 8001: 70 89  CRTA A00,C89     A00 := 0x89          
 0004: 8002: bd 00  COMx C0            C0                 
+  ; Level 4, jump 8089, old PC (Level 3?) == 8003
 0006: 8003: 7f 03  CRTA A15,C03     A15 := 0x03          
 0008: 8004: 72 aa  CRTA A02,Caa     A02 := 0xaa          
 000a: 8005: 52 aa  CRTB B02,Caa     B02 := 0xaa          
@@ -123,34 +124,44 @@
 00f0: 8078: f5 ef  VRL L14          L14==0               
 00f2: 8079: 62 73  SAD0 2,73        br D2=0,8073         
 00f4: 807a: ae ff  ICA A15          A15--                
-00f6: 807b: 62 04  SAD0 2,04        br D2=0,8004         
+00f6: 807b: 62 04  SAD0 2,04        br D2=0,8004  
+  ; loop in Level 3:       
 00f8: 807c: bd 00  COMx C0            C0                 
 00fa: 807d: 66 80  SAD0 6,80        br D6=0,8080         
 00fc: 807e: 70 a8  CRTA A00,Ca8     A00 := 0xa8          
 00fe: 807f: 00 87  SAI 0087         jump 8087            
 0100: 8080: de 18  MLIP M1,L8       L8 := [M1++]         
-0102: 8081: 40 01  SADE 0 01                             
-0104: 8082: e5 7f  ICL L7           L7--                 
+  !value
+0102: 8081: 40 01		      0x0401
+0104: 8082: e5 7f  DCL L7           L7--                 
 0106: 8083: e9 77  TBA A7,B7        A7 := B7             
 0108: 8084: f8 87  TBAP A8,B7       A8.P := B7.P         
 010a: 8085: e8 78  TABM A7,B8       B8.M := A7.M         
 010c: 8086: 70 ad  CRTA A00,Cad     A00 := 0xad          
 010e: 8087: 50 80  CRTB B00,C80     B00 := 0x80          
 0110: 8088: 00 7c  SAI 007c         jump 807c            
+  ; from start, now Level 4
+  ; memory test?
 0112: 8089: 7f 00  CRTA A15,C00     A15 := 0x00          
 0114: 808a: a8 ff  AMI A15,A15      [A15] := A15         
+  ; [0] := A15 := 0
 0116: 808b: b1 f4  ESE A15          sel.B <- [A15]       
+  ; select GOINO internal controller
 0118: 808c: 5a 40  CRTB B10,C40     B10 := 0x40          
 011a: 808d: 7a ff  CRTA A10,Cff     A10 := 0xff          
 011c: 808e: fc a0  CAE L10          cmd.W <- L10         
-011e: 808f: ae ff  ICA A15          A15--                
-0120: 8090: 62 8e  SAD0 2,8e        br D2=0,808e         
+  ; RETIN request timer interrupt
+011e: 808f: ae ff  DCA A15          A15--                
+0120: 8090: 62 8e  SAD0 2,8e        br D2=0,808e  
+  ; wait       
 0122: 8091: bd 10  COMx C1            C1                 
 0124: 8092: c9 90  SEDI 90          set DI 0x90          
 0126: 8093: de 03  MLIP M0,L3       L3 := [M0++]         
-0128: 8094: 00 ff  SAI 00ff         jump 80ff            
+  !value
+0128: 8094: 00 ff		      0x00ff
 012a: 8095: de 04  MLIP M0,L4       L4 := [M0++]         
-012c: 8096: 00 00  SAI 0000         jump 8000            
+  !value
+012c: 8096: 00 00		      0
 012e: 8097: 75 04  CRTA A05,C04     A05 := 0x04          
 0130: 8098: c9 08  SEDI 08          set DI 0x08          
 0132: 8099: e1 43  LMI M4,L3        [M4] := L3           
@@ -180,11 +191,13 @@
 0162: 80b1: a6 54  ADDB A5,B4       B4 := A5+B4+DI0      
 0164: 80b2: 60 98  SAD0 0,98        br D0=0,8098         
 0166: 80b3: de 0b  MLIP M0,L11      L11 := [M0++]        
-0168: 80b4: 40 00  SADE 0 00                             
+  !value
+0168: 80b4: 40 00		      0x400
 016a: 80b5: 02 b6  SAI 02b6         jump 82b6            
 016c: 80b6: 00 b6  SAI 00b6         jump 80b6            
 016e: 80b7: de 02  MLIP M0,L2       L2 := [M0++]         
-0170: 80b8: ac 80                                        
+  !value
+0170: 80b8: ac 80                     0xac80
 0172: 80b9: 01 8b  SAI 018b         jump 818b            
 0174: 80ba: d8 55  TAB A5,B5        B5 := A5             
 0176: 80bb: d3 50  SLDB B5          B5 >> DI0            
@@ -192,13 +205,17 @@
 017a: 80bd: d8 77  TAB A7,B7        B7 := A7             
 017c: 80be: 77 00  CRTA A07,C00     A07 := 0x00          
 017e: 80bf: de 08  MLIP M0,L8       L8 := [M0++]         
-0180: 80c0: 01 fe  SAI 01fe         jump 81fe            
+  !value
+0180: 80c0: 01 fe		      0x01fe
 0182: 80c1: de 06  MLIP M0,L6       L6 := [M0++]         
-0184: 80c2: 00 00  SAI 0000         jump 8000            
+  !value
+0184: 80c2: 00 00		      0
 0186: 80c3: de 0a  MLIP M0,L10      L10 := [M0++]        
-0188: 80c4: 00 00  SAI 0000         jump 8000            
+  !value
+0188: 80c4: 00 00		      0
 018a: 80c5: de 0b  MLIP M0,L11      L11 := [M0++]        
-018c: 80c6: 00 00  SAI 0000         jump 8000            
+  !value
+018c: 80c6:			      0
 018e: 80c7: d1 79  MLI M7,L9        L9 := [M7]           
 0190: 80c8: d8 7e  TAB A7,B14       B14 := A7            
 0192: 80c9: d4 e0  SLSA B14         B14 << DI0           
@@ -256,14 +273,17 @@
 01fa: 80fd: ae ff  ICA A15          A15--                
 01fc: 80fe: ee f6  LMIP A15,L6      [A15++] := L6        
 01fe: 80ff: 03 f1  SAI 03f1         jump 83f1            
+  ; level 1 write ???
 0200: 8100: bd 00  COMx C0            C0                 
 0202: 8101: ad 3f  EDC L3           L3.MMM--, ECOF if zero 
 0204: 8102: 94 40  MEIP M4          data.B <- [M4++]     
 0206: 8103: 01 00  SAI 0100         jump 8100            
+  ; level 1 read ???
 0208: 8104: bd 00  COMx C0            C0                 
 020a: 8105: ad 3f  EDC L3           L3.MMM--, ECOF if zero 
 020c: 8106: a2 48  EMIP M4          [M4++] <- data.B     
 020e: 8107: 01 04  SAI 0104         jump 8104            
+  ; level 2 floppy ???
 0210: 8108: b3 3f  SDIB B3          B3 <-> DI            
 0212: 8109: ba 33  SAB A3,B3        A3 <-> B3            
 0214: 810a: ab 5f  AZAM A5          A5.M := 0            
@@ -298,7 +318,8 @@
 024e: 8127: bd 00  COMx C0            C0                 
 0250: 8128: b3 3f  SDIB B3          B3 <-> DI            
 0252: 8129: ae 3f  ICA A3           A3--                 
-0254: 812a: 63 70  SAD0 3,70        br D3=0,8170         
+0254: 812a: 63 70  SAD0 3,70        br D3=0,8170      
+  ; write 16 bytes   
 0256: 812b: 94 40  MEIP M4          data.B <- [M4++]     
 0258: 812c: b3 3f  SDIB B3          B3 <-> DI            
 025a: 812d: bd 00  COMx C0            C0                 
@@ -332,6 +353,7 @@
 0292: 8149: bd 00  COMx C0            C0                 
 0294: 814a: 94 40  MEIP M4          data.B <- [M4++]     
 0296: 814b: 01 27  SAI 0127         jump 8127            
+  ; read 16 bytes
 0298: 814c: b3 3f  SDIB B3          B3 <-> DI            
 029a: 814d: bd 00  COMx C0            C0                 
 029c: 814e: a2 48  EMIP M4          [M4++] <- data.B     
@@ -452,13 +474,14 @@
 0382: 81c1: de 07  MLIP M0,L7       L7 := [M0++]         
 0384: 81c2: 80 f0                                        
 0386: 81c3: 7e 08  CRTA A14,C08     A14 := 0x08          
+  ; A14 := 8 (harddisk?)
 0388: 81c4: de 79  MLIP M7,L9       L9 := [M7++]         
 038a: 81c5: b7 89  ANDB A8,B9       B9 := A8 and B9      
 038c: 81c6: 63 c8  SAD0 3,c8        br D3=0,81c8         
 038e: 81c7: 87 9a  ORB A9,B10       B10 := A9 or B10     
 0390: 81c8: d3 80  SLDB B8          B8 >> DI0            
 0392: 81c9: c4 a1  SLSA A10,C1      A10 << DI0           
-0394: 81ca: ae ef  ICA A14          A14--                
+0394: 81ca: ae ef  DCA A14          A14--                
 0396: 81cb: 62 c4  SAD0 2,c4        br D2=0,81c4         
 0398: 81cc: 8b af  ROTA A10         A10.M <-> A10.P      
 039a: 81cd: ba aa  SAB A10,B10      A10 <-> B10          
@@ -466,6 +489,7 @@
 039e: 81cf: 59 40  CRTB B09,C40     B09 := 0x40          
 03a0: 81d0: 57 10  CRTB B07,C10     B07 := 0x10          
 03a2: 81d1: b1 e4  ESE A14          sel.B <- [A14]       
+  ; 
 03a4: 81d2: d3 a0  SLDB B10         B10 >> DI0           
 03a6: 81d3: c3 a1  SLDA A10,C1      A10 >> DI0           
 03a8: 81d4: c4 91  SLSA A9,C1       A9 << DI0            
@@ -777,6 +801,7 @@
 060c: 8306: 01 c0  SAI 01c0         jump 81c0            
 060e: 8307: 7e 01  CRTA A14,C01     A14 := 0x01          
 0610: 8308: b1 e4  ESE A14          sel.B <- [A14]       
+  ; bus name at [01]
 0612: 8309: 78 04  CRTA A08,C04     A08 := 0x04          
 0614: 830a: 7e 00  CRTA A14,C00     A14 := 0x00          
 0616: 830b: ae ef  ICA A14          A14--                
