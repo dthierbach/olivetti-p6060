@@ -9,6 +9,7 @@ import os.path
 parser = argparse.ArgumentParser(description='Decode image disk file')
 parser.add_argument(dest='infile', type=argparse.FileType('rb'))
 parser.add_argument('-o', '--overlay', action='store_true')
+parser.add_argument('-r', '--rom', action='store_true')
 parser.add_argument('-d', '--disasm', type=argparse.FileType('r'))
 # '-r', 'replace'
 args = parser.parse_args()
@@ -150,13 +151,17 @@ periph[15] = "Video"
 # 00000020  46 01 10 00 00 00 00 00                                  1000
 
 org={}
-org[0] = 0
-org[128 * 1] = 0x0040
-org[128 * (1 + 0x30)] = 0x1000
-org[128 * (1 + 0x30 + 0x08)] = 0xa000
-org[128 * (1 + 0x30 + 0x08 + 0x80)] = 0x7c00
 
-    
+if args.rom:
+    org[0] = 0x8000
+else:
+    # need to get this from first sector, here for 2.0:
+    org[0] = 0
+    org[128 * 1] = 0x0040
+    org[128 * (1 + 0x30)] = 0x1000
+    org[128 * (1 + 0x30 + 0x08)] = 0xa000
+    org[128 * (1 + 0x30 + 0x08 + 0x80)] = 0x7c00
+
 ovl_addr={}
 ovl_len={}
 ovl_reloc={}
