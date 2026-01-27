@@ -6295,11 +6295,12 @@
 307e: a9ff: fc f7  CAE L15          cmd.W <- L15         
 3080: aa00: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 3082: aa01: 0d fc  SAI 0dfc         jump adfc            
-3084: aa02: 22 48  AMD A02,C48      [48] := A2           
+3084: aa02: 22 48  AMD A02,C48      [48] := A2
+  ; instruction ??2d/TEST/SIO
 3086: aa03: de a9  MLIP M10,L9      L9 := [M10++]        
 3088: aa04: e9 29  TBA A2,B9        A2 := B9             
 308a: aa05: d8 9e  TAB A9,B14       B14 := A9
-  ; instruction ??29/??2c
+  ; instruction 29/2c = ??/ITEST
 308c: aa06: e9 92  TBA A9,B2        A9 := B2             
 308e: aa07: 52 05  CRTB B02,C05     B02 := 0x05          
 3090: aa08: bd 10  COMx C1            C1                 
@@ -6321,8 +6322,9 @@
 30b0: aa18: 7e 80  CRTA A14,C80     A14 := 0x80          
 30b2: aa19: 2e 3e  AMD A14,C3e      [3e] := A14          
 30b4: aa1a: 7e 3f  CRTA A14,C3f     A14 := 0x3f          
-30b6: aa1b: de 07  MLIP M0,L7       L7 := [M0++]         
-30b8: aa1c: 02 b8  SAI 02b8         jump a2b8            
+30b6: aa1b: de 07  MLIP M0,L7       L7 := [M0++]
+  !value
+30b8: aa1c: 02 b8		      0x2b8
 30ba: aa1d: 7b 00  CRTA A11,C00     A11 := 0x00          
 30bc: aa1e: a8 7b  AMI M7,A11       [M7] := A11          
 30be: aa1f: b1 e4  ESE A14          sel.B <- [A14]       
@@ -8030,22 +8032,38 @@
 3dba: b09d: c3 a1  SLDA A10,C1      A10 >> DI0           
 3dbc: b09e: 9b 2f  ROTB B2          B2.M <-> B2.P        
 3dbe: b09f: f9 02  TBAM A0,B2       A0.M := B2.M         
-3dc0: b0a0: 11 a0  SAI 11a0         jump b1a0            
-3dc2: b0a1: 0e 24  SAI 0e24         jump ae24            
-3dc4: b0a2: 13 4c  SAI 134c         jump b34c            
-3dc6: b0a3: 13 52  SAI 1352         jump b352            
-3dc8: b0a4: 1d 3c  SAI 1d3c         jump bd3c            
-3dca: b0a5: 1d fa  SAI 1dfa         jump bdfa            
-3dcc: b0a6: 1d fa  SAI 1dfa         jump bdfa            
-3dce: b0a7: 1f ec  SAI 1fec         jump bfec            
-3dd0: b0a8: 11 f0  SAI 11f0         jump b1f0            
-3dd2: b0a9: 12 48  SAI 1248         jump b248            
-3dd4: b0aa: 12 71  SAI 1271         jump b271            
-3dd6: b0ab: 12 71  SAI 1271         jump b271            
-3dd8: b0ac: 0e 24  SAI 0e24         jump ae24            
-3dda: b0ad: 0a 03  SAI 0a03         jump aa03            
-3ddc: b0ae: 0a 03  SAI 0a03         jump aa03            
-3dde: b0af: 0a 03  SAI 0a03         jump aa03            
+3dc0: b0a0: 11 a0  SAI 11a0         jump b1a0
+  ; STH
+3dc2: b0a1: 0e 24  SAI 0e24         jump ae24
+  ; LA
+3dc4: b0a2: 13 4c  SAI 134c         jump b34c
+  ; STC
+3dc6: b0a3: 13 52  SAI 1352         jump b352
+  ; IC
+3dc8: b0a4: 1d 3c  SAI 1d3c         jump bd3c
+  ; EX
+3dca: b0a5: 1d fa  SAI 1dfa         jump bdfa
+  ; BAL
+3dcc: b0a6: 1d fa  SAI 1dfa         jump bdfa
+  : BCT
+3dce: b0a7: 1f ec  SAI 1fec         jump bfec
+  ; BC
+3dd0: b0a8: 11 f0  SAI 11f0         jump b1f0
+  ; LH
+3dd2: b0a9: 12 48  SAI 1248         jump b248
+  ; CH
+3dd4: b0aa: 12 71  SAI 1271         jump b271
+  ; AH
+3dd6: b0ab: 12 71  SAI 1271         jump b271
+  ; SH
+3dd8: b0ac: 0e 24  SAI 0e24         jump ae24
+  ; absent
+3dda: b0ad: 0a 03  SAI 0a03         jump aa03
+  ; 4d = ??
+3ddc: b0ae: 0a 03  SAI 0a03         jump aa03
+  ; 4e = TEST
+3dde: b0af: 0a 03  SAI 0a03         jump aa03
+  ; 4f = SIO
 3de0: b0b0: 9e df  VRB B13          B13==0               
 3de2: b0b1: 63 ba  SAD0 3,ba        br D3=0,b0ba         
 3de4: b0b2: a5 af  ICL L10          L10++                
@@ -8066,7 +8084,7 @@
 3e00: b0c0: 07 fb  SAI 07fb         jump a7fb
   ; RETS
 3e02: b0c1: 1e 7f  SAI 1e7f         jump be7f
-  ; ??21
+  ; 21 = INIOT
 3e04: b0c2: 1d 14  SAI 1d14         jump bd14
   ; FSA
 3e06: b0c3: 1d 14  SAI 1d14         jump bd14
@@ -8074,21 +8092,21 @@
 3e08: b0c4: 1d 14  SAI 1d14         jump bd14
   ; GSA
 3e0a: b0c5: 1c 00  SAI 1c00         jump bc00
-  ; ??25
+  ; 25 = RTA
 3e0c: b0c6: 1a 59  SAI 1a59         jump ba59
   ; MLR
 3e0e: b0c7: 0e 18  SAI 0e18         jump ae18
-  ; ??27
+  ; 27 = SVC
 3e10: b0c8: 1c d6  SAI 1cd6         jump bcd6
-  ; ??28
+  ; 28 = RETEXT
 3e12: b0c9: 0a 06  SAI 0a06         jump aa06
   ; ??29
 3e14: b0ca: 1c 15  SAI 1c15         jump bc15
   ; ??2a
 3e16: b0cb: 13 38  SAI 1338         jump b338
-  ; ??2b
+  ; 2b = LKB
 3e18: b0cc: 0a 06  SAI 0a06         jump aa06
-  ; ??2c
+  ; 2c = ITEST
 3e1a: b0cd: 0e 24  SAI 0e24         jump ae24
   ; absent
 3e1c: b0ce: 0e 24  SAI 0e24         jump ae24
@@ -8384,19 +8402,19 @@
 3ff0: b1b8: 13 42  SAI 1342         jump b342
   ; SRL
 3ff2: b1b9: 10 2a  SAI 102a         jump b02a
-  ; ??09
+  ; 09 = IWAIT -- done with instr?
 3ff4: b1ba: 06 3c  SAI 063c         jump a63c
-  ; SVC
+  ; 0a = LCA  (not SVC)
 3ff6: b1bb: 06 35  SAI 0635         jump a635
   ; ??0b
 3ff8: b1bc: 1a 3a  SAI 1a3a         jump ba3a
   ; SLRI
 3ffa: b1bd: 12 f8  SAI 12f8         jump b2f8
-  ; ??0d
+  ; 0d = SSPM
 3ffc: b1be: 06 3e  SAI 063e         jump a63e
-  ; ??0e
+  ; 0e = RSPM
 3ffe: b1bf: 1c 19  SAI 1c19         jump bc19
-  ; ??0f
+  ; 0f = SWI
 4000: b1c0: de a7  MLIP M10,L7      L7 := [M10++]        
 4002: b1c1: d1 a9  MLI M10,L9       L9 := [M10]          
 4004: b1c2: 85 2f  ICA A2           A2++                 
