@@ -243,18 +243,21 @@ def dump_instr(fpos, rpos, wpos, buf, reloc):
         y = val2
         s = f"CRTB B{x:02},C{y:02x}"
         c = f"B{x:02} := 0x{y:02x}"
-    elif val1 & 0xf8 == 0x60:
-        x = val1 & 0x7
+    elif val1 & 0xf0 == 0x60:
+        x = val1 & 0xf
+        d = x & 0x1
+        x = x >> 1
         addr = val2
         target = (wpos & 0xff00) | addr
-        s = f"SAD0 {x},{addr:02x}"
-        c = f"br D{x}=0,{target:04x}"
-    elif val1 & 0xf8 == 0x68:
-        x = val1 & 0x7
-        addr = val2
-        target = (wpos & 0xff00) | addr
-        s = f"SAD1 {x},{addr:02x}"
-        c = f"br D{x}=1,{target:04x}"
+        s = f"SAD{d} D{x},{addr:02x}"
+        c = f"br D{x}={d},{target:04x}"
+    elif val1 == 0xa0:
+        x = val2 >> 4
+        y = val2 & 0xf
+        d = x & 0x1
+        x = x >> 1
+        s = f"ICD{d} D{x},L{y}"
+        c = f"L{y}++ if D{x}={d}"
     elif val1 in opcode:
         x = val2 >> 4
         y = val2 & 0xf

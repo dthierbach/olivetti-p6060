@@ -11,7 +11,7 @@
 0010: 8008: b7 22  ANDB A2,B2       B2 := A2 and B2      
 0012: 8009: c7 22  ORE A2,B2        A2 xor B2            
 0014: 800a: 78 17  CRTA A08,C17     A08 := 0x17          
-0016: 800b: 62 51  SAD0 2,51        br D2=0,8051         
+0016: 800b: 62 51  SAD0 D1,51       br D1=0,8051         
 0018: 800c: 73 aa  CRTA A03,Caa     A03 := 0xaa          
 001a: 800d: 53 aa  CRTB B03,Caa     B03 := 0xaa          
 001c: 800e: c9 aa  SEDI aa          set DI 0xaa          
@@ -20,17 +20,17 @@
 0022: 8011: b3 3f  SDIB B3          B3 <-> DI            
 0024: 8012: c7 33  ORE A3,B3        A3 xor B3            
 0026: 8013: 78 27  CRTA A08,C27     A08 := 0x27          
-0028: 8014: 62 51  SAD0 2,51        br D2=0,8051         
+0028: 8014: 62 51  SAD0 D1,51       br D1=0,8051         
 002a: 8015: 74 00  CRTA A04,C00     A04 := 0x00          
 002c: 8016: 54 00  CRTB B04,C00     B04 := 0x00          
 002e: 8017: 75 00  CRTA A05,C00     A05 := 0x00          
 0030: 8018: 55 00  CRTB B05,C00     B05 := 0x00          
 0032: 8019: a5 4f  ICL L4           L4++                 
-0034: 801a: e5 5f  ICL L5           L5--                 
-0036: 801b: 62 19  SAD0 2,19        br D2=0,8019         
+0034: 801a: e5 5f  DCL L5           L5--                 
+0036: 801b: 62 19  SAD0 D1,19       br D1=0,8019         
 0038: 801c: f5 4f  VRL L4           L4==0                
 003a: 801d: 78 37  CRTA A08,C37     A08 := 0x37          
-003c: 801e: 62 51  SAD0 2,51        br D2=0,8051         
+003c: 801e: 62 51  SAD0 D1,51       br D1=0,8051         
 003e: 801f: 56 55  CRTB B06,C55     B06 := 0x55          
 0040: 8020: e9 66  TBA A6,B6        A6 := B6             
 0042: 8021: c4 60  SLSA A6,C0       A6 << DI0            
@@ -40,20 +40,20 @@
 004a: 8025: d8 66  TAB A6,B6        B6 := A6             
 004c: 8026: c7 66  ORE A6,B6        A6 xor B6            
 004e: 8027: 78 47  CRTA A08,C47     A08 := 0x47          
-0050: 8028: 62 51  SAD0 2,51        br D2=0,8051         
+0050: 8028: 62 51  SAD0 D1,51       br D1=0,8051         
 0052: 8029: d4 60  SLSA B6          B6 << DI0            
 0054: 802a: 9e 6f  VRB B6           B6==0                
-0056: 802b: 62 20  SAD0 2,20        br D2=0,8020         
+0056: 802b: 62 20  SAD0 D1,20       br D1=0,8020         
 0058: 802c: bd 30  COMx C3            C3                 
 005a: 802d: aa 90  ENTL L9          name -> L9.A, type->L9.B 
 005c: 802e: 5a fd  CRTB B10,Cfd     B10 := 0xfd          
 005e: 802f: a7 9a  ANDA A9,B10      A9 := A9 and B10     
 0060: 8030: f5 9f  VRL L9           L9==0                
 0062: 8031: 78 57  CRTA A08,C57     A08 := 0x57          
-0064: 8032: 62 51  SAD0 2,51        br D2=0,8051         
+0064: 8032: 62 51  SAD0 D1,51       br D1=0,8051         
 0066: 8033: b8 a8  EDA A10          data.B -> A10        
 0068: 8034: c7 a9  ORE A10,B9       A10 xor B9           
-006a: 8035: 62 51  SAD0 2,51        br D2=0,8051         
+006a: 8035: 62 51  SAD0 D1,51       br D1=0,8051         
 006c: 8036: 77 55  CRTA A07,C55     A07 := 0x55          
 006e: 8037: 57 aa  CRTB B07,Caa     B07 := 0xaa          
 0070: 8038: 58 00  CRTB B08,C00     B08 := 0x00          
@@ -77,7 +77,7 @@
 0094: 804a: 5a 92  CRTB B10,C92     B10 := 0x92          
 0096: 804b: c7 0a  ORE A0,B10       A0 xor B10           
 0098: 804c: 78 67  CRTA A08,C67     A08 := 0x67          
-009a: 804d: 62 51  SAD0 2,51        br D2=0,8051         
+009a: 804d: 62 51  SAD0 D1,51       br D1=0,8051         
 009c: 804e: de 11  MLIP M1,L1       L1 := [M1++]         
 009e: 804f: 80 53                                        
 00a0: 8050: 78 77  CRTA A08,C77     A08 := 0x77          
@@ -91,46 +91,46 @@
 00b0: 8058: 74 00  CRTA A04,C00     A04 := 0x00          
 00b2: 8059: 54 21  CRTB B04,C21     B04 := 0x21          
 00b4: 805a: c7 43  ORE A4,B3        A4 xor B3            
-00b6: 805b: 62 50  SAD0 2,50        br D2=0,8050         
+00b6: 805b: 62 50  SAD0 D1,50       br D1=0,8050         
 00b8: 805c: c7 34  ORE A3,B4        A3 xor B4            
-00ba: 805d: 62 50  SAD0 2,50        br D2=0,8050         
+00ba: 805d: 62 50  SAD0 D1,50       br D1=0,8050         
 00bc: 805e: c7 24  ORE A2,B4        A2 xor B4            
-00be: 805f: 62 50  SAD0 2,50        br D2=0,8050         
+00be: 805f: 62 50  SAD0 D1,50       br D1=0,8050         
 00c0: 8060: dd 23  MLIM M2,L3       L3 := [M2--]         
-00c2: 8061: be 4f  ICB B4           B4--                 
+00c2: 8061: be 4f  DCB B4           B4--                 
 00c4: 8062: c7 43  ORE A4,B3        A4 xor B3            
-00c6: 8063: 62 50  SAD0 2,50        br D2=0,8050         
+00c6: 8063: 62 50  SAD0 D1,50       br D1=0,8050         
 00c8: 8064: c7 34  ORE A3,B4        A3 xor B4            
-00ca: 8065: 62 50  SAD0 2,50        br D2=0,8050         
+00ca: 8065: 62 50  SAD0 D1,50       br D1=0,8050         
 00cc: 8066: e2 22  LPMIP M2,L2      [M2++] := ++L2       
 00ce: 8067: 95 4f  ICB B4           B4++                 
 00d0: 8068: c7 24  ORE A2,B4        A2 xor B4            
-00d2: 8069: 62 50  SAD0 2,50        br D2=0,8050         
+00d2: 8069: 62 50  SAD0 D1,50       br D1=0,8050         
 00d4: 806a: dd 23  MLIM M2,L3       L3 := [M2--]         
 00d6: 806b: dd 23  MLIM M2,L3       L3 := [M2--]         
 00d8: 806c: 95 4f  ICB B4           B4++                 
 00da: 806d: c7 34  ORE A3,B4        A3 xor B4            
-00dc: 806e: 62 50  SAD0 2,50        br D2=0,8050         
-00de: 806f: a0 31                                        
+00dc: 806e: 62 50  SAD0 D1,50       br D1=0,8050         
+00de: 806f: a0 31  ICD1 D1,L1       L1++ if D1=1         
 00e0: 8070: 00 73  SAI 0073         jump 8073            
-00e2: 8071: a0 21                                        
+00e2: 8071: a0 21  ICD0 D1,L1       L1++ if D1=0         
 00e4: 8072: 00 75  SAI 0075         jump 8075            
 00e6: 8073: 78 87  CRTA A08,C87     A08 := 0x87          
 00e8: 8074: 00 51  SAI 0051         jump 8051            
 00ea: 8075: 5e ff  CRTB B14,Cff     B14 := 0xff          
 00ec: 8076: 7e ff  CRTA A14,Cff     A14 := 0xff          
-00ee: 8077: a0 ce                                        
+00ee: 8077: a0 ce  ICD0 D6,L14      L14++ if D6=0        
 00f0: 8078: f5 ef  VRL L14          L14==0               
-00f2: 8079: 62 73  SAD0 2,73        br D2=0,8073         
-00f4: 807a: ae ff  ICA A15          A15--                
-00f6: 807b: 62 04  SAD0 2,04        br D2=0,8004         
+00f2: 8079: 62 73  SAD0 D1,73       br D1=0,8073         
+00f4: 807a: ae ff  DCA A15          A15--                
+00f6: 807b: 62 04  SAD0 D1,04       br D1=0,8004         
 00f8: 807c: bd 00  COMx C0            C0                 
-00fa: 807d: 66 80  SAD0 6,80        br D6=0,8080         
+00fa: 807d: 66 80  SAD0 D3,80       br D3=0,8080         
 00fc: 807e: 70 a8  CRTA A00,Ca8     A00 := 0xa8          
 00fe: 807f: 00 87  SAI 0087         jump 8087            
 0100: 8080: de 18  MLIP M1,L8       L8 := [M1++]         
 0102: 8081: 40 01  SADE 0 01                             
-0104: 8082: e5 7f  ICL L7           L7--                 
+0104: 8082: e5 7f  DCL L7           L7--                 
 0106: 8083: e9 77  TBA A7,B7        A7 := B7             
 0108: 8084: f8 87  TBAP A8,B7       A8.P := B7.P         
 010a: 8085: e8 78  TABM A7,B8       B8.M := A7.M         
@@ -143,8 +143,8 @@
 0118: 808c: 5a 40  CRTB B10,C40     B10 := 0x40          
 011a: 808d: 7a ff  CRTA A10,Cff     A10 := 0xff          
 011c: 808e: fc a0  CAE L10          cmd.W <- L10         
-011e: 808f: ae ff  ICA A15          A15--                
-0120: 8090: 62 8e  SAD0 2,8e        br D2=0,808e         
+011e: 808f: ae ff  DCA A15          A15--                
+0120: 8090: 62 8e  SAD0 D1,8e       br D1=0,808e         
 0122: 8091: bd 10  COMx C1            C1                 
 0124: 8092: c9 90  SEDI 90          set DI 0x90          
 0126: 8093: de 03  MLIP M0,L3       L3 := [M0++]         
@@ -162,23 +162,23 @@
 013e: 809f: ba 66  SAB A6,B6        A6 <-> B6            
 0140: 80a0: c8 08  REDI 08          reset DI 0x08        
 0142: 80a1: c7 69  ORE A6,B9        A6 xor B9            
-0144: 80a2: 62 b7  SAD0 2,b7        br D2=0,80b7         
+0144: 80a2: 62 b7  SAD0 D1,b7       br D1=0,80b7         
 0146: 80a3: c7 96  ORE A9,B6        A9 xor B6            
-0148: 80a4: 62 b7  SAD0 2,b7        br D2=0,80b7         
+0148: 80a4: 62 b7  SAD0 D1,b7       br D1=0,80b7         
 014a: 80a5: de 02  MLIP M0,L2       L2 := [M0++]         
 014c: 80a6: a8 80  AMI M8,A0        [M8] := A0           
 014e: 80a7: 00 ba  SAI 00ba         jump 80ba            
-0150: 80a8: 6e ac  SAD1 6,ac        br D6=1,80ac         
+0150: 80a8: 6e ac  SAD0 D7,ac       br D7=0,80ac         
 0152: 80a9: 7f 0e  CRTA A15,C0e     A15 := 0x0e          
 0154: 80aa: 89 f4  BMI A15,A4       [A15] := A4          
 0156: 80ab: c8 80  REDI 80          reset DI 0x80        
-0158: 80ac: 69 b0  SAD1 1,b0        br D1=1,80b0         
+0158: 80ac: 69 b0  SAD1 D4,b0       br D4=1,80b0         
 015a: 80ad: de 02  MLIP M0,L2       L2 := [M0++]         
 015c: 80ae: b6 80  SOT A8,B0        A8-B0+DI0            
 015e: 80af: 01 c0  SAI 01c0         jump 81c0            
 0160: 80b0: c8 07  REDI 07          reset DI 0x07        
 0162: 80b1: a6 54  ADDB A5,B4       B4 := A5+B4+DI0      
-0164: 80b2: 60 98  SAD0 0,98        br D0=0,8098         
+0164: 80b2: 60 98  SAD0 D0,98       br D0=0,8098         
 0166: 80b3: de 0b  MLIP M0,L11      L11 := [M0++]        
 0168: 80b4: 40 00  SADE 0 00                             
 016a: 80b5: 02 b6  SAI 02b6         jump 82b6            
@@ -215,8 +215,8 @@
 01a8: 80d4: 96 ab  ADDA A10,B11     A10 := A10+B11+DI0   
 01aa: 80d5: d4 b1  SLSA B11         B11 << DI0           
 01ac: 80d6: a5 7f  ICL L7           L7++                 
-01ae: 80d7: e5 8f  ICL L8           L8--                 
-01b0: 80d8: 62 c7  SAD0 2,c7        br D2=0,80c7         
+01ae: 80d7: e5 8f  DCL L8           L8--                 
+01b0: 80d8: 62 c7  SAD0 D1,c7       br D1=0,80c7         
 01b2: 80d9: 58 40  CRTB B08,C40     B08 := 0x40          
 01b4: 80da: f9 87  TBAM A8,B7       A8.M := B7.M         
 01b6: 80db: e8 88  TABM A8,B8       B8.M := A8.M         
@@ -227,16 +227,16 @@
 01c0: 80e0: de 79  MLIP M7,L9       L9 := [M7++]         
 01c2: 80e1: c8 01  REDI 01          reset DI 0x01        
 01c4: 80e2: c7 9a  ORE A9,B10       A9 xor B10           
-01c6: 80e3: 62 ee  SAD0 2,ee        br D2=0,80ee         
+01c6: 80e3: 62 ee  SAD0 D1,ee       br D1=0,80ee         
 01c8: 80e4: c9 01  SEDI 01          set DI 0x01          
 01ca: 80e5: c7 69  ORE A6,B9        A6 xor B9            
-01cc: 80e6: 62 ee  SAD0 2,ee        br D2=0,80ee         
+01cc: 80e6: 62 ee  SAD0 D1,ee       br D1=0,80ee         
 01ce: 80e7: ba 66  SAB A6,B6        A6 <-> B6            
 01d0: 80e8: ba aa  SAB A10,B10      A10 <-> B10          
 01d2: 80e9: 8e 7f  VRA A7           A7==0                
-01d4: 80ea: 62 e0  SAD0 2,e0        br D2=0,80e0         
-01d6: 80eb: be 5f  ICB B5           B5--                 
-01d8: 80ec: 62 bf  SAD0 2,bf        br D2=0,80bf         
+01d4: 80ea: 62 e0  SAD0 D1,e0       br D1=0,80e0         
+01d6: 80eb: be 5f  DCB B5           B5--                 
+01d8: 80ec: 62 bf  SAD0 D1,bf       br D1=0,80bf         
 01da: 80ed: c9 10  SEDI 10          set DI 0x10          
 01dc: 80ee: d4 81  SLSA B8          B8 << DI0            
 01de: 80ef: bc 02  SLL L0,L2        L0 <-> L2            
@@ -249,11 +249,11 @@
 01ec: 80f6: 40 02  SADE 0 02                             
 01ee: 80f7: 80 40                                        
 01f0: 80f8: c7 78  ORE A7,B8        A7 xor B8            
-01f2: 80f9: 62 fc  SAD0 2,fc        br D2=0,80fc         
+01f2: 80f9: 62 fc  SAD0 D1,fc       br D1=0,80fc         
 01f4: 80fa: 77 30  CRTA A07,C30     A07 := 0x30          
 01f6: 80fb: 95 7f  ICB B7           B7++                 
 01f8: 80fc: ed f7  LMIM A15,L7      [A15--] := L7        
-01fa: 80fd: ae ff  ICA A15          A15--                
+01fa: 80fd: ae ff  DCA A15          A15--                
 01fc: 80fe: ee f6  LMIP A15,L6      [A15++] := L6        
 01fe: 80ff: 03 f1  SAI 03f1         jump 83f1            
 0200: 8100: bd 00  COMx C0            C0                 
@@ -287,18 +287,18 @@
 0238: 811c: ba 33  SAB A3,B3        A3 <-> B3            
 023a: 811d: b2 3f  ETIB B3          type.B -> B3         
 023c: 811e: b3 3f  SDIB B3          B3 <-> DI            
-023e: 811f: 61 08  SAD0 1,08        br D1=0,8108         
+023e: 811f: 61 08  SAD1 D0,08       br D0=1,8108         
 0240: 8120: b3 3f  SDIB B3          B3 <-> DI            
 0242: 8121: ba 33  SAB A3,B3        A3 <-> B3            
 0244: 8122: 91 53  MAI M5,A3        A3 := [M5]           
 0246: 8123: b3 3f  SDIB B3          B3 <-> DI            
-0248: 8124: 6d 4c  SAD1 5,4c        br D5=1,814c         
+0248: 8124: 6d 4c  SAD1 D6,4c       br D6=1,814c         
 024a: 8125: 85 3f  ICA A3           A3++                 
 024c: 8126: b3 3f  SDIB B3          B3 <-> DI            
 024e: 8127: bd 00  COMx C0            C0                 
 0250: 8128: b3 3f  SDIB B3          B3 <-> DI            
-0252: 8129: ae 3f  ICA A3           A3--                 
-0254: 812a: 63 70  SAD0 3,70        br D3=0,8170         
+0252: 8129: ae 3f  DCA A3           A3--                 
+0254: 812a: 63 70  SAD1 D1,70       br D1=1,8170         
 0256: 812b: 94 40  MEIP M4          data.B <- [M4++]     
 0258: 812c: b3 3f  SDIB B3          B3 <-> DI            
 025a: 812d: bd 00  COMx C0            C0                 
@@ -365,26 +365,26 @@
 02d4: 816a: a2 48  EMIP M4          [M4++] <- data.B     
 02d6: 816b: bd 00  COMx C0            C0                 
 02d8: 816c: b3 3f  SDIB B3          B3 <-> DI            
-02da: 816d: ae 3f  ICA A3           A3--                 
+02da: 816d: ae 3f  DCA A3           A3--                 
 02dc: 816e: a2 48  EMIP M4          [M4++] <- data.B     
-02de: 816f: 62 4c  SAD0 2,4c        br D2=0,814c         
+02de: 816f: 62 4c  SAD0 D1,4c       br D1=0,814c         
 02e0: 8170: b3 3f  SDIB B3          B3 <-> DI            
 02e2: 8171: bd 70  COMx C7            C7                 
 02e4: 8172: bd 00  COMx C0            C0                 
 02e6: 8173: b3 3f  SDIB B3          B3 <-> DI            
-02e8: 8174: 6b 84  SAD1 3,84        br D3=1,8184         
+02e8: 8174: 6b 84  SAD1 D5,84       br D5=1,8184         
 02ea: 8175: b3 3f  SDIB B3          B3 <-> DI            
 02ec: 8176: bd 00  COMx C0            C0                 
 02ee: 8177: b3 3f  SDIB B3          B3 <-> DI            
 02f0: 8178: bd 80  COMx C8            C8                 
-02f2: 8179: 66 81  SAD0 6,81        br D6=0,8181         
-02f4: 817a: 64 80  SAD0 4,80        br D4=0,8180         
+02f2: 8179: 66 81  SAD0 D3,81       br D3=0,8181         
+02f4: 817a: 64 80  SAD0 D2,80       br D2=0,8180         
 02f6: 817b: 73 80  CRTA A03,C80     A03 := 0x80          
 02f8: 817c: ba 44  SAB A4,B4        A4 <-> B4            
 02fa: 817d: e7 34  OREB A3,B4       B4 := A3 xor B4      
 02fc: 817e: ba 44  SAB A4,B4        A4 <-> B4            
-02fe: 817f: 60 81  SAD0 0,81        br D0=0,8181         
-0300: 8180: be 4f  ICB B4           B4--                 
+02fe: 817f: 60 81  SAD0 D0,81       br D0=0,8181         
+0300: 8180: be 4f  DCB B4           B4--                 
 0302: 8181: b3 3f  SDIB B3          B3 <-> DI            
 0304: 8182: bd 00  COMx C0            C0                 
 0306: 8183: 01 0a  SAI 010a         jump 810a            
@@ -404,38 +404,38 @@
 0322: 8191: 78 00  CRTA A08,C00     A08 := 0x00          
 0324: 8192: d8 36  TAB A3,B6        B6 := A3             
 0326: 8193: e9 63  TBA A6,B3        A6 := B3             
-0328: 8194: 6c 96  SAD1 4,96        br D4=1,8196         
+0328: 8194: 6c 96  SAD0 D6,96       br D6=0,8196         
 032a: 8195: ba 66  SAB A6,B6        A6 <-> B6            
-032c: 8196: 6a ab  SAD1 2,ab        br D2=1,81ab         
+032c: 8196: 6a ab  SAD0 D5,ab       br D5=0,81ab         
 032e: 8197: ee 76  LMIP M7,L6       [M7++] := L6         
-0330: 8198: 6d 9a  SAD1 5,9a        br D5=1,819a         
+0330: 8198: 6d 9a  SAD1 D6,9a       br D6=1,819a         
 0332: 8199: ba 66  SAB A6,B6        A6 <-> B6            
 0334: 819a: 95 6f  ICB B6           B6++                 
-0336: 819b: ae 6f  ICA A6           A6--                 
+0336: 819b: ae 6f  DCA A6           A6--                 
 0338: 819c: 8e 7f  VRA A7           A7==0                
-033a: 819d: 62 a0  SAD0 2,a0        br D2=0,81a0         
+033a: 819d: 62 a0  SAD0 D1,a0       br D1=0,81a0         
 033c: 819e: 95 6f  ICB B6           B6++                 
-033e: 819f: ae 6f  ICA A6           A6--                 
-0340: 81a0: 6d a2  SAD1 5,a2        br D5=1,81a2         
+033e: 819f: ae 6f  DCA A6           A6--                 
+0340: 81a0: 6d a2  SAD1 D6,a2       br D6=1,81a2         
 0342: 81a1: ba 66  SAB A6,B6        A6 <-> B6            
-0344: 81a2: e5 8f  ICL L8           L8--                 
-0346: 81a3: 6a b2  SAD1 2,b2        br D2=1,81b2         
-0348: 81a4: 62 97  SAD0 2,97        br D2=0,8197         
+0344: 81a2: e5 8f  DCL L8           L8--                 
+0346: 81a3: 6a b2  SAD0 D5,b2       br D5=0,81b2         
+0348: 81a4: 62 97  SAD0 D1,97       br D1=0,8197         
 034a: 81a5: de 08  MLIP M0,L8       L8 := [M0++]         
 034c: 81a6: 01 00  SAI 0100         jump 8100            
-034e: 81a7: e5 8f  ICL L8           L8--                 
-0350: 81a8: 62 a7  SAD0 2,a7        br D2=0,81a7         
+034e: 81a7: e5 8f  DCL L8           L8--                 
+0350: 81a8: 62 a7  SAD0 D1,a7       br D1=0,81a7         
 0352: 81a9: c8 20  REDI 20          reset DI 0x20        
 0354: 81aa: 01 8d  SAI 018d         jump 818d            
 0356: 81ab: de 79  MLIP M7,L9       L9 := [M7++]         
 0358: 81ac: ba 99  SAB A9,B9        A9 <-> B9            
 035a: 81ad: e7 69  OREB A6,B9       B9 := A6 xor B9      
-035c: 81ae: 62 b6  SAD0 2,b6        br D2=0,81b6         
+035c: 81ae: 62 b6  SAD0 D1,b6       br D1=0,81b6         
 035e: 81af: d7 96  OREA A9,B6       A9 := A9 xor B6      
-0360: 81b0: 62 b6  SAD0 2,b6        br D2=0,81b6         
+0360: 81b0: 62 b6  SAD0 D1,b6       br D1=0,81b6         
 0362: 81b1: 01 98  SAI 0198         jump 8198            
-0364: 81b2: 62 ab  SAD0 2,ab        br D2=0,81ab         
-0366: 81b3: 6c be  SAD1 4,be        br D4=1,81be         
+0364: 81b2: 62 ab  SAD0 D1,ab       br D1=0,81ab         
+0366: 81b3: 6c be  SAD0 D6,be       br D6=0,81be         
 0368: 81b4: c8 40  REDI 40          reset DI 0x40        
 036a: 81b5: 01 8c  SAI 018c         jump 818c            
 036c: 81b6: 78 03  CRTA A08,C03     A08 := 0x03          
@@ -444,7 +444,7 @@
 0372: 81b9: 95 8f  ICB B8           B8++                 
 0374: 81ba: c3 90  SLDA A9,C0       A9 >> DI0            
 0376: 81bb: d3 91  SLDB B9          B9 >> DI0            
-0378: 81bc: 60 b9  SAD0 0,b9        br D0=0,81b9         
+0378: 81bc: 60 b9  SAD0 D0,b9       br D0=0,81b9         
 037a: 81bd: c8 10  REDI 10          reset DI 0x10        
 037c: 81be: bc 36  SLL L3,L6        L3 <-> L6            
 037e: 81bf: bc 02  SLL L0,L2        L0 <-> L2            
@@ -454,12 +454,12 @@
 0386: 81c3: 7e 08  CRTA A14,C08     A14 := 0x08          
 0388: 81c4: de 79  MLIP M7,L9       L9 := [M7++]         
 038a: 81c5: b7 89  ANDB A8,B9       B9 := A8 and B9      
-038c: 81c6: 63 c8  SAD0 3,c8        br D3=0,81c8         
+038c: 81c6: 63 c8  SAD1 D1,c8       br D1=1,81c8         
 038e: 81c7: 87 9a  ORB A9,B10       B10 := A9 or B10     
 0390: 81c8: d3 80  SLDB B8          B8 >> DI0            
 0392: 81c9: c4 a1  SLSA A10,C1      A10 << DI0           
-0394: 81ca: ae ef  ICA A14          A14--                
-0396: 81cb: 62 c4  SAD0 2,c4        br D2=0,81c4         
+0394: 81ca: ae ef  DCA A14          A14--                
+0396: 81cb: 62 c4  SAD0 D1,c4       br D1=0,81c4         
 0398: 81cc: 8b af  ROTA A10         A10.M <-> A10.P      
 039a: 81cd: ba aa  SAB A10,B10      A10 <-> B10          
 039c: 81ce: a8 ee  AMI A14,A14      [A14] := A14         
@@ -470,8 +470,8 @@
 03a6: 81d3: c3 a1  SLDA A10,C1      A10 >> DI0           
 03a8: 81d4: c4 91  SLSA A9,C1       A9 << DI0            
 03aa: 81d5: fc 90  CAE L9           cmd.W <- L9          
-03ac: 81d6: be 7f  ICB B7           B7--                 
-03ae: 81d7: 62 d2  SAD0 2,d2        br D2=0,81d2         
+03ac: 81d6: be 7f  DCB B7           B7--                 
+03ae: 81d7: 62 d2  SAD0 D1,d2       br D1=0,81d2         
 03b0: 81d8: bc 02  SLL L0,L2        L0 <-> L2            
 03b2: 81d9: de 08  MLIP M0,L8       L8 := [M0++]         
 03b4: 81da: 00 00  SAI 0000         jump 8000            
@@ -484,7 +484,7 @@
 03c2: 81e1: d1 f4  MLI A15,L4       L4 := [A15]          
 03c4: 81e2: 37 0c  MAD A07,C0c      A7 := [0c]           
 03c6: 81e3: 8e 7f  VRA A7           A7==0                
-03c8: 81e4: 63 f0  SAD0 3,f0        br D3=0,81f0         
+03c8: 81e4: 63 f0  SAD1 D1,f0       br D1=1,81f0         
 03ca: 81e5: 39 0d  MAD A09,C0d      A9 := [0d]           
 03cc: 81e6: 59 00  CRTB B09,C00     B09 := 0x00          
 03ce: 81e7: 3a 0d  MAD A10,C0d      A10 := [0d]          
@@ -492,17 +492,17 @@
 03d2: 81e9: 57 40  CRTB B07,C40     B07 := 0x40          
 03d4: 81ea: de a8  MLIP M10,L8      L8 := [M10++]        
 03d6: 81eb: ee 98  LMIP M9,L8       [M9++] := L8         
-03d8: 81ec: be 7f  ICB B7           B7--                 
-03da: 81ed: 62 ea  SAD0 2,ea        br D2=0,81ea         
-03dc: 81ee: ae 7f  ICA A7           A7--                 
-03de: 81ef: 62 e9  SAD0 2,e9        br D2=0,81e9         
+03d8: 81ec: be 7f  DCB B7           B7--                 
+03da: 81ed: 62 ea  SAD0 D1,ea       br D1=0,81ea         
+03dc: 81ee: ae 7f  DCA A7           A7--                 
+03de: 81ef: 62 e9  SAD0 D1,e9       br D1=0,81e9         
 03e0: 81f0: 8e 6f  VRA A6           A6==0                
-03e2: 81f1: 63 fa  SAD0 3,fa        br D3=0,81fa         
+03e2: 81f1: 63 fa  SAD1 D1,fa       br D1=1,81fa         
 03e4: 81f2: d8 65  TAB A6,B5        B5 := A6             
 03e6: 81f3: de 02  MLIP M0,L2       L2 := [M0++]         
 03e8: 81f4: f6 81  ORA A8,B1        A8 := A8 or B1       
 03ea: 81f5: 00 bc  SAI 00bc         jump 80bc            
-03ec: 81f6: 69 fa  SAD1 1,fa        br D1=1,81fa         
+03ec: 81f6: 69 fa  SAD1 D4,fa       br D4=1,81fa         
 03ee: 81f7: 59 05  CRTB B09,C05     B09 := 0x05          
 03f0: 81f8: f9 89  TBAM A8,B9       A8.M := B9.M         
 03f2: 81f9: 00 ad  SAI 00ad         jump 80ad            
@@ -528,19 +528,19 @@
 041a: 820d: ad 6f  EDC L6           L6.MMM--, ECOF if zero 
 041c: 820e: ee f6  LMIP A15,L6      [A15++] := L6        
 041e: 820f: b3 6f  SDIB B6          B6 <-> DI            
-0420: 8210: 6c 05  SAD1 4,05        br D4=1,8205         
+0420: 8210: 6c 05  SAD0 D6,05       br D6=0,8205         
 0422: 8211: 93 6f  TBDI B6          DI := B6             
 0424: 8212: d1 f6  MLI A15,L6       L6 := [A15]          
 0426: 8213: a2 68  EMIP M6          [M6++] <- data.B     
 0428: 8214: 7d 08  CRTA A13,C08     A13 := 0x08          
 042a: 8215: a9 c8  EDB B12          data.B -> B12        
 042c: 8216: 93 cf  TBDI B12         DI := B12            
-042e: 8217: 69 15  SAD1 1,15        br D1=1,8215         
+042e: 8217: 69 15  SAD1 D4,15       br D4=1,8215         
 0430: 8218: 93 ff  TBDI B15         DI := B15            
 0432: 8219: 70 00  CRTA A00,C00     A00 := 0x00          
-0434: 821a: 61 25  SAD0 1,25        br D1=0,8225         
+0434: 821a: 61 25  SAD1 D0,25       br D0=1,8225         
 0436: 821b: 70 35  CRTA A00,C35     A00 := 0x35          
-0438: 821c: 65 1e  SAD0 5,1e        br D5=0,821e         
+0438: 821c: 65 1e  SAD1 D2,1e       br D2=1,821e         
 043a: 821d: 70 37  CRTA A00,C37     A00 := 0x37          
 043c: 821e: 7e 09  CRTA A14,C09     A14 := 0x09          
 043e: 821f: de eb  MLIP A14,L11     L11 := [A14++]       
@@ -561,9 +561,9 @@
 045c: 822e: 5a 00  CRTB B10,C00     B10 := 0x00          
 045e: 822f: e8 ba  TABM A11,B10     B10.M := A11.M       
 0460: 8230: 9e af  VRB B10          B10==0               
-0462: 8231: 63 3f  SAD0 3,3f        br D3=0,823f         
+0462: 8231: 63 3f  SAD1 D1,3f       br D1=1,823f         
 0464: 8232: 83 bf  TADI A11         DI := A11            
-0466: 8233: 60 39  SAD0 0,39        br D0=0,8239         
+0466: 8233: 60 39  SAD0 D0,39       br D0=0,8239         
 0468: 8234: de 18  MLIP M1,L8       L8 := [M1++]         
 046a: 8235: 46 04  SADE 6 04                             
 046c: 8236: f8 86  TBAP A8,B6       A8.P := B6.P         
@@ -580,36 +580,36 @@
 0482: 8241: 5a 60  CRTB B10,C60     B10 := 0x60          
 0484: 8242: c7 ba  ORE A11,B10      A11 xor B10          
 0486: 8243: 58 41  CRTB B08,C41     B08 := 0x41          
-0488: 8244: 62 3b  SAD0 2,3b        br D2=0,823b         
+0488: 8244: 62 3b  SAD0 D1,3b       br D1=0,823b         
 048a: 8245: e9 ab  TBA A10,B11      A10 := B11           
 048c: 8246: ab af  AZAM A10         A10.M := 0           
 048e: 8247: 8e af  VRA A10          A10==0               
 0490: 8248: 58 43  CRTB B08,C43     B08 := 0x43          
-0492: 8249: 62 3c  SAD0 2,3c        br D2=0,823c         
+0492: 8249: 62 3c  SAD0 D1,3c       br D1=0,823c         
 0494: 824a: 93 bf  TBDI B11         DI := B11            
-0496: 824b: 67 51  SAD0 7,51        br D7=0,8251         
-0498: 824c: 65 a2  SAD0 5,a2        br D5=0,82a2         
-049a: 824d: 61 89  SAD0 1,89        br D1=0,8289         
+0496: 824b: 67 51  SAD1 D3,51       br D3=1,8251         
+0498: 824c: 65 a2  SAD1 D2,a2       br D2=1,82a2         
+049a: 824d: 61 89  SAD1 D0,89       br D0=1,8289         
 049c: 824e: 9b bf  ROTB B11         B11.M <-> B11.P      
 049e: 824f: 58 42  CRTB B08,C42     B08 := 0x42          
 04a0: 8250: 02 3c  SAI 023c         jump 823c            
-04a2: 8251: 65 4e  SAD0 5,4e        br D5=0,824e         
-04a4: 8252: 63 4e  SAD0 3,4e        br D3=0,824e         
-04a6: 8253: 61 4e  SAD0 1,4e        br D1=0,824e         
+04a2: 8251: 65 4e  SAD1 D2,4e       br D2=1,824e         
+04a4: 8252: 63 4e  SAD1 D1,4e       br D1=1,824e         
+04a6: 8253: 61 4e  SAD1 D0,4e       br D0=1,824e         
 04a8: 8254: 38 2b  MAD A08,C2b      A8 := [2b]           
 04aa: 8255: 93 cf  TBDI B12         DI := B12            
-04ac: 8256: 65 74  SAD0 5,74        br D5=0,8274         
-04ae: 8257: 63 6b  SAD0 3,6b        br D3=0,826b         
-04b0: 8258: 61 7d  SAD0 1,7d        br D1=0,827d         
+04ac: 8256: 65 74  SAD1 D2,74       br D2=1,8274         
+04ae: 8257: 63 6b  SAD1 D1,6b       br D1=1,826b         
+04b0: 8258: 61 7d  SAD1 D0,7d       br D0=1,827d         
 04b2: 8259: 38 23  MAD A08,C23      A8 := [23]           
 04b4: 825a: 85 8f  ICA A8           A8++                 
 04b6: 825b: 28 23  AMD A08,C23      [23] := A8           
 04b8: 825c: 38 2e  MAD A08,C2e      A8 := [2e]           
-04ba: 825d: ae 8f  ICA A8           A8--                 
+04ba: 825d: ae 8f  DCA A8           A8--                 
 04bc: 825e: 28 2e  AMD A08,C2e      [2e] := A8           
 04be: 825f: 78 04  CRTA A08,C04     A08 := 0x04          
 04c0: 8260: 28 2b  AMD A08,C2b      [2b] := A8           
-04c2: 8261: 62 1e  SAD0 2,1e        br D2=0,821e         
+04c2: 8261: 62 1e  SAD0 D1,1e       br D1=0,821e         
 04c4: 8262: de 1a  MLIP M1,L10      L10 := [M1++]        
 04c6: 8263: 80 00                                        
 04c8: 8264: 7e 16  CRTA A14,C16     A14 := 0x16          
@@ -619,18 +619,18 @@
 04d0: 8268: 7e 2d  CRTA A14,C2d     A14 := 0x2d          
 04d2: 8269: b4 e2  ECO A14          cmd.B <- [A14]       
 04d4: 826a: 02 1e  SAI 021e         jump 821e            
-04d6: 826b: ae 8f  ICA A8           A8--                 
+04d6: 826b: ae 8f  DCA A8           A8--                 
 04d8: 826c: 28 2b  AMD A08,C2b      [2b] := A8           
-04da: 826d: 62 1e  SAD0 2,1e        br D2=0,821e         
+04da: 826d: 62 1e  SAD0 D1,1e       br D1=0,821e         
 04dc: 826e: 70 4f  CRTA A00,C4f     A00 := 0x4f          
 04de: 826f: b3 ff  SDIB B15         B15 <-> DI           
-04e0: 8270: 64 72  SAD0 4,72        br D4=0,8272         
+04e0: 8270: 64 72  SAD0 D2,72       br D2=0,8272         
 04e2: 8271: 70 33  CRTA A00,C33     A00 := 0x33          
 04e4: 8272: b3 ff  SDIB B15         B15 <-> DI           
 04e6: 8273: 02 5f  SAI 025f         jump 825f            
-04e8: 8274: 6d 77  SAD1 5,77        br D5=1,8277         
-04ea: 8275: ae 8f  ICA A8           A8--                 
-04ec: 8276: 62 6c  SAD0 2,6c        br D2=0,826c         
+04e8: 8274: 6d 77  SAD1 D6,77       br D6=1,8277         
+04ea: 8275: ae 8f  DCA A8           A8--                 
+04ec: 8276: 62 6c  SAD0 D1,6c       br D1=0,826c         
 04ee: 8277: 70 37  CRTA A00,C37     A00 := 0x37          
 04f0: 8278: 78 0a  CRTA A08,C0a     A08 := 0x0a          
 04f2: 8279: 28 2b  AMD A08,C2b      [2b] := A8           
@@ -638,44 +638,44 @@
 04f6: 827b: 28 2d  AMD A08,C2d      [2d] := A8           
 04f8: 827c: 02 68  SAI 0268         jump 8268            
 04fa: 827d: 93 ff  TBDI B15         DI := B15            
-04fc: 827e: 6e 85  SAD1 6,85        br D6=1,8285         
+04fc: 827e: 6e 85  SAD0 D7,85       br D7=0,8285         
 04fe: 827f: 78 05  CRTA A08,C05     A08 := 0x05          
 0500: 8280: 28 23  AMD A08,C23      [23] := A8           
 0502: 8281: 78 7f  CRTA A08,C7f     A08 := 0x7f          
 0504: 8282: b7 8f  ANDB A8,B15      B15 := A8 and B15    
 0506: 8283: 70 4f  CRTA A00,C4f     A00 := 0x4f          
 0508: 8284: 02 1e  SAI 021e         jump 821e            
-050a: 8285: ae 8f  ICA A8           A8--                 
-050c: 8286: 62 6c  SAD0 2,6c        br D2=0,826c         
+050a: 8285: ae 8f  DCA A8           A8--                 
+050c: 8286: 62 6c  SAD0 D1,6c       br D1=0,826c         
 050e: 8287: 5c f0  CRTB B12,Cf0     B12 := 0xf0          
 0510: 8288: 02 a4  SAI 02a4         jump 82a4            
-0512: 8289: 63 15  SAD0 3,15        br D3=0,8215         
+0512: 8289: 63 15  SAD1 D1,15       br D1=1,8215         
 0514: 828a: 93 ff  TBDI B15         DI := B15            
-0516: 828b: 61 99  SAD0 1,99        br D1=0,8299         
+0516: 828b: 61 99  SAD1 D0,99       br D0=1,8299         
 0518: 828c: 70 13  CRTA A00,C13     A00 := 0x13          
 051a: 828d: 93 cf  TBDI B12         DI := B12            
-051c: 828e: 6b 1e  SAD1 3,1e        br D3=1,821e         
+051c: 828e: 6b 1e  SAD1 D5,1e       br D5=1,821e         
 051e: 828f: de 18  MLIP M1,L8       L8 := [M1++]         
 0520: 8290: 00 01  SAI 0001         jump 8001            
 0522: 8291: 7e 02  CRTA A14,C02     A14 := 0x02          
 0524: 8292: e1 e8  LMI A14,L8       [A14] := L8          
-0526: 8293: 63 9d  SAD0 3,9d        br D3=0,829d         
-0528: 8294: 65 9d  SAD0 5,9d        br D5=0,829d         
+0526: 8293: 63 9d  SAD1 D1,9d       br D1=1,829d         
+0528: 8294: 65 9d  SAD1 D2,9d       br D2=1,829d         
 052a: 8295: 58 45  CRTB B08,C45     B08 := 0x45          
-052c: 8296: 69 9f  SAD1 1,9f        br D1=1,829f         
+052c: 8296: 69 9f  SAD1 D4,9f       br D4=1,829f         
 052e: 8297: 70 1b  CRTA A00,C1b     A00 := 0x1b          
-0530: 8298: 6f 1e  SAD1 7,1e        br D7=1,821e         
+0530: 8298: 6f 1e  SAD1 D7,1e       br D7=1,821e         
 0532: 8299: 70 11  CRTA A00,C11     A00 := 0x11          
 0534: 829a: 8e 2f  VRA A2           A2==0                
-0536: 829b: 63 77  SAD0 3,77        br D3=0,8277         
+0536: 829b: 63 77  SAD1 D1,77       br D1=1,8277         
 0538: 829c: 02 66  SAI 0266         jump 8266            
 053a: 829d: 58 44  CRTB B08,C44     B08 := 0x44          
 053c: 829e: 9b cf  ROTB B12         B12.M <-> B12.P      
 053e: 829f: 78 04  CRTA A08,C04     A08 := 0x04          
 0540: 82a0: f8 8c  TBAP A8,B12      A8.P := B12.P        
 0542: 82a1: 02 37  SAI 0237         jump 8237            
-0544: 82a2: 63 4e  SAD0 3,4e        br D3=0,824e         
-0546: 82a3: 61 4e  SAD0 1,4e        br D1=0,824e         
+0544: 82a2: 63 4e  SAD1 D1,4e       br D1=1,824e         
+0546: 82a3: 61 4e  SAD1 D0,4e       br D0=1,824e         
 0548: 82a4: 53 00  CRTB B03,C00     B03 := 0x00          
 054a: 82a5: 7e 00  CRTA A14,C00     A14 := 0x00          
 054c: 82a6: a8 ee  AMI A14,A14      [A14] := A14         
@@ -685,12 +685,12 @@
 0554: 82aa: f8 8c  TBAP A8,B12      A8.P := B12.P        
 0556: 82ab: 5a 70  CRTB B10,C70     B10 := 0x70          
 0558: 82ac: 97 8a  AND A8,B10       A8 and B10           
-055a: 82ad: 63 1e  SAD0 3,1e        br D3=0,821e         
+055a: 82ad: 63 1e  SAD1 D1,1e       br D1=1,821e         
 055c: 82ae: 3a 0b  MAD A10,C0b      A10 := [0b]          
-055e: 82af: ae af  ICA A10          A10--                
+055e: 82af: ae af  DCA A10          A10--                
 0560: 82b0: 2a 0b  AMD A10,C0b      [0b] := A10          
 0562: 82b1: 70 2c  CRTA A00,C2c     A00 := 0x2c          
-0564: 82b2: 63 25  SAD0 3,25        br D3=0,8225         
+0564: 82b2: 63 25  SAD1 D1,25       br D1=1,8225         
 0566: 82b3: de 10  MLIP M1,L0       L0 := [M1++]         
 0568: 82b4: 82 c5  AMIM A12,A5      [A12--] := A5        
 056a: 82b5: 02 1e  SAI 021e         jump 821e            
@@ -737,22 +737,22 @@
 05bc: 82de: de e8  MLIP A14,L8      L8 := [A14++]        
 05be: 82df: c9 01  SEDI 01          set DI 0x01          
 05c0: 82e0: b6 58  SOT A5,B8        A5-B8+DI0            
-05c2: 82e1: 60 e7  SAD0 0,e7        br D0=0,82e7         
+05c2: 82e1: 60 e7  SAD0 D0,e7       br D0=0,82e7         
 05c4: 82e2: 85 5f  ICA A5           A5++                 
 05c6: 82e3: d8 88  TAB A8,B8        B8 := A8             
 05c8: 82e4: b6 58  SOT A5,B8        A5-B8+DI0            
-05ca: 82e5: 60 e7  SAD0 0,e7        br D0=0,82e7         
+05ca: 82e5: 60 e7  SAD0 D0,e7       br D0=0,82e7         
 05cc: 82e6: 85 5f  ICA A5           A5++                 
 05ce: 82e7: d1 e7  MLI A14,L7       L7 := [A14]          
 05d0: 82e8: c9 01  SEDI 01          set DI 0x01          
 05d2: 82e9: d6 57  SOTB A5,B7       B7 := A5-B7+DI0      
-05d4: 82ea: 62 ed  SAD0 2,ed        br D2=0,82ed         
+05d4: 82ea: 62 ed  SAD0 D1,ed       br D1=0,82ed         
 05d6: 82eb: 72 00  CRTA A02,C00     A02 := 0x00          
 05d8: 82ec: 02 f7  SAI 02f7         jump 82f7            
 05da: 82ed: de 08  MLIP M0,L8       L8 := [M0++]         
 05dc: 82ee: 48 58  SADE 8 58                             
 05de: 82ef: e9 77  TBA A7,B7        A7 := B7             
-05e0: 82f0: 61 f6  SAD0 1,f6        br D1=0,82f6         
+05e0: 82f0: 61 f6  SAD1 D0,f6       br D0=1,82f6         
 05e2: 82f1: 58 ff  CRTB B08,Cff     B08 := 0xff          
 05e4: 82f2: d7 78  OREA A7,B8       A7 := A7 xor B8      
 05e6: 82f3: 85 7f  ICA A7           A7++                 
@@ -779,8 +779,8 @@
 0610: 8308: b1 e4  ESE A14          sel.B <- [A14]       
 0612: 8309: 78 04  CRTA A08,C04     A08 := 0x04          
 0614: 830a: 7e 00  CRTA A14,C00     A14 := 0x00          
-0616: 830b: ae ef  ICA A14          A14--                
-0618: 830c: 62 0b  SAD0 2,0b        br D2=0,830b         
+0616: 830b: ae ef  DCA A14          A14--                
+0618: 830c: 62 0b  SAD0 D1,0b       br D1=0,830b         
 061a: 830d: 58 48  CRTB B08,C48     B08 := 0x48          
 061c: 830e: bd 30  COMx C3            C3                 
 061e: 830f: bd 00  COMx C0            C0                 
@@ -789,21 +789,21 @@
 0624: 8312: 03 0a  SAI 030a         jump 830a            
 0626: 8313: 7e 02  CRTA A14,C02     A14 := 0x02          
 0628: 8314: d1 eb  MLI A14,L11      L11 := [A14]         
-062a: 8315: e5 bf  ICL L11          L11--                
+062a: 8315: e5 bf  DCL L11          L11--                
 062c: 8316: e1 eb  LMI A14,L11      [A14] := L11         
 062e: 8317: de 08  MLIP M0,L8       L8 := [M0++]         
 0630: 8318: 49 04  SADE 9 04                             
-0632: 8319: 63 2c  SAD0 3,2c        br D3=0,832c         
+0632: 8319: 63 2c  SAD1 D1,2c       br D1=1,832c         
 0634: 831a: 02 bd  SAI 02bd         jump 82bd            
 0636: 831b: 7e 03  CRTA A14,C03     A14 := 0x03          
 0638: 831c: d1 eb  MLI A14,L11      L11 := [A14]         
-063a: 831d: e5 bf  ICL L11          L11--                
+063a: 831d: e5 bf  DCL L11          L11--                
 063c: 831e: e1 eb  LMI A14,L11      [A14] := L11         
-063e: 831f: 62 1a  SAD0 2,1a        br D2=0,831a         
+063e: 831f: 62 1a  SAD0 D1,1a       br D1=0,831a         
 0640: 8320: 38 0a  MAD A08,C0a      A8 := [0a]           
 0642: 8321: 37 0f  MAD A07,C0f      A7 := [0f]           
 0644: 8322: 8e 7f  VRA A7           A7==0                
-0646: 8323: 62 2b  SAD0 2,2b        br D2=0,832b         
+0646: 8323: 62 2b  SAD0 D1,2b       br D1=0,832b         
 0648: 8324: 77 20  CRTA A07,C20     A07 := 0x20          
 064a: 8325: 79 60  CRTA A09,C60     A09 := 0x60          
 064c: 8326: de 0b  MLIP M0,L11      L11 := [M0++]        
@@ -827,10 +827,10 @@
 0670: 8338: 7a 05  CRTA A10,C05     A10 := 0x05          
 0672: 8339: de 0b  MLIP M0,L11      L11 := [M0++]        
 0674: 833a: fa ff  TABC A15,B15      con <- A15, B15     
-0676: 833b: e5 bf  ICL L11          L11--                
-0678: 833c: 62 3a  SAD0 2,3a        br D2=0,833a         
-067a: 833d: ae af  ICA A10          A10--                
-067c: 833e: 62 39  SAD0 2,39        br D2=0,8339         
+0676: 833b: e5 bf  DCL L11          L11--                
+0678: 833c: 62 3a  SAD0 D1,3a       br D1=0,833a         
+067a: 833d: ae af  DCA A10          A10--                
+067c: 833e: 62 39  SAD0 D1,39       br D1=0,8339         
 067e: 833f: 03 0d  SAI 030d         jump 830d            
 0680: 8340: 78 02  CRTA A08,C02     A08 := 0x02          
 0682: 8341: 7e 44  CRTA A14,C44     A14 := 0x44          
@@ -839,14 +839,14 @@
 0688: 8344: 77 30  CRTA A07,C30     A07 := 0x30          
 068a: 8345: c7 77  ORE A7,B7        A7 xor B7            
 068c: 8346: 77 ff  CRTA A07,Cff     A07 := 0xff          
-068e: 8347: 62 4b  SAD0 2,4b        br D2=0,834b         
+068e: 8347: 62 4b  SAD0 D1,4b       br D1=0,834b         
 0690: 8348: d1 e7  MLI A14,L7       L7 := [A14]          
 0692: 8349: 52 a6  CRTB B02,Ca6     B02 := 0xa6          
 0694: 834a: ba 02  SAB A0,B2        A0 <-> B2            
 0696: 834b: 88 f7  AMIP A15,A7      [A15++] := A7        
 0698: 834c: 7e 46  CRTA A14,C46     A14 := 0x46          
-069a: 834d: ae 8f  ICA A8           A8--                 
-069c: 834e: 62 43  SAD0 2,43        br D2=0,8343         
+069a: 834d: ae 8f  DCA A8           A8--                 
+069c: 834e: 62 43  SAD0 D1,43       br D1=0,8343         
 069e: 834f: 58 80  CRTB B08,C80     B08 := 0x80          
 06a0: 8350: d1 f6  MLI A15,L6       L6 := [A15]          
 06a2: 8351: 93 ff  TBDI B15         DI := B15            
@@ -854,53 +854,53 @@
 06a6: 8353: de 0b  MLIP M0,L11      L11 := [M0++]        
 06a8: 8354: fa ff  TABC A15,B15      con <- A15, B15     
 06aa: 8355: c7 5a  ORE A5,B10       A5 xor B10           
-06ac: 8356: 62 5b  SAD0 2,5b        br D2=0,835b         
-06ae: 8357: e5 bf  ICL L11          L11--                
-06b0: 8358: 62 54  SAD0 2,54        br D2=0,8354         
+06ac: 8356: 62 5b  SAD0 D1,5b       br D1=0,835b         
+06ae: 8357: e5 bf  DCL L11          L11--                
+06b0: 8358: 62 54  SAD0 D1,54       br D1=0,8354         
 06b2: 8359: 78 64  CRTA A08,C64     A08 := 0x64          
 06b4: 835a: 03 0d  SAI 030d         jump 830d            
 06b6: 835b: 7a 03  CRTA A10,C03     A10 := 0x03          
 06b8: 835c: de 0b  MLIP M0,L11      L11 := [M0++]        
 06ba: 835d: fa ff  TABC A15,B15      con <- A15, B15     
 06bc: 835e: 8e 3f  VRA A3           A3==0                
-06be: 835f: 62 66  SAD0 2,66        br D2=0,8366         
-06c0: 8360: e5 bf  ICL L11          L11--                
-06c2: 8361: 62 5d  SAD0 2,5d        br D2=0,835d         
-06c4: 8362: ae af  ICA A10          A10--                
-06c6: 8363: 62 5c  SAD0 2,5c        br D2=0,835c         
+06be: 835f: 62 66  SAD0 D1,66       br D1=0,8366         
+06c0: 8360: e5 bf  DCL L11          L11--                
+06c2: 8361: 62 5d  SAD0 D1,5d       br D1=0,835d         
+06c4: 8362: ae af  DCA A10          A10--                
+06c6: 8363: 62 5c  SAD0 D1,5c       br D1=0,835c         
 06c8: 8364: 78 74  CRTA A08,C74     A08 := 0x74          
 06ca: 8365: 03 0d  SAI 030d         jump 830d            
 06cc: 8366: 8e 3f  VRA A3           A3==0                
-06ce: 8367: 62 66  SAD0 2,66        br D2=0,8366         
-06d0: 8368: 67 9b  SAD0 7,9b        br D7=0,839b         
+06ce: 8367: 62 66  SAD0 D1,66       br D1=0,8366         
+06d0: 8368: 67 9b  SAD1 D3,9b       br D3=1,839b         
 06d2: 8369: de 04  MLIP M0,L4       L4 := [M0++]         
 06d4: 836a: 00 80  SAI 0080         jump 8080            
-06d6: 836b: 69 93  SAD1 1,93        br D1=1,8393         
+06d6: 836b: 69 93  SAD1 D4,93       br D4=1,8393         
 06d8: 836c: 57 06  CRTB B07,C06     B07 := 0x06          
 06da: 836d: 37 23  MAD A07,C23      A7 := [23]           
 06dc: 836e: c7 77  ORE A7,B7        A7 xor B7            
-06de: 836f: 63 40  SAD0 3,40        br D3=0,8340         
-06e0: 8370: 6d 9b  SAD1 5,9b        br D5=1,839b         
+06de: 836f: 63 40  SAD1 D1,40       br D1=1,8340         
+06e0: 8370: 6d 9b  SAD1 D6,9b       br D6=1,839b         
 06e2: 8371: 57 4d  CRTB B07,C4d     B07 := 0x4d          
 06e4: 8372: 37 d5  MAD A07,Cd5      A7 := [d5]           
 06e6: 8373: c7 77  ORE A7,B7        A7 xor B7            
-06e8: 8374: 62 9b  SAD0 2,9b        br D2=0,839b         
+06e8: 8374: 62 9b  SAD0 D1,9b       br D1=0,839b         
 06ea: 8375: 57 48  CRTB B07,C48     B07 := 0x48          
 06ec: 8376: 37 80  MAD A07,C80      A7 := [80]           
 06ee: 8377: c7 77  ORE A7,B7        A7 xor B7            
-06f0: 8378: 62 9b  SAD0 2,9b        br D2=0,839b         
+06f0: 8378: 62 9b  SAD0 D1,9b       br D1=0,839b         
 06f2: 8379: 57 44  CRTB B07,C44     B07 := 0x44          
 06f4: 837a: 37 81  MAD A07,C81      A7 := [81]           
 06f6: 837b: c7 77  ORE A7,B7        A7 xor B7            
-06f8: 837c: 62 9b  SAD0 2,9b        br D2=0,839b         
+06f8: 837c: 62 9b  SAD0 D1,9b       br D1=0,839b         
 06fa: 837d: 57 52  CRTB B07,C52     B07 := 0x52          
 06fc: 837e: 37 82  MAD A07,C82      A7 := [82]           
 06fe: 837f: c7 77  ORE A7,B7        A7 xor B7            
-0700: 8380: 62 9b  SAD0 2,9b        br D2=0,839b         
+0700: 8380: 62 9b  SAD0 D1,9b       br D1=0,839b         
 0702: 8381: 57 31  CRTB B07,C31     B07 := 0x31          
 0704: 8382: 37 83  MAD A07,C83      A7 := [83]           
 0706: 8383: c7 77  ORE A7,B7        A7 xor B7            
-0708: 8384: 62 9b  SAD0 2,9b        br D2=0,839b         
+0708: 8384: 62 9b  SAD0 D1,9b       br D1=0,839b         
 070a: 8385: 7e 4e  CRTA A14,C4e     A14 := 0x4e          
 070c: 8386: d1 e7  MLI A14,L7       L7 := [A14]          
 070e: 8387: 52 a6  CRTB B02,Ca6     B02 := 0xa6          
@@ -921,32 +921,32 @@
 072c: 8396: de e7  MLIP A14,L7      L7 := [A14++]        
 072e: 8397: ee 67  LMIP M6,L7       [M6++] := L7         
 0730: 8398: c7 e8  ORE A14,B8       A14 xor B8           
-0732: 8399: 62 94  SAD0 2,94        br D2=0,8394         
+0732: 8399: 62 94  SAD0 D1,94       br D1=0,8394         
 0734: 839a: e1 f6  LMI A15,L6       [A15] := L6          
 0736: 839b: 37 2e  MAD A07,C2e      A7 := [2e]           
 0738: 839c: 8e 7f  VRA A7           A7==0                
-073a: 839d: 62 51  SAD0 2,51        br D2=0,8351         
+073a: 839d: 62 51  SAD0 D1,51       br D1=0,8351         
 073c: 839e: de 0b  MLIP M0,L11      L11 := [M0++]        
 073e: 839f: fa ff  TABC A15,B15      con <- A15, B15     
 0740: 83a0: 9e 3f  VRB B3           B3==0                
-0742: 83a1: 63 ba  SAD0 3,ba        br D3=0,83ba         
-0744: 83a2: e5 bf  ICL L11          L11--                
-0746: 83a3: 62 9f  SAD0 2,9f        br D2=0,839f         
+0742: 83a1: 63 ba  SAD1 D1,ba       br D1=1,83ba         
+0744: 83a2: e5 bf  DCL L11          L11--                
+0746: 83a3: 62 9f  SAD0 D1,9f       br D1=0,839f         
 0748: 83a4: 78 54  CRTA A08,C54     A08 := 0x54          
 074a: 83a5: 03 0d  SAI 030d         jump 830d            
 074c: 83a6: db 7f  AZBP B7          B7.P := 0            
 074e: 83a7: bb 7f  AZAP A7          A7.P := 0            
 0750: 83a8: 5a 0a  CRTB B10,C0a     B10 := 0x0a          
 0752: 83a9: d3 70  SLDB B7          B7 >> DI0            
-0754: 83aa: 60 ad  SAD0 0,ad        br D0=0,83ad         
+0754: 83aa: 60 ad  SAD0 D0,ad       br D0=0,83ad         
 0756: 83ab: c8 01  REDI 01          reset DI 0x01        
 0758: 83ac: 96 7a  ADDA A7,B10      A7 := A7+B10+DI0     
 075a: 83ad: d4 a0  SLSA B10         B10 << DI0           
-075c: 83ae: 60 a9  SAD0 0,a9        br D0=0,83a9         
+075c: 83ae: 60 a9  SAD0 D0,a9       br D0=0,83a9         
 075e: 83af: ba 02  SAB A0,B2        A0 <-> B2            
 0760: 83b0: 78 24  CRTA A08,C24     A08 := 0x24          
 0762: 83b1: 28 0a  AMD A08,C0a      [0a] := A8           
-0764: 83b2: 6c 20  SAD1 4,20        br D4=1,8320         
+0764: 83b2: 6c 20  SAD0 D6,20       br D6=0,8320         
 0766: 83b3: 5f 08  CRTB B15,C08     B15 := 0x08          
 0768: 83b4: 5d 80  CRTB B13,C80     B13 := 0x80          
 076a: 83b5: de 04  MLIP M0,L4       L4 := [M0++]         
@@ -954,29 +954,29 @@
 076e: 83b7: 79 01  CRTA A09,C01     A09 := 0x01          
 0770: 83b8: 02 d1  SAI 02d1         jump 82d1            
 0772: 83b9: 01 d9  SAI 01d9         jump 81d9            
-0774: 83ba: 65 b0  SAD0 5,b0        br D5=0,83b0         
+0774: 83ba: 65 b0  SAD1 D2,b0       br D2=1,83b0         
 0776: 83bb: c8 80  REDI 80          reset DI 0x80        
 0778: 83bc: e9 fd  TBA A15,B13      A15 := B13           
 077a: 83bd: de f6  MLIP A15,L6      L6 := [A15++]        
 077c: 83be: 7e 44  CRTA A14,C44     A14 := 0x44          
 077e: 83bf: c7 e6  ORE A14,B6       A14 xor B6           
-0780: 83c0: 63 ce  SAD0 3,ce        br D3=0,83ce         
+0780: 83c0: 63 ce  SAD1 D1,ce       br D1=1,83ce         
 0782: 83c1: c9 80  SEDI 80          set DI 0x80          
 0784: 83c2: 7e 20  CRTA A14,C20     A14 := 0x20          
 0786: 83c3: c7 e6  ORE A14,B6       A14 xor B6           
-0788: 83c4: 63 e7  SAD0 3,e7        br D3=0,83e7         
+0788: 83c4: 63 e7  SAD1 D1,e7       br D1=1,83e7         
 078a: 83c5: 7e 46  CRTA A14,C46     A14 := 0x46          
 078c: 83c6: c7 e6  ORE A14,B6       A14 xor B6           
-078e: 83c7: 63 b9  SAD0 3,b9        br D3=0,83b9         
+078e: 83c7: 63 b9  SAD1 D1,b9       br D1=1,83b9         
 0790: 83c8: 7e 4b  CRTA A14,C4b     A14 := 0x4b          
 0792: 83c9: c7 e6  ORE A14,B6       A14 xor B6           
-0794: 83ca: 63 d4  SAD0 3,d4        br D3=0,83d4         
+0794: 83ca: 63 d4  SAD1 D1,d4       br D1=1,83d4         
 0796: 83cb: 78 04  CRTA A08,C04     A08 := 0x04          
 0798: 83cc: 58 4a  CRTB B08,C4a     B08 := 0x4a          
 079a: 83cd: 03 2c  SAI 032c         jump 832c            
 079c: 83ce: d1 f7  MLI A15,L7       L7 := [A15]          
 079e: 83cf: 9e 7f  VRB B7           B7==0                
-07a0: 83d0: 62 d4  SAD0 2,d4        br D2=0,83d4         
+07a0: 83d0: 62 d4  SAD0 D1,d4       br D1=0,83d4         
 07a2: 83d1: 57 01  CRTB B07,C01     B07 := 0x01          
 07a4: 83d2: 26 0c  AMD A06,C0c      [0c] := A6           
 07a6: 83d3: 27 0d  AMD A07,C0d      [0d] := A7           
@@ -989,7 +989,7 @@
 07b4: 83da: 52 a6  CRTB B02,Ca6     B02 := 0xa6          
 07b6: 83db: ba 02  SAB A0,B2        A0 <-> B2            
 07b8: 83dc: 27 03  AMD A07,C03      [03] := A7           
-07ba: 83dd: 6f b3  SAD1 7,b3        br D7=1,83b3         
+07ba: 83dd: 6f b3  SAD1 D7,b3       br D7=1,83b3         
 07bc: 83de: d8 7a  TAB A7,B10       B10 := A7            
 07be: 83df: 7a 1b  CRTA A10,C1b     A10 := 0x1b          
 07c0: 83e0: c9 07  SEDI 07          set DI 0x07          
@@ -997,17 +997,17 @@
 07c4: 83e2: d8 6a  TAB A6,B10       B10 := A6            
 07c6: 83e3: c9 07  SEDI 07          set DI 0x07          
 07c8: 83e4: b6 aa  SOT A10,B10      A10-B10+DI0          
-07ca: 83e5: 60 f4  SAD0 0,f4        br D0=0,83f4         
+07ca: 83e5: 60 f4  SAD0 D0,f4       br D0=0,83f4         
 07cc: 83e6: e9 fd  TBA A15,B13      A15 := B13           
 07ce: 83e7: 7e b8  CRTA A14,Cb8     A14 := 0xb8          
 07d0: 83e8: c9 07  SEDI 07          set DI 0x07          
 07d2: 83e9: b6 ed  SOT A14,B13      A14-B13+DI0          
 07d4: 83ea: 78 14  CRTA A08,C14     A08 := 0x14          
-07d6: 83eb: 60 cc  SAD0 0,cc        br D0=0,83cc         
+07d6: 83eb: 60 cc  SAD0 D0,cc       br D0=0,83cc         
 07d8: 83ec: 7e 04  CRTA A14,C04     A14 := 0x04          
 07da: 83ed: c8 07  REDI 07          reset DI 0x07        
 07dc: 83ee: a6 ed  ADDB A14,B13     B13 := A14+B13+DI0   
-07de: 83ef: 6f bb  SAD1 7,bb        br D7=1,83bb         
+07de: 83ef: 6f bb  SAD1 D7,bb       br D7=1,83bb         
 07e0: 83f0: 85 ff  ICA A15          A15++                
 07e2: 83f1: 5f 10  CRTB B15,C10     B15 := 0x10          
 07e4: 83f2: e9 9a  TBA A9,B10       A9 := B10            
@@ -1026,7 +1026,7 @@
 07fe: 83ff: 06 00  SAI 0600         jump 8600            
 0800: 8400: 78 07  CRTA A08,C07     A08 := 0x07          
 0802: 8401: 58 08  CRTB B08,C08     B08 := 0x08          
-0804: 8402: 67 04  SAD0 7,04        br D7=0,8404         
+0804: 8402: 67 04  SAD1 D3,04       br D3=1,8404         
 0806: 8403: 78 04  CRTA A08,C04     A08 := 0x04          
 0808: 8404: 5d 10  CRTB B13,C10     B13 := 0x10          
 080a: 8405: de 0a  MLIP M0,L10      L10 := [M0++]        
@@ -1043,26 +1043,26 @@
 0820: 8410: 04 d5  SAI 04d5         jump 84d5            
 0822: 8411: 96 2d  ADDA A2,B13      A2 := A2+B13+DI0     
 0824: 8412: 96 ad  ADDA A10,B13     A10 := A10+B13+DI0   
-0826: 8413: be 8f  ICB B8           B8--                 
-0828: 8414: 62 0b  SAD0 2,0b        br D2=0,840b         
-082a: 8415: ae ef  ICA A14          A14--                
+0826: 8413: be 8f  DCB B8           B8--                 
+0828: 8414: 62 0b  SAD0 D1,0b       br D1=0,840b         
+082a: 8415: ae ef  DCA A14          A14--                
 082c: 8416: d1 ea  MLI A14,L10      L10 := [A14]         
-082e: 8417: 6b 19  SAD1 3,19        br D3=1,8419         
+082e: 8417: 6b 19  SAD1 D5,19       br D5=1,8419         
 0830: 8418: d1 00  MLI M0,L0        L0 := [M0]           
-0832: 8419: a0 fd                                        
+0832: 8419: a0 fd  ICD1 D7,L13      L13++ if D7=1        
 0834: 841a: de 08  MLIP M0,L8       L8 := [M0++]         
 0836: 841b: 01 a0  SAI 01a0         jump 81a0            
 0838: 841c: 7b 20  CRTA A11,C20     A11 := 0x20          
 083a: 841d: 8c 87  BMIP M8,A7       [M8++] := A7         
-083c: 841e: ae bf  ICA A11          A11--                
-083e: 841f: 62 1d  SAD0 2,1d        br D2=0,841d         
+083c: 841e: ae bf  DCA A11          A11--                
+083e: 841f: 62 1d  SAD0 D1,1d       br D1=0,841d         
 0840: 8420: de 08  MLIP M0,L8       L8 := [M0++]         
 0842: 8421: 01 a0  SAI 01a0         jump 81a0            
 0844: 8422: de 02  MLIP M0,L2       L2 := [M0++]         
 0846: 8423: 01 b0  SAI 01b0         jump 81b0            
 0848: 8424: 5f 0d  CRTB B15,C0d     B15 := 0x0d          
 084a: 8425: 5e 07  CRTB B14,C07     B14 := 0x07          
-084c: 8426: 67 29  SAD0 7,29        br D7=0,8429         
+084c: 8426: 67 29  SAD1 D3,29       br D3=1,8429         
 084e: 8427: 5f 06  CRTB B15,C06     B15 := 0x06          
 0850: 8428: 5e 04  CRTB B14,C04     B14 := 0x04          
 0852: 8429: f9 2f  TBAM A2,B15      A2.M := B15.M        
@@ -1072,7 +1072,7 @@
 085a: 842d: 01 10  SAI 0110         jump 8110            
 085c: 842e: 9a ab  MBIM M10,B11     B11 := [M10--]       
 085e: 842f: 9e bf  VRB B11          B11==0               
-0860: 8430: 63 7b  SAD0 3,7b        br D3=0,847b         
+0860: 8430: 63 7b  SAD1 D1,7b       br D1=1,847b         
 0862: 8431: f9 7b  TBAM A7,B11      A7.M := B11.M        
 0864: 8432: f8 9b  TBAP A9,B11      A9.P := B11.P        
 0866: 8433: 8b 7f  ROTA A7          A7.M <-> A7.P        
@@ -1082,13 +1082,13 @@
 086e: 8437: 5d 66  CRTB B13,C66     B13 := 0x66          
 0870: 8438: 5b f0  CRTB B11,Cf0     B11 := 0xf0          
 0872: 8439: 97 7b  AND A7,B11       A7 and B11           
-0874: 843a: 63 54  SAD0 3,54        br D3=0,8454         
+0874: 843a: 63 54  SAD1 D1,54       br D1=1,8454         
 0876: 843b: 92 7b  MAIM M7,A11      A11 := [M7--]        
 0878: 843c: 99 2b  MBI M2,B11       B11 := [M2]          
 087a: 843d: 96 bd  ADDA A11,B13     A11 := A11+B13+DI0   
 087c: 843e: 96 bb  ADDA A11,B11     A11 := A11+B11+DI0   
-087e: 843f: 65 48  SAD0 5,48        br D5=0,8448         
-0880: 8440: 61 45  SAD0 1,45        br D1=0,8445         
+087e: 843f: 65 48  SAD1 D2,48       br D2=1,8448         
+0880: 8440: 61 45  SAD1 D0,45       br D0=1,8445         
 0882: 8441: 5c 65  CRTB B12,C65     B12 := 0x65          
 0884: 8442: c6 bc  SOTA A11,B12     A11 := A11-B12+DI0   
 0886: 8443: c8 01  REDI 01          reset DI 0x01        
@@ -1096,7 +1096,7 @@
 088a: 8445: 5c 06  CRTB B12,C06     B12 := 0x06          
 088c: 8446: c6 bc  SOTA A11,B12     A11 := A11-B12+DI0   
 088e: 8447: 04 4e  SAI 044e         jump 844e            
-0890: 8448: 61 4e  SAD0 1,4e        br D1=0,844e         
+0890: 8448: 61 4e  SAD1 D0,4e       br D0=1,844e         
 0892: 8449: 5c 5f  CRTB B12,C5f     B12 := 0x5f          
 0894: 844a: c6 bc  SOTA A11,B12     A11 := A11-B12+DI0   
 0896: 844b: c8 01  REDI 01          reset DI 0x01        
@@ -1108,17 +1108,17 @@
 08a2: 8451: a8 2b  AMI M2,A11       [M2] := A11          
 08a4: 8452: c8 01  REDI 01          reset DI 0x01        
 08a6: 8453: 04 56  SAI 0456         jump 8456            
-08a8: 8454: ae 7f  ICA A7           A7--                 
-08aa: 8455: ae 2f  ICA A2           A2--                 
+08a8: 8454: ae 7f  DCA A7           A7--                 
+08aa: 8455: ae 2f  DCA A2           A2--                 
 08ac: 8456: 5b f0  CRTB B11,Cf0     B11 := 0xf0          
 08ae: 8457: 97 9b  AND A9,B11       A9 and B11           
-08b0: 8458: 63 72  SAD0 3,72        br D3=0,8472         
+08b0: 8458: 63 72  SAD1 D1,72       br D1=1,8472         
 08b2: 8459: 92 9b  MAIM M9,A11      A11 := [M9--]        
 08b4: 845a: 99 8b  MBI M8,B11       B11 := [M8]          
 08b6: 845b: 96 bd  ADDA A11,B13     A11 := A11+B13+DI0   
 08b8: 845c: 96 bb  ADDA A11,B11     A11 := A11+B11+DI0   
-08ba: 845d: 65 66  SAD0 5,66        br D5=0,8466         
-08bc: 845e: 61 63  SAD0 1,63        br D1=0,8463         
+08ba: 845d: 65 66  SAD1 D2,66       br D2=1,8466         
+08bc: 845e: 61 63  SAD1 D0,63       br D0=1,8463         
 08be: 845f: 5c 65  CRTB B12,C65     B12 := 0x65          
 08c0: 8460: c6 bc  SOTA A11,B12     A11 := A11-B12+DI0   
 08c2: 8461: c8 01  REDI 01          reset DI 0x01        
@@ -1126,7 +1126,7 @@
 08c6: 8463: 5c 06  CRTB B12,C06     B12 := 0x06          
 08c8: 8464: c6 bc  SOTA A11,B12     A11 := A11-B12+DI0   
 08ca: 8465: 04 6c  SAI 046c         jump 846c            
-08cc: 8466: 61 6c  SAD0 1,6c        br D1=0,846c         
+08cc: 8466: 61 6c  SAD1 D0,6c       br D0=1,846c         
 08ce: 8467: 5c 5f  CRTB B12,C5f     B12 := 0x5f          
 08d0: 8468: c6 bc  SOTA A11,B12     A11 := A11-B12+DI0   
 08d2: 8469: c8 01  REDI 01          reset DI 0x01        
@@ -1138,20 +1138,20 @@
 08de: 846f: a8 8b  AMI M8,A11       [M8] := A11          
 08e0: 8470: c8 01  REDI 01          reset DI 0x01        
 08e2: 8471: 04 73  SAI 0473         jump 8473            
-08e4: 8472: ae 8f  ICA A8           A8--                 
+08e4: 8472: ae 8f  DCA A8           A8--                 
 08e6: 8473: 5b 0f  CRTB B11,C0f     B11 := 0x0f          
 08e8: 8474: 97 7b  AND A7,B11       A7 and B11           
-08ea: 8475: 62 38  SAD0 2,38        br D2=0,8438         
+08ea: 8475: 62 38  SAD0 D1,38       br D1=0,8438         
 08ec: 8476: 97 2b  AND A2,B11       A2 and B11           
-08ee: 8477: 63 80  SAD0 3,80        br D3=0,8480         
+08ee: 8477: 63 80  SAD1 D1,80       br D1=1,8480         
 08f0: 8478: 96 2f  ADDA A2,B15      A2 := A2+B15+DI0     
 08f2: 8479: 96 8f  ADDA A8,B15      A8 := A8+B15+DI0     
 08f4: 847a: 04 2e  SAI 042e         jump 842e            
-08f6: 847b: ae 2f  ICA A2           A2--                 
-08f8: 847c: ae 8f  ICA A8           A8--                 
+08f6: 847b: ae 2f  DCA A2           A2--                 
+08f8: 847c: ae 8f  DCA A8           A8--                 
 08fa: 847d: 5b 0f  CRTB B11,C0f     B11 := 0x0f          
 08fc: 847e: 97 2b  AND A2,B11       A2 and B11           
-08fe: 847f: 62 2e  SAD0 2,2e        br D2=0,842e         
+08fe: 847f: 62 2e  SAD0 D1,2e       br D1=0,842e         
 0900: 8480: c8 07  REDI 07          reset DI 0x07        
 0902: 8481: d4 f0  SLSA B15         B15 << DI0           
 0904: 8482: f9 2f  TBAM A2,B15      A2.M := B15.M        
@@ -1166,8 +1166,8 @@
 0916: 848b: a6 a9  ADDB A10,B9      B9 := A10+B9+DI0     
 0918: 848c: 96 7d  ADDA A7,B13      A7 := A7+B13+DI0     
 091a: 848d: 96 79  ADDA A7,B9       A7 := A7+B9+DI0      
-091c: 848e: 65 97  SAD0 5,97        br D5=0,8497         
-091e: 848f: 61 94  SAD0 1,94        br D1=0,8494         
+091c: 848e: 65 97  SAD1 D2,97       br D2=1,8497         
+091e: 848f: 61 94  SAD1 D0,94       br D0=1,8494         
 0920: 8490: 5c 65  CRTB B12,C65     B12 := 0x65          
 0922: 8491: c6 7c  SOTA A7,B12      A7 := A7-B12+DI0     
 0924: 8492: c8 01  REDI 01          reset DI 0x01        
@@ -1175,62 +1175,62 @@
 0928: 8494: 5c 06  CRTB B12,C06     B12 := 0x06          
 092a: 8495: c6 7c  SOTA A7,B12      A7 := A7-B12+DI0     
 092c: 8496: 04 9b  SAI 049b         jump 849b            
-092e: 8497: 61 9b  SAD0 1,9b        br D1=0,849b         
+092e: 8497: 61 9b  SAD1 D0,9b       br D0=1,849b         
 0930: 8498: 5c 5f  CRTB B12,C5f     B12 := 0x5f          
 0932: 8499: c6 7c  SOTA A7,B12      A7 := A7-B12+DI0     
 0934: 849a: c8 01  REDI 01          reset DI 0x01        
 0936: 849b: 82 87  AMIM M8,A7       [M8--] := A7         
 0938: 849c: e8 99  TABM A9,B9       B9.M := A9.M         
 093a: 849d: 97 2a  AND A2,B10       A2 and B10           
-093c: 849e: 62 87  SAD0 2,87        br D2=0,8487         
+093c: 849e: 62 87  SAD0 D1,87       br D1=0,8487         
 093e: 849f: d1 00  MLI M0,L0        L0 := [M0]           
-0940: 84a0: a0 fe                                        
-0942: 84a1: 61 a5  SAD0 1,a5        br D1=0,84a5         
-0944: 84a2: 63 a4  SAD0 3,a4        br D3=0,84a4         
+0940: 84a0: a0 fe  ICD1 D7,L14      L14++ if D7=1        
+0942: 84a1: 61 a5  SAD1 D0,a5       br D0=1,84a5         
+0944: 84a2: 63 a4  SAD1 D1,a4       br D1=1,84a4         
 0946: 84a3: 04 ae  SAI 04ae         jump 84ae            
 0948: 84a4: 04 bd  SAI 04bd         jump 84bd            
-094a: 84a5: 63 a7  SAD0 3,a7        br D3=0,84a7         
+094a: 84a5: 63 a7  SAD1 D1,a7       br D1=1,84a7         
 094c: 84a6: 04 c0  SAI 04c0         jump 84c0            
 094e: 84a7: 9e 7f  VRB B7           B7==0                
-0950: 84a8: 63 bc  SAD0 3,bc        br D3=0,84bc         
-0952: 84a9: be 7f  ICB B7           B7--                 
+0950: 84a8: 63 bc  SAD1 D1,bc       br D1=1,84bc         
+0952: 84a9: be 7f  DCB B7           B7--                 
 0954: 84aa: 98 a7  MAIP M10,A7      A7 := [M10++]        
 0956: 84ab: 99 2f  MBI M2,B15       B15 := [M2]          
 0958: 84ac: e8 7f  TABM A7,B15      B15.M := A7.M        
 095a: 84ad: 8c 2f  BMIP M2,A15      [M2++] := A15        
 095c: 84ae: 9e 7f  VRB B7           B7==0                
-095e: 84af: 63 b9  SAD0 3,b9        br D3=0,84b9         
-0960: 84b0: be 7f  ICB B7           B7--                 
+095e: 84af: 63 b9  SAD1 D1,b9       br D1=1,84b9         
+0960: 84b0: be 7f  DCB B7           B7--                 
 0962: 84b1: 98 a7  MAIP M10,A7      A7 := [M10++]        
 0964: 84b2: 88 27  AMIP M2,A7       [M2++] := A7         
 0966: 84b3: 9e 7f  VRB B7           B7==0                
-0968: 84b4: 63 b7  SAD0 3,b7        br D3=0,84b7         
-096a: 84b5: be 7f  ICB B7           B7--                 
+0968: 84b4: 63 b7  SAD1 D1,b7       br D1=1,84b7         
+096a: 84b5: be 7f  DCB B7           B7--                 
 096c: 84b6: 04 ae  SAI 04ae         jump 84ae            
 096e: 84b7: c9 03  SEDI 03          set DI 0x03          
 0970: 84b8: 04 ba  SAI 04ba         jump 84ba            
 0972: 84b9: c8 03  REDI 03          reset DI 0x03        
-0974: 84ba: 60 bc  SAD0 0,bc        br D0=0,84bc         
-0976: 84bb: e5 2f  ICL L2           L2--                 
+0974: 84ba: 60 bc  SAD0 D0,bc       br D0=0,84bc         
+0976: 84bb: e5 2f  DCL L2           L2--                 
 0978: 84bc: 07 a1  SAI 07a1         jump 87a1            
 097a: 84bd: 98 a7  MAIP M10,A7      A7 := [M10++]        
 097c: 84be: 8b 7f  ROTA A7          A7.M <-> A7.P        
 097e: 84bf: 04 cb  SAI 04cb         jump 84cb            
 0980: 84c0: 99 2f  MBI M2,B15       B15 := [M2]          
 0982: 84c1: 9e 7f  VRB B7           B7==0                
-0984: 84c2: 62 c6  SAD0 2,c6        br D2=0,84c6         
+0984: 84c2: 62 c6  SAD0 D1,c6       br D1=0,84c6         
 0986: 84c3: 04 bc  SAI 04bc         jump 84bc            
 0988: 84c4: 9e 7f  VRB B7           B7==0                
-098a: 84c5: 63 d0  SAD0 3,d0        br D3=0,84d0         
-098c: 84c6: be 7f  ICB B7           B7--                 
+098a: 84c5: 63 d0  SAD1 D1,d0       br D1=1,84d0         
+098c: 84c6: be 7f  DCB B7           B7--                 
 098e: 84c7: 98 a7  MAIP M10,A7      A7 := [M10++]        
 0990: 84c8: 8b 7f  ROTA A7          A7.M <-> A7.P        
 0992: 84c9: e8 7f  TABM A7,B15      B15.M := A7.M        
 0994: 84ca: 8c 2f  BMIP M2,A15      [M2++] := A15        
 0996: 84cb: d9 7f  TABP A7,B15      B15.P := A7.P        
 0998: 84cc: 9e 7f  VRB B7           B7==0                
-099a: 84cd: 63 d3  SAD0 3,d3        br D3=0,84d3         
-099c: 84ce: be 7f  ICB B7           B7--                 
+099a: 84cd: 63 d3  SAD1 D1,d3       br D1=1,84d3         
+099c: 84ce: be 7f  DCB B7           B7--                 
 099e: 84cf: 04 c4  SAI 04c4         jump 84c4            
 09a0: 84d0: 8c 2f  BMIP M2,A15      [M2++] := A15        
 09a2: 84d1: c9 01  SEDI 01          set DI 0x01          
@@ -1245,13 +1245,13 @@
 09b4: 84da: 92 9b  MAIM M9,A11      A11 := [M9--]        
 09b6: 84db: 96 bf  ADDA A11,B15     A11 := A11+B15+DI0   
 09b8: 84dc: 96 bb  ADDA A11,B11     A11 := A11+B11+DI0   
-09ba: 84dd: 64 e3  SAD0 4,e3        br D4=0,84e3         
-09bc: 84de: 60 eb  SAD0 0,eb        br D0=0,84eb         
+09ba: 84dd: 64 e3  SAD0 D2,e3       br D2=0,84e3         
+09bc: 84de: 60 eb  SAD0 D0,eb       br D0=0,84eb         
 09be: 84df: 82 2b  AMIM M2,A11      [M2--] := A11        
-09c0: 84e0: be 7f  ICB B7           B7--                 
-09c2: 84e1: 62 d8  SAD0 2,d8        br D2=0,84d8         
+09c0: 84e0: be 7f  DCB B7           B7--                 
+09c2: 84e1: 62 d8  SAD0 D1,d8       br D1=0,84d8         
 09c4: 84e2: 07 a1  SAI 07a1         jump 87a1            
-09c6: 84e3: 60 e7  SAD0 0,e7        br D0=0,84e7         
+09c6: 84e3: 60 e7  SAD0 D0,e7       br D0=0,84e7         
 09c8: 84e4: 5b 06  CRTB B11,C06     B11 := 0x06          
 09ca: 84e5: c6 bb  SOTA A11,B11     A11 := A11-B11+DI0   
 09cc: 84e6: 04 df  SAI 04df         jump 84df            
@@ -1265,36 +1265,36 @@
 09dc: 84ee: 92 9b  MAIM M9,A11      A11 := [M9--]        
 09de: 84ef: 9a ab  MBIM M10,B11     B11 := [M10--]       
 09e0: 84f0: c6 bb  SOTA A11,B11     A11 := A11-B11+DI0   
-09e2: 84f1: 65 fe  SAD0 5,fe        br D5=0,84fe         
-09e4: 84f2: 61 fb  SAD0 1,fb        br D1=0,84fb         
+09e2: 84f1: 65 fe  SAD1 D2,fe       br D2=1,84fe         
+09e4: 84f2: 61 fb  SAD1 D0,fb       br D0=1,84fb         
 09e6: 84f3: 5b 65  CRTB B11,C65     B11 := 0x65          
 09e8: 84f4: c6 bb  SOTA A11,B11     A11 := A11-B11+DI0   
 09ea: 84f5: c8 01  REDI 01          reset DI 0x01        
 09ec: 84f6: 82 2b  AMIM M2,A11      [M2--] := A11        
-09ee: 84f7: be 7f  ICB B7           B7--                 
-09f0: 84f8: 62 ee  SAD0 2,ee        br D2=0,84ee         
+09ee: 84f7: be 7f  DCB B7           B7--                 
+09f0: 84f8: 62 ee  SAD0 D1,ee       br D1=0,84ee         
 09f2: 84f9: 92 eb  MAIM A14,A11     A11 := [A14--]       
 09f4: 84fa: d1 e0  MLI A14,L0       L0 := [A14]          
 09f6: 84fb: 5b 06  CRTB B11,C06     B11 := 0x06          
 09f8: 84fc: c6 bb  SOTA A11,B11     A11 := A11-B11+DI0   
 09fa: 84fd: 04 f6  SAI 04f6         jump 84f6            
-09fc: 84fe: 61 f6  SAD0 1,f6        br D1=0,84f6         
+09fc: 84fe: 61 f6  SAD1 D0,f6       br D0=1,84f6         
 09fe: 84ff: 5b 5f  CRTB B11,C5f     B11 := 0x5f          
 0a00: 8500: 04 f4  SAI 04f4         jump 84f4            
 0a02: 8501: de 02  MLIP M0,L2       L2 := [M0++]         
 0a04: 8502: 01 b0  SAI 01b0         jump 81b0            
 0a06: 8503: 57 07  CRTB B07,C07     B07 := 0x07          
-0a08: 8504: 67 06  SAD0 7,06        br D7=0,8506         
+0a08: 8504: 67 06  SAD1 D3,06       br D3=1,8506         
 0a0a: 8505: 57 04  CRTB B07,C04     B07 := 0x04          
 0a0c: 8506: c8 01  REDI 01          reset DI 0x01        
 0a0e: 8507: 96 97  ADDA A9,B7       A9 := A9+B7+DI0      
-0a10: 8508: 60 0a  SAD0 0,0a        br D0=0,850a         
+0a10: 8508: 60 0a  SAD0 D0,0a       br D0=0,850a         
 0a12: 8509: 95 9f  ICB B9           B9++                 
-0a14: 850a: e5 9f  ICL L9           L9--                 
+0a14: 850a: e5 9f  DCL L9           L9--                 
 0a16: 850b: f9 a7  TBAM A10,B7      A10.M := B7.M        
 0a18: 850c: c8 01  REDI 01          reset DI 0x01        
 0a1a: 850d: 96 27  ADDA A2,B7       A2 := A2+B7+DI0      
-0a1c: 850e: 60 10  SAD0 0,10        br D0=0,8510         
+0a1c: 850e: 60 10  SAD0 D0,10       br D0=0,8510         
 0a1e: 850f: 95 2f  ICB B2           B2++                 
 0a20: 8510: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0a22: 8511: 04 ed  SAI 04ed         jump 84ed            
@@ -1305,27 +1305,27 @@
 0a2c: 8516: 98 9b  MAIP M9,A11      A11 := [M9++]        
 0a2e: 8517: 9c ab  MBIP M10,B11     B11 := [M10++]       
 0a30: 8518: b6 bb  SOT A11,B11      A11-B11+DI0          
-0a32: 8519: 62 1c  SAD0 2,1c        br D2=0,851c         
-0a34: 851a: be ef  ICB B14          B14--                
-0a36: 851b: 62 16  SAD0 2,16        br D2=0,8516         
+0a32: 8519: 62 1c  SAD0 D1,1c       br D1=0,851c         
+0a34: 851a: be ef  DCB B14          B14--                
+0a36: 851b: 62 16  SAD0 D1,16       br D1=0,8516         
 0a38: 851c: 92 e7  MAIM A14,A7      A7 := [A14--]        
 0a3a: 851d: d1 e0  MLI A14,L0       L0 := [A14]          
 0a3c: 851e: d1 00  MLI M0,L0        L0 := [M0]           
-0a3e: 851f: a0 f8                                        
+0a3e: 851f: a0 f8  ICD1 D7,L8       L8++ if D7=1         
 0a40: 8520: d1 00  MLI M0,L0        L0 := [M0]           
-0a42: 8521: a0 fb                                        
+0a42: 8521: a0 fb  ICD1 D7,L11      L11++ if D7=1        
 0a44: 8522: d1 00  MLI M0,L0        L0 := [M0]           
-0a46: 8523: a0 fc                                        
+0a46: 8523: a0 fc  ICD1 D7,L12      L12++ if D7=1        
 0a48: 8524: d1 00  MLI M0,L0        L0 := [M0]           
-0a4a: 8525: a0 f1                                        
+0a4a: 8525: a0 f1  ICD1 D7,L1       L1++ if D7=1         
 0a4c: 8526: d1 00  MLI M0,L0        L0 := [M0]           
-0a4e: 8527: a0 f2                                        
+0a4e: 8527: a0 f2  ICD1 D7,L2       L2++ if D7=1         
 0a50: 8528: d1 00  MLI M0,L0        L0 := [M0]           
-0a52: 8529: a0 f3                                        
+0a52: 8529: a0 f3  ICD1 D7,L3       L3++ if D7=1         
 0a54: 852a: d1 00  MLI M0,L0        L0 := [M0]           
-0a56: 852b: a0 f4                                        
+0a56: 852b: a0 f4  ICD1 D7,L4       L4++ if D7=1         
 0a58: 852c: d1 00  MLI M0,L0        L0 := [M0]           
-0a5a: 852d: a0 f6                                        
+0a5a: 852d: a0 f6  ICD1 D7,L6       L6++ if D7=1         
 0a5c: 852e: 9b 2f  ROTB B2          B2.M <-> B2.P        
 0a5e: 852f: f9 02  TBAM A0,B2       A0.M := B2.M         
 0a60: 8530: 07 a3  SAI 07a3         jump 87a3            
@@ -1352,38 +1352,38 @@
 0a8a: 8545: a5 af  ICL L10          L10++                
 0a8c: 8546: d1 aa  MLI M10,L10      L10 := [M10]         
 0a8e: 8547: 9e df  VRB B13          B13==0               
-0a90: 8548: 62 4b  SAD0 2,4b        br D2=0,854b         
+0a90: 8548: 62 4b  SAD0 D1,4b       br D1=0,854b         
 0a92: 8549: c9 10  SEDI 10          set DI 0x10          
 0a94: 854a: 05 50  SAI 0550         jump 8550            
 0a96: 854b: d3 a0  SLDB B10         B10 >> DI0           
 0a98: 854c: c3 a1  SLDA A10,C1      A10 >> DI0           
 0a9a: 854d: c8 30  REDI 30          reset DI 0x30        
-0a9c: 854e: 60 50  SAD0 0,50        br D0=0,8550         
+0a9c: 854e: 60 50  SAD0 D0,50       br D0=0,8550         
 0a9e: 854f: c9 20  SEDI 20          set DI 0x20          
 0aa0: 8550: d3 20  SLDB B2          B2 >> DI0            
-0aa2: 8551: 61 74  SAD0 1,74        br D1=0,8574         
+0aa2: 8551: 61 74  SAD1 D0,74       br D0=1,8574         
 0aa4: 8552: c8 08  REDI 08          reset DI 0x08        
 0aa6: 8553: de 92  MLIP M9,L2       L2 := [M9++]         
 0aa8: 8554: d1 97  MLI M9,L7        L7 := [M9]           
 0aaa: 8555: f5 7f  VRL L7           L7==0                
-0aac: 8556: 62 58  SAD0 2,58        br D2=0,8558         
+0aac: 8556: 62 58  SAD0 D1,58       br D1=0,8558         
 0aae: 8557: c9 08  SEDI 08          set DI 0x08          
-0ab0: 8558: e5 7f  ICL L7           L7--                 
+0ab0: 8558: e5 7f  DCL L7           L7--                 
 0ab2: 8559: ed 97  LMIM M9,L7       [M9--] := L7         
-0ab4: 855a: 66 5e  SAD0 6,5e        br D6=0,855e         
-0ab6: 855b: e5 2f  ICL L2           L2--                 
+0ab4: 855a: 66 5e  SAD0 D3,5e       br D3=0,855e         
+0ab6: 855b: e5 2f  DCL L2           L2--                 
 0ab8: 855c: e1 92  LMI M9,L2        [M9] := L2           
 0aba: 855d: 05 61  SAI 0561         jump 8561            
-0abc: 855e: 62 61  SAD0 2,61        br D2=0,8561         
+0abc: 855e: 62 61  SAD0 D1,61       br D1=0,8561         
 0abe: 855f: f5 2f  VRL L2           L2==0                
-0ac0: 8560: 63 65  SAD0 3,65        br D3=0,8565         
-0ac2: 8561: 69 65  SAD1 1,65        br D1=1,8565         
-0ac4: 8562: 6b 66  SAD1 3,66        br D3=1,8566         
+0ac0: 8560: 63 65  SAD1 D1,65       br D1=1,8565         
+0ac2: 8561: 69 65  SAD1 D4,65       br D4=1,8565         
+0ac4: 8562: 6b 66  SAD1 D5,66       br D5=1,8566         
 0ac6: 8563: bc a8  SLL L10,L8       L10 <-> L8           
 0ac8: 8564: ba 88  SAB A8,B8        A8 <-> B8            
 0aca: 8565: 07 fb  SAI 07fb         jump 87fb            
 0acc: 8566: d1 00  MLI M0,L0        L0 := [M0]           
-0ace: 8567: a0 f5                                        
+0ace: 8567: a0 f5  ICD1 D7,L5       L5++ if D7=1         
 0ad0: 8568: a5 af  ICL L10          L10++                
 0ad2: 8569: d1 aa  MLI M10,L10      L10 := [M10]         
 0ad4: 856a: d3 a0  SLDB B10         B10 >> DI0           
@@ -1391,10 +1391,10 @@
 0ad8: 856c: d8 27  TAB A2,B7        B7 := A2             
 0ada: 856d: 32 ec  MAD A02,Cec      A2 := [ec]           
 0adc: 856e: c8 20  REDI 20          reset DI 0x20        
-0ade: 856f: 60 71  SAD0 0,71        br D0=0,8571         
+0ade: 856f: 60 71  SAD0 D0,71       br D0=0,8571         
 0ae0: 8570: c9 20  SEDI 20          set DI 0x20          
 0ae2: 8571: 97 27  AND A2,B7        A2 and B7            
-0ae4: 8572: 62 62  SAD0 2,62        br D2=0,8562         
+0ae4: 8572: 62 62  SAD0 D1,62       br D1=0,8562         
 0ae6: 8573: 07 fb  SAI 07fb         jump 87fb            
 0ae8: 8574: c8 0b  REDI 0b          reset DI 0x0b        
 0aea: 8575: de 07  MLIP M0,L7       L7 := [M0++]         
@@ -1409,7 +1409,7 @@
 0afc: 857e: ee 9b  LMIP M9,L11      [M9++] := L11        
 0afe: 857f: 37 d8  MAD A07,Cd8      A7 := [d8]           
 0b00: 8580: 8e 7f  VRA A7           A7==0                
-0b02: 8581: 63 88  SAD0 3,88        br D3=0,8588         
+0b02: 8581: 63 88  SAD1 D1,88       br D1=1,8588         
 0b04: 8582: 77 00  CRTA A07,C00     A07 := 0x00          
 0b06: 8583: 27 d8  AMD A07,Cd8      [d8] := A7           
 0b08: 8584: de 07  MLIP M0,L7       L7 := [M0++]         
@@ -1421,9 +1421,9 @@
 0b14: 858a: ba 77  SAB A7,B7        A7 <-> B7            
 0b16: 858b: c4 70  SLSA A7,C0       A7 << DI0            
 0b18: 858c: d4 71  SLSA B7          B7 << DI0            
-0b1a: 858d: 66 90  SAD0 6,90        br D6=0,8590         
+0b1a: 858d: 66 90  SAD0 D3,90       br D3=0,8590         
 0b1c: 858e: d1 00  MLI M0,L0        L0 := [M0]           
-0b1e: 858f: a0 fa                                        
+0b1e: 858f: a0 fa  ICD1 D7,L10      L10++ if D7=1        
 0b20: 8590: e1 97  LMI M9,L7        [M9] := L7           
 0b22: 8591: 05 61  SAI 0561         jump 8561            
 0b24: 8592: c8 18  REDI 18          reset DI 0x18        
@@ -1432,32 +1432,32 @@
 0b2a: 8595: dd 97  MLIM M9,L7       L7 := [M9--]         
 0b2c: 8596: ee e7  LMIP A14,L7      [A14++] := L7        
 0b2e: 8597: d3 20  SLDB B2          B2 >> DI0            
-0b30: 8598: 60 9a  SAD0 0,9a        br D0=0,859a         
+0b30: 8598: 60 9a  SAD0 D0,9a       br D0=0,859a         
 0b32: 8599: c9 08  SEDI 08          set DI 0x08          
 0b34: 859a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0b36: 859b: 06 00  SAI 0600         jump 8600            
 0b38: 859c: d3 d0  SLDB B13         B13 >> DI0           
 0b3a: 859d: d3 d0  SLDB B13         B13 >> DI0           
-0b3c: 859e: 61 a1  SAD0 1,a1        br D1=0,85a1         
+0b3c: 859e: 61 a1  SAD1 D0,a1       br D0=1,85a1         
 0b3e: 859f: a5 af  ICL L10          L10++                
 0b40: 85a0: a5 af  ICL L10          L10++                
-0b42: 85a1: ae ef  ICA A14          A14--                
-0b44: 85a2: ae ef  ICA A14          A14--                
+0b42: 85a1: ae ef  DCA A14          A14--                
+0b44: 85a2: ae ef  DCA A14          A14--                
 0b46: 85a3: d8 a2  TAB A10,B2       B2 := A10            
 0b48: 85a4: c7 92  ORE A9,B2        A9 xor B2            
-0b4a: 85a5: 62 a8  SAD0 2,a8        br D2=0,85a8         
+0b4a: 85a5: 62 a8  SAD0 D1,a8       br D1=0,85a8         
 0b4c: 85a6: de 0a  MLIP M0,L10      L10 := [M0++]        
 0b4e: 85a7: 00 78  SAI 0078         jump 8078            
 0b50: 85a8: 06 cd  SAI 06cd         jump 86cd            
-0b52: 85a9: 66 b1  SAD0 6,b1        br D6=0,85b1         
-0b54: 85aa: 61 b2  SAD0 1,b2        br D1=0,85b2         
+0b52: 85a9: 66 b1  SAD0 D3,b1       br D3=0,85b1         
+0b54: 85aa: 61 b2  SAD1 D0,b2       br D0=1,85b2         
 0b56: 85ab: d3 b0  SLDB B11         B11 >> DI0           
 0b58: 85ac: c3 b1  SLDA A11,C1      A11 >> DI0           
-0b5a: 85ad: 61 66  SAD0 1,66        br D1=0,8566         
+0b5a: 85ad: 61 66  SAD1 D0,66       br D0=1,8566         
 0b5c: 85ae: bc b8  SLL L11,L8       L11 <-> L8           
 0b5e: 85af: ba 88  SAB A8,B8        A8 <-> B8            
 0b60: 85b0: 07 fb  SAI 07fb         jump 87fb            
-0b62: 85b1: 61 ab  SAD0 1,ab        br D1=0,85ab         
+0b62: 85b1: 61 ab  SAD1 D0,ab       br D0=1,85ab         
 0b64: 85b2: 07 fb  SAI 07fb         jump 87fb            
 0b66: 85b3: 77 00  CRTA A07,C00     A07 := 0x00          
 0b68: 85b4: c9 10  SEDI 10          set DI 0x10          
@@ -1466,31 +1466,31 @@
 0b6e: 85b7: 57 30  CRTB B07,C30     B07 := 0x30          
 0b70: 85b8: 52 00  CRTB B02,C00     B02 := 0x00          
 0b72: 85b9: 9e df  VRB B13          B13==0               
-0b74: 85ba: 63 de  SAD0 3,de        br D3=0,85de         
-0b76: 85bb: be df  ICB B13          B13--                
+0b74: 85ba: 63 de  SAD1 D1,de       br D1=1,85de         
+0b76: 85bb: be df  DCB B13          B13--                
 0b78: 85bc: 95 2f  ICB B2           B2++                 
 0b7a: 85bd: 98 a2  MAIP M10,A2      A2 := [M10++]        
 0b7c: 85be: c7 27  ORE A2,B7        A2 xor B7            
-0b7e: 85bf: 63 b9  SAD0 3,b9        br D3=0,85b9         
+0b7e: 85bf: 63 b9  SAD1 D1,b9       br D1=1,85b9         
 0b80: 85c0: 95 df  ICB B13          B13++                
-0b82: 85c1: be 2f  ICB B2           B2--                 
+0b82: 85c1: be 2f  DCB B2           B2--                 
 0b84: 85c2: 9a a7  MBIM M10,B7      B7 := [M10--]        
 0b86: 85c3: 57 30  CRTB B07,C30     B07 := 0x30          
 0b88: 85c4: 5e 3a  CRTB B14,C3a     B14 := 0x3a          
-0b8a: 85c5: 68 c8  SAD1 0,c8        br D0=1,85c8         
+0b8a: 85c5: 68 c8  SAD0 D4,c8       br D4=0,85c8         
 0b8c: 85c6: 91 b2  MAI M11,A2       A2 := [M11]          
 0b8e: 85c7: d9 2c  TABP A2,B12      B12.P := A2.P        
 0b90: 85c8: 9e df  VRB B13          B13==0               
-0b92: 85c9: 63 dc  SAD0 3,dc        br D3=0,85dc         
-0b94: 85ca: be df  ICB B13          B13--                
+0b92: 85c9: 63 dc  SAD1 D1,dc       br D1=1,85dc         
+0b94: 85ca: be df  DCB B13          B13--                
 0b96: 85cb: 98 a2  MAIP M10,A2      A2 := [M10++]        
 0b98: 85cc: c9 01  SEDI 01          set DI 0x01          
 0b9a: 85cd: b6 27  SOT A2,B7        A2-B7+DI0            
-0b9c: 85ce: 60 db  SAD0 0,db        br D0=0,85db         
+0b9c: 85ce: 60 db  SAD0 D0,db       br D0=0,85db         
 0b9e: 85cf: b6 2e  SOT A2,B14       A2-B14+DI0           
-0ba0: 85d0: 61 db  SAD0 1,db        br D1=0,85db         
+0ba0: 85d0: 61 db  SAD1 D0,db       br D0=1,85db         
 0ba2: 85d1: 85 7f  ICA A7           A7++                 
-0ba4: 85d2: 69 d7  SAD1 1,d7        br D1=1,85d7         
+0ba4: 85d2: 69 d7  SAD1 D4,d7       br D4=1,85d7         
 0ba6: 85d3: 8b 2f  ROTA A2          A2.M <-> A2.P        
 0ba8: 85d4: d9 2c  TABP A2,B12      B12.P := A2.P        
 0baa: 85d5: c9 10  SEDI 10          set DI 0x10          
@@ -1500,9 +1500,9 @@
 0bb2: 85d9: c8 10  REDI 10          reset DI 0x10        
 0bb4: 85da: 05 c8  SAI 05c8         jump 85c8            
 0bb6: 85db: 95 df  ICB B13          B13++                
-0bb8: 85dc: 68 de  SAD1 0,de        br D0=1,85de         
+0bb8: 85dc: 68 de  SAD0 D4,de       br D4=0,85de         
 0bba: 85dd: 8c bc  BMIP M11,A12     [M11++] := A12       
-0bbc: 85de: ae ef  ICA A14          A14--                
+0bbc: 85de: ae ef  DCA A14          A14--                
 0bbe: 85df: d1 e0  MLI A14,L0       L0 := [A14]          
 0bc0: 85e0: c9 10  SEDI 10          set DI 0x10          
 0bc2: 85e1: 05 e6  SAI 05e6         jump 85e6            
@@ -1515,17 +1515,17 @@
 0bd0: 85e8: d1 97  MLI M9,L7        L7 := [M9]           
 0bd2: 85e9: de ab  MLIP M10,L11     L11 := [M10++]       
 0bd4: 85ea: ba bb  SAB A11,B11      A11 <-> B11          
-0bd6: 85eb: 69 f8  SAD1 1,f8        br D1=1,85f8         
-0bd8: 85ec: 6b fb  SAD1 3,fb        br D3=1,85fb         
+0bd6: 85eb: 69 f8  SAD1 D4,f8       br D4=1,85f8         
+0bd8: 85ec: 6b fb  SAD1 D5,fb       br D5=1,85fb         
 0bda: 85ed: d7 7b  OREA A7,B11      A7 := A7 xor B11     
 0bdc: 85ee: e7 b7  OREB A11,B7      B7 := A11 xor B7     
 0bde: 85ef: f5 7f  VRL L7           L7==0                
-0be0: 85f0: 63 f2  SAD0 3,f2        br D3=0,85f2         
+0be0: 85f0: 63 f2  SAD1 D1,f2       br D1=1,85f2         
 0be2: 85f1: c9 08  SEDI 08          set DI 0x08          
 0be4: 85f2: ee 97  LMIP M9,L7       [M9++] := L7         
-0be6: 85f3: ae 2f  ICA A2           A2--                 
-0be8: 85f4: 62 e8  SAD0 2,e8        br D2=0,85e8         
-0bea: 85f5: 66 f7  SAD0 6,f7        br D6=0,85f7         
+0be6: 85f3: ae 2f  DCA A2           A2--                 
+0be8: 85f4: 62 e8  SAD0 D1,e8       br D1=0,85e8         
+0bea: 85f5: 66 f7  SAD0 D3,f7       br D3=0,85f7         
 0bec: 85f6: 05 26  SAI 0526         jump 8526            
 0bee: 85f7: 05 24  SAI 0524         jump 8524            
 0bf0: 85f8: a7 7b  ANDA A7,B11      A7 := A7 and B11     
@@ -1553,35 +1553,35 @@
 0c1c: 860e: 96 22  ADDA A2,B2       A2 := A2+B2+DI0      
 0c1e: 860f: d8 27  TAB A2,B7        B7 := A2             
 0c20: 8610: e1 97  LMI M9,L7        [M9] := L7           
-0c22: 8611: ae ef  ICA A14          A14--                
+0c22: 8611: ae ef  DCA A14          A14--                
 0c24: 8612: d1 e0  MLI A14,L0       L0 := [A14]          
 0c26: 8613: c8 01  REDI 01          reset DI 0x01        
 0c28: 8614: 91 9b  MAI M9,A11       A11 := [M9]          
 0c2a: 8615: 9a ab  MBIM M10,B11     B11 := [M10--]       
 0c2c: 8616: 96 bb  ADDA A11,B11     A11 := A11+B11+DI0   
 0c2e: 8617: 82 9b  AMIM M9,A11      [M9--] := A11        
-0c30: 8618: 62 21  SAD0 2,21        br D2=0,8621         
-0c32: 8619: ae 2f  ICA A2           A2--                 
-0c34: 861a: 62 14  SAD0 2,14        br D2=0,8614         
+0c30: 8618: 62 21  SAD0 D1,21       br D1=0,8621         
+0c32: 8619: ae 2f  DCA A2           A2--                 
+0c34: 861a: 62 14  SAD0 D1,14       br D1=0,8614         
 0c36: 861b: c8 10  REDI 10          reset DI 0x10        
 0c38: 861c: 06 23  SAI 0623         jump 8623            
 0c3a: 861d: 91 9b  MAI M9,A11       A11 := [M9]          
 0c3c: 861e: 9a ab  MBIM M10,B11     B11 := [M10--]       
 0c3e: 861f: 96 bb  ADDA A11,B11     A11 := A11+B11+DI0   
 0c40: 8620: 82 9b  AMIM M9,A11      [M9--] := A11        
-0c42: 8621: ae 2f  ICA A2           A2--                 
-0c44: 8622: 62 1d  SAD0 2,1d        br D2=0,861d         
-0c46: 8623: ae ef  ICA A14          A14--                
+0c42: 8621: ae 2f  DCA A2           A2--                 
+0c44: 8622: 62 1d  SAD0 D1,1d       br D1=0,861d         
+0c46: 8623: ae ef  DCA A14          A14--                
 0c48: 8624: d1 e0  MLI A14,L0       L0 := [A14]          
 0c4a: 8625: 91 9b  MAI M9,A11       A11 := [M9]          
 0c4c: 8626: 96 bb  ADDA A11,B11     A11 := A11+B11+DI0   
 0c4e: 8627: 82 9b  AMIM M9,A11      [M9--] := A11        
-0c50: 8628: 69 2b  SAD1 1,2b        br D1=1,862b         
-0c52: 8629: 63 2b  SAD0 3,2b        br D3=0,862b         
+0c50: 8628: 69 2b  SAD1 D4,2b       br D4=1,862b         
+0c52: 8629: 63 2b  SAD1 D1,2b       br D1=1,862b         
 0c54: 862a: c9 10  SEDI 10          set DI 0x10          
-0c56: 862b: ae 7f  ICA A7           A7--                 
-0c58: 862c: 62 25  SAD0 2,25        br D2=0,8625         
-0c5a: 862d: ae ef  ICA A14          A14--                
+0c56: 862b: ae 7f  DCA A7           A7--                 
+0c58: 862c: 62 25  SAD0 D1,25       br D1=0,8625         
+0c5a: 862d: ae ef  DCA A14          A14--                
 0c5c: 862e: d1 e0  MLI A14,L0       L0 := [A14]          
 0c5e: 862f: a5 af  ICL L10          L10++                
 0c60: 8630: dd a7  MLIM M10,L7      L7 := [M10--]        
@@ -1601,34 +1601,34 @@
 0c7c: 863e: c6 22  SOTA A2,B2       A2 := A2-B2+DI0      
 0c7e: 863f: d8 27  TAB A2,B7        B7 := A2             
 0c80: 8640: e1 97  LMI M9,L7        [M9] := L7           
-0c82: 8641: ae ef  ICA A14          A14--                
+0c82: 8641: ae ef  DCA A14          A14--                
 0c84: 8642: d1 e0  MLI A14,L0       L0 := [A14]          
 0c86: 8643: 91 9b  MAI M9,A11       A11 := [M9]          
 0c88: 8644: 9a ab  MBIM M10,B11     B11 := [M10--]       
 0c8a: 8645: c6 bb  SOTA A11,B11     A11 := A11-B11+DI0   
 0c8c: 8646: 82 9b  AMIM M9,A11      [M9--] := A11        
-0c8e: 8647: 62 50  SAD0 2,50        br D2=0,8650         
-0c90: 8648: ae 2f  ICA A2           A2--                 
-0c92: 8649: 62 43  SAD0 2,43        br D2=0,8643         
+0c8e: 8647: 62 50  SAD0 D1,50       br D1=0,8650         
+0c90: 8648: ae 2f  DCA A2           A2--                 
+0c92: 8649: 62 43  SAD0 D1,43       br D1=0,8643         
 0c94: 864a: c8 10  REDI 10          reset DI 0x10        
 0c96: 864b: 06 52  SAI 0652         jump 8652            
 0c98: 864c: 91 9b  MAI M9,A11       A11 := [M9]          
 0c9a: 864d: 9a ab  MBIM M10,B11     B11 := [M10--]       
 0c9c: 864e: c6 bb  SOTA A11,B11     A11 := A11-B11+DI0   
 0c9e: 864f: 82 9b  AMIM M9,A11      [M9--] := A11        
-0ca0: 8650: ae 2f  ICA A2           A2--                 
-0ca2: 8651: 62 4c  SAD0 2,4c        br D2=0,864c         
-0ca4: 8652: ae ef  ICA A14          A14--                
+0ca0: 8650: ae 2f  DCA A2           A2--                 
+0ca2: 8651: 62 4c  SAD0 D1,4c       br D1=0,864c         
+0ca4: 8652: ae ef  DCA A14          A14--                
 0ca6: 8653: d1 e0  MLI A14,L0       L0 := [A14]          
 0ca8: 8654: 91 9b  MAI M9,A11       A11 := [M9]          
 0caa: 8655: c6 bb  SOTA A11,B11     A11 := A11-B11+DI0   
 0cac: 8656: 82 9b  AMIM M9,A11      [M9--] := A11        
-0cae: 8657: 69 5a  SAD1 1,5a        br D1=1,865a         
-0cb0: 8658: 63 5a  SAD0 3,5a        br D3=0,865a         
+0cae: 8657: 69 5a  SAD1 D4,5a       br D4=1,865a         
+0cb0: 8658: 63 5a  SAD1 D1,5a       br D1=1,865a         
 0cb2: 8659: c9 10  SEDI 10          set DI 0x10          
-0cb4: 865a: ae 7f  ICA A7           A7--                 
-0cb6: 865b: 62 54  SAD0 2,54        br D2=0,8654         
-0cb8: 865c: ae ef  ICA A14          A14--                
+0cb4: 865a: ae 7f  DCA A7           A7--                 
+0cb6: 865b: 62 54  SAD0 D1,54       br D1=0,8654         
+0cb8: 865c: ae ef  DCA A14          A14--                
 0cba: 865d: d1 e0  MLI A14,L0       L0 := [A14]          
 0cbc: 865e: 7b 00  CRTA A11,C00     A11 := 0x00          
 0cbe: 865f: c8 01  REDI 01          reset DI 0x01        
@@ -1643,18 +1643,18 @@
 0cd0: 8668: e9 2d  TBA A2,B13       A2 := B13            
 0cd2: 8669: c9 19  SEDI 19          set DI 0x19          
 0cd4: 866a: c6 7d  SOTA A7,B13      A7 := A7-B13+DI0     
-0cd6: 866b: 63 71  SAD0 3,71        br D3=0,8671         
-0cd8: 866c: 61 72  SAD0 1,72        br D1=0,8672         
+0cd6: 866b: 63 71  SAD1 D1,71       br D1=1,8671         
+0cd8: 866c: 61 72  SAD1 D0,72       br D0=1,8672         
 0cda: 866d: c9 01  SEDI 01          set DI 0x01          
 0cdc: 866e: e9 2c  TBA A2,B12       A2 := B12            
 0cde: 866f: e9 7d  TBA A7,B13       A7 := B13            
 0ce0: 8670: c6 7c  SOTA A7,B12      A7 := A7-B12+DI0     
 0ce2: 8671: c8 08  REDI 08          reset DI 0x08        
-0ce4: 8672: ae ef  ICA A14          A14--                
+0ce4: 8672: ae ef  DCA A14          A14--                
 0ce6: 8673: d1 e0  MLI A14,L0       L0 := [A14]          
 0ce8: 8674: ba bb  SAB A11,B11      A11 <-> B11          
 0cea: 8675: 9e df  VRB B13          B13==0               
-0cec: 8676: 62 79  SAD0 2,79        br D2=0,8679         
+0cec: 8676: 62 79  SAD0 D1,79       br D1=0,8679         
 0cee: 8677: bc ab  SLL L10,L11      L10 <-> L11          
 0cf0: 8678: 06 7d  SAI 067d         jump 867d            
 0cf2: 8679: a5 af  ICL L10          L10++                
@@ -1663,7 +1663,7 @@
 0cf8: 867c: a6 ba  ADDB A11,B10     B10 := A11+B10+DI0   
 0cfa: 867d: d3 a0  SLDB B10         B10 >> DI0           
 0cfc: 867e: c3 a1  SLDA A10,C1      A10 >> DI0           
-0cfe: 867f: ae ef  ICA A14          A14--                
+0cfe: 867f: ae ef  DCA A14          A14--                
 0d00: 8680: d1 e0  MLI A14,L0       L0 := [A14]          
 0d02: 8681: d8 2d  TAB A2,B13       B13 := A2            
 0d04: 8682: 8b 2f  ROTA A2          A2.M <-> A2.P        
@@ -1680,7 +1680,7 @@
 0d1a: 868d: de 09  MLIP M0,L9       L9 := [M0++]         
 0d1c: 868e: 02 c0  SAI 02c0         jump 82c0            
 0d1e: 868f: 96 9c  ADDA A9,B12      A9 := A9+B12+DI0     
-0d20: 8690: ae ef  ICA A14          A14--                
+0d20: 8690: ae ef  DCA A14          A14--                
 0d22: 8691: d1 e0  MLI A14,L0       L0 := [A14]          
 0d24: 8692: c9 01  SEDI 01          set DI 0x01          
 0d26: 8693: 72 00  CRTA A02,C00     A02 := 0x00          
@@ -1694,49 +1694,49 @@
 0d36: 869b: d6 27  SOTB A2,B7       B7 := A2-B7+DI0      
 0d38: 869c: ee 97  LMIP M9,L7       [M9++] := L7         
 0d3a: 869d: e1 9a  LMI M9,L10       [M9] := L10          
-0d3c: 869e: ae ef  ICA A14          A14--                
+0d3c: 869e: ae ef  DCA A14          A14--                
 0d3e: 869f: d1 e0  MLI A14,L0       L0 := [A14]          
 0d40: 86a0: c8 08  REDI 08          reset DI 0x08        
 0d42: 86a1: 72 80  CRTA A02,C80     A02 := 0x80          
-0d44: 86a2: 6a a5  SAD1 2,a5        br D2=1,86a5         
+0d44: 86a2: 6a a5  SAD0 D5,a5       br D5=0,86a5         
 0d46: 86a3: c8 01  REDI 01          reset DI 0x01        
 0d48: 86a4: a6 22  ADDB A2,B2       B2 := A2+B2+DI0      
 0d4a: 86a5: 97 2f  AND A2,B15       A2 and B15           
-0d4c: 86a6: 62 ae  SAD0 2,ae        br D2=0,86ae         
+0d4c: 86a6: 62 ae  SAD0 D1,ae       br D1=0,86ae         
 0d4e: 86a7: 97 22  AND A2,B2        A2 and B2            
-0d50: 86a8: 62 b2  SAD0 2,b2        br D2=0,86b2         
+0d50: 86a8: 62 b2  SAD0 D1,b2       br D1=0,86b2         
 0d52: 86a9: 97 27  AND A2,B7        A2 and B7            
-0d54: 86aa: 63 b2  SAD0 3,b2        br D3=0,86b2         
+0d54: 86aa: 63 b2  SAD1 D1,b2       br D1=1,86b2         
 0d56: 86ab: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0d58: 86ac: 05 2c  SAI 052c         jump 852c            
 0d5a: 86ad: 05 28  SAI 0528         jump 8528            
 0d5c: 86ae: 97 22  AND A2,B2        A2 and B2            
-0d5e: 86af: 63 b2  SAD0 3,b2        br D3=0,86b2         
+0d5e: 86af: 63 b2  SAD1 D1,b2       br D1=1,86b2         
 0d60: 86b0: 97 27  AND A2,B7        A2 and B7            
-0d62: 86b1: 63 ab  SAD0 3,ab        br D3=0,86ab         
-0d64: 86b2: 66 b5  SAD0 6,b5        br D6=0,86b5         
-0d66: 86b3: 69 bc  SAD1 1,bc        br D1=1,86bc         
+0d62: 86b1: 63 ab  SAD1 D1,ab       br D1=1,86ab         
+0d64: 86b2: 66 b5  SAD0 D3,b5       br D3=0,86b5         
+0d66: 86b3: 69 bc  SAD1 D4,bc       br D4=1,86bc         
 0d68: 86b4: 05 24  SAI 0524         jump 8524            
 0d6a: 86b5: f5 7f  VRL L7           L7==0                
-0d6c: 86b6: 62 bc  SAD0 2,bc        br D2=0,86bc         
+0d6c: 86b6: 62 bc  SAD0 D1,bc       br D1=0,86bc         
 0d6e: 86b7: a5 9f  ICL L9           L9++                 
 0d70: 86b8: d1 9b  MLI M9,L11       L11 := [M9]          
 0d72: 86b9: f5 bf  VRL L11          L11==0               
-0d74: 86ba: 62 bc  SAD0 2,bc        br D2=0,86bc         
+0d74: 86ba: 62 bc  SAD0 D1,bc       br D1=0,86bc         
 0d76: 86bb: 05 24  SAI 0524         jump 8524            
 0d78: 86bc: 97 27  AND A2,B7        A2 and B7            
-0d7a: 86bd: 62 bf  SAD0 2,bf        br D2=0,86bf         
+0d7a: 86bd: 62 bf  SAD0 D1,bf       br D1=0,86bf         
 0d7c: 86be: 05 2a  SAI 052a         jump 852a            
 0d7e: 86bf: 05 26  SAI 0526         jump 8526            
 0d80: 86c0: f5 7f  VRL L7           L7==0                
-0d82: 86c1: 62 c8  SAD0 2,c8        br D2=0,86c8         
+0d82: 86c1: 62 c8  SAD0 D1,c8       br D1=0,86c8         
 0d84: 86c2: a5 9f  ICL L9           L9++                 
 0d86: 86c3: d1 97  MLI M9,L7        L7 := [M9]           
 0d88: 86c4: f5 7f  VRL L7           L7==0                
-0d8a: 86c5: 62 c8  SAD0 2,c8        br D2=0,86c8         
-0d8c: 86c6: 61 ca  SAD0 1,ca        br D1=0,86ca         
+0d8a: 86c5: 62 c8  SAD0 D1,c8       br D1=0,86c8         
+0d8c: 86c6: 61 ca  SAD1 D0,ca       br D0=1,86ca         
 0d8e: 86c7: 05 24  SAI 0524         jump 8524            
-0d90: 86c8: 61 cb  SAD0 1,cb        br D1=0,86cb         
+0d90: 86c8: 61 cb  SAD1 D0,cb       br D0=1,86cb         
 0d92: 86c9: 05 26  SAI 0526         jump 8526            
 0d94: 86ca: 05 2a  SAI 052a         jump 852a            
 0d96: 86cb: 05 28  SAI 0528         jump 8528            
@@ -1744,34 +1744,34 @@
 0d9a: 86cd: de a2  MLIP M10,L2      L2 := [M10++]        
 0d9c: 86ce: de 97  MLIP M9,L7       L7 := [M9++]         
 0d9e: 86cf: d4 70  SLSA B7          B7 << DI0            
-0da0: 86d0: 60 d5  SAD0 0,d5        br D0=0,86d5         
+0da0: 86d0: 60 d5  SAD0 D0,d5       br D0=0,86d5         
 0da2: 86d1: d4 20  SLSA B2          B2 << DI0            
-0da4: 86d2: 61 d9  SAD0 1,d9        br D1=0,86d9         
-0da6: 86d3: 68 ee  SAD1 0,ee        br D0=1,86ee         
+0da4: 86d2: 61 d9  SAD1 D0,d9       br D0=1,86d9         
+0da6: 86d3: 68 ee  SAD0 D4,ee       br D4=0,86ee         
 0da8: 86d4: 05 26  SAI 0526         jump 8526            
 0daa: 86d5: d4 20  SLSA B2          B2 << DI0            
-0dac: 86d6: 60 d9  SAD0 0,d9        br D0=0,86d9         
-0dae: 86d7: 68 ee  SAD1 0,ee        br D0=1,86ee         
+0dac: 86d6: 60 d9  SAD0 D0,d9       br D0=0,86d9         
+0dae: 86d7: 68 ee  SAD0 D4,ee       br D4=0,86ee         
 0db0: 86d8: 05 2a  SAI 052a         jump 852a            
 0db2: 86d9: ba 27  SAB A2,B7        A2 <-> B7            
 0db4: 86da: c9 01  SEDI 01          set DI 0x01          
 0db6: 86db: b6 22  SOT A2,B2        A2-B2+DI0            
-0db8: 86dc: 62 e8  SAD0 2,e8        br D2=0,86e8         
+0db8: 86dc: 62 e8  SAD0 D1,e8       br D1=0,86e8         
 0dba: 86dd: b6 77  SOT A7,B7        A7-B7+DI0            
-0dbc: 86de: 62 e8  SAD0 2,e8        br D2=0,86e8         
+0dbc: 86de: 62 e8  SAD0 D1,e8       br D1=0,86e8         
 0dbe: 86df: d1 97  MLI M9,L7        L7 := [M9]           
 0dc0: 86e0: d1 a2  MLI M10,L2       L2 := [M10]          
 0dc2: 86e1: ba 27  SAB A2,B7        A2 <-> B7            
 0dc4: 86e2: b6 22  SOT A2,B2        A2-B2+DI0            
-0dc6: 86e3: 62 e8  SAD0 2,e8        br D2=0,86e8         
+0dc6: 86e3: 62 e8  SAD0 D1,e8       br D1=0,86e8         
 0dc8: 86e4: b6 77  SOT A7,B7        A7-B7+DI0            
-0dca: 86e5: 62 e8  SAD0 2,e8        br D2=0,86e8         
-0dcc: 86e6: 68 ed  SAD1 0,ed        br D0=1,86ed         
+0dca: 86e5: 62 e8  SAD0 D1,e8       br D1=0,86e8         
+0dcc: 86e6: 68 ed  SAD0 D4,ed       br D4=0,86ed         
 0dce: 86e7: 05 24  SAI 0524         jump 8524            
-0dd0: 86e8: 61 eb  SAD0 1,eb        br D1=0,86eb         
-0dd2: 86e9: 68 ee  SAD1 0,ee        br D0=1,86ee         
+0dd0: 86e8: 61 eb  SAD1 D0,eb       br D0=1,86eb         
+0dd2: 86e9: 68 ee  SAD0 D4,ee       br D4=0,86ee         
 0dd4: 86ea: 05 26  SAI 0526         jump 8526            
-0dd6: 86eb: 68 ee  SAD1 0,ee        br D0=1,86ee         
+0dd6: 86eb: 68 ee  SAD0 D4,ee       br D4=0,86ee         
 0dd8: 86ec: 05 2a  SAI 052a         jump 852a            
 0dda: 86ed: c8 01  REDI 01          reset DI 0x01        
 0ddc: 86ee: 05 a9  SAI 05a9         jump 85a9            
@@ -1798,17 +1798,17 @@
 0e06: 8703: ba 27  SAB A2,B7        A2 <-> B7            
 0e08: 8704: c9 01  SEDI 01          set DI 0x01          
 0e0a: 8705: b6 22  SOT A2,B2        A2-B2+DI0            
-0e0c: 8706: 62 0c  SAD0 2,0c        br D2=0,870c         
+0e0c: 8706: 62 0c  SAD0 D1,0c       br D1=0,870c         
 0e0e: 8707: c9 01  SEDI 01          set DI 0x01          
 0e10: 8708: b6 77  SOT A7,B7        A7-B7+DI0            
-0e12: 8709: 62 0c  SAD0 2,0c        br D2=0,870c         
-0e14: 870a: be ff  ICB B15          B15--                
-0e16: 870b: 62 01  SAD0 2,01        br D2=0,8701         
+0e12: 8709: 62 0c  SAD0 D1,0c       br D1=0,870c         
+0e14: 870a: be ff  DCB B15          B15--                
+0e16: 870b: 62 01  SAD0 D1,01       br D1=0,8701         
 0e18: 870c: d1 00  MLI M0,L0        L0 := [M0]           
-0e1a: 870d: a0 f7                                        
+0e1a: 870d: a0 f7  ICD1 D7,L7       L7++ if D7=1         
 0e1c: 870e: 5d 00  CRTB B13,C00     B13 := 0x00          
 0e1e: 870f: f5 2f  VRL L2           L2==0                
-0e20: 8710: 62 12  SAD0 2,12        br D2=0,8712         
+0e20: 8710: 62 12  SAD0 D1,12       br D1=0,8712         
 0e22: 8711: 07 4b  SAI 074b         jump 874b            
 0e24: 8712: de 07  MLIP M0,L7       L7 := [M0++]         
 0e26: 8713: 00 b8  SAI 00b8         jump 80b8            
@@ -1831,30 +1831,30 @@
 0e48: 8724: d6 27  SOTB A2,B7       B7 := A2-B7+DI0      
 0e4a: 8725: ba 72  SAB A7,B2        A7 <-> B2            
 0e4c: 8726: d6 72  SOTB A7,B2       B2 := A7-B2+DI0      
-0e4e: 8727: 61 2a  SAD0 1,2a        br D1=0,872a         
+0e4e: 8727: 61 2a  SAD1 D0,2a       br D0=1,872a         
 0e50: 8728: ba 72  SAB A7,B2        A7 <-> B2            
 0e52: 8729: 07 2b  SAI 072b         jump 872b            
 0e54: 872a: e9 27  TBA A2,B7        A2 := B7             
 0e56: 872b: c4 91  SLSA A9,C1       A9 << DI0            
-0e58: 872c: be 9f  ICB B9           B9--                 
-0e5a: 872d: 62 1f  SAD0 2,1f        br D2=0,871f         
+0e58: 872c: be 9f  DCB B9           B9--                 
+0e5a: 872d: 62 1f  SAD0 D1,1f       br D1=0,871f         
 0e5c: 872e: 9e df  VRB B13          B13==0               
-0e5e: 872f: 62 33  SAD0 2,33        br D2=0,8733         
+0e5e: 872f: 62 33  SAD0 D1,33       br D1=0,8733         
 0e60: 8730: 8e 9f  VRA A9           A9==0                
-0e62: 8731: 62 33  SAD0 2,33        br D2=0,8733         
+0e62: 8731: 62 33  SAD0 D1,33       br D1=0,8733         
 0e64: 8732: 07 39  SAI 0739         jump 8739            
 0e66: 8733: 95 df  ICB B13          B13++                
-0e68: 8734: 67 37  SAD0 7,37        br D7=0,8737         
+0e68: 8734: 67 37  SAD1 D3,37       br D3=1,8737         
 0e6a: 8735: c9 08  SEDI 08          set DI 0x08          
 0e6c: 8736: 07 39  SAI 0739         jump 8739            
 0e6e: 8737: 88 a9  AMIP M10,A9      [M10++] := A9        
 0e70: 8738: c8 08  REDI 08          reset DI 0x08        
-0e72: 8739: be ef  ICB B14          B14--                
-0e74: 873a: 63 3d  SAD0 3,3d        br D3=0,873d         
+0e72: 8739: be ef  DCB B14          B14--                
+0e74: 873a: 63 3d  SAD1 D1,3d       br D1=1,873d         
 0e76: 873b: 59 04  CRTB B09,C04     B09 := 0x04          
 0e78: 873c: 07 1d  SAI 071d         jump 871d            
 0e7a: 873d: 95 df  ICB B13          B13++                
-0e7c: 873e: 67 42  SAD0 7,42        br D7=0,8742         
+0e7c: 873e: 67 42  SAD1 D3,42       br D3=1,8742         
 0e7e: 873f: 8b 2f  ROTA A2          A2.M <-> A2.P        
 0e80: 8740: 88 a2  AMIP M10,A2      [M10++] := A2        
 0e82: 8741: 07 46  SAI 0746         jump 8746            
@@ -1867,7 +1867,7 @@
 0e90: 8748: de 78  MLIP M7,L8       L8 := [M7++]         
 0e92: 8749: de 79  MLIP M7,L9       L9 := [M7++]         
 0e94: 874a: d1 7b  MLI M7,L11       L11 := [M7]          
-0e96: 874b: ae ef  ICA A14          A14--                
+0e96: 874b: ae ef  DCA A14          A14--                
 0e98: 874c: d1 e0  MLI A14,L0       L0 := [A14]          
 0e9a: 874d: 00 50  SAI 0050         jump 8050            
 0e9c: 874e: 03 20  SAI 0320         jump 8320            
@@ -1885,7 +1885,7 @@
 0eb4: 875a: e9 7d  TBA A7,B13       A7 := B13            
 0eb6: 875b: c8 01  REDI 01          reset DI 0x01        
 0eb8: 875c: b6 7f  SOT A7,B15       A7-B15+DI0           
-0eba: 875d: 60 62  SAD0 0,62        br D0=0,8762         
+0eba: 875d: 60 62  SAD0 D0,62       br D0=0,8762         
 0ebc: 875e: e9 7f  TBA A7,B15       A7 := B15            
 0ebe: 875f: d8 7d  TAB A7,B13       B13 := A7            
 0ec0: 8760: 72 31  CRTA A02,C31     A02 := 0x31          
@@ -1895,7 +1895,7 @@
 0ec8: 8764: de 0a  MLIP M0,L10      L10 := [M0++]        
 0eca: 8765: 01 30  SAI 0130         jump 8130            
 0ecc: 8766: 9e df  VRB B13          B13==0               
-0ece: 8767: 62 6b  SAD0 2,6b        br D2=0,876b         
+0ece: 8767: 62 6b  SAD0 D1,6b       br D1=0,876b         
 0ed0: 8768: 89 ad  BMI M10,A13      [M10] := A13         
 0ed2: 8769: 95 df  ICB B13          B13++                
 0ed4: 876a: 5f 01  CRTB B15,C01     B15 := 0x01          
@@ -1908,34 +1908,34 @@
 0ee2: 8771: 07 fa  SAI 07fa         jump 87fa            
 0ee4: 8772: 77 33  CRTA A07,C33     A07 := 0x33          
 0ee6: 8773: 9e df  VRB B13          B13==0               
-0ee8: 8774: 63 88  SAD0 3,88        br D3=0,8788         
-0eea: 8775: be df  ICB B13          B13--                
-0eec: 8776: 67 7e  SAD0 7,7e        br D7=0,877e         
+0ee8: 8774: 63 88  SAD1 D1,88       br D1=1,8788         
+0eea: 8775: be df  DCB B13          B13--                
+0eec: 8776: 67 7e  SAD1 D3,7e       br D3=1,877e         
 0eee: 8777: 99 a2  MBI M10,B2       B2 := [M10]          
 0ef0: 8778: 9b 2f  ROTB B2          B2.M <-> B2.P        
 0ef2: 8779: f9 72  TBAM A7,B2       A7.M := B2.M         
 0ef4: 877a: 88 97  AMIP M9,A7       [M9++] := A7         
 0ef6: 877b: 9e df  VRB B13          B13==0               
-0ef8: 877c: 63 87  SAD0 3,87        br D3=0,8787         
-0efa: 877d: be df  ICB B13          B13--                
+0ef8: 877c: 63 87  SAD1 D1,87       br D1=1,8787         
+0efa: 877d: be df  DCB B13          B13--                
 0efc: 877e: 9c a2  MBIP M10,B2      B2 := [M10++]        
 0efe: 877f: f9 72  TBAM A7,B2       A7.M := B2.M         
 0f00: 8780: 88 97  AMIP M9,A7       [M9++] := A7         
 0f02: 8781: 9e df  VRB B13          B13==0               
-0f04: 8782: 63 85  SAD0 3,85        br D3=0,8785         
-0f06: 8783: be df  ICB B13          B13--                
+0f04: 8782: 63 85  SAD1 D1,85       br D1=1,8785         
+0f06: 8783: be df  DCB B13          B13--                
 0f08: 8784: 07 77  SAI 0777         jump 8777            
 0f0a: 8785: c8 08  REDI 08          reset DI 0x08        
 0f0c: 8786: 07 88  SAI 0788         jump 8788            
 0f0e: 8787: c9 08  SEDI 08          set DI 0x08          
-0f10: 8788: ae ef  ICA A14          A14--                
+0f10: 8788: ae ef  DCA A14          A14--                
 0f12: 8789: d1 e0  MLI A14,L0       L0 := [A14]          
 0f14: 878a: e9 2f  TBA A2,B15       A2 := B15            
 0f16: 878b: d8 2d  TAB A2,B13       B13 := A2            
 0f18: 878c: 5f 00  CRTB B15,C00     B15 := 0x00          
 0f1a: 878d: c9 01  SEDI 01          set DI 0x01          
 0f1c: 878e: c6 2c  SOTA A2,B12      A2 := A2-B12+DI0     
-0f1e: 878f: 60 96  SAD0 0,96        br D0=0,8796         
+0f1e: 878f: 60 96  SAD0 D0,96       br D0=0,8796         
 0f20: 8790: d8 2f  TAB A2,B15       B15 := A2            
 0f22: 8791: e9 2c  TBA A2,B12       A2 := B12            
 0f24: 8792: d8 2d  TAB A2,B13       B13 := A2            
@@ -1949,34 +1949,34 @@
 0f34: 879a: 95 ff  ICB B15          B15++                
 0f36: 879b: 52 30  CRTB B02,C30     B02 := 0x30          
 0f38: 879c: 9e ff  VRB B15          B15==0               
-0f3a: 879d: 63 a1  SAD0 3,a1        br D3=0,87a1         
+0f3a: 879d: 63 a1  SAD1 D1,a1       br D1=1,87a1         
 0f3c: 879e: 8c 92  BMIP M9,A2       [M9++] := A2         
-0f3e: 879f: be ff  ICB B15          B15--                
-0f40: 87a0: 62 9e  SAD0 2,9e        br D2=0,879e         
-0f42: 87a1: ae ef  ICA A14          A14--                
+0f3e: 879f: be ff  DCB B15          B15--                
+0f40: 87a0: 62 9e  SAD0 D1,9e       br D1=0,879e         
+0f42: 87a1: ae ef  DCA A14          A14--                
 0f44: 87a2: d1 e0  MLI A14,L0       L0 := [A14]          
 0f46: 87a3: de a7  MLIP M10,L7      L7 := [M10++]        
 0f48: 87a4: d1 aa  MLI M10,L10      L10 := [M10]         
 0f4a: 87a5: 72 80  CRTA A02,C80     A02 := 0x80          
 0f4c: 87a6: 97 27  AND A2,B7        A2 and B7            
-0f4e: 87a7: 62 d0  SAD0 2,d0        br D2=0,87d0         
+0f4e: 87a7: 62 d0  SAD0 D1,d0       br D1=0,87d0         
 0f50: 87a8: ee 97  LMIP M9,L7       [M9++] := L7         
 0f52: 87a9: e1 9a  LMI M9,L10       [M9] := L10          
 0f54: 87aa: f5 7f  VRL L7           L7==0                
-0f56: 87ab: 62 af  SAD0 2,af        br D2=0,87af         
+0f56: 87ab: 62 af  SAD0 D1,af       br D1=0,87af         
 0f58: 87ac: f5 af  VRL L10          L10==0               
-0f5a: 87ad: 62 af  SAD0 2,af        br D2=0,87af         
+0f5a: 87ad: 62 af  SAD0 D1,af       br D1=0,87af         
 0f5c: 87ae: 05 24  SAI 0524         jump 8524            
 0f5e: 87af: 05 2a  SAI 052a         jump 852a            
 0f60: 87b0: de a7  MLIP M10,L7      L7 := [M10++]        
 0f62: 87b1: d1 aa  MLI M10,L10      L10 := [M10]         
 0f64: 87b2: 72 80  CRTA A02,C80     A02 := 0x80          
 0f66: 87b3: 97 27  AND A2,B7        A2 and B7            
-0f68: 87b4: 62 c1  SAD0 2,c1        br D2=0,87c1         
+0f68: 87b4: 62 c1  SAD0 D1,c1       br D1=0,87c1         
 0f6a: 87b5: f5 7f  VRL L7           L7==0                
-0f6c: 87b6: 62 b9  SAD0 2,b9        br D2=0,87b9         
+0f6c: 87b6: 62 b9  SAD0 D1,b9       br D1=0,87b9         
 0f6e: 87b7: f5 af  VRL L10          L10==0               
-0f70: 87b8: 63 ca  SAD0 3,ca        br D3=0,87ca         
+0f70: 87b8: 63 ca  SAD1 D1,ca       br D1=1,87ca         
 0f72: 87b9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0f74: 87ba: 06 92  SAI 0692         jump 8692            
 0f76: 87bb: 05 26  SAI 0526         jump 8526            
@@ -1984,58 +1984,58 @@
 0f7a: 87bd: d1 aa  MLI M10,L10      L10 := [M10]         
 0f7c: 87be: 72 80  CRTA A02,C80     A02 := 0x80          
 0f7e: 87bf: 97 27  AND A2,B7        A2 and B7            
-0f80: 87c0: 63 a8  SAD0 3,a8        br D3=0,87a8         
+0f80: 87c0: 63 a8  SAD1 D1,a8       br D1=1,87a8         
 0f82: 87c1: ee 97  LMIP M9,L7       [M9++] := L7         
 0f84: 87c2: e1 9a  LMI M9,L10       [M9] := L10          
 0f86: 87c3: 05 26  SAI 0526         jump 8526            
 0f88: 87c4: de a7  MLIP M10,L7      L7 := [M10++]        
 0f8a: 87c5: d1 aa  MLI M10,L10      L10 := [M10]         
 0f8c: 87c6: f5 7f  VRL L7           L7==0                
-0f8e: 87c7: 62 cd  SAD0 2,cd        br D2=0,87cd         
+0f8e: 87c7: 62 cd  SAD0 D1,cd       br D1=0,87cd         
 0f90: 87c8: f5 af  VRL L10          L10==0               
-0f92: 87c9: 62 cd  SAD0 2,cd        br D2=0,87cd         
+0f92: 87c9: 62 cd  SAD0 D1,cd       br D1=0,87cd         
 0f94: 87ca: ee 97  LMIP M9,L7       [M9++] := L7         
 0f96: 87cb: e1 9a  LMI M9,L10       [M9] := L10          
 0f98: 87cc: 05 24  SAI 0524         jump 8524            
 0f9a: 87cd: 72 80  CRTA A02,C80     A02 := 0x80          
 0f9c: 87ce: 97 27  AND A2,B7        A2 and B7            
-0f9e: 87cf: 63 b9  SAD0 3,b9        br D3=0,87b9         
+0f9e: 87cf: 63 b9  SAD1 D1,b9       br D1=1,87b9         
 0fa0: 87d0: f5 af  VRL L10          L10==0               
-0fa2: 87d1: 62 d9  SAD0 2,d9        br D2=0,87d9         
+0fa2: 87d1: 62 d9  SAD0 D1,d9       br D1=0,87d9         
 0fa4: 87d2: 8e 7f  VRA A7           A7==0                
-0fa6: 87d3: 62 d9  SAD0 2,d9        br D2=0,87d9         
+0fa6: 87d3: 62 d9  SAD0 D1,d9       br D1=0,87d9         
 0fa8: 87d4: c7 27  ORE A2,B7        A2 xor B7            
-0faa: 87d5: 62 d9  SAD0 2,d9        br D2=0,87d9         
+0faa: 87d5: 62 d9  SAD0 D1,d9       br D1=0,87d9         
 0fac: 87d6: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0fae: 87d7: 05 2c  SAI 052c         jump 852c            
 0fb0: 87d8: 05 28  SAI 0528         jump 8528            
 0fb2: 87d9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0fb4: 87da: 06 92  SAI 0692         jump 8692            
 0fb6: 87db: 05 2a  SAI 052a         jump 852a            
-0fb8: 87dc: 60 de  SAD0 0,de        br D0=0,87de         
+0fb8: 87dc: 60 de  SAD0 D0,de       br D0=0,87de         
 0fba: 87dd: 05 22  SAI 0522         jump 8522            
 0fbc: 87de: d1 a2  MLI M10,L2       L2 := [M10]          
 0fbe: 87df: d4 20  SLSA B2          B2 << DI0            
 0fc0: 87e0: de 02  MLIP M0,L2       L2 := [M0++]         
 0fc2: 87e1: ff ff                                        
-0fc4: 87e2: 61 e4  SAD0 1,e4        br D1=0,87e4         
+0fc4: 87e2: 61 e4  SAD1 D0,e4       br D0=1,87e4         
 0fc6: 87e3: a5 2f  ICL L2           L2++                 
 0fc8: 87e4: c9 10  SEDI 10          set DI 0x10          
 0fca: 87e5: 06 ce  SAI 06ce         jump 86ce            
-0fcc: 87e6: 60 e8  SAD0 0,e8        br D0=0,87e8         
+0fcc: 87e6: 60 e8  SAD0 D0,e8       br D0=0,87e8         
 0fce: 87e7: 05 22  SAI 0522         jump 8522            
 0fd0: 87e8: d1 a7  MLI M10,L7       L7 := [M10]          
 0fd2: 87e9: de 0b  MLIP M0,L11      L11 := [M0++]        
 0fd4: 87ea: ff ff                                        
 0fd6: 87eb: 72 80  CRTA A02,C80     A02 := 0x80          
 0fd8: 87ec: 97 27  AND A2,B7        A2 and B7            
-0fda: 87ed: 62 ef  SAD0 2,ef        br D2=0,87ef         
+0fda: 87ed: 62 ef  SAD0 D1,ef       br D1=0,87ef         
 0fdc: 87ee: a5 bf  ICL L11          L11++                
 0fde: 87ef: de 0a  MLIP M0,L10      L10 := [M0++]        
 0fe0: 87f0: 00 c8  SAI 00c8         jump 80c8            
 0fe2: 87f1: e1 ab  LMI M10,L11      [M10] := L11         
 0fe4: 87f2: d3 20  SLDB B2          B2 >> DI0            
-0fe6: 87f3: 60 f7  SAD0 0,f7        br D0=0,87f7         
+0fe6: 87f3: 60 f7  SAD0 D0,f7       br D0=0,87f7         
 0fe8: 87f4: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0fea: 87f5: 06 31  SAI 0631         jump 8631            
 0fec: 87f6: 06 a0  SAI 06a0         jump 86a0            
@@ -2044,7 +2044,7 @@
 0ff2: 87f9: 06 a0  SAI 06a0         jump 86a0            
 0ff4: 87fa: 89 af  BMI M10,A15      [M10] := A15         
 0ff6: 87fb: d1 00  MLI M0,L0        L0 := [M0]           
-0ff8: 87fc: a0 f0                                        
+0ff8: 87fc: a0 f0  ICD1 D7,L0       L0++ if D7=1         
 0ffa: 87fd: c9 00  SEDI 00          set DI 0x00          
 0ffc: 87fe: e7 ea  OREB A14,B10     B10 := A14 xor B10   
 0ffe: 87ff: 0c f6  SAI 0cf6         jump 8cf6            
