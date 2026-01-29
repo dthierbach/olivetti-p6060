@@ -19,106 +19,106 @@ class EOF(Exception):
 
 opcode={}
 
-opcode[0x82]=['y', 'AMIM',  'M', 'A', '[{argx}--] := {argy}']
-opcode[0x83]=['F', 'TADI',  'A', '',  'DI := {argx}']
-opcode[0x85]=['F', 'ICA',   'A', '',  '{argx}++']
-opcode[0x86]=['y', 'ADD',   'A', 'B', '{argx}+{argy}+DI0']
-opcode[0x87]=['y', 'ORB',   'A', 'B', '{argy} := {argx} or {argy}']
-opcode[0x88]=['y', 'AMIP',  'M', 'A', '[{argx}++] := {argy}']
-opcode[0x89]=['y', 'BMI',   'M', 'A', '[{argx}] := {argy}']
-opcode[0x8A]=['y', 'BMIM',  'M', 'A', '[{argx}--] := {argy}']
-opcode[0x8B]=['F', 'ROTA',  'A', '',  '{argx}.M <-> {argx}.P']
-opcode[0x8C]=['y', 'BMIP',  'M', 'A', '[{argx}++] := {argy}']
-opcode[0x8D]=['8', 'EMI',   'M', '',  '[{argx}] <- data.B']
-opcode[0x8E]=['F', 'VRA',   'A', '',  '{argx}==0']
-opcode[0x90]=['0', 'MEI',   'M', '',  'data.B <- [{argx}]']
-opcode[0x91]=['y', 'MAI',   'M', 'A', '{argy} := [{argx}]']
-opcode[0x92]=['y', 'MAIM',  'M', 'A', '{argy} := [{argx}--]']
-opcode[0x93]=['F', 'TBDI',  'B', '',  'DI := {argx}']
-opcode[0x94]=['0', 'MEIP',  'M', '',  'data.B <- [{argx}++]']
-opcode[0x95]=['F', 'ICB',   'B', '',  '{argx}++']
-opcode[0x96]=['y', 'ADDA',  'A', 'B', '{argx} := {argx}+{argy}+DI0']
-opcode[0x97]=['y', 'AND',   'A', 'B', '{argx} and {argy}']
-opcode[0x98]=['y', 'MAIP',  'M', 'A', '{argy} := [{argx}++]']
-opcode[0x99]=['y', 'MBI',   'M', 'B', '{argy} := [{argx}]']
-opcode[0x9A]=['y', 'MBIM',  'M', 'B', '{argy} := [{argx}--]']
-opcode[0x9B]=['F', 'ROTB',  'B', '',  '{argx}.M <-> {argx}.P']
-opcode[0x9C]=['y', 'MBIP',  'M', 'B', '{argy} := [{argx}++]']
-opcode[0x9D]=['0', 'MEIM',  'M', '',  'data.B <- [{argx}--]']
-opcode[0x9E]=['F', 'VRB',   'B', '',  '{argx}==0']
-opcode[0xA1]=['8', 'EMIM',  'M', '',  '[{argx}--] <- data.B']
-opcode[0xA2]=['8', 'EMIP',  'M', '',  '[{argx}++] <- data.B']
-opcode[0xA3]=['F', 'SDIA',  'A', '',  '{argx} <-> DI']
-opcode[0xA5]=['F', 'ICL',   'L', '',  '{argx}++']
-opcode[0xA6]=['y', 'ADDB',  'A', 'B', '{argy} := {argx}+{argy}+DI0']
-opcode[0xA7]=['y', 'ANDA',  'A', 'B', '{argx} := {argx} and {argy}']
-opcode[0xA8]=['y', 'AMI',   'M', 'A', '[{argx}] := {argy}']
-opcode[0xA9]=['8', 'EDB',   'B', '',  'data.B -> {argx}']
-opcode[0xAA]=['0', 'ENTL',  'L', '',  'name -> {argx}.A, type->{argx}.B']
-opcode[0xAB]=['F', 'AZAM',  'A', '',  '{argx}.M := 0']
-opcode[0xAD]=['F', 'EDC',   'L', '',  '{argx}.MMM--, ECOF if zero']
-opcode[0xAE]=['F', 'DCA',   'A', '',  '{argx}--']
-opcode[0xB1]=['4', 'ESE',   'M', '',  'sel.B <- [{argx}]']
-opcode[0xB2]=['F', 'ETIB',  'B', '',  'type.B -> {argx}']
-opcode[0xB3]=['F', 'SDIB',  'B', '',  '{argx} <-> DI']
-opcode[0xB4]=['2', 'ECO',   'M', '',  'cmd.B <- [{argx}]']
-opcode[0xB6]=['y', 'SOT',   'A', 'B', '{argx}-{argy}+DI0']
-opcode[0xB7]=['y', 'ANDB',  'A', 'B', '{argy} := {argx} and {argy}']
-opcode[0xB8]=['8', 'EDA',   'A', '',  'data.B -> {argx}']
-opcode[0xB9]=['0', 'ENUA',  'A', '',  'name -> {argx}']
-opcode[0xBA]=['y', 'SAB',   'A', 'B', '{argx} <-> {argy} ']
-opcode[0xBB]=['F', 'AZAP',  'A', '',  '{argx}.P := 0']
-opcode[0xBC]=['y', 'SLL',   'L', 'L', '{argx} <-> {argy}']
-opcode[0xBD]=['0', 'COMx',  'C', '',  '  {argx}']
-opcode[0xBE]=['F', 'DCB',   'B', '',  '{argx}--']
-opcode[0xC3]=['0', 'SHDA',  'A', 'C', '{argx} >>']
-opcode[0xC3]=['1', 'SLDA',  'A', 'C', '{argx} >> DI0']
-opcode[0xC4]=['0', 'SHSA',  'A', 'C', '{argx} <<']
-opcode[0xC4]=['1', 'SLSA',  'A', 'C', '{argx} << DI0']
-opcode[0xC5]=['F', 'TDIA',  'A', '',  '{argx} := DI']
-opcode[0xC6]=['y', 'SOTA',  'A', 'B', '{argx} := {argx}-{argy}+DI0']
-opcode[0xC7]=['y', 'ORE',   'A', 'B', '{argx} xor {argy}']
-opcode[0xC8]=['x', 'REDI',  'D', 'D', 'reset DI {argd}']
-opcode[0xC9]=['x', 'SEDI',  'D', 'D', 'set DI {argd}']
-opcode[0xCB]=['F', 'AZBM',  'B', '',  '{argx}.M := 0']
-opcode[0xCA]=['0', 'TCCA',  'A', '',  '{argx} <- con']
-opcode[0xD1]=['y', 'MLI',   'M', 'L', '{argy} := [{argx}]']
-opcode[0xD3]=['0', 'SHDB',  'B', '',  '{argx} >>']
-opcode[0xD3]=['1', 'SLDB',  'B', '',  '{argx} >> DI0']
-opcode[0xD4]=['0', 'SHSB',  'B', '',  '{argx} <<']
-opcode[0xD4]=['1', 'SLSA',  'B', '',  '{argx} << DI0']
-opcode[0xD5]=['F', 'TDIB',  'B', '',  '{argx} := DI']
-opcode[0xD6]=['y', 'SOTB',  'A', 'B', '{argy} := {argx}-{argy}+DI0']
-opcode[0xD7]=['y', 'OREA',  'A', 'B', '{argx} := {argx} xor {argy}']
-opcode[0xD8]=['y', 'TAB',   'A', 'B', '{argy} := {argx}']
-opcode[0xD9]=['y', 'TABP',  'A', 'B', '{argy}.P := {argx}.P']
-opcode[0xDA]=['1', 'TDMA',  'A', '',  '{argx} <- con.M']
-opcode[0xDB]=['F', 'AZBP',  'B', '',  '{argx}.P := 0']
-opcode[0xDD]=['y', 'MLIM',  'M', 'L', '{argy} := [{argx}--]']
-opcode[0xDE]=['y', 'MLIP',  'M', 'L', '{argy} := [{argx}++]']
-opcode[0xE0]=['8', 'ESI',   'M', '',  '[{argx}] <- data/type']
-opcode[0xE1]=['y', 'LMI',   'M', 'L', '[{argx}] := {argy}']
-opcode[0xE2]=['y', 'LPMIP', 'M', 'L', '[{argx}++] := ++{argy}']
-opcode[0xE5]=['F', 'DCL',   'L', '',  '{argx}--']
-opcode[0xE6]=['y', 'OR',    'A', 'B', '{argx} or {argy}']
-opcode[0xE7]=['y', 'OREB',  'A', 'B', '{argy} := {argx} xor {argy}']
-opcode[0xE8]=['y', 'TABM',  'A', 'B', '{argy}.M := {argx}.M']
-opcode[0xE9]=['y', 'TBA',   'A', 'B', '{argx} := {argy}']
-opcode[0xEA]=['2', 'TDPA',  'A', '',  '{argx} <- con.P']
-opcode[0xEB]=['8', 'ESIP',  'M', '',  '[{argx}++] <- data/type']
-opcode[0xEC]=['8', 'ESIM',  'M', '',  '[{argx}--] <- data/type']
-opcode[0xED]=['y', 'LMIM',  'M', 'L', '[{argx}--] := {argy}']
-opcode[0xEE]=['y', 'LMIP',  'M', 'L', '[{argx}++] := {argy}']
-opcode[0xF1]=['0', 'SEI',   'M', '',  'data.W <- [{argx}]']
-opcode[0xF5]=['F', 'VRL',   'L', '',  '{argx}==0']
-opcode[0xF6]=['y', 'ORA',   'A', 'B', '{argx} := {argx} or {argy}']
-opcode[0xF7]=['0', 'SEIM',  'M', '',  'data.W <- [{argx}--]']
-opcode[0xF7]=['0', 'SEIP',  'M', '',  'data.W <- [{argx}++]']
-opcode[0xF8]=['y', 'TBAP',  'A', 'B', '{argx}.P := {argy}.P']
-opcode[0xF9]=['y', 'TBAM',  'A', 'B', '{argx}.M := {argy}.M']
-opcode[0xFA]=['y', 'TABC',  'A', 'B', ' con <- {argx}, {argy}']
-opcode[0xFC]=['0', 'DAE',   'L', '',  'data.W <- {argx}']
-opcode[0xFC]=['2', 'CAE',   'L', '',  'cmd.W <- {argx}']
+opcode[0x82]={'*': ['AMIM',  'M', 'A', '[{argx}--] := {argy}']}
+opcode[0x83]={'F': ['TADI',  'A', '',  'DI := {argx}']}
+opcode[0x85]={'F': ['ICA',   'A', '',  '{argx}++']}
+opcode[0x86]={'*': ['ADD',   'A', 'B', '{argx}+{argy}+DI0']}
+opcode[0x87]={'*': ['ORB',   'A', 'B', '{argy} := {argx} or {argy}']}
+opcode[0x88]={'*': ['AMIP',  'M', 'A', '[{argx}++] := {argy}']}
+opcode[0x89]={'*': ['BMI',   'M', 'A', '[{argx}] := {argy}']}
+opcode[0x8A]={'*': ['BMIM',  'M', 'A', '[{argx}--] := {argy}']}
+opcode[0x8B]={'F': ['ROTA',  'A', '',  '{argx}.M <-> {argx}.P']}
+opcode[0x8C]={'*': ['BMIP',  'M', 'A', '[{argx}++] := {argy}']}
+opcode[0x8D]={'8': ['EMI',   'M', '',  '[{argx}] <- data.B']}
+opcode[0x8E]={'F': ['VRA',   'A', '',  '{argx}==0']}
+opcode[0x90]={'0': ['MEI',   'M', '',  'data.B <- [{argx}]']}
+opcode[0x91]={'*': ['MAI',   'M', 'A', '{argy} := [{argx}]']}
+opcode[0x92]={'*': ['MAIM',  'M', 'A', '{argy} := [{argx}--]']}
+opcode[0x93]={'F': ['TBDI',  'B', '',  'DI := {argx}']}
+opcode[0x94]={'0': ['MEIP',  'M', '',  'data.B <- [{argx}++]']}
+opcode[0x95]={'F': ['ICB',   'B', '',  '{argx}++']}
+opcode[0x96]={'*': ['ADDA',  'A', 'B', '{argx} := {argx}+{argy}+DI0']}
+opcode[0x97]={'*': ['AND',   'A', 'B', '{argx} and {argy}']}
+opcode[0x98]={'*': ['MAIP',  'M', 'A', '{argy} := [{argx}++]']}
+opcode[0x99]={'*': ['MBI',   'M', 'B', '{argy} := [{argx}]']}
+opcode[0x9A]={'*': ['MBIM',  'M', 'B', '{argy} := [{argx}--]']}
+opcode[0x9B]={'F': ['ROTB',  'B', '',  '{argx}.M <-> {argx}.P']}
+opcode[0x9C]={'*': ['MBIP',  'M', 'B', '{argy} := [{argx}++]']}
+opcode[0x9D]={'0': ['MEIM',  'M', '',  'data.B <- [{argx}--]']}
+opcode[0x9E]={'F': ['VRB',   'B', '',  '{argx}==0']}
+opcode[0xA1]={'8': ['EMIM',  'M', '',  '[{argx}--] <- data.B']}
+opcode[0xA2]={'8': ['EMIP',  'M', '',  '[{argx}++] <- data.B']}
+opcode[0xA3]={'F': ['SDIA',  'A', '',  '{argx} <-> DI']}
+opcode[0xA5]={'F': ['ICL',   'L', '',  '{argx}++']}
+opcode[0xA6]={'*': ['ADDB',  'A', 'B', '{argy} := {argx}+{argy}+DI0']}
+opcode[0xA7]={'*': ['ANDA',  'A', 'B', '{argx} := {argx} and {argy}']}
+opcode[0xA8]={'*': ['AMI',   'M', 'A', '[{argx}] := {argy}']}
+opcode[0xA9]={'8': ['EDB',   'B', '',  'data.B -> {argx}']}
+opcode[0xAA]={'0': ['ENTL',  'L', '',  'name -> {argx}.A, type->{argx}.B']}
+opcode[0xAB]={'F': ['AZAM',  'A', '',  '{argx}.M := 0']}
+opcode[0xAD]={'F': ['EDC',   'L', '',  '{argx}.MMM--, ECOF if zero']}
+opcode[0xAE]={'F': ['DCA',   'A', '',  '{argx}--']}
+opcode[0xB1]={'4': ['ESE',   'M', '',  'sel.B <- [{argx}]']}
+opcode[0xB2]={'F': ['ETIB',  'B', '',  'type.B -> {argx}']}
+opcode[0xB3]={'F': ['SDIB',  'B', '',  '{argx} <-> DI']}
+opcode[0xB4]={'2': ['ECO',   'M', '',  'cmd.B <- [{argx}]']}
+opcode[0xB6]={'*': ['SOT',   'A', 'B', '{argx}-{argy}+DI0']}
+opcode[0xB7]={'*': ['ANDB',  'A', 'B', '{argy} := {argx} and {argy}']}
+opcode[0xB8]={'8': ['EDA',   'A', '',  'data.B -> {argx}']}
+opcode[0xB9]={'0': ['ENUA',  'A', '',  'name -> {argx}']}
+opcode[0xBA]={'*': ['SAB',   'A', 'B', '{argx} <-> {argy} ']}
+opcode[0xBB]={'F': ['AZAP',  'A', '',  '{argx}.P := 0']}
+opcode[0xBC]={'*': ['SLL',   'L', 'L', '{argx} <-> {argy}']}
+opcode[0xBD]={'0': ['COMx',  'C', '',  '  {argx}']}
+opcode[0xBE]={'F': ['DCB',   'B', '',  '{argx}--']}
+opcode[0xC3]={'0': ['SHDA',  'A', '',  '{argx}, DI0 := 0 >> {argx}'],
+              '1': ['SLDA',  'A', '',  '{argx}, DI0 := DIO >> {argx}']}
+opcode[0xC4]={'0': ['SHSA',  'A', '',  'DIO, {argx} := {argx} << 0'],
+              '1': ['SLSA',  'A', '',  'DI0, {argx} := {argx} << DI0']}
+opcode[0xC5]={'F': ['TDIA',  'A', '',  '{argx} := DI']}
+opcode[0xC6]={'*': ['SOTA',  'A', 'B', '{argx} := {argx}-{argy}+DI0']}
+opcode[0xC7]={'*': ['ORE',   'A', 'B', '{argx} xor {argy}']}
+opcode[0xC8]={'*': ['REDI',  'D', 'D', 'reset DI {argd}']}
+opcode[0xC9]={'*': ['SEDI',  'D', 'D', 'set DI {argd}']}
+opcode[0xCB]={'F': ['AZBM',  'B', '',  '{argx}.M := 0']}
+opcode[0xCA]={'0': ['TCCA',  'A', '',  '{argx} <- con']}
+opcode[0xD1]={'*': ['MLI',   'M', 'L', '{argy} := [{argx}]']}
+opcode[0xD3]={'0': ['SHDB',  'B', '',  '{argx}, DI0 := 0 >> {argx}'],
+              '1': ['SLDB',  'B', '',  '{argx}, DI0 := DIO >> {argx}']}
+opcode[0xD4]={'0': ['SHSB',  'B', '',  'DIO, {argx} := {argx} << 0'],
+              '1': ['SLSB',  'B', '',  'DI0, {argx} := {argx} << DI0']}
+opcode[0xD5]={'F': ['TDIB',  'B', '',  '{argx} := DI']}
+opcode[0xD6]={'*': ['SOTB',  'A', 'B', '{argy} := {argx}-{argy}+DI0']}
+opcode[0xD7]={'*': ['OREA',  'A', 'B', '{argx} := {argx} xor {argy}']}
+opcode[0xD8]={'*': ['TAB',   'A', 'B', '{argy} := {argx}']}
+opcode[0xD9]={'*': ['TABP',  'A', 'B', '{argy}.P := {argx}.P']}
+opcode[0xDA]={'1': ['TDMA',  'A', '',  '{argx} <- con.M']}
+opcode[0xDB]={'F': ['AZBP',  'B', '',  '{argx}.P := 0']}
+opcode[0xDD]={'*': ['MLIM',  'M', 'L', '{argy} := [{argx}--]']}
+opcode[0xDE]={'*': ['MLIP',  'M', 'L', '{argy} := [{argx}++]']}
+opcode[0xE0]={'8': ['ESI',   'M', '',  '[{argx}] <- data/type']}
+opcode[0xE1]={'*': ['LMI',   'M', 'L', '[{argx}] := {argy}']}
+opcode[0xE2]={'*': ['LPMIP', 'M', 'L', '[{argx}++] := ++{argy}']}
+opcode[0xE5]={'F': ['DCL',   'L', '',  '{argx}--']}
+opcode[0xE6]={'*': ['OR',    'A', 'B', '{argx} or {argy}']}
+opcode[0xE7]={'*': ['OREB',  'A', 'B', '{argy} := {argx} xor {argy}']}
+opcode[0xE8]={'*': ['TABM',  'A', 'B', '{argy}.M := {argx}.M']}
+opcode[0xE9]={'*': ['TBA',   'A', 'B', '{argx} := {argy}']}
+opcode[0xEA]={'2': ['TDPA',  'A', '',  '{argx} <- con.P']}
+opcode[0xEB]={'8': ['ESIP',  'M', '',  '[{argx}++] <- data/type']}
+opcode[0xEC]={'8': ['ESIM',  'M', '',  '[{argx}--] <- data/type']}
+opcode[0xED]={'*': ['LMIM',  'M', 'L', '[{argx}--] := {argy}']}
+opcode[0xEE]={'*': ['LMIP',  'M', 'L', '[{argx}++] := {argy}']}
+opcode[0xF1]={'0': ['SEI',   'M', '',  'data.W <- [{argx}]']}
+opcode[0xF5]={'F': ['VRL',   'L', '',  '{argx}==0']}
+opcode[0xF6]={'*': ['ORA',   'A', 'B', '{argx} := {argx} or {argy}']}
+opcode[0xF7]={'0': ['SEIM',  'M', '',  'data.W <- [{argx}--]']}
+opcode[0xF7]={'0': ['SEIP',  'M', '',  'data.W <- [{argx}++]']}
+opcode[0xF8]={'*': ['TBAP',  'A', 'B', '{argx}.P := {argy}.P']}
+opcode[0xF9]={'*': ['TBAM',  'A', 'B', '{argx}.M := {argy}.M']}
+opcode[0xFA]={'*': ['TABC',  'A', 'B', ' con <- {argx}, {argy}']}
+opcode[0xFC]={'0': ['DAE',   'L', '',  'data.W <- {argx}'],
+              '2': ['CAE',   'L', '',  'cmd.W <- {argx}']}
 
 periph={}
 
@@ -261,9 +261,17 @@ def dump_instr(fpos, rpos, wpos, buf, reloc):
     elif val1 in opcode:
         x = val2 >> 4
         y = val2 & 0xf
-        info = opcode[val1]
-        opx = info[2]
-        opy = info[3]
+        inforec = opcode[val1]
+        key = f"{y:X}"
+        if key in inforec:
+            info = inforec[key]
+        elif '*' in inforec:
+            info = inforec['*']
+        else:
+            print(f"key={key} inforec{inforec}")
+            raise Exception("Opcode pattern not matching")
+        opx = info[1]
+        opy = info[2]
         if opx == 'M' and x >= 12:
             opx = 'A'
         argx = f"{opx}{x}"
@@ -276,8 +284,8 @@ def dump_instr(fpos, rpos, wpos, buf, reloc):
         if opx == 'D':
             arg = f"{val2:02x}"
             argd = f"0x{val2:02x}"
-        s = f"{info[1]} {arg}"
-        c = info[4].format(argx=argx, argy=argy, argd=argd)
+        s = f"{info[0]} {arg}"
+        c = info[3].format(argx=argx, argy=argy, argd=argd)
     # print(f"{fpos:04x}: {rpos:06x}: {val1:02x} {val2:02x}  {s:10}  {reloc}")
     print(f"{fpos:04x}: {wpos:04x}: {val1:02x} {val2:02x}  {s:16} {c:20} {reloc}")
 

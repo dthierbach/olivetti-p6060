@@ -34,15 +34,15 @@
 003c: 801e: 62 51  SAD0 D1,51       br D1=0,8051         
 003e: 801f: 56 55  CRTB B06,C55     B06 := 0x55          
 0040: 8020: e9 66  TBA A6,B6        A6 := B6             
-0042: 8021: c4 60  SLSA A6,C0       A6 << DI0            
-0044: 8022: c3 60  SLDA A6,C0       A6 >> DI0            
+0042: 8021: c4 60  SHSA A6          DIO, A6 := A6 << 0   
+0044: 8022: c3 60  SHDA A6          A6, DI0 := 0 >> A6   
 0046: 8023: 8b 6f  ROTA A6          A6.M <-> A6.P        
 0048: 8024: 8b 6f  ROTA A6          A6.M <-> A6.P        
 004a: 8025: d8 66  TAB A6,B6        B6 := A6             
 004c: 8026: c7 66  ORE A6,B6        A6 xor B6            
 004e: 8027: 78 47  CRTA A08,C47     A08 := 0x47          
 0050: 8028: 62 51  SAD0 D1,51       br D1=0,8051         
-0052: 8029: d4 60  SLSA B6          B6 << DI0            
+0052: 8029: d4 60  SHSB B6          DIO, B6 := B6 << 0   
 0054: 802a: 9e 6f  VRB B6           B6==0                
 0056: 802b: 62 20  SAD0 D1,20       br D1=0,8020         
 0058: 802c: bd 30  COMx C3            C3                 
@@ -143,7 +143,7 @@
 010e: 8087: 50 80  CRTB B00,C80     B00 := 0x80          
 0110: 8088: 00 7c  SAI 007c         jump 807c            
   ; from start, now Level 4
-  ; memory test?
+  ; set lights:
 0112: 8089: 7f 00  CRTA A15,C00     A15 := 0x00          
 0114: 808a: a8 ff  AMI A15,A15      [A15] := A15         
   ; [0] := A15 := 0
@@ -151,11 +151,11 @@
   ; select GOINO internal controller
 0118: 808c: 5a 40  CRTB B10,C40     B10 := 0x40          
 011a: 808d: 7a ff  CRTA A10,Cff     A10 := 0xff          
-011c: 808e: fc a0  CAE L10          cmd.W <- L10         
-  ; RETIN request timer interrupt
+011c: 808e: fc a0  DAE L10          data.W <- L10        
+  ; GOINO PULSN: all lights = 1
 011e: 808f: ae ff  DCA A15          A15--                
 0120: 8090: 62 8e  SAD0 D1,8e       br D1=0,808e         
-  ; wait       
+  ; loop lights
 0122: 8091: bd 10  COMx C1            C1                 
 0124: 8092: c9 90  SEDI 90          set DI 0x90          
 0126: 8093: de 03  MLIP M0,L3       L3 := [M0++]         
@@ -202,7 +202,7 @@
 0170: 80b8: ac 80                                        
 0172: 80b9: 01 8b  SAI 018b         jump 818b            
 0174: 80ba: d8 55  TAB A5,B5        B5 := A5             
-0176: 80bb: d3 50  SLDB B5          B5 >> DI0            
+0176: 80bb: d3 50  SHDB B5          B5, DI0 := 0 >> B5   
 0178: 80bc: e9 74  TBA A7,B4        A7 := B4             
 017a: 80bd: d8 77  TAB A7,B7        B7 := A7             
 017c: 80be: 77 00  CRTA A07,C00     A07 := 0x00          
@@ -220,19 +220,19 @@
 018c: 80c6: 00 00  SAI 0000         jump 8000            
 018e: 80c7: d1 79  MLI M7,L9        L9 := [M7]           
 0190: 80c8: d8 7e  TAB A7,B14       B14 := A7            
-0192: 80c9: d4 e0  SLSA B14         B14 << DI0           
+0192: 80c9: d4 e0  SHSB B14         DIO, B14 := B14 << 0 
 0194: 80ca: e9 ee  TBA A14,B14      A14 := B14           
 0196: 80cb: 95 ef  ICB B14          B14++                
 0198: 80cc: e7 e9  OREB A14,B9      B9 := A14 xor B9     
-019a: 80cd: c3 b0  SLDA A11,C0      A11 >> DI0           
+019a: 80cd: c3 b0  SHDA A11         A11, DI0 := 0 >> A11 
 019c: 80ce: 96 69  ADDA A6,B9       A6 := A6+B9+DI0      
 019e: 80cf: a6 b6  ADDB A11,B6      B6 := A11+B6+DI0     
-01a0: 80d0: c4 b1  SLSA A11,C1      A11 << DI0           
+01a0: 80d0: c4 b1  SLSA A11         DI0, A11 := A11 << DI0 
 01a2: 80d1: d7 9e  OREA A9,B14      A9 := A9 xor B14     
-01a4: 80d2: d3 b0  SLDB B11         B11 >> DI0           
+01a4: 80d2: d3 b0  SHDB B11         B11, DI0 := 0 >> B11 
 01a6: 80d3: a6 9a  ADDB A9,B10      B10 := A9+B10+DI0    
 01a8: 80d4: 96 ab  ADDA A10,B11     A10 := A10+B11+DI0   
-01aa: 80d5: d4 b1  SLSA B11         B11 << DI0           
+01aa: 80d5: d4 b1  SLSB B11         DI0, B11 := B11 << DI0 
 01ac: 80d6: a5 7f  ICL L7           L7++                 
 01ae: 80d7: e5 8f  DCL L8           L8--                 
 01b0: 80d8: 62 c7  SAD0 D1,c7       br D1=0,80c7         
@@ -241,7 +241,7 @@
 01b6: 80db: e8 88  TABM A8,B8       B8.M := A8.M         
 01b8: 80dc: 78 02  CRTA A08,C02     A08 := 0x02          
 01ba: 80dd: f8 87  TBAP A8,B7       A8.P := B7.P         
-01bc: 80de: d3 80  SLDB B8          B8 >> DI0            
+01bc: 80de: d3 80  SHDB B8          B8, DI0 := 0 >> B8   
 01be: 80df: c8 10  REDI 10          reset DI 0x10        
 01c0: 80e0: de 79  MLIP M7,L9       L9 := [M7++]         
 01c2: 80e1: c8 01  REDI 01          reset DI 0x01        
@@ -257,7 +257,7 @@
 01d6: 80eb: be 5f  DCB B5           B5--                 
 01d8: 80ec: 62 bf  SAD0 D1,bf       br D1=0,80bf         
 01da: 80ed: c9 10  SEDI 10          set DI 0x10          
-01dc: 80ee: d4 81  SLSA B8          B8 << DI0            
+01dc: 80ee: d4 81  SLSB B8          DI0, B8 := B8 << DI0 
 01de: 80ef: bc 02  SLL L0,L2        L0 <-> L2            
 01e0: 80f0: 01 04  SAI 0104         jump 8104            
 01e2: 80f1: 02 10  SAI 0210         jump 8210            
@@ -285,43 +285,57 @@
 020a: 8105: ad 3f  EDC L3           L3.MMM--, ECOF if zero 
 020c: 8106: a2 48  EMIP M4          [M4++] <- data.B     
 020e: 8107: 01 04  SAI 0104         jump 8104            
-  ; level 2 longer command ???
+  ; level 1 floppy address
 0210: 8108: b3 3f  SDIB B3          B3 <-> DI            
 0212: 8109: ba 33  SAB A3,B3        A3 <-> B3            
+  ; loop read/write sector:
 0214: 810a: ab 5f  AZAM A5          A5.M := 0            
+  ; always start at ..00 with address block
 0216: 810b: bd 00  COMx C0            C0                 
 0218: 810c: 94 50  MEIP M5          data.B <- [M5++]     
+  ; FE  --  address mark
 021a: 810d: bd 00  COMx C0            C0                 
 021c: 810e: 94 50  MEIP M5          data.B <- [M5++]     
+  ; cylinder
 021e: 810f: bd 00  COMx C0            C0                 
 0220: 8110: 94 50  MEIP M5          data.B <- [M5++]     
+  ; 00  --  head
 0222: 8111: bd 00  COMx C0            C0                 
 0224: 8112: 94 50  MEIP M5          data.B <- [M5++]     
+  ; sector
 0226: 8113: bd 00  COMx C0            C0                 
 0228: 8114: bd 70  COMx C7            C7                 
+  ; set EC1F = compare off?
 022a: 8115: 94 50  MEIP M5          data.B <- [M5++]     
+  ; 00  --  bytes/sector
 022c: 8116: bd 00  COMx C0            C0                 
 022e: 8117: 94 50  MEIP M5          data.B <- [M5++]     
+  ; C7  --  CRC
 0230: 8118: bd 00  COMx C0            C0                 
 0232: 8119: bd 80  COMx C8            C8                 
+  ; reset EC1F = compare on?
 0234: 811a: bd 00  COMx C0            C0                 
 0236: 811b: 94 50  MEIP M5          data.B <- [M5++]     
+  ; FB/F8  --  data mark normal/deleted
 0238: 811c: ba 33  SAB A3,B3        A3 <-> B3            
 023a: 811d: b2 3f  ETIB B3          type.B -> B3         
 023c: 811e: b3 3f  SDIB B3          B3 <-> DI            
 023e: 811f: 61 08  SAD1 D0,08       br D0=1,8108         
+  ; sector found? if not, repeat
 0240: 8120: b3 3f  SDIB B3          B3 <-> DI            
 0242: 8121: ba 33  SAB A3,B3        A3 <-> B3            
 0244: 8122: 91 53  MAI M5,A3        A3 := [M5]           
 0246: 8123: b3 3f  SDIB B3          B3 <-> DI            
 0248: 8124: 6d 4c  SAD1 D6,4c       br D6=1,814c         
+  ; read or write decided by B3 <- type
+  ; floppy write 16 bytes   
 024a: 8125: 85 3f  ICA A3           A3++                 
 024c: 8126: b3 3f  SDIB B3          B3 <-> DI            
+  ; loop
 024e: 8127: bd 00  COMx C0            C0                 
 0250: 8128: b3 3f  SDIB B3          B3 <-> DI            
 0252: 8129: ae 3f  DCA A3           A3--                 
 0254: 812a: 63 70  SAD1 D1,70       br D1=1,8170         
-  ; write 16 bytes   
 0256: 812b: 94 40  MEIP M4          data.B <- [M4++]     
 0258: 812c: b3 3f  SDIB B3          B3 <-> DI            
 025a: 812d: bd 00  COMx C0            C0                 
@@ -355,7 +369,7 @@
 0292: 8149: bd 00  COMx C0            C0                 
 0294: 814a: 94 40  MEIP M4          data.B <- [M4++]     
 0296: 814b: 01 27  SAI 0127         jump 8127            
-  ; read 16 bytes
+  ; floppy read 16 bytes
 0298: 814c: b3 3f  SDIB B3          B3 <-> DI            
 029a: 814d: bd 00  COMx C0            C0                 
 029c: 814e: a2 48  EMIP M4          [M4++] <- data.B     
@@ -392,6 +406,7 @@
 02da: 816d: ae 3f  DCA A3           A3--                 
 02dc: 816e: a2 48  EMIP M4          [M4++] <- data.B     
 02de: 816f: 62 4c  SAD0 D1,4c       br D1=0,814c         
+  ; loop
 02e0: 8170: b3 3f  SDIB B3          B3 <-> DI            
 02e2: 8171: bd 70  COMx C7            C7                 
 02e4: 8172: bd 00  COMx C0            C0                 
@@ -412,6 +427,7 @@
 0302: 8181: b3 3f  SDIB B3          B3 <-> DI            
 0304: 8182: bd 00  COMx C0            C0                 
 0306: 8183: 01 0a  SAI 010a         jump 810a            
+  ; loop
 0308: 8184: b3 3f  SDIB B3          B3 <-> DI            
 030a: 8185: e9 35  TBA A3,B5        A3 := B5             
 030c: 8186: e9 46  TBA A4,B6        A4 := B6             
@@ -466,8 +482,8 @@
 036e: 81b7: f8 87  TBAP A8,B7       A8.P := B7.P         
 0370: 81b8: 58 3f  CRTB B08,C3f     B08 := 0x3f          
 0372: 81b9: 95 8f  ICB B8           B8++                 
-0374: 81ba: c3 90  SLDA A9,C0       A9 >> DI0            
-0376: 81bb: d3 91  SLDB B9          B9 >> DI0            
+0374: 81ba: c3 90  SHDA A9          A9, DI0 := 0 >> A9   
+0376: 81bb: d3 91  SLDB B9          B9, DI0 := DIO >> B9 
 0378: 81bc: 60 b9  SAD0 D0,b9       br D0=0,81b9         
 037a: 81bd: c8 10  REDI 10          reset DI 0x10        
 037c: 81be: bc 36  SLL L3,L6        L3 <-> L6            
@@ -476,26 +492,30 @@
 0382: 81c1: de 07  MLIP M0,L7       L7 := [M0++]         
 0384: 81c2: 80 f0                                        
 0386: 81c3: 7e 08  CRTA A14,C08     A14 := 0x08          
-  ; A14 := 8 (harddisk?)
+  ; for A14 := 8 to 0
 0388: 81c4: de 79  MLIP M7,L9       L9 := [M7++]         
 038a: 81c5: b7 89  ANDB A8,B9       B9 := A8 and B9      
 038c: 81c6: 63 c8  SAD1 D1,c8       br D1=1,81c8         
 038e: 81c7: 87 9a  ORB A9,B10       B10 := A9 or B10     
-0390: 81c8: d3 80  SLDB B8          B8 >> DI0            
-0392: 81c9: c4 a1  SLSA A10,C1      A10 << DI0           
+0390: 81c8: d3 80  SHDB B8          B8, DI0 := 0 >> B8   
+0392: 81c9: c4 a1  SLSA A10         DI0, A10 := A10 << DI0 
 0394: 81ca: ae ef  DCA A14          A14--                
 0396: 81cb: 62 c4  SAD0 D1,c4       br D1=0,81c4         
+  ; end for, now A14 = 0
 0398: 81cc: 8b af  ROTA A10         A10.M <-> A10.P      
 039a: 81cd: ba aa  SAB A10,B10      A10 <-> B10          
 039c: 81ce: a8 ee  AMI A14,A14      [A14] := A14         
+  ; [00] = 0 ??  select GOINO?
 039e: 81cf: 59 40  CRTB B09,C40     B09 := 0x40          
+  ; GOINO PULSN
 03a0: 81d0: 57 10  CRTB B07,C10     B07 := 0x10          
 03a2: 81d1: b1 e4  ESE A14          sel.B <- [A14]       
-  ; 
-03a4: 81d2: d3 a0  SLDB B10         B10 >> DI0           
-03a6: 81d3: c3 a1  SLDA A10,C1      A10 >> DI0           
-03a8: 81d4: c4 91  SLSA A9,C1       A9 << DI0            
-03aa: 81d5: fc 90  CAE L9           cmd.W <- L9          
+  ; select
+03a4: 81d2: d3 a0  SHDB B10         B10, DI0 := 0 >> B10 
+03a6: 81d3: c3 a1  SLDA A10         A10, DI0 := DIO >> A10 
+03a8: 81d4: c4 91  SLSA A9          DI0, A9 := A9 << DI0 
+03aa: 81d5: fc 90  DAE L9           data.W <- L9         
+  ; word command? not floppy?
 03ac: 81d6: be 7f  DCB B7           B7--                 
 03ae: 81d7: 62 d2  SAD0 D1,d2       br D1=0,81d2         
 03b0: 81d8: bc 02  SLL L0,L2        L0 <-> L2            
@@ -538,12 +558,13 @@
 03fa: 81fd: c9 00  SEDI 00          set DI 0x00          
 03fc: 81fe: 4f de  SADE f de                             
 03fe: 81ff: fe f5                                        
+  ; level 3 floppy ??
 0400: 8200: 8d 78  EMI M7           [M7] <- data.B       
 0402: 8201: 91 7e  MAI M7,A14       A14 := [M7]          
 0404: 8202: bc 06  SLL L0,L6        L0 <-> L6            
 0406: 8203: bd 00  COMx C0            C0                 
 0408: 8204: 7d 00  CRTA A13,C00     A13 := 0x00          
-  ; 8100 = level 1 write ??
+  ; 8100 = level 1 write
 040a: 8205: 93 6f  TBDI B6          DI := B6             
 040c: 8206: d1 f6  MLI A15,L6       L6 := [A15]          
 040e: 8207: 94 60  MEIP M6          data.B <- [M6++]     
@@ -560,7 +581,7 @@
 0424: 8212: d1 f6  MLI A15,L6       L6 := [A15]          
 0426: 8213: a2 68  EMIP M6          [M6++] <- data.B     
 0428: 8214: 7d 08  CRTA A13,C08     A13 := 0x08          
-  ; 8108 = level 1 cmd ??
+  ; 8108 = level 1 floppy address
 042a: 8215: a9 c8  EDB B12          data.B -> B12        
 042c: 8216: 93 cf  TBDI B12         DI := B12            
 042e: 8217: 69 15  SAD1 D4,15       br D4=1,8215         
@@ -974,11 +995,11 @@
 074c: 83a6: db 7f  AZBP B7          B7.P := 0            
 074e: 83a7: bb 7f  AZAP A7          A7.P := 0            
 0750: 83a8: 5a 0a  CRTB B10,C0a     B10 := 0x0a          
-0752: 83a9: d3 70  SLDB B7          B7 >> DI0            
+0752: 83a9: d3 70  SHDB B7          B7, DI0 := 0 >> B7   
 0754: 83aa: 60 ad  SAD0 D0,ad       br D0=0,83ad         
 0756: 83ab: c8 01  REDI 01          reset DI 0x01        
 0758: 83ac: 96 7a  ADDA A7,B10      A7 := A7+B10+DI0     
-075a: 83ad: d4 a0  SLSA B10         B10 << DI0           
+075a: 83ad: d4 a0  SHSB B10         DIO, B10 := B10 << 0 
 075c: 83ae: 60 a9  SAD0 D0,a9       br D0=0,83a9         
 075e: 83af: ba 02  SAB A0,B2        A0 <-> B2            
 0760: 83b0: 78 24  CRTA A08,C24     A08 := 0x24          
@@ -1104,7 +1125,7 @@
 0850: 8428: 5e 04  CRTB B14,C04     B14 := 0x04          
 0852: 8429: f9 2f  TBAM A2,B15      A2.M := B15.M        
 0854: 842a: f9 8f  TBAM A8,B15      A8.M := B15.M        
-0856: 842b: d3 f0  SLDB B15         B15 >> DI0           
+0856: 842b: d3 f0  SHDB B15         B15, DI0 := 0 >> B15 
 0858: 842c: de 07  MLIP M0,L7       L7 := [M0++]         
 085a: 842d: 01 10  SAI 0110         jump 8110            
 085c: 842e: 9a ab  MBIM M10,B11     B11 := [M10--]       
@@ -1190,7 +1211,7 @@
 08fc: 847e: 97 2b  AND A2,B11       A2 and B11           
 08fe: 847f: 62 2e  SAD0 D1,2e       br D1=0,842e         
 0900: 8480: c8 07  REDI 07          reset DI 0x07        
-0902: 8481: d4 f0  SLSA B15         B15 << DI0           
+0902: 8481: d4 f0  SHSB B15         DIO, B15 := B15 << 0 
 0904: 8482: f9 2f  TBAM A2,B15      A2.M := B15.M        
 0906: 8483: f9 8f  TBAM A8,B15      A8.M := B15.M        
 0908: 8484: de 0a  MLIP M0,L10      L10 := [M0++]        
@@ -1350,6 +1371,7 @@
 0a3c: 851e: d1 00  MLI M0,L0        L0 := [M0]           
   !addr
 0a3e: 851f: a0 f8  ICD1 D7,L8       L8++ if D7=1         
+  ; instruction absent - jmp a0fb:
 0a40: 8520: d1 00  MLI M0,L0        L0 := [M0]           
   !addr
 0a42: 8521: a0 fb  ICD1 D7,L11      L11++ if D7=1        
@@ -1402,15 +1424,15 @@
 0a76: 853b: 06 f2  SAI 06f2         jump 86f2            
   ; SR
 0a78: 853c: 05 20  SAI 0520         jump 8520            
-  ; .
+  ; . absent?
 0a7a: 853d: 05 20  SAI 0520         jump 8520            
-  ; .
+  ; . absent?
 0a7c: 853e: 06 f5  SAI 06f5         jump 86f5            
   ; ALR
 0a7e: 853f: 06 f8  SAI 06f8         jump 86f8            
   ; SLR
 0a80: 8540: d8 2c  TAB A2,B12       B12 := A2            
-0a82: 8541: d4 c0  SLSA B12         B12 << DI0           
+0a82: 8541: d4 c0  SHSB B12         DIO, B12 := B12 << 0 
 0a84: 8542: de 09  MLIP M0,L9       L9 := [M0++]         
 0a86: 8543: 01 60  SAI 0160         jump 8160            
 0a88: 8544: 96 9c  ADDA A9,B12      A9 := A9+B12+DI0     
@@ -1420,12 +1442,12 @@
 0a90: 8548: 62 4b  SAD0 D1,4b       br D1=0,854b         
 0a92: 8549: c9 10  SEDI 10          set DI 0x10          
 0a94: 854a: 05 50  SAI 0550         jump 8550            
-0a96: 854b: d3 a0  SLDB B10         B10 >> DI0           
-0a98: 854c: c3 a1  SLDA A10,C1      A10 >> DI0           
+0a96: 854b: d3 a0  SHDB B10         B10, DI0 := 0 >> B10 
+0a98: 854c: c3 a1  SLDA A10         A10, DI0 := DIO >> A10 
 0a9a: 854d: c8 30  REDI 30          reset DI 0x30        
 0a9c: 854e: 60 50  SAD0 D0,50       br D0=0,8550         
 0a9e: 854f: c9 20  SEDI 20          set DI 0x20          
-0aa0: 8550: d3 20  SLDB B2          B2 >> DI0            
+0aa0: 8550: d3 20  SHDB B2          B2, DI0 := 0 >> B2   
 0aa2: 8551: 61 74  SAD1 D0,74       br D0=1,8574         
 0aa4: 8552: c8 08  REDI 08          reset DI 0x08        
 0aa6: 8553: de 92  MLIP M9,L2       L2 := [M9++]         
@@ -1451,8 +1473,8 @@
 0ace: 8567: a0 f5  ICD1 D7,L5       L5++ if D7=1         
 0ad0: 8568: a5 af  ICL L10          L10++                
 0ad2: 8569: d1 aa  MLI M10,L10      L10 := [M10]         
-0ad4: 856a: d3 a0  SLDB B10         B10 >> DI0           
-0ad6: 856b: c3 a1  SLDA A10,C1      A10 >> DI0           
+0ad4: 856a: d3 a0  SHDB B10         B10, DI0 := 0 >> B10 
+0ad6: 856b: c3 a1  SLDA A10         A10, DI0 := DIO >> A10 
 0ad8: 856c: d8 27  TAB A2,B7        B7 := A2             
 0ada: 856d: 32 ec  MAD A02,Cec      A2 := [ec]           
 0adc: 856e: c8 20  REDI 20          reset DI 0x20        
@@ -1484,8 +1506,8 @@
 0b10: 8588: d8 87  TAB A8,B7        B7 := A8             
 0b12: 8589: e9 78  TBA A7,B8        A7 := B8             
 0b14: 858a: ba 77  SAB A7,B7        A7 <-> B7            
-0b16: 858b: c4 70  SLSA A7,C0       A7 << DI0            
-0b18: 858c: d4 71  SLSA B7          B7 << DI0            
+0b16: 858b: c4 70  SHSA A7          DIO, A7 := A7 << 0   
+0b18: 858c: d4 71  SLSB B7          DI0, B7 := B7 << DI0 
 0b1a: 858d: 66 90  SAD0 D3,90       br D3=0,8590         
 0b1c: 858e: d1 00  MLI M0,L0        L0 := [M0]           
 0b1e: 858f: a0 fa  ICD1 D7,L10      L10++ if D7=1        
@@ -1496,13 +1518,13 @@
 0b28: 8594: ee e7  LMIP A14,L7      [A14++] := L7        
 0b2a: 8595: dd 97  MLIM M9,L7       L7 := [M9--]         
 0b2c: 8596: ee e7  LMIP A14,L7      [A14++] := L7        
-0b2e: 8597: d3 20  SLDB B2          B2 >> DI0            
+0b2e: 8597: d3 20  SHDB B2          B2, DI0 := 0 >> B2   
 0b30: 8598: 60 9a  SAD0 D0,9a       br D0=0,859a         
 0b32: 8599: c9 08  SEDI 08          set DI 0x08          
 0b34: 859a: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0b36: 859b: 06 00  SAI 0600         jump 8600            
-0b38: 859c: d3 d0  SLDB B13         B13 >> DI0           
-0b3a: 859d: d3 d0  SLDB B13         B13 >> DI0           
+0b38: 859c: d3 d0  SHDB B13         B13, DI0 := 0 >> B13 
+0b3a: 859d: d3 d0  SHDB B13         B13, DI0 := 0 >> B13 
 0b3c: 859e: 61 a1  SAD1 D0,a1       br D0=1,85a1         
 0b3e: 859f: a5 af  ICL L10          L10++                
 0b40: 85a0: a5 af  ICL L10          L10++                
@@ -1516,8 +1538,8 @@
 0b50: 85a8: 06 cd  SAI 06cd         jump 86cd            
 0b52: 85a9: 66 b1  SAD0 D3,b1       br D3=0,85b1         
 0b54: 85aa: 61 b2  SAD1 D0,b2       br D0=1,85b2         
-0b56: 85ab: d3 b0  SLDB B11         B11 >> DI0           
-0b58: 85ac: c3 b1  SLDA A11,C1      A11 >> DI0           
+0b56: 85ab: d3 b0  SHDB B11         B11, DI0 := 0 >> B11 
+0b58: 85ac: c3 b1  SLDA A11         A11, DI0 := DIO >> A11 
 0b5a: 85ad: 61 66  SAD1 D0,66       br D0=1,8566         
 0b5c: 85ae: bc b8  SLL L11,L8       L11 <-> L8           
 0b5e: 85af: ba 88  SAB A8,B8        A8 <-> B8            
@@ -1569,11 +1591,14 @@
 0bba: 85dd: 8c bc  BMIP M11,A12     [M11++] := A12       
 0bbc: 85de: ae ef  DCA A14          A14--                
 0bbe: 85df: d1 e0  MLI A14,L0       L0 := [A14]          
+  ; instruction NR
 0bc0: 85e0: c9 10  SEDI 10          set DI 0x10          
 0bc2: 85e1: 05 e6  SAI 05e6         jump 85e6            
+  ; instruction OR
 0bc4: 85e2: c9 20  SEDI 20          set DI 0x20          
 0bc6: 85e3: c8 10  REDI 10          reset DI 0x10        
 0bc8: 85e4: 05 e6  SAI 05e6         jump 85e6            
+  ; instruction XR
 0bca: 85e5: c8 30  REDI 30          reset DI 0x30        
 0bcc: 85e6: c8 08  REDI 08          reset DI 0x08        
 0bce: 85e7: 72 02  CRTA A02,C02     A02 := 0x02          
@@ -1726,22 +1751,22 @@
 0cf4: 867a: d1 aa  MLI M10,L10      L10 := [M10]         
 0cf6: 867b: 96 ab  ADDA A10,B11     A10 := A10+B11+DI0   
 0cf8: 867c: a6 ba  ADDB A11,B10     B10 := A11+B10+DI0   
-0cfa: 867d: d3 a0  SLDB B10         B10 >> DI0           
-0cfc: 867e: c3 a1  SLDA A10,C1      A10 >> DI0           
+0cfa: 867d: d3 a0  SHDB B10         B10, DI0 := 0 >> B10 
+0cfc: 867e: c3 a1  SLDA A10         A10, DI0 := DIO >> A10 
 0cfe: 867f: ae ef  DCA A14          A14--                
 0d00: 8680: d1 e0  MLI A14,L0       L0 := [A14]          
 0d02: 8681: d8 2d  TAB A2,B13       B13 := A2            
 0d04: 8682: 8b 2f  ROTA A2          A2.M <-> A2.P        
 0d06: 8683: bb 2f  AZAP A2          A2.P := 0            
 0d08: 8684: db df  AZBP B13         B13.P := 0           
-0d0a: 8685: d4 d0  SLSA B13         B13 << DI0           
-0d0c: 8686: d4 d0  SLSA B13         B13 << DI0           
+0d0a: 8685: d4 d0  SHSB B13         DIO, B13 := B13 << 0 
+0d0c: 8686: d4 d0  SHSB B13         DIO, B13 := B13 << 0 
 0d0e: 8687: de 0a  MLIP M0,L10      L10 := [M0++]        
 0d10: 8688: 02 c0  SAI 02c0         jump 82c0            
 0d12: 8689: 96 ad  ADDA A10,B13     A10 := A10+B13+DI0   
 0d14: 868a: d8 2c  TAB A2,B12       B12 := A2            
-0d16: 868b: d4 c0  SLSA B12         B12 << DI0           
-0d18: 868c: d4 c0  SLSA B12         B12 << DI0           
+0d16: 868b: d4 c0  SHSB B12         DIO, B12 := B12 << 0 
+0d18: 868c: d4 c0  SHSB B12         DIO, B12 := B12 << 0 
 0d1a: 868d: de 09  MLIP M0,L9       L9 := [M0++]         
 0d1c: 868e: 02 c0  SAI 02c0         jump 82c0            
 0d1e: 868f: 96 9c  ADDA A9,B12      A9 := A9+B12+DI0     
@@ -1805,16 +1830,17 @@
 0d92: 86c9: 05 26  SAI 0526         jump 8526            
 0d94: 86ca: 05 2a  SAI 052a         jump 852a            
 0d96: 86cb: 05 28  SAI 0528         jump 8528            
+  ; instruction CR
 0d98: 86cc: c9 10  SEDI 10          set DI 0x10          
 0d9a: 86cd: de a2  MLIP M10,L2      L2 := [M10++]        
 0d9c: 86ce: de 97  MLIP M9,L7       L7 := [M9++]         
-0d9e: 86cf: d4 70  SLSA B7          B7 << DI0            
+0d9e: 86cf: d4 70  SHSB B7          DIO, B7 := B7 << 0   
 0da0: 86d0: 60 d5  SAD0 D0,d5       br D0=0,86d5         
-0da2: 86d1: d4 20  SLSA B2          B2 << DI0            
+0da2: 86d1: d4 20  SHSB B2          DIO, B2 := B2 << 0   
 0da4: 86d2: 61 d9  SAD1 D0,d9       br D0=1,86d9         
 0da6: 86d3: 68 ee  SAD0 D4,ee       br D4=0,86ee         
 0da8: 86d4: 05 26  SAI 0526         jump 8526            
-0daa: 86d5: d4 20  SLSA B2          B2 << DI0            
+0daa: 86d5: d4 20  SHSB B2          DIO, B2 := B2 << 0   
 0dac: 86d6: 60 d9  SAD0 D0,d9       br D0=0,86d9         
 0dae: 86d7: 68 ee  SAD0 D4,ee       br D4=0,86ee         
 0db0: 86d8: 05 2a  SAI 052a         jump 852a            
@@ -1840,23 +1866,29 @@
 0dd8: 86ec: 05 2a  SAI 052a         jump 852a            
 0dda: 86ed: c8 01  REDI 01          reset DI 0x01        
 0ddc: 86ee: 05 a9  SAI 05a9         jump 85a9            
+  ; instruction AR
 0dde: 86ef: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0de0: 86f0: 06 00  SAI 0600         jump 8600            
 0de2: 86f1: 06 a0  SAI 06a0         jump 86a0            
+  ; instruction AR
 0de4: 86f2: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0de6: 86f3: 06 2f  SAI 062f         jump 862f            
 0de8: 86f4: 06 a0  SAI 06a0         jump 86a0            
+  ; instruction ALR
 0dea: 86f5: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0dec: 86f6: 06 00  SAI 0600         jump 8600            
 0dee: 86f7: 06 c0  SAI 06c0         jump 86c0            
+  ; instruction SLR
 0df0: 86f8: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0df2: 86f9: 06 2f  SAI 062f         jump 862f            
 0df4: 86fa: 06 c0  SAI 06c0         jump 86c0            
+  ; instruction LR
 0df6: 86fb: de a7  MLIP M10,L7      L7 := [M10++]        
 0df8: 86fc: ee 97  LMIP M9,L7       [M9++] := L7         
 0dfa: 86fd: de a7  MLIP M10,L7      L7 := [M10++]        
 0dfc: 86fe: ee 97  LMIP M9,L7       [M9++] := L7         
 0dfe: 86ff: 07 fb  SAI 07fb         jump 87fb            
+  ; instruction CLR
 0e00: 8700: 5f 02  CRTB B15,C02     B15 := 0x02          
 0e02: 8701: de 97  MLIP M9,L7       L7 := [M9++]         
 0e04: 8702: de a2  MLIP M10,L2      L2 := [M10++]        
@@ -1888,8 +1920,8 @@
 0e38: 871c: c8 08  REDI 08          reset DI 0x08        
 0e3a: 871d: dd 8b  MLIM M8,L11      L11 := [M8--]        
 0e3c: 871e: 07 21  SAI 0721         jump 8721            
-0e3e: 871f: d3 b0  SLDB B11         B11 >> DI0           
-0e40: 8720: c3 b1  SLDA A11,C1      A11 >> DI0           
+0e3e: 871f: d3 b0  SHDB B11         B11, DI0 := 0 >> B11 
+0e40: 8720: c3 b1  SLDA A11         A11, DI0 := DIO >> A11 
 0e42: 8721: d8 b7  TAB A11,B7       B7 := A11            
 0e44: 8722: e9 7b  TBA A7,B11       A7 := B11            
 0e46: 8723: c9 01  SEDI 01          set DI 0x01          
@@ -1900,7 +1932,7 @@
 0e50: 8728: ba 72  SAB A7,B2        A7 <-> B2            
 0e52: 8729: 07 2b  SAI 072b         jump 872b            
 0e54: 872a: e9 27  TBA A2,B7        A2 := B7             
-0e56: 872b: c4 91  SLSA A9,C1       A9 << DI0            
+0e56: 872b: c4 91  SLSA A9          DI0, A9 := A9 << DI0 
 0e58: 872c: be 9f  DCB B9           B9--                 
 0e5a: 872d: 62 1f  SAD0 D1,1f       br D1=0,871f         
 0e5c: 872e: 9e df  VRB B13          B13==0               
@@ -2021,6 +2053,7 @@
 0f42: 87a1: ae ef  DCA A14          A14--                
 0f44: 87a2: d1 e0  MLI A14,L0       L0 := [A14]          
 0f46: 87a3: de a7  MLIP M10,L7      L7 := [M10++]        
+  ; instruction LPR
 0f48: 87a4: d1 aa  MLI M10,L10      L10 := [M10]         
 0f4a: 87a5: 72 80  CRTA A02,C80     A02 := 0x80          
 0f4c: 87a6: 97 27  AND A2,B7        A2 and B7            
@@ -2033,6 +2066,7 @@
 0f5a: 87ad: 62 af  SAD0 D1,af       br D1=0,87af         
 0f5c: 87ae: 05 24  SAI 0524         jump 8524            
 0f5e: 87af: 05 2a  SAI 052a         jump 852a            
+  ; instruction LNR
 0f60: 87b0: de a7  MLIP M10,L7      L7 := [M10++]        
 0f62: 87b1: d1 aa  MLI M10,L10      L10 := [M10]         
 0f64: 87b2: 72 80  CRTA A02,C80     A02 := 0x80          
@@ -2045,6 +2079,7 @@
 0f72: 87b9: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0f74: 87ba: 06 92  SAI 0692         jump 8692            
 0f76: 87bb: 05 26  SAI 0526         jump 8526            
+  ; instruction LTR
 0f78: 87bc: de a7  MLIP M10,L7      L7 := [M10++]        
 0f7a: 87bd: d1 aa  MLI M10,L10      L10 := [M10]         
 0f7c: 87be: 72 80  CRTA A02,C80     A02 := 0x80          
@@ -2080,7 +2115,7 @@
 0fb8: 87dc: 60 de  SAD0 D0,de       br D0=0,87de         
 0fba: 87dd: 05 22  SAI 0522         jump 8522            
 0fbc: 87de: d1 a2  MLI M10,L2       L2 := [M10]          
-0fbe: 87df: d4 20  SLSA B2          B2 << DI0            
+0fbe: 87df: d4 20  SHSB B2          DIO, B2 := B2 << 0   
 0fc0: 87e0: de 02  MLIP M0,L2       L2 := [M0++]         
 0fc2: 87e1: ff ff                                        
 0fc4: 87e2: 61 e4  SAD1 D0,e4       br D0=1,87e4         
@@ -2099,7 +2134,7 @@
 0fde: 87ef: de 0a  MLIP M0,L10      L10 := [M0++]        
 0fe0: 87f0: 00 c8  SAI 00c8         jump 80c8            
 0fe2: 87f1: e1 ab  LMI M10,L11      [M10] := L11         
-0fe4: 87f2: d3 20  SLDB B2          B2 >> DI0            
+0fe4: 87f2: d3 20  SHDB B2          B2, DI0 := 0 >> B2   
 0fe6: 87f3: 60 f7  SAD0 D0,f7       br D0=0,87f7         
 0fe8: 87f4: e2 e0  LPMIP A14,L0     [A14++] := ++L0      
 0fea: 87f5: 06 31  SAI 0631         jump 8631            
