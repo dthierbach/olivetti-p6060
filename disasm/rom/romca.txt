@@ -107,10 +107,13 @@
   ; from ...
 00a6: 8053: de 12  MLIP M1,L2       L2 := [M1++]         
   !value
-00a8: 8054: 00 20  SAI 0020         jump 8020            
+00a8: 8054: 00 20  SAI 0020         jump 8020
+  ; STEP: test order of writes in memory
 00aa: 8055: ee 22  LMIP M2,L2       [M2++] := L2         
 00ac: 8056: ed 22  LMIM M2,L2       [M2--] := L2         
-00ae: 8057: de 23  MLIP M2,L3       L3 := [M2++]         
+00ae: 8057: de 23  MLIP M2,L3       L3 := [M2++]
+  ; read and write via M2
+  ; expect memory value to be 0021
 00b0: 8058: 74 00  CRTA A04,C00     A04 := 0x00          
 00b2: 8059: 54 21  CRTB B04,C21     B04 := 0x21          
 00b4: 805a: c7 43  ORE A4,B3        A4 xor B3            
@@ -186,7 +189,8 @@
 011e: 808f: ae ff  DCA A15          A15--                
 0120: 8090: 62 8e  SAD0 D1,8e       br D1=0,808e         
   ; loop lights
-0122: 8091: bd 10  COMx C1            C1                 
+0122: 8091: bd 10  COMx C1            C1
+  ; continue after selftest:
 0124: 8092: c9 90  SEDI 90          set DI 0x90          
 0126: 8093: de 03  MLIP M0,L3       L3 := [M0++]
   !value
@@ -214,12 +218,14 @@
 0150: 80a8: 6e ac  SAD0 D7,ac       br D7=0,80ac         
 0152: 80a9: 7f 0e  CRTA A15,C0e     A15 := 0x0e          
 0154: 80aa: 89 f4  BMI A15,A4       [A15] := A4          
-0156: 80ab: c8 80  REDI 80          reset DI 0x80        
-0158: 80ac: 69 b0  SAD1 D4,b0       br D4=1,80b0         
+0156: 80ab: c8 80  REDI 80          reset DI 0x80
+  ; from memory test
+0158: 80ac: 69 b0  SAD1 D4,b0       br D4=1,80b0
+  ; did the test fail?
 015a: 80ad: de 02  MLIP M0,L2       L2 := [M0++]
-  !addr
+  !addr swap
 015c: 80ae: b6 80
-  ; error code, return to b680?
+  ; 80b6
 015e: 80af: 01 c0  SAI 01c0         jump 81c0            
   ; JUMP output_lights(A8,B8)
 0160: 80b0: c8 07  REDI 07          reset DI 0x07        
@@ -477,65 +483,89 @@
 0308: 8184: b3 3f  SDIB B3          B3 <-> DI            
 030a: 8185: e9 35  TBA A3,B5        A3 := B5             
 030c: 8186: e9 46  TBA A4,B6        A4 := B6             
-030e: 8187: d8 64  TAB A6,B4        B4 := A6             
-0310: 8188: bd 00  COMx C0            C0                 
+030e: 8187: d8 64  TAB A6,B4        B4 := A6
+  ; L4 := 0xA6B6
+0310: 8188: bd 00  COMx C0            C0
+  ; reset ECOR=0
 0312: 8189: bd 80  COMx C8            C8
-  ; reset EC1F
-0314: 818a: 98 4c  MAIP M4,A12      A12 := [M4++]        
-0316: 818b: c9 50  SEDI 50          set DI 0x50          
+  ; reset EC1F=0
+0314: 818a: 98 4c  MAIP M4,A12      A12 := [M4++]
+  ; setup L1/L2 interrupt?
+0316: 818b: c9 50  SEDI 50          set DI 0x50
+  ; D6=1, D4=1 (test failed?)
 0318: 818c: c9 20  SEDI 20          set DI 0x20
+  ; D5=1 (store, not verify)
   ; from ...
 031a: 818d: d8 47  TAB A4,B7        B7 := A4             
 031c: 818e: e9 74  TBA A7,B4        A7 := B4             
 031e: 818f: ba 77  SAB A7,B7        A7 <-> B7            
 0320: 8190: d8 58  TAB A5,B8        B8 := A5             
-0322: 8191: 78 00  CRTA A08,C00     A08 := 0x00          
+0322: 8191: 78 00  CRTA A08,C00     A08 := 0x00
+  ; L8 := ...
 0324: 8192: d8 36  TAB A3,B6        B6 := A3             
 0326: 8193: e9 63  TBA A6,B3        A6 := B3             
 0328: 8194: 6c 96  SAD0 D6,96       br D6=0,8196         
-032a: 8195: ba 66  SAB A6,B6        A6 <-> B6            
+032a: 8195: ba 66  SAB A6,B6        A6 <-> B6
+  ; D6: variant pattern?
 032c: 8196: 6a ab  SAD0 D5,ab       br D5=0,81ab
+  ; D5==0: verify?
   ; from ...
+  ; memory test loop, pattern in L6
 032e: 8197: ee 76  LMIP M7,L6       [M7++] := L6         
 0330: 8198: 6d 9a  SAD1 D6,9a       br D6=1,819a         
 0332: 8199: ba 66  SAB A6,B6        A6 <-> B6            
 0334: 819a: 95 6f  ICB B6           B6++                 
 0336: 819b: ae 6f  DCA A6           A6--                 
 0338: 819c: 8e 7f  VRA A7           A7==0                
-033a: 819d: 62 a0  SAD0 D1,a0       br D1=0,81a0         
+033a: 819d: 62 a0  SAD0 D1,a0       br D1=0,81a0
+  ; D1: pattern variant
 033c: 819e: 95 6f  ICB B6           B6++                 
 033e: 819f: ae 6f  DCA A6           A6--                 
 0340: 81a0: 6d a2  SAD1 D6,a2       br D6=1,81a2         
-0342: 81a1: ba 66  SAB A6,B6        A6 <-> B6            
+0342: 81a1: ba 66  SAB A6,B6        A6 <-> B6
+  ; D6: variant pattern?
 0344: 81a2: e5 8f  DCL L8           L8--                 
-0346: 81a3: 6a b2  SAD0 D5,b2       br D5=0,81b2         
-0348: 81a4: 62 97  SAD0 D1,97       br D1=0,8197         
+0346: 81a3: 6a b2  SAD0 D5,b2       br D5=0,81b2
+  ; if verify:
+0348: 81a4: 62 97  SAD0 D1,97       br D1=0,8197
+  ; inner loop back
 034a: 81a5: de 08  MLIP M0,L8       L8 := [M0++]
   !value
-034c: 81a6: 01 00  SAI 0100         jump 8100            
+034c: 81a6: 01 00  SAI 0100         jump 8100
+  ; L8 := 0x100 (count)
 034e: 81a7: e5 8f  DCL L8           L8--                 
 0350: 81a8: 62 a7  SAD0 D1,a7       br D1=0,81a7         
-0352: 81a9: c8 20  REDI 20          reset DI 0x20        
-0354: 81aa: 01 8d  SAI 018d         jump 818d            
+0352: 81a9: c8 20  REDI 20          reset DI 0x20
+  ; D5=0 (verify, not store)
+0354: 81aa: 01 8d  SAI 018d         jump 818d
+  ; verify:
 0356: 81ab: de 79  MLIP M7,L9       L9 := [M7++]         
 0358: 81ac: ba 99  SAB A9,B9        A9 <-> B9            
 035a: 81ad: e7 69  OREB A6,B9       B9 := A6 xor B9      
 035c: 81ae: 62 b6  SAD0 D1,b6       br D1=0,81b6         
 035e: 81af: d7 96  OREA A9,B6       A9 := A9 xor B6      
-0360: 81b0: 62 b6  SAD0 D1,b6       br D1=0,81b6         
+0360: 81b0: 62 b6  SAD0 D1,b6       br D1=0,81b6
+  ; assert [M7] == L6, else verify_error
 0362: 81b1: 01 98  SAI 0198         jump 8198            
-0364: 81b2: 62 ab  SAD0 D1,ab       br D1=0,81ab         
-0366: 81b3: 6c be  SAD0 D6,be       br D6=0,81be         
-0368: 81b4: c8 40  REDI 40          reset DI 0x40        
-036a: 81b5: 01 8c  SAI 018c         jump 818c            
+0364: 81b2: 62 ab  SAD0 D1,ab       br D1=0,81ab
+  ; inner loop back
+0366: 81b3: 6c be  SAD0 D6,be       br D6=0,81be
+  ; jump to "done without error"
+0368: 81b4: c8 40  REDI 40          reset DI 0x40
+  ; D6=0 
+036a: 81b5: 01 8c  SAI 018c         jump 818c
+  ; verify error:
 036c: 81b6: 78 03  CRTA A08,C03     A08 := 0x03          
 036e: 81b7: f8 87  TBAP A8,B7       A8.P := B7.P         
 0370: 81b8: 58 3f  CRTB B08,C3f     B08 := 0x3f          
 0372: 81b9: 95 8f  ICB B8           B8++                 
 0374: 81ba: c3 90  SHDA A9          A9, DI0 := 0 >> A9   
 0376: 81bb: d3 91  SLDB B9          B9, DI0 := DIO >> B9 
-0378: 81bc: 60 b9  SAD0 D0,b9       br D0=0,81b9         
-037a: 81bd: c8 10  REDI 10          reset DI 0x10        
+0378: 81bc: 60 b9  SAD0 D0,b9       br D0=0,81b9
+  ; load memory bit pattern with memory error?
+037a: 81bd: c8 10  REDI 10          reset DI 0x10
+  ; D4=0 (test failed?)
+  ; no_error:
 037c: 81be: bc 36  SLL L3,L6        L3 <-> L6            
 037e: 81bf: bc 02  SLL L0,L2        L0 <-> L2
   ; return
@@ -658,11 +688,14 @@
 042c: 8216: 93 cf  TBDI B12         DI := B12            
 042e: 8217: 69 15  SAD1 D4,15       br D4=1,8215         
 0430: 8218: 93 ff  TBDI B15         DI := B15            
-0432: 8219: 70 00  CRTA A00,C00     A00 := 0x00          
+0432: 8219: 70 00  CRTA A00,C00     A00 := 0x00
+  ;  return to xx00
 0434: 821a: 61 25  SAD1 D0,25       br D0=1,8225         
-0436: 821b: 70 35  CRTA A00,C35     A00 := 0x35          
+0436: 821b: 70 35  CRTA A00,C35     A00 := 0x35
+  ;   return to xx35
 0438: 821c: 65 1e  SAD1 D2,1e       br D2=1,821e         
-043a: 821d: 70 37  CRTA A00,C37     A00 := 0x37          
+043a: 821d: 70 37  CRTA A00,C37     A00 := 0x37
+  ;   return to xx37
   ; from ...
 043c: 821e: 7e 09  CRTA A14,C09     A14 := 0x09          
 043e: 821f: de eb  MLIP A14,L11     L11 := [A14++]       
@@ -675,7 +708,8 @@
 0448: 8224: 3e 11  MAD A14,C11      A14 := [11]
   ; A14 := [11]
 044a: 8225: bd 00  COMx C0            C0                 
-  ; enter/exit floppy intr Lv3 ??
+  ; enter/exit floppy intr Lv3xs
+  ;   expected from 8308 after sel (prio 3B)
   ;   possibly error code in L8 on exit?
 044c: 8226: 2e 11  AMD A14,C11      [11] := A14
   ; [11] := A14
@@ -687,26 +721,32 @@
 0456: 822b: ee ea  LMIP A14,L10     [A14++] := L10       
 0458: 822c: ee e8  LMIP A14,L8      [A14++] := L8        
   ; [09] := L11, [0a] := L10, [0b] := L8
-045a: 822d: aa b0  ENTL L11         name -> L11.A, type->L11.B 
+045a: 822d: aa b0  ENTL L11         name -> L11.A, type->L11.B
+  ; A11 := name (expected: xxxx 0000)
+  ; B11 := type
 045c: 822e: 5a 00  CRTB B10,C00     B10 := 0x00          
 045e: 822f: e8 ba  TABM A11,B10     B10.M := A11.M       
 0460: 8230: 9e af  VRB B10          B10==0               
 0462: 8231: 63 3f  SAD1 D1,3f       br D1=1,823f
-  ; verify name.M == 0
+  ; verify name.M == 0 (name = xxxx 0000)
 0464: 8232: 83 bf  TADI A11         DI := A11            
-0466: 8233: 60 39  SAD0 D0,39       br D0=0,8239         
+0466: 8233: 60 39  SAD0 D0,39       br D0=0,8239
+  ; name bit 0
 0468: 8234: de 18  MLIP M1,L8       L8 := [M1++]
   !value
 046a: 8235: 46 04  SADE 6 04                             
 046c: 8236: f8 86  TBAP A8,B6       A8.P := B6.P         
 046e: 8237: 70 0e  CRTA A00,C0e     A00 := 0x0e          
-0470: 8238: 02 25  SAI 0225         jump 8225            
+0470: 8238: 02 25  SAI 0225         jump 8225
+  ; goto loop/return intr, A0=0e B8=46 A8=x4
+  ; else:
 0472: 8239: 58 40  CRTB B08,C40     B08 := 0x40          
 0474: 823a: 8b bf  ROTA A11         A11.M <-> A11.P      
 0476: 823b: d8 bb  TAB A11,B11      B11 := A11           
 0478: 823c: 78 04  CRTA A08,C04     A08 := 0x04          
 047a: 823d: f8 8b  TBAP A8,B11      A8.P := B11.P        
-047c: 823e: 02 37  SAI 0237         jump 8237            
+047c: 823e: 02 37  SAI 0237         jump 8237
+  ; got loop/return intr, A0=0e B8=40 B8=x4 x=type
 047e: 823f: a9 c8  EDB B12          data.B -> B12        
 0480: 8240: bd 40  COMx C4            C4
   ; produce ECOT
@@ -834,19 +874,27 @@
 0568: 82b4: 82 c5  AMIM A12,A5      [A12--] := A5        
 056a: 82b5: 02 1e  SAI 021e         jump 821e
   ; from ...
-056c: 82b6: de 01  MLIP M0,L1       L1 := [M0++]         
-056e: 82b7: 82 26  AMIM M2,A6       [M2--] := A6         
-0570: 82b8: de 0a  MLIP M0,L10      L10 := [M0++]        
-0572: 82b9: 10 00  SAI 1000         jump 9000            
+  ; start of floppy data init?
+056c: 82b6: de 01  MLIP M0,L1       L1 := [M0++]
+  !addr
+056e: 82b7: 82 26  AMIM M2,A6       [M2--] := A6
+  ; L1 := 8226
+0570: 82b8: de 0a  MLIP M0,L10      L10 := [M0++]
+  !value
+0572: 82b9: 10 00  SAI 1000         jump 9000
+  ; L10 := 1000
 0574: 82ba: 7e 02  CRTA A14,C02     A14 := 0x02          
 0576: 82bb: ee eb  LMIP A14,L11     [A14++] := L11       
-0578: 82bc: e1 ea  LMI A14,L10      [A14] := L10         
+0578: 82bc: e1 ea  LMI A14,L10      [A14] := L10
+  ; 04-05  [02] := L11 // sim: 0x4000
+  ; 06-07  [03] := L10 // 0x1000
 057a: 82bd: 78 14  CRTA A08,C14     A08 := 0x14          
-057c: 82be: 28 0a  AMD A08,C0a      [0a] := A8           
+057c: 82be: 28 0a  AMD A08,C0a      [0a] := A8
+  ; [08] := 0x14
 057e: 82bf: 77 00  CRTA A07,C00     A07 := 0x00          
 0580: 82c0: 79 e0  CRTA A09,Ce0     A09 := 0xe0
 0582: 82c1: 27 0f  AMD A07,C0f      [0f] := A7
-  ; [of] := 0x00
+  ; [0f] := 0x00
 0584: 82c2: 29 01  AMD A09,C01      [01] := A9
   ; [01] := 0xe0 ; bus name?
 0586: 82c3: 77 03  CRTA A07,C03     A07 := 0x03          
@@ -869,12 +917,17 @@
 059e: 82cf: de 04  MLIP M0,L4       L4 := [M0++]
   !value
 05a0: 82d0: 00 80
+  ; L4 := 0x0080  sector len?
 05a2: 82d1: 29 2e  AMD A09,C2e      [2e] := A9
   ; [2d] := 0x16
-05a4: 82d2: 7e 10  CRTA A14,C10     A14 := 0x10          
-05a6: 82d3: 55 fe  CRTB B05,Cfe     B05 := 0xfe          
-05a8: 82d4: 35 02  MAD A05,C02      A5 := [02]           
-05aa: 82d5: ee e5  LMIP A14,L5      [A14++] := L5        
+05a4: 82d2: 7e 10  CRTA A14,C10     A14 := 0x10
+  ; A14 := 0x10
+05a6: 82d3: 55 fe  CRTB B05,Cfe     B05 := 0xfe
+  ; B5 := 0xfe
+05a8: 82d4: 35 02  MAD A05,C02      A5 := [02]
+  ; A5 := [02] // 00
+05aa: 82d5: ee e5  LMIP A14,L5      [A14++] := L5
+  ; [10] := L5
 05ac: 82d6: 57 00  CRTB B07,C00     B07 := 0x00          
 05ae: 82d7: 37 03  MAD A07,C03      A7 := [03]           
 05b0: 82d8: ee e7  LMIP A14,L7      [A14++] := L7        
@@ -883,16 +936,19 @@
 05b6: 82db: de 07  MLIP M0,L7       L7 := [M0++]         
   !value
 05b8: 82dc: fb 08                                        
-05ba: 82dd: ee e7  LMIP A14,L7      [A14++] := L7        
-05bc: 82de: de e8  MLIP A14,L8      L8 := [A14++]        
+  ; L7 := 0xfb08
+05ba: 82dd: ee e7  LMIP A14,L7      [A14++] := L7
+05bc: 82de: de e8  MLIP A14,L8      L8 := [A14++]
 05be: 82df: c9 01  SEDI 01          set DI 0x01          
-05c0: 82e0: b6 58  SOT A5,B8        A5-B8+DI0            
-05c2: 82e1: 60 e7  SAD0 D0,e7       br D0=0,82e7         
+05c0: 82e0: b6 58  SOT A5,B8        A5-B8+DI0
+05c2: 82e1: 60 e7  SAD0 D0,e7       br D0=0,82e7
+  ; if A5-B8+1 carry THEN
 05c4: 82e2: 85 5f  ICA A5           A5++                 
 05c6: 82e3: d8 88  TAB A8,B8        B8 := A8             
 05c8: 82e4: b6 58  SOT A5,B8        A5-B8+DI0            
 05ca: 82e5: 60 e7  SAD0 D0,e7       br D0=0,82e7         
-05cc: 82e6: 85 5f  ICA A5           A5++                 
+05cc: 82e6: 85 5f  ICA A5           A5++
+  ; done if
 05ce: 82e7: d1 e7  MLI A14,L7       L7 := [A14]          
 05d0: 82e8: c9 01  SEDI 01          set DI 0x01          
 05d2: 82e9: d6 57  SOTB A5,B7       B7 := A5-B7+DI0      
@@ -933,15 +989,20 @@
 060e: 8307: 7e 01  CRTA A14,C01     A14 := 0x01          
 0610: 8308: b1 e4  ESE A14          sel.B <- [A14]       
   ; bus name at [01]
+  ;   sim: ecd=00e0
+  ;   expect L3 interrupt
 0612: 8309: 78 04  CRTA A08,C04     A08 := 0x04          
 0614: 830a: 7e 00  CRTA A14,C00     A14 := 0x00          
 0616: 830b: ae ef  DCA A14          A14--                
-0618: 830c: 62 0b  SAD0 D1,0b       br D1=0,830b         
+0618: 830c: 62 0b  SAD0 D1,0b       br D1=0,830b
+  ; delay (timeout?)
 061a: 830d: 58 48  CRTB B08,C48     B08 := 0x48          
 061c: 830e: bd 30  COMx C3            C3
-  ; reset controller
-061e: 830f: bd 00  COMx C0            C0                 
-0620: 8310: 00 ad  SAI 00ad         jump 80ad            
+  ; assert controller
+061e: 830f: bd 00  COMx C0            C0
+  ; release reset (still in L4)
+0620: 8310: 00 ad  SAI 00ad         jump 80ad
+  ; error B8=48
 0622: 8311: 78 14  CRTA A08,C14     A08 := 0x14          
 0624: 8312: 03 0a  SAI 030a         jump 830a            
 0626: 8313: 7e 02  CRTA A14,C02     A14 := 0x02          
@@ -982,9 +1043,11 @@
 0662: 8331: 00 00  SAI 0000         jump 8000            
 0664: 8332: 02 f6  SAI 02f6         jump 82f6            
 0666: 8333: 78 44  CRTA A08,C44     A08 := 0x44          
-0668: 8334: 03 38  SAI 0338         jump 8338            
+0668: 8334: 03 38  SAI 0338         jump 8338
+  ; from L3 floppy
 066a: 8335: 78 24  CRTA A08,C24     A08 := 0x24          
-066c: 8336: 03 38  SAI 0338         jump 8338            
+066c: 8336: 03 38  SAI 0338         jump 8338
+  ; from L3 floppy:
 066e: 8337: 78 34  CRTA A08,C34     A08 := 0x34          
 0670: 8338: 7a 05  CRTA A10,C05     A10 := 0x05          
 0672: 8339: de 0b  MLIP M0,L11      L11 := [M0++]

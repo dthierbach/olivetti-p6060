@@ -25,10 +25,10 @@ opcode[0x85]={'F': ['ICA',   'A', '',  '{argx}++']}
 opcode[0x86]={'*': ['ADD',   'A', 'B', '{argx}+{argy}+DI0']}
 opcode[0x87]={'*': ['ORB',   'A', 'B', '{argy} := {argx} or {argy}']}
 opcode[0x88]={'*': ['AMIP',  'M', 'A', '[{argx}++] := {argy}']}
-opcode[0x89]={'*': ['BMI',   'M', 'A', '[{argx}] := {argy}']}
-opcode[0x8A]={'*': ['BMIM',  'M', 'A', '[{argx}--] := {argy}']}
+opcode[0x89]={'*': ['BMI',   'M', 'B', '[{argx}] := {argy}']}
+opcode[0x8A]={'*': ['BMIM',  'M', 'B', '[{argx}--] := {argy}']}
 opcode[0x8B]={'F': ['ROTA',  'A', '',  '{argx}.M <-> {argx}.P']}
-opcode[0x8C]={'*': ['BMIP',  'M', 'A', '[{argx}++] := {argy}']}
+opcode[0x8C]={'*': ['BMIP',  'M', 'B', '[{argx}++] := {argy}']}
 opcode[0x8D]={'8': ['EMI',   'M', '',  '[{argx}] <- data.B']}
 opcode[0x8E]={'F': ['VRA',   'A', '',  '{argx}==0']}
 opcode[0x90]={'0': ['MEI',   'M', '',  'data.B <- [{argx}]']}
@@ -68,12 +68,12 @@ opcode[0xB8]={'8': ['EDA',   'A', '',  'data.B -> {argx}']}
 opcode[0xB9]={'0': ['ENUA',  'A', '',  'name -> {argx}']}
 opcode[0xBA]={'*': ['SAB',   'A', 'B', '{argx} <-> {argy} ']}
 opcode[0xBB]={'F': ['AZAP',  'A', '',  '{argx}.P := 0']}
-opcode[0xBC]={'*': ['SLL',   'L', 'L', '{argx} <-> {argy}']}
+opcode[0xBC]={'*': ['SLL',   'L', 'L', '{argx} <x> {argy}']}
 opcode[0xBD]={'0': ['COMx',  'C', '',  '  {argx}']}
 opcode[0xBE]={'F': ['DCB',   'B', '',  '{argx}--']}
 opcode[0xC3]={'0': ['SHDA',  'A', '',  '{argx}, DI0 := 0 >> {argx}'],
-              '1': ['SLDA',  'A', '',  '{argx}, DI0 := DIO >> {argx}']}
-opcode[0xC4]={'0': ['SHSA',  'A', '',  'DIO, {argx} := {argx} << 0'],
+              '1': ['SLDA',  'A', '',  '{argx}, DI0 := DI0 >> {argx}']}
+opcode[0xC4]={'0': ['SHSA',  'A', '',  'DI0, {argx} := {argx} << 0'],
               '1': ['SLSA',  'A', '',  'DI0, {argx} := {argx} << DI0']}
 opcode[0xC5]={'F': ['TDIA',  'A', '',  '{argx} := DI']}
 opcode[0xC6]={'*': ['SOTA',  'A', 'B', '{argx} := {argx}-{argy}+DI0']}
@@ -84,8 +84,8 @@ opcode[0xCB]={'F': ['AZBM',  'B', '',  '{argx}.M := 0']}
 opcode[0xCA]={'0': ['TCCA',  'A', '',  '{argx} <- con']}
 opcode[0xD1]={'*': ['MLI',   'M', 'L', '{argy} := [{argx}]']}
 opcode[0xD3]={'0': ['SHDB',  'B', '',  '{argx}, DI0 := 0 >> {argx}'],
-              '1': ['SLDB',  'B', '',  '{argx}, DI0 := DIO >> {argx}']}
-opcode[0xD4]={'0': ['SHSB',  'B', '',  'DIO, {argx} := {argx} << 0'],
+              '1': ['SLDB',  'B', '',  '{argx}, DI0 := DI0 >> {argx}']}
+opcode[0xD4]={'0': ['SHSB',  'B', '',  'DI0, {argx} := {argx} << 0'],
               '1': ['SLSB',  'B', '',  'DI0, {argx} := {argx} << DI0']}
 opcode[0xD5]={'F': ['TDIB',  'B', '',  '{argx} := DI']}
 opcode[0xD6]={'*': ['SOTB',  'A', 'B', '{argy} := {argx}-{argy}+DI0']}
@@ -98,7 +98,7 @@ opcode[0xDD]={'*': ['MLIM',  'M', 'L', '{argy} := [{argx}--]']}
 opcode[0xDE]={'*': ['MLIP',  'M', 'L', '{argy} := [{argx}++]']}
 opcode[0xE0]={'8': ['ESI',   'M', '',  '[{argx}] <- data/type']}
 opcode[0xE1]={'*': ['LMI',   'M', 'L', '[{argx}] := {argy}']}
-opcode[0xE2]={'*': ['LPMIP', 'M', 'L', '[{argx}++] := ++{argy}']}
+opcode[0xE2]={'*': ['LPMIP', 'M', 'L', '[{argx}++] := {argy}+1']}
 opcode[0xE5]={'F': ['DCL',   'L', '',  '{argx}--']}
 opcode[0xE6]={'*': ['OR',    'A', 'B', '{argx} or {argy}']}
 opcode[0xE7]={'*': ['OREB',  'A', 'B', '{argy} := {argx} xor {argy}']}
@@ -112,13 +112,14 @@ opcode[0xEE]={'*': ['LMIP',  'M', 'L', '[{argx}++] := {argy}']}
 opcode[0xF1]={'0': ['SEI',   'M', '',  'data.W <- [{argx}]']}
 opcode[0xF5]={'F': ['VRL',   'L', '',  '{argx}==0']}
 opcode[0xF6]={'*': ['ORA',   'A', 'B', '{argx} := {argx} or {argy}']}
-opcode[0xF7]={'0': ['SEIM',  'M', '',  'data.W <- [{argx}--]']}
 opcode[0xF7]={'0': ['SEIP',  'M', '',  'data.W <- [{argx}++]']}
 opcode[0xF8]={'*': ['TBAP',  'A', 'B', '{argx}.P := {argy}.P']}
 opcode[0xF9]={'*': ['TBAM',  'A', 'B', '{argx}.M := {argy}.M']}
 opcode[0xFA]={'*': ['TABC',  'A', 'B', ' con <- {argx}, {argy}']}
+opcode[0xFB]={'8': ['DEA',   'L', '',  'data.B <- {argx}, {argx} <- data.A'],
 opcode[0xFC]={'0': ['DAE',   'L', '',  'data.W <- {argx}'],
               '2': ['CAE',   'L', '',  'cmd.W <- {argx}']}
+opcode[0xFD]={'0': ['SEIM',  'M', '',  'data.W <- [{argx}--]']}
 
 periph={}
 
@@ -232,7 +233,10 @@ def dump_instr(fpos, rpos, wpos, buf, reloc):
     elif val1 & 0xf0 == 0x40:
         y = val1 & 0xf
         x = val2
+        addr = val2
+        target = (wpos & 0xff00) | addr
         s = f"SADE {y:01x} {x:02x}"
+        c = f"br EOCF,{target:%04x}"
     elif val1 & 0xf0 == 0x70:
         x = val1 & 0xf
         y = val2
